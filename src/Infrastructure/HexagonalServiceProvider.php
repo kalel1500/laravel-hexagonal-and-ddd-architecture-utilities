@@ -39,6 +39,7 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerPublishing();
         $this->registerCommands();
         $this->registerMigrations();
+        $this->registerTranslations();
 
         // Middlewares
 //        $router = $this->app->make(Router::class);
@@ -154,10 +155,8 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     protected function registerTranslations(): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->loadTranslationsFrom(__DIR__.'/../../lang', 'hexagonal');
-            $this->loadJsonTranslationsFrom(__DIR__.'/../../lang');
-        }
+        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'hexagonal');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../../lang');
     }
 
 
