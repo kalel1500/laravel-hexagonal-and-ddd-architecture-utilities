@@ -1,6 +1,6 @@
-![Laravel Hexagonal and DDD](/art/title.svg)
+![Laravel Hexagonal and DDD](/art/title2.svg)
 <p align="center">
-    <img src="/art/title.svg" width="50%" alt="laravel hexagonal logo">
+    <img src="/art/title2.svg" alt="laravel hexagonal logo">
 </p>
 
 <p align="center">
