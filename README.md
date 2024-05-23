@@ -17,4 +17,4 @@ Utilidades para desarrollar en arquitectura hexagonal y DDD en laravel.
 
 ## License
 
-Laravel Reverb is open-sourced software licensed under the [MIT license](LICENSE.md).
+Laravel Hexagonal and DDD is open-sourced software licensed under the [Apache License 2.0](LICENSE.md).
