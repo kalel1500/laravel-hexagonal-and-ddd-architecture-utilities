@@ -32,4 +32,4 @@ class CreateCacheTable extends Migration
         Schema::dropIfExists('cache');
         Schema::dropIfExists('cache_locks');
     }
-};
+}
