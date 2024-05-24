@@ -5,9 +5,9 @@
 
 <p align="center">
     <!-- <a href="https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/actions/workflows/tests.yml"><img src="https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a> -->
-    <a href="https://packagist.org/packages/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities"><img src="https://img.shields.io/packagist/dt/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" alt="Total Downloads"></a>
-    <a href="https://packagist.org/packages/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities"><img src="https://img.shields.io/packagist/v/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities"><img src="https://img.shields.io/packagist/l/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" alt="License"></a>
+    <a href="https://packagist.org/packages/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" target="_blank"><img src="https://img.shields.io/packagist/dt/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" target="_blank"><img src="https://img.shields.io/packagist/v/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" target="_blank"><img src="https://img.shields.io/packagist/l/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" alt="License"></a>
 </p>
 
 
