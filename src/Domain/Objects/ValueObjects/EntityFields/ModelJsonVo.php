@@ -6,6 +6,6 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields;
 
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonVo;
 
-class ModelJsonVo extends JsonVo
+final class ModelJsonVo extends JsonVo
 {
 }

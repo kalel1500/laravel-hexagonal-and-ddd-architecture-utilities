@@ -6,7 +6,7 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields;
 
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
 
-class ModelId extends ContractModelId
+final class ModelId extends ContractModelId
 {
     public function __construct(int $value)
     {

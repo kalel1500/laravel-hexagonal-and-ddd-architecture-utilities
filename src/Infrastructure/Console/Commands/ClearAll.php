@@ -7,7 +7,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-class ClearAll extends Command
+final class ClearAll extends Command
 {
     /**
      * The name and signature of the console command.

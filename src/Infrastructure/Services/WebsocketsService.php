@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Throwable;
 
-class WebsocketsService
+final class WebsocketsService
 {
     /**
      * @param JsonResponse $response

@@ -6,6 +6,6 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields;
 
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\StringNullVo;
 
-class ModelStringNull extends StringNullVo
+final class ModelStringNull extends StringNullVo
 {
 }

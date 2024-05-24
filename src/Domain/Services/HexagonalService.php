@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Services;
 
-class HexagonalService
+final class HexagonalService
 {
     public static $runsMigrations = true;
 

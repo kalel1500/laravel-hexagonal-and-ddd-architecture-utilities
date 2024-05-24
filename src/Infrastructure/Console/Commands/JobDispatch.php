@@ -6,7 +6,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class JobDispatch extends Command
+final class JobDispatch extends Command
 {
     /**
      * The name and signature of the console command.

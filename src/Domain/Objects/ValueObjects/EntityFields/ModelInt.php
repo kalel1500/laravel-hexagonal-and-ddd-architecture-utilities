@@ -6,6 +6,6 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields;
 
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntVo;
 
-class ModelInt extends IntVo
+final class ModelInt extends IntVo
 {
 }

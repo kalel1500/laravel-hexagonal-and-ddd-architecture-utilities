@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Thehouseofel\Hexagonal\Domain\Exceptions\ServiceException;
 use Throwable;
 
-class QueueService
+final class QueueService
 {
     /**
      * @throws Throwable

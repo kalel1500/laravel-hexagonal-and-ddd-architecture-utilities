@@ -6,6 +6,6 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields;
 
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\BoolVo;
 
-class ModelBool extends BoolVo
+final class ModelBool extends BoolVo
 {
 }
