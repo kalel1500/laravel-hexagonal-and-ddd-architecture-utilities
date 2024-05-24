@@ -16,7 +16,6 @@ final class WebsocketsService
      * @param JsonResponse $response
      * @param ShouldBroadcast $instanceEvent
      * @return JsonResponse
-     * @throws Throwable
      */
     public static function emitEvent(JsonResponse $response, ShouldBroadcast $instanceEvent): JsonResponse
     {
