@@ -7,7 +7,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 
-class ServiceCheck extends Command
+final class ServiceCheck extends Command
 {
     /**
      * The name and signature of the console command.

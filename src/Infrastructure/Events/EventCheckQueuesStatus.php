@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Queue\SerializesModels;
 
-class EventCheckQueuesStatus implements ShouldBroadcast
+final class EventCheckQueuesStatus implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

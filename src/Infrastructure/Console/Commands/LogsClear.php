@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class LogsClear extends Command
+final class LogsClear extends Command
 {
     /**
      * The name and signature of the console command.

@@ -6,6 +6,6 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields;
 
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayVo;
 
-class ModelArray extends ArrayVo
+final class ModelArray extends ArrayVo
 {
 }
