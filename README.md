@@ -17,4 +17,4 @@ Utilidades para desarrollar en arquitectura hexagonal y DDD en laravel.
 
 ## License
 
-Laravel Hexagonal and DDD is open-sourced software licensed under the [Apache License 2.0](LICENSE.md).
+Laravel Hexagonal and DDD is open-sourced software licensed under the [GNU General Public License v3.0](LICENSE).
