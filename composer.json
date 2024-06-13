@@ -8,7 +8,7 @@
             "email": "a.canals14@gmail.com"
         }
     ],
-    "license": "Apache-2.0",
+    "license": "GPL-3.0-or-later",
     "require": {
         "ext-json": "*",
         "php" : "^7.2.5|^8.0|^8.1|^8.2",
