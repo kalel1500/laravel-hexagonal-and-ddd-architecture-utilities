@@ -122,14 +122,12 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                ClearAll::class,
-                JobDispatch::class,
-                LogsClear::class,
-                ServiceCheck::class,
-            ]);
-        }
+        $this->commands([
+            ClearAll::class,
+            JobDispatch::class,
+            LogsClear::class,
+            ServiceCheck::class,
+        ]);
     }
 
     /**
