@@ -15,6 +15,21 @@
 
 Utilidades para desarrollar en arquitectura hexagonal y DDD en laravel.
 
+
+## Requerimientos
+
+Este paquete requiere del siguiente paquete npm para poder utilizar las vistas de los Jobs correctamente:
+
+- `laravel-ts-utilities`: [https://www.npmjs.com/package/laravel-ts-utilities](https://www.npmjs.com/package/laravel-ts-utilities)
+
+
+## Instalación
+
+```bash
+composer require kalel1500/laravel-hexagonal-and-ddd-architecture-utilities
+```
+
+
 ## License
 
 Laravel Hexagonal and DDD is open-sourced software licensed under the [GNU General Public License v3.0](LICENSE).
