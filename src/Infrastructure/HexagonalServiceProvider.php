@@ -56,7 +56,7 @@ class HexagonalServiceProvider extends ServiceProvider
         if (HexagonalService::shouldRegistersRoutes()) {
             Route::group([
                 'as' => 'hexagonal.',
-                'prefix' => config('hexagonal.path', 'hexagonal'),
+                'prefix' => 'hexagonal',
             ], function () {
                 $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
             });
