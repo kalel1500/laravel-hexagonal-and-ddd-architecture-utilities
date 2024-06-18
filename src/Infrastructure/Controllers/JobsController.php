@@ -4,25 +4,18 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Infrastructure\Controllers;
 
-use Illuminate\Contracts\View\View;
-use Thehouseofel\Hexagonal\Application\GetAllFailedJobsUseCase;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Views\ViewFailedJobsDo;
-use Thehouseofel\Hexagonal\Infrastructure\Repositories\JobEloquentRepository;
+
+use Illuminate\Support\Facades\View;
 
 final class JobsController extends Controller
 {
-    private $jobEloquentRepository;
-
-    public function __construct(JobEloquentRepository $jobEloquentRepository)
+    public function queuedJobs(): \Illuminate\Contracts\View\View
     {
-        $this->jobEloquentRepository = $jobEloquentRepository;
+        return View::file(__DIR__.'/../../../resources/views/queues/jobs.blade.php');
     }
 
-    public function failedJobs(): View
+    public function failedJobs(): \Illuminate\Contracts\View\View
     {
-        $getAllFailedJobsUseCase = new GetAllFailedJobsUseCase($this->jobEloquentRepository);
-        $jobs = $getAllFailedJobsUseCase();
-        $viewData = new ViewFailedJobsDo($jobs);
-        return view('pages.app.config.jobs.failed-jobs', compact('viewData'));
+        return View::file(__DIR__.'/../../../resources/views/queues/jobs.blade.php');
     }
 }
