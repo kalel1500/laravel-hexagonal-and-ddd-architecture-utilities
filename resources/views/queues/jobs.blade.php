@@ -38,22 +38,27 @@
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                     <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
-                            <a href="{{ route('default') }}" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
+                            <a href="{{ route("default") }}"
+                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("default")])
+                               aria-current="page"
+                            >Home</a>
                         </li>
                         <li>
-                            <a href="{{ route('hexagonal.queues.queuedJobs') }}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Queued Jobs</a>
+                            <a href="{{ route("hexagonal.queues.queuedJobs") }}"
+                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.queuedJobs")])
+                            >Queued Jobs</a>
                         </li>
                         <li>
-                            <a href="{{ route('hexagonal.queues.failedJobs') }}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Failed Jobs</a>
+                            <a href="{{ route("hexagonal.queues.failedJobs") }}"
+                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.failedJobs")])
+                            >Failed Jobs</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-
-
-    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-gray-100 selection:bg-red-500 selection:text-white">
+        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-gray-100 selection:bg-red-500 selection:text-white">
             <div class="w-3/4 mx-auto p-6">
                 <div class="px-6 py-4 bg-white from-gray-700/50 via-transparent rounded-lg shadow-2xl shadow-gray-500/20 flex items-center focus:outline focus:outline-2 focus:outline-red-500">
 
@@ -62,5 +67,6 @@
                 </div>
             </div>
         </div>
+
     </body>
 </html>
