@@ -32,13 +32,5 @@
                 "Thehouseofel\\Hexagonal\\Infrastructure\\HexagonalServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "npm install laravel-ts-utilities"
-        ],
-        "post-update-cmd": [
-            "npm install laravel-ts-utilities"
-        ]
     }
 }

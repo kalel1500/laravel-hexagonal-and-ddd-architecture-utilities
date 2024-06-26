@@ -16,18 +16,10 @@
 Utilidades para desarrollar en arquitectura hexagonal y DDD en laravel.
 
 
-## Requerimientos
-
-Este paquete requiere del siguiente paquete npm para poder utilizar las vistas de los Jobs correctamente:
-
-- `laravel-ts-utilities`: [Enlace a Github](https://github.com/kalel1500/laravel-ts-utilities)
-
-
 ## Instalación
 
 ```bash
 composer require kalel1500/laravel-hexagonal-and-ddd-architecture-utilities
-npm install laravel-ts-utilities
 ```
 
 
