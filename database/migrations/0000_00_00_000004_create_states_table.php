@@ -19,7 +19,6 @@ class CreateStatesTable extends Migration
             $table->string('type');
             $table->string('icon')->nullable();
             $table->timestamps();
-            $table->unique(["class", "type"], 'class_type_unique');
             $table->unique(["name", "type"], 'name_type_unique');
         });
     }
