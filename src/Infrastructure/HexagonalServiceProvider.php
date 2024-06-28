@@ -21,9 +21,10 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Configuración - con el merge, solo hará falta publicar si queremos sobreescribir alguna configuración
+        // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(__DIR__.'/../../config/hexagonal.php', 'hexagonal');
+            $this->mergeConfigFrom(__DIR__.'/../../config/logging.php', 'logging');
         }
     }
 
