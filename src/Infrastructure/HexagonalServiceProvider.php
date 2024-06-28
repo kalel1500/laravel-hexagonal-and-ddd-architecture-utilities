@@ -24,7 +24,6 @@ class HexagonalServiceProvider extends ServiceProvider
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(__DIR__.'/../../config/hexagonal.php', 'hexagonal');
-            $this->mergeConfigFrom(__DIR__.'/../../config/logging.php', 'logging');
         }
     }
 
@@ -41,6 +40,7 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->registerMigrations();
         $this->registerTranslations();
+        $this->addNewConfigLogChannels();
 
         // Middlewares
 //        $router = $this->app->make(Router::class);
@@ -156,6 +156,26 @@ class HexagonalServiceProvider extends ServiceProvider
     {
         $this->loadTranslationsFrom(__DIR__.'/../../lang', 'hexagonal');
         $this->loadJsonTranslationsFrom(__DIR__.'/../../lang');
+    }
+
+    protected function addNewConfigLogChannels()
+    {
+        if (!$this->app->configurationIsCached()) {
+            config([
+                'logging.channels.queues' => [
+                    'driver' => 'single',
+                    'path' => storage_path('logs/queues.log'),
+                    'level' => env('LOG_LEVEL', 'debug'),
+                    'replace_placeholders' => true,
+                ],
+                'logging.channels.loads' => [
+                    'driver' => 'single',
+                    'path' => storage_path('logs/loads.log'),
+                    'level' => env('LOG_LEVEL', 'debug'),
+                    'replace_placeholders' => true,
+                ]
+            ]);
+        }
     }
 
 
