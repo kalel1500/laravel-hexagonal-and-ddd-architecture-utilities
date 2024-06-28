@@ -10,18 +10,16 @@ use Throwable;
 
 final class MyJob
 {
-    public static function launchSimple(string $errorPrefix, callable $callback): void
+    public static function launchSimple(string $errorPrefix, string $logChannel, callable $callback): void
     {
         try {
             $callback();
         } catch (Throwable $exception) {
-            $errorMessage = MyCarbon::now()->format(MyCarbon::$datetime_startYear).";".$errorPrefix.$exception->getMessage();
-            echo $errorMessage;
-            Log::error($errorMessage);
+            Log::channel($logChannel)->error($errorPrefix.$exception->getMessage());
         }
     }
 
-    public static function launchWithDb(string $errorPrefix, callable $callback): void
+    public static function launchWithDb(string $errorPrefix, string $logChannel, callable $callback): void
     {
         DB::beginTransaction();
         try {
@@ -29,9 +27,7 @@ final class MyJob
             DB::commit();
         } catch (Throwable $exception) {
             DB::rollback();
-            $errorMessage = "dia: ".MyCarbon::now()->format(MyCarbon::$datetime_startYear)." || ".$errorPrefix.$exception->getMessage();
-            echo $errorMessage;
-            Log::error($errorMessage);
+            Log::channel($logChannel)->error($errorPrefix.$exception->getMessage());
         }
     }
 }
