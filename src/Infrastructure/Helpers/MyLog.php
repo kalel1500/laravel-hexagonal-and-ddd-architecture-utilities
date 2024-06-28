@@ -13,8 +13,18 @@ final class MyLog
         Log::error($message);
     }
 
-    public static function onQueuesError(string $message): void
+    public static function errorOnQueues(string $message): void
     {
         Log::channel('queues')->error($message);
+    }
+
+    public static function errorOnLoads(string $message): void
+    {
+        Log::channel('queues')->error($message);
+    }
+
+    public static function errorOn(string $channel, string $message): void
+    {
+        Log::channel($channel)->error($message);
     }
 }
