@@ -6,11 +6,11 @@ namespace Thehouseofel\Hexagonal\Infrastructure;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Thehouseofel\Hexagonal\Domain\Services\HexagonalService;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
+use Thehouseofel\Hexagonal\Infrastructure\Services\HexagonalService;
 
 class HexagonalServiceProvider extends ServiceProvider
 {

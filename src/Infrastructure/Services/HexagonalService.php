@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Services;
+namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
 final class HexagonalService
 {
