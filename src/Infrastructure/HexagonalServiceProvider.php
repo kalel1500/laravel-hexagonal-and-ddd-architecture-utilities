@@ -54,7 +54,7 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->registerMigrations();
         $this->registerTranslations();
-        $this->addNewConfigLogChannels();
+        HexagonalService::setLogChannels();
 
         // Middlewares
 //        $router = $this->app->make(Router::class);
@@ -171,27 +171,6 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(HEXAGONAL_PATH.'/lang', 'hexagonal');
         $this->loadJsonTranslationsFrom(HEXAGONAL_PATH.'/lang');
     }
-
-    protected function addNewConfigLogChannels()
-    {
-        if (!$this->app->configurationIsCached()) {
-            config([
-                'logging.channels.queues' => [
-                    'driver' => 'single',
-                    'path' => storage_path('logs/queues.log'),
-                    'level' => env('LOG_LEVEL', 'debug'),
-                    'replace_placeholders' => true,
-                ],
-                'logging.channels.loads' => [
-                    'driver' => 'single',
-                    'path' => storage_path('logs/loads.log'),
-                    'level' => env('LOG_LEVEL', 'debug'),
-                    'replace_placeholders' => true,
-                ]
-            ]);
-        }
-    }
-
 
     /**
      * Determinar si la version de laravel instalada es mayor a la 9
