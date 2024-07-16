@@ -110,9 +110,9 @@ class HexagonalServiceProvider extends ServiceProvider
             }
 
             // Vistas
-            /* $this->publishes([
-                 HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
-             ], 'hexagonal-views');*/
+            $this->publishes([
+                HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
+            ], 'hexagonal-views');
 
             // Config
             $this->publishes([
