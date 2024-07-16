@@ -86,7 +86,7 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        // $this->loadViewsFrom(HEXAGONAL_PATH.'/resources/views', 'hexagonal');
+        $this->loadViewsFrom(HEXAGONAL_PATH.'/resources/views', 'hexagonal');
     }
 
     /**
