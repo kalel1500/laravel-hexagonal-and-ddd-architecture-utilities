@@ -15,11 +15,21 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
 class HexagonalServiceProvider extends ServiceProvider
 {
     /**
-     * Register the service provider.
+     * Register any application services.
      *
      * @return void
      */
     public function register(): void
+    {
+        $this->configure();
+    }
+
+    /**
+     * Setup the configuration for Horizon.
+     *
+     * @return void
+     */
+    protected function configure(): void
     {
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
