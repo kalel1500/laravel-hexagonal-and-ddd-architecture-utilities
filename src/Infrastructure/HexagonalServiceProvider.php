@@ -10,7 +10,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
-use Thehouseofel\Hexagonal\Infrastructure\Services\HexagonalService;
+use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 
 class HexagonalServiceProvider extends ServiceProvider
 {
@@ -39,7 +39,7 @@ class HexagonalServiceProvider extends ServiceProvider
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
 
-            HexagonalService::setLogChannels();
+            Hexagonal::setLogChannels();
         }
     }
 
@@ -69,7 +69,7 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     protected function registerRoutes(): void
     {
-        if (HexagonalService::shouldRegistersRoutes()) {
+        if (Hexagonal::shouldRegistersRoutes()) {
             Route::group([
                 'as' => 'hexagonal.',
                 'prefix' => 'hexagonal',
@@ -99,7 +99,7 @@ class HexagonalServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
 
             // Migraciones
-            if (HexagonalService::shouldRegistersRoutes()) {
+            if (Hexagonal::shouldRegistersRoutes()) {
                 $publishesMigrationsMethod = method_exists($this, 'publishesMigrations')
                     ? 'publishesMigrations'
                     : 'publishes';
@@ -155,7 +155,7 @@ class HexagonalServiceProvider extends ServiceProvider
     {
         if (
             $this->app->runningInConsole() &&
-            HexagonalService::shouldRunMigrations() &&
+            Hexagonal::shouldRunMigrations() &&
             $this->versionIsEqualOrGreaterThan9()
         ) {
             $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');

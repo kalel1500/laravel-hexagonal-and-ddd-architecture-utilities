@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
-final class HexagonalService
+final class Hexagonal
 {
     public static $runsMigrations = true;
 
@@ -38,7 +38,7 @@ final class HexagonalService
      *
      * @return static
      */
-    public static function ignoreMigrations(): HexagonalService
+    public static function ignoreMigrations(): Hexagonal
     {
         static::$runsMigrations = false;
 
@@ -51,7 +51,7 @@ final class HexagonalService
      *
      * @return static
      */
-    public static function ignoreRoutes(): HexagonalService
+    public static function ignoreRoutes(): Hexagonal
     {
         static::$registersRoutes = false;
 
