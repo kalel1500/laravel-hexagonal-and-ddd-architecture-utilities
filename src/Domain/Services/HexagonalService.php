@@ -58,4 +58,21 @@ final class HexagonalService
         return new static;
     }
 
+    public static function setLogChannels(): void
+    {
+        config([
+            'logging.channels.queues' => [
+                'driver' => 'single',
+                'path' => storage_path('logs/queues.log'),
+                'level' => env('LOG_LEVEL', 'debug'),
+                'replace_placeholders' => true,
+            ],
+            'logging.channels.loads' => [
+                'driver' => 'single',
+                'path' => storage_path('logs/loads.log'),
+                'level' => env('LOG_LEVEL', 'debug'),
+                'replace_placeholders' => true,
+            ]
+        ]);
+    }
 }
