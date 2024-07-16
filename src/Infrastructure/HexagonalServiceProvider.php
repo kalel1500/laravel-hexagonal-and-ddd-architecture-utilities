@@ -38,6 +38,8 @@ class HexagonalServiceProvider extends ServiceProvider
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
+
+            HexagonalService::setLogChannels();
         }
     }
 
@@ -54,7 +56,6 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->registerMigrations();
         $this->registerTranslations();
-        HexagonalService::setLogChannels();
 
         // Middlewares
 //        $router = $this->app->make(Router::class);
