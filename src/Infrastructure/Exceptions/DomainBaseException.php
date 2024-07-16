@@ -67,7 +67,7 @@ abstract class DomainBaseException extends RuntimeException
             'code' => $this->responseCode,
             'message' => $this->jsonContent['message']
         ];
-        return response()->view('pages.errors.custom-error', $viewData, $this->responseCode);
+        return response()->view('hexagonal::custom-error', $viewData, $this->responseCode);
 
     }
 }
