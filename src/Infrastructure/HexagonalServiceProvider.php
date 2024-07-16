@@ -21,6 +21,10 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        if (! defined('HEXAGONAL_PATH')) {
+            define('HEXAGONAL_PATH', realpath(__DIR__.'/../../'));
+        }
+
         $this->configure();
     }
 
@@ -33,7 +37,7 @@ class HexagonalServiceProvider extends ServiceProvider
     {
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__.'/../../config/hexagonal.php', 'hexagonal');
+            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
         }
     }
 
@@ -69,7 +73,7 @@ class HexagonalServiceProvider extends ServiceProvider
                 'as' => 'hexagonal.',
                 'prefix' => 'hexagonal',
             ], function () {
-                $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
+                $this->loadRoutesFrom(HEXAGONAL_PATH.'/routes/web.php');
             });
         }
     }
@@ -81,7 +85,7 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'hexagonal');
+        // $this->loadViewsFrom(HEXAGONAL_PATH.'/resources/views', 'hexagonal');
     }
 
     /**
@@ -100,18 +104,18 @@ class HexagonalServiceProvider extends ServiceProvider
                     : 'publishes';
 
                 $this->{$publishesMigrationsMethod}([
-                    __DIR__.'/../../database/migrations' => database_path('migrations'),
+                    HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
                 ], 'hexagonal-migrations');
             }
 
             // Vistas
             /* $this->publishes([
-                 __DIR__.'/../../resources/views' => base_path('resources/views/vendor/hexagonal'),
+                 HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
              ], 'hexagonal-views');*/
 
             // Config
             $this->publishes([
-                __DIR__.'/../../config/hexagonal.php' => config_path('hexagonal.php'),
+                HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
             ], 'hexagonal-config');
 
             // Traducciones
@@ -121,7 +125,7 @@ class HexagonalServiceProvider extends ServiceProvider
                 $langPath = $this->app->resourcePath('lang/vendor/hexagonal');
             }
             $this->publishes([
-                __DIR__.'/../../lang' => $langPath,
+                HEXAGONAL_PATH.'/lang' => $langPath,
             ], 'hexagonal-lang');
         }
     }
@@ -153,7 +157,7 @@ class HexagonalServiceProvider extends ServiceProvider
             HexagonalService::shouldRunMigrations() &&
             $this->versionIsEqualOrGreaterThan9()
         ) {
-            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+            $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');
         }
     }
 
@@ -164,8 +168,8 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'hexagonal');
-        $this->loadJsonTranslationsFrom(__DIR__.'/../../lang');
+        $this->loadTranslationsFrom(HEXAGONAL_PATH.'/lang', 'hexagonal');
+        $this->loadJsonTranslationsFrom(HEXAGONAL_PATH.'/lang');
     }
 
     protected function addNewConfigLogChannels()
