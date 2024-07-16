@@ -8,11 +8,11 @@ final class JobsController extends Controller
 {
     public function queuedJobs(): \Illuminate\Contracts\View\View
     {
-        return view('hexagonal::queues.jobs');
+        return view('hexagonal::jobs');
     }
 
     public function failedJobs(): \Illuminate\Contracts\View\View
     {
-        return view('hexagonal::queues.jobs');
+        return view('hexagonal::jobs');
     }
 }
