@@ -29,17 +29,17 @@ abstract class ContractDataObject
 
     public function toArrayWithAll(): array
     {
-        return $this->toArray();
+        return $this->toArrayVisible();
     }
 
     public function toArrayForJs(): array
     {
-        return $this->toArray();
+        return $this->toArrayVisible();
     }
 
     public function toObject()
     {
-        return arrayToObject($this->toArray());
+        return arrayToObject($this->toArrayVisible());
     }
 
     /**

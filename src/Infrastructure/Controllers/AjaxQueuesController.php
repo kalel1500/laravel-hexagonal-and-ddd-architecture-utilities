@@ -25,7 +25,7 @@ final class AjaxQueuesController extends Controller
         } catch (ServiceException $e) {
             $response = responseJson(false, $e->getMessage());
         } catch (Throwable $e) {
-            $response = responseJsonError($e, false, $e->getMessage(), [],false);
+            $response = responseJsonError($e, false);
         }
         return WebsocketsService::emitEvent($response, new EventCheckQueuesStatus($response));
     }

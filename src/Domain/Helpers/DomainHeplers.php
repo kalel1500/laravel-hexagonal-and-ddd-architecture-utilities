@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Arr;
 use Thehouseofel\Hexagonal\Domain\Exceptions\CustomException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
@@ -275,13 +276,19 @@ if (!function_exists('abortC')) {
      * Throw an HttpException with the given data.
      *
      * @param int $code
-     * @param string|array $message
-     * @param array|string $data
+     * @param string $message
+     * @param array|null $data
      * @param bool $success
-     * @param null $previous
+     * @param Throwable|null $previous
      * @return void
      */
-    function abortC(int $code, $message = '', $data = [], bool $success = false, $previous = null)
+    function abortC(
+        int $code,
+        string $message,
+        ?array $data = null,
+        bool $success = false,
+        ?Throwable $previous = null
+    ): void
     {
         throw new CustomException($message, $code, $data, $success, $previous);
     }
@@ -293,13 +300,20 @@ if (!function_exists('abortC_if')) {
      *
      * @param bool $condition
      * @param int $code
-     * @param string|array $message
-     * @param array|string $data
+     * @param string $message
+     * @param array|null $data
      * @param bool $success
-     * @param null $previous
+     * @param Throwable|null $previous
      * @return void
      */
-    function abortC_if(bool $condition, int $code, $message = '', $data = [], bool $success = false, $previous = null)
+    function abortC_if(
+        bool $condition,
+        int $code,
+        string $message,
+        ?array $data = null,
+        bool $success = false,
+        ?Throwable $previous = null
+    ): void
     {
         if ($condition) {
             abortC($code, $message, $data, $success, $previous);
@@ -307,68 +321,31 @@ if (!function_exists('abortC_if')) {
     }
 }
 
-if (!function_exists('abortB')) {
-    /**
-     * Throw an HttpException with the given data.
-     *
-     * @param string $message
-     * @param int|null $code
-     * @param bool $success
-     * @return void
-     */
-    function abortB(string $message = '', ?int $code = null, bool $success = false)
-    {
-        throw new CustomException($message, $code, [], $success);
-    }
-}
-
-if (!function_exists('abortB_if')) {
-    /**
-     * Throw an HttpException with the given data.
-     *
-     * @param bool $condition
-     * @param string $message
-     * @param int|null $code
-     * @return void
-     */
-    function abortB_if(bool $condition, string $message = '', int $code = null)
-    {
-        if ($condition) {
-            abortB($message, $code);
-        }
-    }
-}
-
 if (!function_exists('getExceptionData')) {
-    /**
-     * Throw an HttpException with the given data.
-     *
-     * @param Throwable $e // TODO PHP8 - Union types
-     * @param array $data
-     * @param bool $success
-     * @return DataExceptionDo
-     */
-    function getExceptionData(Throwable $e, array $data = [], bool $success = false): DataExceptionDo
+    function getExceptionData(Throwable $e, ?array $data = null, bool $success = false): DataExceptionDo
     {
-        $code = $e->getCode();
-        $message = getExceptionMessage($e);
-        $exception = get_class($e);
-        $file = $e->getFile();
-        $line = $e->getLine();
-        $trace = $e->getTrace();
-        $previous = $e->getPrevious();
-
-        $isDomainException = isDomainException($e);
-        $data = ($isDomainException && isset($e->jsonContent)) ? $e->jsonContent['data'] : $data;
-        $success = ($isDomainException && isset($e->jsonContent)) ? $e->jsonContent['success'] : $success;
-
-        if ($code === 0 && $e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
-            $code = $e->getStatusCode();
+        if (isDomainException($e) && isset($e->exceptionData)) {
+            return $e->exceptionData;
         }
+
+        $code = $e->getCode();
+        $code = ($code === 0 && $e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) ? $e->getStatusCode() : $code;
         $code = (!is_int($code)) ? 500 : $code;
         $code = ($code === 0) ? 500 : $code;
-
-        return new DataExceptionDo($code, $message, $data, $success, $exception, $file, $line, $trace, $previous);
+        $trace = collect($e->getTrace())->map(function ($trace) {
+            return Arr::except($trace, ['args']);
+        })->all();
+        return new DataExceptionDo(
+            $code,
+            $success,
+            getExceptionMessage($e),
+            $data,
+            get_class($e),
+            $e->getFile(),
+            $e->getLine(),
+            $trace,
+            $e->getPrevious()
+        );
     }
 }
 

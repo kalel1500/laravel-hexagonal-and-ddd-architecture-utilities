@@ -17,10 +17,9 @@ final class ExceptionHandler
         return function (Exceptions $exceptions) {
             $exceptions->respond(function (Response $response, Throwable $e, Request $request) {
                 if ($response instanceof JsonResponse) {
-                    $content = json_decode($response->getContent(), true);
-                    $content = array_merge(['success' => false], $content);
-                    $content['data'] = [];
-                    return response()->json($content, $response->getStatusCode());
+                    $data = json_decode($response->getContent(), true);
+                    $data = array_merge(['success' => false, 'message' => $data['message'], 'data' => null], $data);
+                    return response()->json($data, $response->getStatusCode());
                 }
                 return $response;
             });
