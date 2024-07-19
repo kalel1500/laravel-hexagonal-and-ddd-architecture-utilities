@@ -8,15 +8,15 @@ use Throwable;
 
 final class NeverCalledException extends BasicException
 {
-    /**
-     * BasicException constructor.
-     * @param string|array $message
-     * @param int|null $code
-     * @param Throwable|null $previous
-     */
-    public function __construct($message = "", int $code = null, Throwable $previous = null)
+    const DEFAULT_CODE = 500;
+    const DEFAULT_MESSAGE = 'This part of the code should never be executed.';
+
+    public function __construct(
+        ?string $message = null,
+        ?int $code = null,
+        ?Throwable $previous = null
+    )
     {
-        $code = (is_null($code)) ? HTTP_INTERNAL_SERVER_ERROR() : $code;
-        parent::__construct($message, $code, [], false, $previous);
+        parent::__construct($message, $code, null, false, $previous); // TODO PHP8 - Named params (pasar solo el $previous)
     }
 }

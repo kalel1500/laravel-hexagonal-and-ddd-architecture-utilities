@@ -6,8 +6,8 @@ namespace Thehouseofel\Hexagonal\Domain\Exceptions;
 
 final class NotFoundRelationDataException extends BasicException
 {
-    public function __construct($relation = '')
+    public function __construct(string $relation = '')
     {
-        parent::__construct(sprintf('La entidad no contiene datos de la relacion seleccionada <%s>', $relation), HTTP_INTERNAL_SERVER_ERROR());
+        parent::__construct(sprintf('La entidad no contiene datos de la relación seleccionada <%s>', $relation), HTTP_INTERNAL_SERVER_ERROR());
     }
 }

@@ -312,7 +312,7 @@ if (! function_exists('responseJson')) {
      * @param int $responseCode
      * @return JsonResponse
      */
-    function responseJson(bool $success, string $message, $data = [], int $responseCode = Response::HTTP_OK): JsonResponse
+    function responseJson(bool $success, string $message, $data = null, int $responseCode = Response::HTTP_OK): JsonResponse
     {
         return response()->json([
             'success' => $success,
@@ -339,20 +339,11 @@ if (! function_exists('responseJsonError')) {
      * @return JsonResponse
      * @throws Throwable
      */
-    function responseJsonError(Throwable $e, bool $success = false, string $message = null, array $data = [], bool $throwInDebugMode = true): JsonResponse
+    function responseJsonError(Throwable $e, bool $throwInDebugMode = true): JsonResponse
     {
-        if ($throwInDebugMode && (appIsInDebugMode() || isValidationException($e))) throw $e;
-
-        $exceptionData = getExceptionData($e, $data, $success);
-
-        $data = $exceptionData->data();
-        if (!is_null($message)) $data['message'] = $message;
         // INFO kalel1500 - mi_estructura_de_respuesta
-        return response()->json([
-            'success'   => $exceptionData->success(),
-            'data'      => $data,
-            'message'   => $exceptionData->message(),
-        ], $exceptionData->code());
+        $exceptionData = getExceptionData($e);
+        return response()->json($exceptionData->toArray($throwInDebugMode), $exceptionData->code());
     }
 }
 
