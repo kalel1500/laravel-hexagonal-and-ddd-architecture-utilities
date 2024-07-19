@@ -264,8 +264,8 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
             }*/
 
             $valueField = ($collectionItem instanceof ContractDataObject)
-                ? (str_contains($pluckField, '()')) ? $collectionItem->{substr($pluckField, 0, -2)}() : $collectionItem->toArrayWithAll()[$pluckField]
-                : $collectionItem->$pluckField();
+                ? (str_contains($pluckField, '()') ? $collectionItem->{substr($pluckField, 0, -2)}() : $collectionItem->toArrayWithAll()[$pluckField])
+                : (method_exists($collectionItem, $pluckField) ? $collectionItem->$pluckField() : $collectionItem->$pluckField);
 
             if ($valueField instanceof ContractCollectionBase || $valueField instanceof ContractEntity || $valueField instanceof ContractDataObject) {
                 return $valueField->toArray();
