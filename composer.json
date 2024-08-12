@@ -32,5 +32,7 @@
                 "Thehouseofel\\Hexagonal\\Infrastructure\\HexagonalServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
