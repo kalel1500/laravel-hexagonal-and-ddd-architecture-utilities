@@ -1,7 +1,4 @@
-![Laravel Hexagonal and DDD](/art/title2.svg)
-<!-- <p align="center">
-    <img src="/art/title2.svg" alt="laravel hexagonal logo">
-</p> -->
+<p align="center"><img src="./art/title3.png" alt="Laravel Hexagonal and DDD"></p>
 
 <p align="center">
     <!-- <a href="https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/actions/workflows/tests.yml"><img src="https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a> -->
