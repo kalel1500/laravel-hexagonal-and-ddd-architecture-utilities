@@ -48,6 +48,14 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         throw new NeverCalledException('La instancia de la colección no extiende de ninguna entidad valida.');
     }
 
+    public function toBase(array $data, string $pluckField = null): CollectionAny
+    {
+        if ($this->isInstanceOfRelatable()) {
+            return CollectionAny::fromArray($data, $this->getWithValue($pluckField));
+        }
+        return CollectionAny::fromArray($data);
+    }
+
     private function encodeAndDecode(array $array, bool $assoc)
     {
         $res = json_encode($array);
@@ -219,14 +227,6 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         }
 //        $entityRelations = ($collectionClass::ENTITY)::$relations;
         return $collectionClass::fromArray($this->toArray());
-    }
-
-    public function toBase(array $data, string $pluckField = null): CollectionAny
-    {
-        if ($this->isInstanceOfRelatable()) {
-            return CollectionAny::fromArray($data, $this->getWithValue($pluckField));
-        }
-        return CollectionAny::fromArray($data);
     }
 
     public function toJson($options = 0)
