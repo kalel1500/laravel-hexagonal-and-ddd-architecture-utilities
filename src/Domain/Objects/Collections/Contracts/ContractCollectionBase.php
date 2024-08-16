@@ -261,26 +261,29 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
                 ? (str_contains($pluckField, '()') ? $collectionItem->{substr($pluckField, 0, -2)}() : $collectionItem->toArrayWithAll()[$pluckField])
                 : (method_exists($collectionItem, $pluckField) ? $collectionItem->$pluckField() : $collectionItem->$pluckField);
 
-            if ($valueField instanceof ContractCollectionBase || $valueField instanceof ContractEntity || $valueField instanceof ContractDataObject) {
-                return $valueField->toArray();
-            }
-
-            if ($valueField instanceof ContractValueObject) {
-                return $valueField->value();
-            }
-
             return $valueField;
 //            throw new NeverCalledException(sprintf('El valor de "$value" no se ha contemplado en la función "pluck" de la clase <%s>', static::class));
+        };
+        $clearItemValue = function($item) {
+            if ($item instanceof ContractCollectionBase || $item instanceof ContractEntity || $item instanceof ContractDataObject) {
+                return $item->toArray();
+            }
+            if ($item instanceof ContractValueObject) {
+                return $item->value();
+            }
+            return $item;
         };
 
         $result = [];
         foreach ($this->items as $item) {
             $fieldValue = $getItemValue($item, $field);
+            $fieldValue = $clearItemValue($fieldValue);
 
             if (is_null($key)) {
                 $result[] = $fieldValue;
             } else {
                 $keyValue = $getItemValue($item, $key);
+                $keyValue = $clearItemValue($keyValue);
                 $result[$keyValue] = $fieldValue;
             }
         }
