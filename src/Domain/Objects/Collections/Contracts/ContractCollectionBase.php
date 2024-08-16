@@ -10,6 +10,7 @@ use Countable;
 use IteratorAggregate;
 use JsonSerializable;
 use Thehouseofel\Hexagonal\Domain\Contracts\MyArrayableContract;
+use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\NeverCalledException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
@@ -68,7 +69,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     private function isInstanceOfRelatable(): bool
     {
-        return isInstanceOfRelatable($this);
+        return ($this instanceof Relatable);
     }
 
     protected function ensureIsValid($value): void
@@ -219,10 +220,9 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
      */
     public function toCollection(string $collectionClass)
     {
-        if (isClassRelatable($collectionClass)) {
+        if (is_subclass_of($collectionClass, Relatable::class)) {
             return $collectionClass::fromArray($this->toArray(), $this->with);
         }
-//        $entityRelations = ($collectionClass::ENTITY)::$relations;
         return $collectionClass::fromArray($this->toArray());
     }
 

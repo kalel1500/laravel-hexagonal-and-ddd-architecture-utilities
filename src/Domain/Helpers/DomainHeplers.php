@@ -614,20 +614,6 @@ if (!function_exists('getSubWith')) {
     }
 }
 
-if (!function_exists('isInstanceOfRelatable')) {
-    function isInstanceOfRelatable(object $class): bool
-    {
-        return ($class instanceof ContractCollectionEntity || $class instanceof ContractCollectionAny);
-    }
-}
-
-if (!function_exists('isClassRelatable')) {
-    function isClassRelatable(string $class): bool
-    {
-        return is_a($class, ContractCollectionEntity::class, true) || is_a($class, ContractCollectionAny::class, true);
-    }
-}
-
 if (!function_exists('mapToLabelStructure')) {
     function mapToLabelStructure($labelField, $valueField): Closure
     {

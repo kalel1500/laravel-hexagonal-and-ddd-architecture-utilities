@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as CollectionS;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Thehouseofel\Hexagonal\Domain\Contracts\ExportableEntityC;
+use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\PaginationDataDo;
 
-abstract class ContractCollectionEntity extends ContractCollectionBase
+abstract class ContractCollectionEntity extends ContractCollectionBase implements Relatable
 {
     protected const IS_ENTITY = true;
     protected $with = null;

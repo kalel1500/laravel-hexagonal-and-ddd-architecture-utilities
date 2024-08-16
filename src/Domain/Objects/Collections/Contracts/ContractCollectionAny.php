@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
 
-abstract class ContractCollectionAny extends ContractCollectionBase
+use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
+
+abstract class ContractCollectionAny extends ContractCollectionBase implements Relatable
 {
     protected const IS_ENTITY = false;
     protected const VALUE_CLASS = 'any';
