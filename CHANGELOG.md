@@ -1,6 +1,23 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.3...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.5.0-beta.1...master)
+
+## [v1.5.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.3...v1.5.0-beta.1) - 2024-08-16
+
+### Added
+
+* Nuevo archivo `development-tips.md` para guardar los comandos de git recurrentes
+
+### Changed
+
+* Renombrar método `items()` a `all()`
+* Mover propiedad `$item` encima de `$allowNull`
+* Permitir que sea `null` el parámetro `$relationName` del helper `getSubWith()`
+* Método `toBase()` simplificado y hecho privado
+* Sacar transformaciones de la función `$getItemValue` y crear una llamada `$clearItemValue` en el método `pluck()` para poder añadir más adelante el `setPreviousClass`
+* Mejora método `collapse()`: Unir el `$item->toArray()` en el mismo `if()` mirando la instancia `MyArrayableContract`
+* Método `->values()` de la clase `ContractCollectionBase.php` modificado para que sea como el de Laravel, ya que antes no hacía nada util
+* Mejoras `@PHPDoc`
 
 ## [v1.4.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.2...v1.4.0-beta.3) - 2024-08-16
 
