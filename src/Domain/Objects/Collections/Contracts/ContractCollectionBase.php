@@ -20,6 +20,9 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonVo;
 
+/**
+ * @template T of ContractCollectionBase
+ */
 abstract class ContractCollectionBase implements Countable, ArrayAccess, IteratorAggregate, MyArrayableContract, JsonSerializable
 {
     /** @var null|bool */
@@ -211,8 +214,8 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     }
 
     /**
-     * @param string $collectionClass
-     * @return ContractCollectionBase|mixed // TODO PHP8 - Union types
+     * @param class-string<T> $collectionClass
+     * @return T
      */
     public function toCollection(string $collectionClass)
     {
