@@ -36,9 +36,9 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     protected const VALUE_CLASS_REQ     = null;
     /** @var null|string */
     protected const VALUE_CLASS_NULL    = null;
-    protected $allowNull = true;
 
     protected $items;
+    protected $allowNull = true;
 
     /**
      * @param array $collResult
