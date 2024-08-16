@@ -52,13 +52,10 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         throw new NeverCalledException('La instancia de la colección no extiende de ninguna entidad valida.');
     }
 
-    public function toBase(array $data, string $pluckField = null): CollectionAny
+    private function toBase(array $data, string $pluckField = null): CollectionAny
     {
-        if ($this->isInstanceOfRelatable()) {
-            $with = (!is_null($pluckField)) ? getSubWith($this->with, $pluckField) : $this->with;
-            return CollectionAny::fromArray($data, $with);
-        }
-        return CollectionAny::fromArray($data);
+        $with = (!$this->isInstanceOfRelatable()) ? null : getSubWith($this->with, $pluckField);
+        return CollectionAny::fromArray($data, $with);
     }
 
     private function encodeAndDecode(array $array, bool $assoc)

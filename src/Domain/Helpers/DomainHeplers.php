@@ -590,9 +590,10 @@ if (!function_exists('clearWith')) {
 }
 
 if (!function_exists('getSubWith')) {
-    function getSubWith(?array $with, string $relationName): ?array
+    function getSubWith(?array $with, ?string $relationName): ?array
     {
         if (is_null($with)) return null;
+        if (is_null($relationName)) return $with;
         $newWith = [];
         foreach ($with as $key => $rel) {
             $compareKey = is_array($rel);
