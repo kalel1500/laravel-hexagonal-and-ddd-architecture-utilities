@@ -1,6 +1,25 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.2...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.3...master)
+
+## [v1.4.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.2...v1.4.0-beta.3) - 2024-08-16
+
+### Added
+
+* Nuevo método `pluckTo()` en la clase `ContractCollectionBase.php` (para que tras hacer el `pluck`, haga directamente el `toCollection`)
+* Nueva versión de la imagen del título del `README.md`
+* Indicar con `@phpdoc` que el método `toCollection()` devuelve una instancia de la clase que recibe como argumento
+
+### Changed
+
+* Pasar el `$pluckField` al `toBase()` en lugar del `$with` y calcular el `getWithValue()` dentro
+* Método `getWithValue()` simplificado
+
+### Removed
+
+* Eliminados svgs del `README.md` que no se utilizan
+* Eliminar método `getWithValue()` y mover lógica al `toBase()`
+* Quitar lógica `isInstanceOfRelatable()` y `isClassRelatable()` de `DomainHeplers.php` y hacer que las clases con relaciones implementen la interfaz `Relatable`
 
 ## [v1.4.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.1...v1.4.0-beta.2) - 2024-08-12
 
