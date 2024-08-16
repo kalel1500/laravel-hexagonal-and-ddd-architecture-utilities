@@ -51,7 +51,8 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     public function toBase(array $data, string $pluckField = null): CollectionAny
     {
         if ($this->isInstanceOfRelatable()) {
-            return CollectionAny::fromArray($data, $this->getWithValue($pluckField));
+            $with = (!is_null($pluckField)) ? getSubWith($this->with, $pluckField) : $this->with;
+            return CollectionAny::fromArray($data, $with);
         }
         return CollectionAny::fromArray($data);
     }
@@ -65,13 +66,6 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     private function isInstanceOfRelatable(): bool
     {
         return isInstanceOfRelatable($this);
-    }
-
-    private function getWithValue(string $pluckField = null): ?array
-    {
-        if (!$this->isInstanceOfRelatable()) return null;
-        if (!is_null($pluckField)) return getSubWith($this->with, $pluckField);
-        return $this->with;
     }
 
     protected function ensureIsValid($value): void
