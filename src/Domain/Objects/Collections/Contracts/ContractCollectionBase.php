@@ -42,7 +42,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     /**
      * @param array $collResult
-     * @return ContractCollectionBase|mixed // TODO PHP8 - Union types
+     * @return static // TODO PHP8 - static return type
      */
     private function toOriginal(array $collResult)
     {
@@ -294,8 +294,8 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     /**
      * @param string $field
-     * @param string $to
-     * @return ContractCollectionBase|mixed // TODO PHP8 - Union types
+     * @param class-string<T> $to
+     * @return T
      */
     public function pluckTo(string $field, string $to)
     {
@@ -436,7 +436,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     /**
      * @param ContractCollectionBase|array $items
-     * @return mixed|ContractCollectionBase
+     * @return static // TODO PHP8 - static return type
      */
     public function diffKeys($items)
     {
