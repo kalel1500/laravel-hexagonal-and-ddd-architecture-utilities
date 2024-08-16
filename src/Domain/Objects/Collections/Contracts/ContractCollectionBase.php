@@ -297,13 +297,12 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     /**
      * @param string $field
-     * @param string|null $key
-     * @param string|null $to
+     * @param string $to
      * @return ContractCollectionBase|mixed // TODO PHP8 - Union types
      */
-    public function pluckTo(string $field, string $key = null, string $to = null)
+    public function pluckTo(string $field, string $to)
     {
-        return $this->pluck($field, $key)->toCollection($to);
+        return $this->pluck($field)->toCollection($to);
     }
 
     public function collapse(): CollectionAny
