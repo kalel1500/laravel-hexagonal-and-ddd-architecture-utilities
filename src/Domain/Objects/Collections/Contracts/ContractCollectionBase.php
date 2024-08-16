@@ -355,12 +355,9 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return $this->where($key, '!==', null);
     }
 
-    public function values(): CollectionAny
+    public function values()
     {
-//        new static(array_values($this->items));
-//        return $this->toOriginal(collect(array_values($this->toArray()))->toArray());
-//        return new CollectionAnyVo($this->items);
-        return $this->toBase($this->toArray());
+        return $this->toOriginal(array_values($this->toArray()));
     }
 
     public function unique($key = null, $strict = false)
