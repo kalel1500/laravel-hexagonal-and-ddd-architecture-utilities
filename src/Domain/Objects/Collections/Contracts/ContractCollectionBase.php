@@ -59,10 +59,10 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return isInstanceOfRelatable($this);
     }
 
-    private function getWithValue(bool $forPluck = false, string $pluckField = null): ?array
+    private function getWithValue(string $pluckField = null): ?array
     {
         if (!$this->isInstanceOfRelatable()) return null;
-        if ($forPluck) return getSubWith($this->with, $pluckField);
+        if (!is_null($pluckField)) return getSubWith($this->with, $pluckField);
         return $this->with;
     }
 
@@ -221,10 +221,10 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return $collectionClass::fromArray($this->toArray());
     }
 
-    public function toBase(array $data, ?array $with = null): CollectionAny
+    public function toBase(array $data, string $pluckField = null): CollectionAny
     {
         if ($this->isInstanceOfRelatable()) {
-            return CollectionAny::fromArray($data, $with);
+            return CollectionAny::fromArray($data, $this->getWithValue($pluckField));
         }
         return CollectionAny::fromArray($data);
     }
@@ -292,7 +292,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         }
 
 //        return (new CollectionAnyVo($result))->whereNotNull();
-        return $this->toBase($result, $this->getWithValue(true, $field));
+        return $this->toBase($result, $field);
     }
 
     /**
@@ -325,7 +325,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
             $results[] = (!is_array($item) || !arrAllValuesAreArray($item)) ? [$item] : $item;
         }
 
-        return $this->toBase(array_merge([], ...$results), $this->getWithValue());
+        return $this->toBase(array_merge([], ...$results));
     }
 
     public function sortBy($callback, $options = SORT_REGULAR, $descending = false)
@@ -366,7 +366,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     {
 //        return $this->toOriginal(collect(array_values($this->toArray()))->toArray());
 //        return new CollectionAnyVo($this->items);
-        return $this->toBase($this->toArray(), $this->getWithValue());
+        return $this->toBase($this->toArray());
     }
 
     public function unique($key = null, $strict = false)
@@ -410,7 +410,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
             });*/
         });
 //        dd($new);
-        return $this->toBase($new->toArray(), $this->getWithValue());
+        return $this->toBase($new->toArray());
     }
 
     public function select($keys)
@@ -471,7 +471,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         $resultArray = $result->toArray();
         return $result->contains(function ($item) {
             return ! $item instanceof ContractEntity;
-        }) ? $this->toBase($resultArray, $this->getWithValue()) : $this->toOriginal($resultArray);
+        }) ? $this->toBase($resultArray) : $this->toOriginal($resultArray);
     }
 
     public function flatten(int $depth = INF)
