@@ -8,8 +8,4 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\Co
 
 final class ModelIdNull extends ContractModelId
 {
-    public function toModelId(): ModelId
-    {
-        return new ModelId($this->value());
-    }
 }
