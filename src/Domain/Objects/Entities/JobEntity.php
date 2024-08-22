@@ -47,7 +47,7 @@ final class JobEntity extends ContractEntity
     protected static function createFromArray(array $data): self
     {
         return new self(
-            new ModelIdNull($data['id'] ?? null),
+            ModelId::from($data['id'] ?? null),
             new ModelString($data['queue']),
             new ModelString($data['payload']),
             new ModelInt($data['attempts']),

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts;
 
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractIntVo;
 
 abstract class ContractModelId extends ContractIntVo
@@ -20,5 +22,14 @@ abstract class ContractModelId extends ContractIntVo
         if (!is_null($id) && $id < 1) {
             throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), $id));
         }
+    }
+
+    /**
+     * @param int|null $id
+     * @return ModelId|ModelIdNull
+     */
+    public static function from(?int $id)
+    {
+        return is_null($id) ? new ModelIdNull($id) : new ModelId($id);
     }
 }
