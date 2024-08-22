@@ -6,14 +6,25 @@ namespace Thehouseofel\Hexagonal\Infrastructure;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
+use Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 
 class HexagonalServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public $singletons = [
+        StateRepositoryContract::class => StateEloquentRepository::class,
+    ];
+
     /**
      * Register any application services.
      *
