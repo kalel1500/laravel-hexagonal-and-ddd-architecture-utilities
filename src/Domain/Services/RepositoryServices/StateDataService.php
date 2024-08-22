@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Application;
+namespace Thehouseofel\Hexagonal\Domain\Services\RepositoryServices;
 
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;
+use Thehouseofel\Hexagonal\Domain\Objects\Entities\StateEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckFieldVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;
 use Thehouseofel\Hexagonal\Domain\Providers\DynamicEnumProviderContract;
 
-final class GetDictionaryStatesByTypeUseCase
+final class StateDataService
 {
     private $repository;
     private $dynamicEnumProvider;
@@ -19,11 +20,16 @@ final class GetDictionaryStatesByTypeUseCase
         DynamicEnumProviderContract $dynamicEnumProvider
     )
     {
-        $this->repository = $repository;
         $this->dynamicEnumProvider = $dynamicEnumProvider;
+        $this->repository = $repository;
     }
 
-    public function __invoke(string $type, string $field = 'id', string $key = 'code'): array
+    public function findByCode(string $code): StateEntity
+    {
+        return $this->repository->findByCode($this->dynamicEnumProvider::newEnum($code));
+    }
+
+    public function getDictionaryByType(string $type, string $field = 'id', string $key = 'code'): array
     {
         $type   = $this->dynamicEnumProvider::newEnum($type);
         $field  = StatePluckFieldVo::new($field);
