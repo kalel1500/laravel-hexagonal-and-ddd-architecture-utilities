@@ -10,6 +10,7 @@ use Countable;
 use IteratorAggregate;
 use JsonSerializable;
 use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
+use Thehouseofel\Hexagonal\Domain\Contracts\BuildArrayable;
 use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\NeverCalledException;
@@ -175,12 +176,21 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return $this->items[] = $value;
     }
 
-    public static function getItemToArray($item)
+    private static function getItemToArray($item)
     {
         $fromThisClass = (debug_backtrace()[0]['file'] === __FILE__);
-        return ($item instanceof ContractEntity || $item instanceof ContractCollectionBase || $item instanceof ContractDataObject)
-            ? ( ($item instanceof ContractDataObject && $fromThisClass) ? $item->toArrayWithAll() : $item->toArray() )
-            : ( ($item instanceof ContractValueObject) ? $item->value() : $item );
+
+        // TODO PHP8 - match
+        if ($item instanceof BuildArrayable && $fromThisClass) {
+            return $item->toArrayForBuild();
+        }
+        if ($item instanceof Arrayable) {
+            return $item->toArray();
+        }
+        if ($item instanceof ContractValueObject) {
+            return $item->value();
+        }
+        return $item;
     }
 
     public function toArray(): array
@@ -265,7 +275,8 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 //            throw new NeverCalledException(sprintf('El valor de "$value" no se ha contemplado en la función "pluck" de la clase <%s>', static::class));
         };
         $clearItemValue = function($item) {
-            if ($item instanceof ContractCollectionBase || $item instanceof ContractEntity || $item instanceof ContractDataObject) {
+            // TODO PHP8 - match
+            if ($item instanceof Arrayable) {
                 return $item->toArray();
             }
             if ($item instanceof ContractValueObject) {
