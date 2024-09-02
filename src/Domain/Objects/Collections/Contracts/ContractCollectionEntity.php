@@ -193,10 +193,10 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      * @param array|Collection $data // TODO PHP8 union types
      * @return static
      */
-    public static function fromRelationData($data, ?array $with = null)
+    public static function fromRelationData($data)
     {
         $isFromQuery = !is_array($data);
-        return static::fromData($data, $with, $isFromQuery);
+        return static::fromData($data, null, $isFromQuery);
     }
 
     public function isPaginate(): bool
