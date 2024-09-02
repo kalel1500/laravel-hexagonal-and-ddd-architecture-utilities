@@ -151,7 +151,7 @@ abstract class ContractEntity implements MyArrayableContract, JsonSerializable
             }
 
             $firstRelations[] = $first;
-            $this->setFirstRelation($first, $last);
+            $this->setFirstRelation($first);
             $this->setLastRelation($first, $last);
         }
 //        $this->originalArray = null;
@@ -161,10 +161,9 @@ abstract class ContractEntity implements MyArrayableContract, JsonSerializable
 
     /**
      * @param string $first
-     * @param string|array $last // TODO PHP8 - Union types
      * @return void
      */
-    private function setFirstRelation(string $first, $last)
+    private function setFirstRelation(string $first)
     {
         $setRelation = 'set'.ucfirst($first);
         $relationData = ($this->isFromQuery)
@@ -172,8 +171,7 @@ abstract class ContractEntity implements MyArrayableContract, JsonSerializable
             : ($this->originalArray[strToSnake($first)] ?? $this->originalArray[$first] ?? null);
 
         if ($relationData) {
-            $last = (empty($last)) ? null : ((is_array($last)) ? $last : [$last]);
-            $this->$setRelation($relationData, $last);
+            $this->$setRelation($relationData);
         }
     }
 
