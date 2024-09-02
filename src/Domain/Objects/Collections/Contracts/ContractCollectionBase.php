@@ -321,6 +321,12 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return $this->toBase(array_merge([], ...$results));
     }
 
+    /**
+     * @param $callback
+     * @param $options
+     * @param $descending
+     * @return static
+     */
     public function sortBy($callback, $options = SORT_REGULAR, $descending = false)
     {
         $collResult = collSortBy($this->toArray(), $callback, $options, $descending)->values();
