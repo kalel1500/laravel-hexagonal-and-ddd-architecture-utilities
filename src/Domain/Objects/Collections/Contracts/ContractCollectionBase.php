@@ -9,7 +9,7 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use JsonSerializable;
-use Thehouseofel\Hexagonal\Domain\Contracts\MyArrayableContract;
+use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
 use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\NeverCalledException;
@@ -24,7 +24,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonVo;
 /**
  * @template T of ContractCollectionBase
  */
-abstract class ContractCollectionBase implements Countable, ArrayAccess, IteratorAggregate, MyArrayableContract, JsonSerializable
+abstract class ContractCollectionBase implements Countable, ArrayAccess, IteratorAggregate, Arrayable, JsonSerializable
 {
     /** @var null|bool */
     protected const IS_ENTITY           = null;
@@ -306,7 +306,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     {
         $results = [];
         foreach ($this->items as $item) {
-            if ($item instanceof MyArrayableContract) {
+            if ($item instanceof Arrayable) {
                 $item = $item->toArray();
             }
             if (is_null($item)) {

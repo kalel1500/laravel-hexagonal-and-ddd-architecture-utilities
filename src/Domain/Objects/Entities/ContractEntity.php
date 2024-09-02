@@ -6,10 +6,10 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
-use Thehouseofel\Hexagonal\Domain\Contracts\MyArrayableContract;
+use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 
-abstract class ContractEntity implements MyArrayableContract, JsonSerializable
+abstract class ContractEntity implements Arrayable, JsonSerializable
 {
     public static $databaseFields = null; // TODO PHP8 property type (?array)
 
