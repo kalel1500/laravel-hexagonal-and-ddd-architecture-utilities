@@ -11,7 +11,7 @@ abstract class ContractStringVo extends ContractValueObject
     public function __construct(?string $value)
     {
         $this->ensureIsValidValue($value);
-        $this->value = $value;
+        $this->value = $this->clearString($value);
     }
 
     public function value(): ?string
@@ -22,6 +22,11 @@ abstract class ContractStringVo extends ContractValueObject
     protected function ensureIsValidValue(?string $value): void
     {
         $this->checkAllowNull($value);
+    }
+
+    protected function clearString(?string $value): ?string
+    {
+        return is_null($value) || empty(trim($value)) ? null : trim($value);
     }
 
     public function contains(string $search): bool
