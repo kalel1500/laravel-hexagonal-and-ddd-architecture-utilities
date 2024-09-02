@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Contracts;
 
-interface MyArrayableContract
+interface Arrayable
 {
     public function toArray(): array;
 }

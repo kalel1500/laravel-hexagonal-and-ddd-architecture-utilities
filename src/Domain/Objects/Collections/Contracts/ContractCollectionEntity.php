@@ -7,7 +7,7 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as CollectionS;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Thehouseofel\Hexagonal\Domain\Contracts\ExportableEntityC;
+use Thehouseofel\Hexagonal\Domain\Contracts\ExportableEntity;
 use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
@@ -54,7 +54,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
 
         /** @var ContractEntity $entity */
         $entity = static::ENTITY;
-        $isExportable = (is_subclass_of($entity, ExportableEntityC::class));
+        $isExportable = (is_subclass_of($entity, ExportableEntity::class));
         if (!$isExportable) return $data;
 
         $cols = $entity::$exportMethodName();
