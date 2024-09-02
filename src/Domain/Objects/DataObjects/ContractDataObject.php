@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 
+use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
+use Thehouseofel\Hexagonal\Domain\Contracts\BuildArrayable;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 
-abstract class ContractDataObject
+abstract class ContractDataObject implements Arrayable, BuildArrayable
 {
     private function getValue($value)
     {
@@ -27,7 +29,7 @@ abstract class ContractDataObject
         return $this->toArrayVisible();
     }
 
-    public function toArrayWithAll(): array
+    public function toArrayForBuild(): array
     {
         return $this->toArrayVisible();
     }

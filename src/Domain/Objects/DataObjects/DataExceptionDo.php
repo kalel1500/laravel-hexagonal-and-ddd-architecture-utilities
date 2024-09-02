@@ -107,7 +107,7 @@ final class DataExceptionDo extends ContractDataObject
         ];
     }
 
-    public function toArrayWithAll(): array
+    public function toArrayForBuild(): array
     {
         return [
             'code'      => $this->code,
