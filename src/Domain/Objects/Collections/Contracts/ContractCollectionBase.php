@@ -246,33 +246,26 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     public function pluck(string $field, string $key = null): CollectionAny
     {
         $getItemValue = function($collectionItem, string $pluckField) {
+            /** @var Arrayable|BuildArrayable $collectionItem */
+
             if (is_array($collectionItem)) {
                 return $collectionItem[strToSnake($pluckField)];
             }
+
             if (!is_object($collectionItem)) {
                 return null;
             }
-            /*if (($value instanceof ContractDataObject)) {
-                $publicProperties = get_class_vars(get_class($value));
-                if (array_key_exists($string, $publicProperties)) {
-                    return $value->$string;
-                }
-                if (str_contains($string, '()')) {
-                    $sub = substr($string, 0, -2);
-                    $valueString =  $value->$sub();
-                } else {
-                    return null;
-                }
-            } else {
-                $valueString = $value->$string();
-            }*/
 
-            $valueField = ($collectionItem instanceof ContractDataObject)
-                ? (str_contains($pluckField, '()') ? $collectionItem->{substr($pluckField, 0, -2)}() : $collectionItem->toArrayWithAll()[$pluckField])
-                : (method_exists($collectionItem, $pluckField) ? $collectionItem->$pluckField() : $collectionItem->$pluckField);
+            if (method_exists($collectionItem, $pluckField)) {
+                return $collectionItem->$pluckField();
+            }
 
-            return $valueField;
-//            throw new NeverCalledException(sprintf('El valor de "$value" no se ha contemplado en la función "pluck" de la clase <%s>', static::class));
+            $itemClass = new \ReflectionClass($collectionItem);
+            if ($itemClass->hasProperty($pluckField) && $itemClass->getProperty($pluckField)->isPublic()) {
+                return $collectionItem->$pluckField;
+            }
+
+            return $collectionItem->toArrayForBuild()[$pluckField];
         };
         $clearItemValue = function($item) {
             // TODO PHP8 - match
