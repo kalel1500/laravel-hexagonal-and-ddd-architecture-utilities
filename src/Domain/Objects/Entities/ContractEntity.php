@@ -14,6 +14,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     public static $databaseFields = null; // TODO PHP8 property type (?array)
 
     protected $with;
+    protected $withFull;
     protected $originalArray;
     protected $originalObject;
     protected $isFromQuery;
@@ -97,10 +98,15 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     private function addRelationDataToArray(array $data, bool $fromFull): array
     {
         if ($this->with) {
-            foreach ($this->with as $key => $rel) {
+            foreach ($this->withFull as $key => $rel) {
                 $relation = (is_array($rel)) ? $key : $rel;
-                $relationData = $fromFull ? optional($this->$relation())->toArrayFull() : optional($this->$relation())->toArray(); // TODO PHP8 - nullsafe operator
-                $data[strToSnake($rel)] = $relationData;
+                $isFull = $fromFull;
+                if (str_contains($relation, ':')) {
+                    [$relation, $flag] = explode(':', $relation);
+                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+                }
+                $relationData = $isFull ? optional($this->$relation())->toArrayFull() : optional($this->$relation())->toArray(); // TODO PHP8 - nullsafe operator
+                $data[strToSnake($relation)] = $relationData;
             }
         }
         return $data;
@@ -154,6 +160,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     public function with($relations)
     {
         $relations = is_array($relations) ? $relations : [$relations];
+        $firstRelationsFull = [];
         $firstRelations = [];
         foreach ($relations as $key => $relationString) {
 
@@ -167,12 +174,15 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
                 $last = implode('.', $array);
             }
 
+            $firstRelationsFull[] = $first;
+            $first = str_contains($first, ':') ? explode(':', $first)[0] : $first;
             $firstRelations[] = $first;
             $this->setFirstRelation($first);
             $this->setLastRelation($first, $last);
         }
 //        $this->originalArray = null;
         $this->with = $firstRelations;
+        $this->withFull = $firstRelationsFull;
         return $this;
     }
 
