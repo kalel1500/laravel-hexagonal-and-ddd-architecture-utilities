@@ -45,7 +45,7 @@ final class FailedJobEntity extends ContractEntity
     protected static function createFromArray(array $data): self
     {
         return new self(
-            ModelId::from($data['id'] ?? null),
+            new ModelIdNull($data['id'] ?? null),
             new ModelString($data['uuid']),
             new ModelString($data['connection']),
             new ModelString($data['queue']),
