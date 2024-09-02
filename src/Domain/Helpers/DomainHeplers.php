@@ -630,3 +630,32 @@ if (!function_exists('soIsWindows')) {
         return $so === 'WIN';
     }
 }
+
+if (!function_exists('arrFormatIsEntity')) {
+    function arrFormatIsEntity($array): bool
+    {
+        if (!is_array($array)) {
+            return false; // No es un array
+        }
+
+        $keys = array_keys($array);
+        return array_keys($keys) !== $keys;
+    }
+}
+
+if (!function_exists('arrFormatIsCollection')) {
+    function arrFormatIsCollection($array): bool
+    {
+        if (!is_array($array)) {
+            return false; // No es un array
+        }
+
+        foreach ($array as $elemento) {
+            if (!is_array($elemento)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
