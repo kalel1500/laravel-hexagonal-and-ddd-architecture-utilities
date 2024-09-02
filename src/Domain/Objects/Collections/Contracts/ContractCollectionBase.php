@@ -184,6 +184,12 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         if ($item instanceof BuildArrayable && $fromThisClass) {
             return $item->toArrayForBuild();
         }
+
+        // TODO Canals - guardar en la clase con $with y hacer en base a eso
+        if ($item instanceof ContractEntity && $fromThisClass) {
+            return $item->toArrayFullDeep();
+        }
+
         if ($item instanceof Arrayable) {
             return $item->toArray();
         }
