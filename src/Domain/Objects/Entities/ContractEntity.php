@@ -170,9 +170,7 @@ abstract class ContractEntity implements MyArrayableContract, JsonSerializable
             ? $this->originalObject->$first
             : ($this->originalArray[strToSnake($first)] ?? $this->originalArray[$first] ?? null);
 
-        if ($relationData) {
-            $this->$setRelation($relationData);
-        }
+        $this->$setRelation($relationData);
     }
 
     /**
