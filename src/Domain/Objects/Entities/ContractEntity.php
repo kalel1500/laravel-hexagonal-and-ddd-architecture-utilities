@@ -32,10 +32,10 @@ abstract class ContractEntity implements MyArrayableContract, JsonSerializable
 
     /**
      * @param array|null $data
-     * @param array|null $with
+     * @param string|array|null $with
      * @return static|null // TODO PHP8 static return type
      */
-    public static function fromArray(?array $data, array $with = null)
+    public static function fromArray(?array $data, $with = null)
     {
         if (is_null($data)) return null;
         $self                 = static::createFromArray($data);
@@ -50,9 +50,10 @@ abstract class ContractEntity implements MyArrayableContract, JsonSerializable
 
     /**
      * @param Model|object|null $item
+     * @param string|array|null $with
      * @return static|null // TODO PHP8 static return type
      */
-    public static function fromObject($item, array $with = null)
+    public static function fromObject($item, $with = null)
     {
         if (is_null($item)) return null;
         $data                   = static::createFromObject($item);
@@ -132,11 +133,12 @@ abstract class ContractEntity implements MyArrayableContract, JsonSerializable
     }
 
     /**
-     * @param array $relations
+     * @param string|array $relations
      * @return $this
      */
-    public function with(array $relations)
+    public function with($relations)
     {
+        $relations = is_array($relations) ? $relations : [$relations];
         $firstRelations = [];
         foreach ($relations as $key => $relationString) {
 
