@@ -80,6 +80,11 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     abstract protected function toArrayProperties(): array;
 
+    protected function toArrayCalculatedProps(): array
+    {
+        return [];
+    }
+
     /**
      * La definimos sin lógica para que las clases que existen sepan cuál sobreescriben
      * @return static|null // TODO PHP8 static return type
@@ -89,16 +94,26 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         return null;
     }
 
-    public function toArray(): array
+    private function addRelationDataToArray(array $data, bool $fromFull): array
     {
-        $array = $this->toArrayProperties();
         if ($this->with) {
             foreach ($this->with as $key => $rel) {
-                $rel = (is_array($rel)) ? $key : $rel;
-                $array[strToSnake($rel)] = optional($this->$rel())->toArray(); // TODO PHP8 - nullsafe operator
+                $relation = (is_array($rel)) ? $key : $rel;
+                $relationData = $fromFull ? optional($this->$relation())->toArrayFull() : optional($this->$relation())->toArray(); // TODO PHP8 - nullsafe operator
+                $data[strToSnake($rel)] = $relationData;
             }
         }
-        return $array;
+        return $data;
+    }
+
+    public function toArray(): array
+    {
+        return $this->addRelationDataToArray($this->toArrayProperties(), false);
+    }
+
+    public function toArrayFull(): array
+    {
+        return $this->addRelationDataToArray(array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps()), true);
     }
 
     public function toArrayDb($keepId = false): array
