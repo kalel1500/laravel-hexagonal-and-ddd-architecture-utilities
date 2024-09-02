@@ -329,7 +329,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
      * @param $callback
      * @param $options
      * @param $descending
-     * @return static
+     * @return T
      */
     public function sortBy($callback, $options = SORT_REGULAR, $descending = false)
     {
