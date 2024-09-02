@@ -95,20 +95,30 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         return null;
     }
 
-    private function addRelationDataToArray(array $data, bool $fromFull): array
+    private function addRelationDataToArray(array $data, bool $fullDeep): array
     {
-        if ($this->with) {
-            foreach ($this->withFull as $key => $rel) {
-                $relation = (is_array($rel)) ? $key : $rel;
-                $isFull = $fromFull;
-                if (str_contains($relation, ':')) {
-                    [$relation, $flag] = explode(':', $relation);
-                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
-                }
-                $relationData = $isFull ? optional($this->$relation())->toArrayFull() : optional($this->$relation())->toArray(); // TODO PHP8 - nullsafe operator
-                $data[strToSnake($relation)] = $relationData;
-            }
+        if (!$this->with) {
+            return $data;
         }
+
+        foreach ($this->withFull as $key => $rel) {
+            $relation = (is_array($rel)) ? $key : $rel;
+            $isFull = $fullDeep;
+
+            if (str_contains($relation, ':')) {
+                [$relation, $flag] = explode(':', $relation);
+                $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+            }
+
+            $relationInstance = optional($this->$relation()); // TODO PHP8 - nullsafe operator
+
+            $relationData = $isFull
+                ? ($fullDeep ? $relationInstance->toArrayFullDeep() : $relationInstance->toArrayFull())
+                : $relationInstance->toArray();
+
+            $data[strToSnake($relation)] = $relationData;
+        }
+
         return $data;
     }
 
@@ -118,6 +128,11 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     }
 
     public function toArrayFull(): array
+    {
+        return $this->addRelationDataToArray(array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps()), false);
+    }
+
+    public function toArrayFullDeep(): array
     {
         return $this->addRelationDataToArray(array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps()), true);
     }

@@ -56,6 +56,17 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         return $result;
     }
 
+    public function toArrayFullDeep(): array
+    {
+        $result = [];
+        foreach ($this->items as $key => $item) {
+            /** @var ContractEntity $item */
+            $item = $item->toArrayFullDeep();
+            $result[$key] = $item;
+        }
+        return $result;
+    }
+
     public function toArrayExport(callable $modifyData = null, string $exportMethodName = 'getExportColumns'): array
     {
         $data = $this->toArray();
