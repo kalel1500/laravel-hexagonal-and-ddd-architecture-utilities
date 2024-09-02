@@ -34,11 +34,6 @@ abstract class ContractDataObject implements Arrayable, BuildArrayable
         return $this->toArrayVisible();
     }
 
-    public function toArrayForJs(): array
-    {
-        return $this->toArrayVisible();
-    }
-
     public function toObject()
     {
         return arrayToObject($this->toArrayVisible());
