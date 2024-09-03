@@ -21,9 +21,21 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
 {
     protected const IS_ENTITY = true;
     protected $with = null;
-    protected $isFull = false;
+    protected $isFull = null;
     protected $isPaginate;
     protected $paginationData;
+
+    public function setWith($with): ContractCollectionEntity
+    {
+        $this->with = $with;
+        return $this;
+    }
+
+    public function setIsFull(?bool $isFull): ContractCollectionEntity
+    {
+        $this->isFull = $isFull;
+        return $this;
+    }
 
     /**
      * @return T|null
@@ -51,38 +63,6 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         static::$with = $relations;
         return new static;
     }*/
-
-    public function toArray(): array
-    {
-        $result = [];
-        foreach ($this->items as $key => $item) {
-            $item = $this->isFull ? $item->toArrayFull() : $item->toArray();
-            $result[$key] = $item;
-        }
-        return $result;
-    }
-
-    public function toArrayFull(): array
-    {
-        $result = [];
-        foreach ($this->items as $key => $item) {
-            /** @var ContractEntity $item */
-            $item = $item->toArrayFull();
-            $result[$key] = $item;
-        }
-        return $result;
-    }
-
-    public function toArrayFullDeep(): array
-    {
-        $result = [];
-        foreach ($this->items as $key => $item) {
-            /** @var ContractEntity $item */
-            $item = $item->toArrayFullDeep();
-            $result[$key] = $item;
-        }
-        return $result;
-    }
 
     public function toArrayExport(callable $modifyData = null, string $exportMethodName = 'getExportColumns'): array
     {
@@ -134,6 +114,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     /**
      * @param array|Collection|null $data // TODO PHP8 union types
      * @param string|array|null $with
+     * @param bool|null $isFull
      * @param bool $isPaginate
      * @param PaginationDataDo|null $paginationData
      * @param bool $isEloquentBuilder
@@ -142,6 +123,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     private static function fromData(
         $data,
         $with = null,
+        ?bool $isFull = null,
         bool $isEloquentBuilder = false,
         bool $isPaginate = false,
         ?PaginationDataDo $paginationData = null
@@ -162,10 +144,9 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
             if ($item instanceof $entity) {
                 $array[] = $item;
             } else {
-                $createdEntity = $isEloquentBuilder ? $entity::fromObject($item) : $entity::fromArray($item);
-                if (!is_null($with)) {
-                    $createdEntity = $createdEntity->with($with);
-                }
+                $createdEntity = $isEloquentBuilder
+                    ? $entity::fromObject($item, $with, $isFull)
+                    : $entity::fromArray($item, $with, $isFull);
                 $array[] = $createdEntity;
             }
         }
@@ -173,6 +154,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         $collection->isPaginate = $isPaginate;
         $collection->paginationData = $paginationData;
         $collection->with = $with;
+        $collection->isFull = $isFull;
         return $collection;
 //        dd(new static());
 //        dd($result->toArray());
@@ -181,9 +163,10 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     /**
      * @param array|Collection|null $data // TODO PHP8 union types
      * @param string|array|null $with
+     * @param bool|null $isFull
      * @return static // TODO PHP8 return static
      */
-    public static function fromArray($data, $with = null)
+    public static function fromArray($data, $with = null, ?bool $isFull = null)
     {
         $isPaginate         = array_key_exists('current_page', $data);
         $paginationData     = null;
@@ -198,16 +181,17 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
                 '--'
             );
         }
-        return self::fromData($data, $with, false, $isPaginate, $paginationData);
+        return self::fromData($data, $with, $isFull, false, $isPaginate, $paginationData);
     }
 
     /**
      * @param Collection|CollectionS|LengthAwarePaginator $queryResult
      * @param string|array|null $with
+     * @param bool|null $isFull
      * @param bool $saveBuilderObject
      * @return static
      */
-    public static function fromEloquent($queryResult, $with = null, bool $saveBuilderObject = false)
+    public static function fromEloquent($queryResult, $with = null, ?bool $isFull = null, bool $saveBuilderObject = false)
     {
         // $data = $response->isFromQuery() ? $response->originalObject() : $response->originalArray();
         // return self::fromData($data, $with, $response->isFromQuery(), $response->isPaginate(), $response->paginationData());
@@ -226,20 +210,17 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
             );
         }
         $data = $saveBuilderObject ? $queryResult : $queryResult->values()->toArray();
-        return self::fromData($data, $with, $saveBuilderObject, $isPaginate, $paginationData);
+        return self::fromData($data, $with, $isFull, $saveBuilderObject, $isPaginate, $paginationData);
     }
 
     /**
      * @param array|Collection $data // TODO PHP8 union types
-     * @param bool|null $isFull
      * @return static
      */
-    public static function fromRelationData($data, bool $isFull = null)
+    public static function fromRelationData($data)
     {
         $isFromQuery = !is_array($data);
-        $collection = static::fromData($data, null, $isFromQuery);
-        $collection->isFull = $isFull;
-        return $collection;
+        return static::fromData($data, null, null, $isFromQuery);
     }
 
     public function isPaginate(): bool

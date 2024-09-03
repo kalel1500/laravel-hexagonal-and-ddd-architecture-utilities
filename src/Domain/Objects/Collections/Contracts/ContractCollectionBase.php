@@ -16,8 +16,8 @@ use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\NeverCalledException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\CollectionAny;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\SubRelationDataDo;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonVo;
@@ -47,7 +47,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
      */
     private function toOriginal(array $collResult)
     {
-        if ($this->isInstanceOfRelatable()) return static::fromArray($collResult, $this->with);
+        if ($this->isInstanceOfRelatable()) return static::fromArray($collResult, $this->with, $this->isFull);
         if ($this instanceof ContractCollectionVo) return static::fromArray($collResult, $this->allowNull);
         if ($this instanceof ContractCollectionDo) return static::fromArray($collResult);
         throw new NeverCalledException('La instancia de la colección no extiende de ninguna entidad valida.');
@@ -55,8 +55,10 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     private function toBase(array $data, string $pluckField = null): CollectionAny
     {
-        $with = (!$this->isInstanceOfRelatable()) ? null : getSubWith($this->with, $pluckField);
-        return CollectionAny::fromArray($data, $with);
+        $subRelData = (!$this->isInstanceOfRelatable())
+            ? SubRelationDataDo::fromArray([null, null])
+            : getSubWith($this->with, $this->isFull, $pluckField);
+        return CollectionAny::fromArray($data, $subRelData->with(), $subRelData->isFull());
     }
 
     private function encodeAndDecode(array $array, bool $assoc)
@@ -229,7 +231,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     public function toCollection(string $collectionClass)
     {
         if (is_subclass_of($collectionClass, Relatable::class)) {
-            return $collectionClass::fromArray($this->toArray(), $this->with);
+            return $collectionClass::fromArray($this->toArray(), $this->with, $this->isFull);
         }
         return $collectionClass::fromArray($this->toArray());
     }

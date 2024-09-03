@@ -7,9 +7,9 @@ use Thehouseofel\Hexagonal\Domain\Exceptions\CustomException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\CollectionAny;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionAny;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\DataExceptionDo;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\SubRelationDataDo;
 use Thehouseofel\Hexagonal\Infrastructure\Exceptions\DomainBaseException;
 
 if (!function_exists('dashesToCamelCase')) {
@@ -590,28 +590,52 @@ if (!function_exists('clearWith')) {
 }
 
 if (!function_exists('getSubWith')) {
-    function getSubWith(?array $with, ?string $relationName): ?array
+    /**
+     * @param string|array|null $with
+     * @param bool|null $isFull
+     * @param string|null $relationName
+     * @return SubRelationDataDo
+     */
+    function getSubWith($with, ?bool $isFull, ?string $relationName): SubRelationDataDo
     {
-        if (is_null($with)) return null;
-        if (is_null($relationName)) return $with;
-        $newWith = [];
+        if (is_null($with)) return SubRelationDataDo::fromArray([null, null]);
+        if (is_null($relationName)) return SubRelationDataDo::fromArray([$with, $isFull]);
+
+        $with = is_array($with) ? $with : [$with];
+        $newWith = null;
+        $newIsFull = null;
         foreach ($with as $key => $rel) {
             $compareKey = is_array($rel);
-            if ($compareKey && $key === $relationName) {
-                $newWith = $rel;
-                break;
+            if ($compareKey) {
+                if ((str_contains($key, ':'))) {
+                    [$key, $flag] = explode(':', $key);
+                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+                }
+
+                if ($key === $relationName) {
+                    $newWith = $rel;
+                    $newIsFull = $isFull;
+                    break;
+                }
             }
             if (!$compareKey) {
                 $arrayRels = explode('.', $rel);
                 $firstRel = $arrayRels[0];
+
+                if ((str_contains($firstRel, ':'))) {
+                    [$firstRel, $flag] = explode(':', $firstRel);
+                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+                }
+
                 if ($firstRel === $relationName) {
                     unset($arrayRels[0]);
                     $newWith = implode('.', $arrayRels);
+                    $newIsFull = $isFull;
                     break;
                 }
             }
         }
-        return (empty($newWith)) ? null : (is_array($newWith) ? $newWith : [$newWith]);
+        return SubRelationDataDo::fromArray([$newWith, $newIsFull]);
     }
 }
 

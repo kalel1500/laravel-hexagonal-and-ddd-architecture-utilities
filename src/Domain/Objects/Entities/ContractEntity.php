@@ -15,6 +15,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     protected $with;
     protected $withFull;
+    protected $isFull;
     protected $originalArray;
     protected $originalObject;
     protected $isFromQuery;
@@ -34,15 +35,17 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     /**
      * @param array|null $data
      * @param string|array|null $with
+     * @param bool|null $isFull
      * @return static|null // TODO PHP8 static return type
      */
-    public static function fromArray(?array $data, $with = null)
+    public static function fromArray(?array $data, $with = null, ?bool $isFull = null)
     {
         if (is_null($data)) return null;
         $self                 = static::createFromArray($data);
         $self->isFromQuery    = false;
         $self->originalArray  = $data;
         $self->originalObject = null;
+        $self->isFull         = $isFull;
         if (!is_null($with)) {
             $self->with($with);
         }
@@ -52,9 +55,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     /**
      * @param Model|object|null $item
      * @param string|array|null $with
+     * @param bool|null $isFull
      * @return static|null // TODO PHP8 static return type
      */
-    public static function fromObject($item, $with = null)
+    public static function fromObject($item, $with = null, ?bool $isFull = null)
     {
         if (is_null($item)) return null;
         $data                   = static::createFromObject($item);
@@ -62,6 +66,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         $self->isFromQuery      = true;
         $self->originalArray    = json_decode(json_encode($item), true);
         $self->originalObject   = $item;
+        $self->isFull           = $isFull;
         if (!is_null($with)) {
             $self->with($with);
         }
@@ -95,46 +100,26 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         return null;
     }
 
-    private function addRelationDataToArray(array $data, bool $fullDeep): array
+    public function toArray(): array
     {
-        if (!$this->with) {
-            return $data;
-        }
+        $data = (is_null($this->isFull) || $this->isFull === true)
+            ? array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps())
+            : $this->toArrayProperties();
 
-        foreach ($this->withFull as $key => $rel) {
-            $relation = (is_array($rel)) ? $key : $rel;
-            $isFull = $fullDeep;
-
-            if (str_contains($relation, ':')) {
-                [$relation, $flag] = explode(':', $relation);
-                $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+        if ($this->withFull) {
+            foreach ($this->withFull as $key => $rel) {
+                $relation = (is_array($rel)) ? $key : $rel;
+//                $isFull = true;
+                if (str_contains($relation, ':')) {
+                    [$relation, $flag] = explode(':', $relation);
+//                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+                }
+                $relationData = optional($this->$relation())->toArray(); // TODO PHP8 - nullsafe operator
+                $data[strToSnake($relation)] = $relationData;
             }
-
-            $relationInstance = optional($this->$relation()); // TODO PHP8 - nullsafe operator
-
-            $relationData = $isFull
-                ? ($fullDeep ? $relationInstance->toArrayFullDeep() : $relationInstance->toArrayFull())
-                : $relationInstance->toArray();
-
-            $data[strToSnake($relation)] = $relationData;
         }
 
         return $data;
-    }
-
-    public function toArray(): array
-    {
-        return $this->addRelationDataToArray($this->toArrayProperties(), false);
-    }
-
-    public function toArrayFull(): array
-    {
-        return $this->addRelationDataToArray(array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps()), false);
-    }
-
-    public function toArrayFullDeep(): array
-    {
-        return $this->addRelationDataToArray(array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps()), true);
     }
 
     public function toArrayDb($keepId = false): array
@@ -175,8 +160,8 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     public function with($relations)
     {
         $relations = is_array($relations) ? $relations : [$relations];
-        $firstRelationsFull = [];
         $firstRelations = [];
+        $firstRelationsFull = [];
         foreach ($relations as $key => $relationString) {
 
             if (is_array($relationString)) {
@@ -189,12 +174,17 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
                 $last = implode('.', $array);
             }
 
-            $firstRelationsFull[] = $first;
-            $isFull = str_contains($first, ':');
-            $first = $isFull ? explode(':', $first)[0] : $first;
+            $isFull = null;
+            $firstFull = $first;
+            if (str_contains($first, ':')) {
+                [$first, $flag] = explode(':', $first);
+                $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+            }
+
             $firstRelations[] = $first;
-            $this->setFirstRelation($first, $isFull);
-            $this->setLastRelation($first, $last);
+            $firstRelationsFull[] = $firstFull;
+            $this->setFirstRelation($first);
+            $this->setLastRelation($first, $last, $isFull);
         }
 //        $this->originalArray = null;
         $this->with = $firstRelations;
@@ -204,10 +194,9 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     /**
      * @param string $first
-     * @param bool $isFull
      * @return void
      */
-    private function setFirstRelation(string $first, bool $isFull)
+    private function setFirstRelation(string $first)
     {
         $setRelation = 'set'.ucfirst($first);
         $relationData = ($this->isFromQuery)
@@ -215,14 +204,15 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
             : ($this->originalArray[strToSnake($first)] ?? $this->originalArray[$first] ?? null);
 
         $relationData = $relationData ?? [];
-        $this->$setRelation($relationData, $isFull);
+        $this->$setRelation($relationData);
     }
 
     /**
      * @param string $first
      * @param string|array $last // TODO PHP8 - Union types
+     * @param bool|null $isFull
      */
-    private function setLastRelation(string $first, $last)
+    private function setLastRelation(string $first, $last, ?bool $isFull)
     {
         if (!empty($last)) {
 
@@ -233,11 +223,14 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 //                dd($this->$first, $isEntity, $isCollection);
             if ($isEntity) {
                 $this->$first->with($last);
+                $this->$first->isFull = $isFull;
             }
             if ($isCollection) {
                 foreach ($this->$first as $item) {
                     $item->with($last);
+                    $item->isFull = $isFull;
                 }
+                $this->$first->setWith($last)->setIsFull($isFull);
             }
         }
     }
