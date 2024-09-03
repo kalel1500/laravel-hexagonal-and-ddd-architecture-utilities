@@ -46,9 +46,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         $self->originalArray  = $data;
         $self->originalObject = null;
         $self->isFull         = $isFull;
-        if (!is_null($with)) {
-            $self->with($with);
-        }
+        $self->with($with);
         return $self;
     }
 
@@ -67,9 +65,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         $self->originalArray    = json_decode(json_encode($item), true);
         $self->originalObject   = $item;
         $self->isFull           = $isFull;
-        if (!is_null($with)) {
-            $self->with($with);
-        }
+        $self->with($with);
         return $self;
     }
 
@@ -155,13 +151,16 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     /**
      * @param string|array $relations
-     * @return $this
+     * @return void
      */
     public function with($relations)
     {
+        if (!$relations) return;
+
         $relations = is_array($relations) ? $relations : [$relations];
         $firstRelations = [];
         $firstRelationsFull = [];
+
         foreach ($relations as $key => $relationString) {
 
             if (is_array($relationString)) {
@@ -186,10 +185,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
             $this->setFirstRelation($first);
             $this->setLastRelation($first, $last, $isFull);
         }
+
 //        $this->originalArray = null;
         $this->with = $firstRelations;
         $this->withFull = $firstRelationsFull;
-        return $this;
     }
 
     /**
