@@ -14,12 +14,20 @@ abstract class ContractCollectionAny extends ContractCollectionBase implements R
     protected const VALUE_CLASS_NULL = 'any';
 
     protected $with = null;
+    protected $isFull = null;
 
-    static function fromArray(?array $values, ?array $with = null)
+    /**
+     * @param array|null $values
+     * @param string|array|null $with
+     * @param bool|null $isFull
+     * @return static
+     */
+    static function fromArray(?array $values, $with = null, ?bool $isFull = null)
     {
         $values = $values ?? [];
         $collection = new static($values);
         $collection->with = $with;
+        $collection->isFull = $isFull;
         return $collection;
     }
 }
