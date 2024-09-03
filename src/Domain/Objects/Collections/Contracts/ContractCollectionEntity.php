@@ -152,7 +152,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         if (is_null($entity)) {
             throw new RequiredDefinitionException(sprintf('<%s> needs to define <%s> %s.', class_basename(static::class), 'ENTITY', 'constant'));
         }
-        if (!is_null($with) && in_array('', $with)) {
+        if (!is_null($with) && ((is_string($with) && $with === '') || is_array($with) && in_array('', $with))) {
             throw new InvalidValueException(sprintf('$with can not contain empty values on <%s>:<%s>. Maybe you can see the class ContractEntity::setFirstRelation', class_basename(static::class), 'fromData'));
         }
 

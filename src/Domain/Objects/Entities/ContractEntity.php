@@ -212,6 +212,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
             ? $this->originalObject->$first
             : ($this->originalArray[strToSnake($first)] ?? $this->originalArray[$first] ?? null);
 
+        $relationData = $relationData ?? [];
         $this->$setRelation($relationData);
     }
 
