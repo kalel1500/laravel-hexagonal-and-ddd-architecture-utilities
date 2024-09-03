@@ -635,6 +635,7 @@ if (!function_exists('getSubWith')) {
                 }
             }
         }
+        $newWith = (empty($newWith)) ? null : $newWith;
         return SubRelationDataDo::fromArray([$newWith, $newIsFull]);
     }
 }
