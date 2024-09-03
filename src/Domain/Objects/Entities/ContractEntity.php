@@ -190,9 +190,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
             }
 
             $firstRelationsFull[] = $first;
-            $first = str_contains($first, ':') ? explode(':', $first)[0] : $first;
+            $isFull = str_contains($first, ':');
+            $first = $isFull ? explode(':', $first)[0] : $first;
             $firstRelations[] = $first;
-            $this->setFirstRelation($first);
+            $this->setFirstRelation($first, $isFull);
             $this->setLastRelation($first, $last);
         }
 //        $this->originalArray = null;
@@ -203,9 +204,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     /**
      * @param string $first
+     * @param bool $isFull
      * @return void
      */
-    private function setFirstRelation(string $first)
+    private function setFirstRelation(string $first, bool $isFull)
     {
         $setRelation = 'set'.ucfirst($first);
         $relationData = ($this->isFromQuery)
@@ -213,7 +215,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
             : ($this->originalArray[strToSnake($first)] ?? $this->originalArray[$first] ?? null);
 
         $relationData = $relationData ?? [];
-        $this->$setRelation($relationData);
+        $this->$setRelation($relationData, $isFull);
     }
 
     /**

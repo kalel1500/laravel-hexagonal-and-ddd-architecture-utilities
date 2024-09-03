@@ -21,6 +21,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
 {
     protected const IS_ENTITY = true;
     protected $with = null;
+    protected $isFull = false;
     protected $isPaginate;
     protected $paginationData;
 
@@ -55,7 +56,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     {
         $result = [];
         foreach ($this->items as $key => $item) {
-            $item = $item->toArrayFullDeep();
+            $item = $this->isFull ? $item->toArrayFull() : $item->toArray();
             $result[$key] = $item;
         }
         return $result;
@@ -230,12 +231,15 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
 
     /**
      * @param array|Collection $data // TODO PHP8 union types
+     * @param bool|null $isFull
      * @return static
      */
-    public static function fromRelationData($data)
+    public static function fromRelationData($data, bool $isFull = null)
     {
         $isFromQuery = !is_array($data);
-        return static::fromData($data, null, $isFromQuery);
+        $collection = static::fromData($data, null, $isFromQuery);
+        $collection->isFull = $isFull;
+        return $collection;
     }
 
     public function isPaginate(): bool
