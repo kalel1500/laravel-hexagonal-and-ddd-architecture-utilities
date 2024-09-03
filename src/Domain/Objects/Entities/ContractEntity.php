@@ -163,6 +163,8 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
         foreach ($relations as $key => $relationString) {
 
+            if (is_null($relationString)) return;
+
             if (is_array($relationString)) {
                 $first = $key;
                 $last = $relationString;
@@ -170,7 +172,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
                 $array = explode('.', $relationString);
                 $first = $array[0];
                 unset($array[0]);
-                $last = implode('.', $array);
+                $last = ($temp = implode('.', $array)) !== '' ? $temp : null;
             }
 
             $isFull = null;
@@ -213,24 +215,22 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
      */
     private function setLastRelation(string $first, $last, ?bool $isFull)
     {
-        if (!empty($last)) {
+        // if (empty($last)) return; // OLD
+        // $last = (is_array($last)) ? $last : [$last]; // OLD
 
-            $last = (is_array($last)) ? $last : [$last];
+        $isEntity = is_subclass_of($this->$first, ContractEntity::class);
+        $isCollection = is_subclass_of($this->$first, ContractCollectionEntity::class);
 
-            $isEntity = is_subclass_of($this->$first, ContractEntity::class);
-            $isCollection = is_subclass_of($this->$first, ContractCollectionEntity::class);
-//                dd($this->$first, $isEntity, $isCollection);
-            if ($isEntity) {
-                $this->$first->with($last);
-                $this->$first->isFull = $isFull;
+        if ($isEntity) {
+            $this->$first->with($last);
+            $this->$first->isFull = $isFull;
+        }
+        if ($isCollection) {
+            foreach ($this->$first as $item) {
+                $item->with($last);
+                $item->isFull = $isFull;
             }
-            if ($isCollection) {
-                foreach ($this->$first as $item) {
-                    $item->with($last);
-                    $item->isFull = $isFull;
-                }
-                $this->$first->setWith($last)->setIsFull($isFull);
-            }
+            $this->$first->setWith($last)->setIsFull($isFull);
         }
     }
 
