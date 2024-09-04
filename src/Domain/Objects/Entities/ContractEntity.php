@@ -36,11 +36,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
      * @param array|null $data
      * @param string|array|null $with
      * @param bool|null $isFull
-     * @return static|null // TODO PHP8 static return type
+     * @return static // TODO PHP8 static return type
      */
-    public static function fromArray(?array $data, $with = null, ?bool $isFull = null)
+    public static function fromArray(array $data, $with = null, ?bool $isFull = null)
     {
-        if (is_null($data)) return null;
         $self                 = static::createFromArray($data);
         $self->isFromQuery    = false;
         $self->originalArray  = $data;
@@ -54,11 +53,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
      * @param Model|object|null $item
      * @param string|array|null $with
      * @param bool|null $isFull
-     * @return static|null // TODO PHP8 static return type
+     * @return static // TODO PHP8 static return type
      */
     public static function fromObject($item, $with = null, ?bool $isFull = null)
     {
-        if (is_null($item)) return null;
         $data                   = static::createFromObject($item);
         $self                   = static::createFromArray($data);
         $self->isFromQuery      = true;
