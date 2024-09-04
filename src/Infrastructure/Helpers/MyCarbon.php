@@ -41,14 +41,8 @@ final class MyCarbon
         return MyCarbon::stringToformat($imputDate, MyCarbon::$datetime_startYear);
     }
 
-    public static function parse($date): ?CarbonImmutable
+    public static function parse($date): CarbonImmutable
     {
-        if (is_null($date) || $date === '') {
-            return null;
-        }
-        if ($date instanceof CarbonImmutable) {
-            return $date;
-        }
         return CarbonImmutable::parse($date);
     }
 
