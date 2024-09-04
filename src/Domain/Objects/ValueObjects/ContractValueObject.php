@@ -27,7 +27,7 @@ abstract class ContractValueObject
     protected $value;
 
     /**
-     * @return static // TODO PHP8 static return type
+     * @return T
      */
     public static function new($value)
     {
@@ -52,7 +52,7 @@ abstract class ContractValueObject
     }
 
     /**
-     * @return static
+     * @return T
      */
     public function toUppercase()
     {
@@ -63,7 +63,7 @@ abstract class ContractValueObject
     }
 
     /**
-     * @return static
+     * @return T
      */
     public function toLowercase()
     {
@@ -74,7 +74,7 @@ abstract class ContractValueObject
     }
 
     /**
-     * @return static
+     * @return T
      */
     public function toCamelCase()
     {
