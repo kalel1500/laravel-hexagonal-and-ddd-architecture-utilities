@@ -6,10 +6,18 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contract
 
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelInt;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIntNull;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntNullVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntVo;
 
 abstract class ContractIntVo extends ContractValueObject
 {
+    protected const CLASS_REQUIRED = IntVo::class;
+    protected const CLASS_NULLABLE = IntNullVo::class;
+    protected const CLASS_MODEL_REQUIRED = ModelInt::class;
+    protected const CLASS_MODEL_NULLABLE = ModelIntNull::class;
+
     public function __construct(?int $value)
     {
         $this->ensureIsValidValue($value);

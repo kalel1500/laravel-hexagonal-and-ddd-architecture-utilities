@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\DateVo;
 
 final class ModelDate extends DateVo
 {
+    protected const IS_MODEL = true;
 }

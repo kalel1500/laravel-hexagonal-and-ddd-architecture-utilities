@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntVo;
 
 final class ModelInt extends IntVo
 {
+    protected const IS_MODEL = true;
 }

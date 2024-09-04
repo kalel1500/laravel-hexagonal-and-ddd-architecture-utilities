@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\Co
 
 final class ModelIdNull extends ContractModelId
 {
+    protected const IS_MODEL = true;
 }

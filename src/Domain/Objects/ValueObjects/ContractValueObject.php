@@ -7,8 +7,17 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractBoolVo;
 
+/**
+ * @template T of ContractValueObject
+ */
 abstract class ContractValueObject
 {
+    protected const IS_MODEL = false;
+    protected const CLASS_REQUIRED = null;
+    protected const CLASS_NULLABLE = null;
+    protected const CLASS_MODEL_REQUIRED = null;
+    protected const CLASS_MODEL_NULLABLE = null;
+
     protected $allowNull = true;
     protected $reasonNullNotAllowed = null;
 
@@ -73,6 +82,24 @@ abstract class ContractValueObject
             $this->value = strToCamelCase($this->value);
         }
         return $this;
+    }
+
+    /**
+     * @return T
+     */
+    public function toNull()
+    {
+        $class = static::IS_MODEL ? static::CLASS_MODEL_NULLABLE : static::CLASS_NULLABLE;
+        return $class::new($this->value);
+    }
+
+    /**
+     * @return T
+     */
+    public function toNotNull()
+    {
+        $class = static::IS_MODEL ? static::CLASS_MODEL_REQUIRED : static::CLASS_REQUIRED;
+        return $class::new($this->value);
     }
 
     protected function checkAllowNull($value): void

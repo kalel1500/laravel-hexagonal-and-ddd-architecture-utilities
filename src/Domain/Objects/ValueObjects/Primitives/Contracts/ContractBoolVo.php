@@ -6,9 +6,22 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contract
 
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelBool;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelBoolNull;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelDate;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelDateNull;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\BoolNullVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\BoolVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\DateNullVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\DateVo;
 
 abstract class ContractBoolVo extends ContractValueObject
 {
+    protected const CLASS_REQUIRED = BoolVo::class;
+    protected const CLASS_NULLABLE = BoolNullVo::class;
+    protected const CLASS_MODEL_REQUIRED = ModelBool::class;
+    protected const CLASS_MODEL_NULLABLE = ModelBoolNull::class;
+
     public function __construct($value)
     {
         $this->ensureIsValidValue($value);

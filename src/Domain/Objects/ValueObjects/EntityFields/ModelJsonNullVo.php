@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonNullVo;
 
 final class ModelJsonNullVo extends JsonNullVo
 {
+    protected const IS_MODEL = true;
 }

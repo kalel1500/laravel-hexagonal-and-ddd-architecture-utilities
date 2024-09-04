@@ -6,9 +6,18 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contract
 
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelJsonNullVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelJsonVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonNullVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonVo;
 
 abstract class ContractJsonVo extends ContractValueObject
 {
+    protected const CLASS_REQUIRED = JsonVo::class;
+    protected const CLASS_NULLABLE = JsonNullVo::class;
+    protected const CLASS_MODEL_REQUIRED = ModelJsonVo::class;
+    protected const CLASS_MODEL_NULLABLE = ModelJsonNullVo::class;
+
     protected $allowStringInformatable = true;
 
     protected $arrayValue = null;
