@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\StringVo;
 
 final class ModelString extends StringVo
 {
+    protected const IS_MODEL = true;
 }

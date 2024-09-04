@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonVo;
 
 final class ModelJsonVo extends JsonVo
 {
+    protected const IS_MODEL = true;
 }

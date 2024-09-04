@@ -5,10 +5,19 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
 
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelDate;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelDateNull;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\DateNullVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\DateVo;
 use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
 
 abstract class ContractDateVo extends ContractStringVo
 {
+    protected const CLASS_REQUIRED = DateVo::class;
+    protected const CLASS_NULLABLE = DateNullVo::class;
+    protected const CLASS_MODEL_REQUIRED = ModelDate::class;
+    protected const CLASS_MODEL_NULLABLE = ModelDateNull::class;
+
     private $format;
 
     public function __construct(?string $value, bool $isDatetime = true)

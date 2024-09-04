@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\BoolVo;
 
 final class ModelBool extends BoolVo
 {
+    protected const IS_MODEL = true;
 }

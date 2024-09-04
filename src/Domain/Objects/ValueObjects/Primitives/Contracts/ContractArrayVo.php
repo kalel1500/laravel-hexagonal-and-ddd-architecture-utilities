@@ -8,9 +8,18 @@ use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelArray;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelArrayNull;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayNullVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayVo;
 
 abstract class ContractArrayVo extends ContractValueObject implements ArrayAccess, IteratorAggregate
 {
+    protected const CLASS_REQUIRED = ArrayVo::class;
+    protected const CLASS_NULLABLE = ArrayNullVo::class;
+    protected const CLASS_MODEL_REQUIRED = ModelArray::class;
+    protected const CLASS_MODEL_NULLABLE = ModelArrayNull::class;
+
     public function __construct(?array $value)
     {
         $this->value = $value;

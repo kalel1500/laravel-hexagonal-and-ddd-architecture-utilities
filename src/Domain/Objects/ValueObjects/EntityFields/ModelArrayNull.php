@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayNullVo;
 
 final class ModelArrayNull extends ArrayNullVo
 {
+    protected const IS_MODEL = true;
 }

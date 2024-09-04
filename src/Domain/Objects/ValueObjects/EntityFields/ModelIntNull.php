@@ -8,4 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntNullVo;
 
 final class ModelIntNull extends IntNullVo
 {
+    protected const IS_MODEL = true;
 }

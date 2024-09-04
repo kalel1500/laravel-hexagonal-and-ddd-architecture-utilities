@@ -8,6 +8,8 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\Co
 
 final class ModelId extends ContractModelId
 {
+    protected const IS_MODEL = true;
+
     public function __construct(int $value)
     {
         parent::__construct($value);
