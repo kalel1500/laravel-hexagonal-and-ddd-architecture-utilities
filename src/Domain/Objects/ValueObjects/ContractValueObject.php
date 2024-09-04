@@ -42,14 +42,37 @@ abstract class ContractValueObject
         return !$this->isNull();
     }
 
-    public function toUppercase(): ?string
+    /**
+     * @return static
+     */
+    public function toUppercase()
     {
-        return ($this->isNull()) ? null : strtoupper($this->value());
+        if ($this->isNotNull()) {
+            $this->value = strtoupper($this->value);
+        }
+        return $this;
     }
 
-    public function toLowercase(): ?string
+    /**
+     * @return static
+     */
+    public function toLowercase()
     {
-        return ($this->isNull()) ? null : strtolower($this->value());
+        if ($this->isNotNull()) {
+            $this->value = strtolower($this->value);
+        }
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function toCamelCase()
+    {
+        if ($this->isNotNull()) {
+            $this->value = strToCamelCase($this->value);
+        }
+        return $this;
     }
 
     protected function checkAllowNull($value): void
