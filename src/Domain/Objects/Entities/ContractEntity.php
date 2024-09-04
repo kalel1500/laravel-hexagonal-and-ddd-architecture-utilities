@@ -30,7 +30,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
      * @param Model|object $item
      * @return array
      */
-    abstract protected static function createFromObject($item): array;
+    protected static function createFromObject($item): array
+    {
+        return [];
+    }
 
     /**
      * @param array|null $data
