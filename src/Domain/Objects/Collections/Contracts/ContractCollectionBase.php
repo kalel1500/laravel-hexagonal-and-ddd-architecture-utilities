@@ -478,7 +478,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         }) ? $this->toBase($resultArray) : $this->toOriginal($resultArray);
     }
 
-    public function flatten(int $depth = INF)
+    public function flatten($depth = INF)
     {
         $collResult = collFlatten($this->toArray(), $depth)->values();
         return $this->toOriginal($collResult->toArray());

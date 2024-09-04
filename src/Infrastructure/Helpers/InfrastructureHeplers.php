@@ -497,7 +497,7 @@ if (!function_exists('collSelect')) {
 }
 
 if (!function_exists('collFlatten')) {
-    function collFlatten(array $array, int $depth = INF)
+    function collFlatten(array $array, $depth = INF)
     {
         return collect($array)->flatten($depth);
     }
