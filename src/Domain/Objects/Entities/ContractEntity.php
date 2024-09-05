@@ -7,6 +7,7 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\Entities;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
 use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
+use Thehouseofel\Hexagonal\Domain\Exceptions\NotFoundRelationDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 
 abstract class ContractEntity implements Arrayable, JsonSerializable
@@ -203,11 +204,16 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     private function setFirstRelation(string $first)
     {
         $setRelation = 'set'.ucfirst($first);
-        $relationData = ($this->isFromQuery)
-            ? $this->originalObject->$first
-            : ($this->originalArray[strToSnake($first)] ?? $this->originalArray[$first] ?? null);
+        if ($this->isFromQuery) {
+            $relationData = $this->originalObject->$first;
+        } else {
+            $relationName = strToSnake($first);
+            if (!array_key_exists($relationName, $this->originalArray)) {
+                throw new NotFoundRelationDefinitionException($relationName,static::class);
+            }
+            $relationData = $this->originalArray[$relationName];
+        }
 
-        $relationData = $relationData ?? [];
         $this->$setRelation($relationData);
     }
 
