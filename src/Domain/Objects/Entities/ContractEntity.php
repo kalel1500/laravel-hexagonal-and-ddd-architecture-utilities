@@ -71,14 +71,16 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     }
 
     /**
-     * @param array|Model $value // TODO PHP8 union types
-     * @return static // TODO PHP8 static return type
+     * @param array|Model|null $value // TODO PHP8 union types
+     * @return static|null // TODO PHP8 static return type
      */
     public static function fromRelationData($value)
     {
-        return (is_array($value))
-            ? static::fromArray($value)
-            : static::fromObject($value);
+        return (is_null($value))
+            ? null
+            : ((is_object($value))
+                ? static::fromObject($value)
+                : static::fromArray($value));
     }
 
     abstract protected function toArrayProperties(): array;
