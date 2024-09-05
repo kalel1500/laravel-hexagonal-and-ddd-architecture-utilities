@@ -109,11 +109,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         if ($this->withFull) {
             foreach ($this->withFull as $key => $rel) {
                 $relation = (is_array($rel)) ? $key : $rel;
-//                $isFull = true;
-                if (str_contains($relation, ':')) {
-                    [$relation, $flag] = explode(':', $relation);
-//                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
-                }
+                [$relation, $isFull] = getInfoFromRelationWithFlag($relation);
                 $relationData = optional($this->$relation())->toArray(); // TODO PHP8 - nullsafe operator
                 $data[strToSnake($relation)] = $relationData;
             }
@@ -181,10 +177,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
             $isFull = null;
             $firstFull = $first;
-            if (str_contains($first, ':')) {
-                [$first, $flag] = explode(':', $first);
-                $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
-            }
+            [$first, $isFull] = getInfoFromRelationWithFlag($first, $isFull);
 
             $firstRelations[] = $first;
             $firstRelationsFull[] = $firstFull;
