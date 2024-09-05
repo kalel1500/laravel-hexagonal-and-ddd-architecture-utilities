@@ -40,25 +40,4 @@ abstract class DomainBaseException extends RuntimeException
         // Guardar código y montar estructura del Json a devolver // INFO kalel1500 - mi_estructura_de_respuesta
         $this->exceptionData = getExceptionData($e, $data, $success);
     }
-
-    /**
-     * @param  Request  $request
-     * @return JsonResponse|Response|null
-     */
-    public function render(Request $request)
-    {
-        if ($request->expectsJson() || urlContainsAjax()) {
-            return response()->json($this->exceptionData->toArray(), $this->exceptionData->code());
-        }
-
-        if (appIsInDebugMode()) {
-            return null;
-        }
-
-        return response()->view('hexagonal::custom-error', [
-            'code'    => $this->exceptionData->code(),
-            'message' => $this->exceptionData->message(),
-            'data'    => $this->exceptionData->data(),
-        ], $this->exceptionData->code());
-    }
 }
