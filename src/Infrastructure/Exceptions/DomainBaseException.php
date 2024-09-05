@@ -35,9 +35,9 @@ abstract class DomainBaseException extends RuntimeException
         parent::__construct($message, $code, $previous);
 
         // Establecer la excepción
-        $e = ($previous instanceof Throwable) ? $previous : $this;
+//        $e = ($previous instanceof Throwable) ? $previous : $this;
 
         // Guardar código y montar estructura del Json a devolver // INFO kalel1500 - mi_estructura_de_respuesta
-        $this->exceptionData = getExceptionData($e, $data, $success);
+        $this->exceptionData = getExceptionData($this, $data, $success);
     }
 }
