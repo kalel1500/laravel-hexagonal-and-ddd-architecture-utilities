@@ -24,8 +24,8 @@ abstract class DomainBaseException extends RuntimeException
      * @param Throwable|null $previous
      */
     public function __construct(
-        string $message,
-        int $code,
+        string $message = "",
+        int $code = 0,
         ?array $data = null,
         bool $success = false,
         ?Throwable $previous = null
