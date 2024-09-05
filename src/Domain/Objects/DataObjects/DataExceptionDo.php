@@ -85,6 +85,11 @@ final class DataExceptionDo extends ContractDataObject
         return $this->previous;
     }
 
+    public function getPreviousData(): ?DataExceptionDo
+    {
+        return is_null($this->previous) ? null : getExceptionData($this->previous);
+    }
+
     public function toArrayForProd(): array
     {
         return [
@@ -104,6 +109,7 @@ final class DataExceptionDo extends ContractDataObject
             'file'      => $this->file,
             'line'      => $this->line,
             'trace'     => $this->trace,
+            'previous'  => optional($this->getPreviousData())->toArrayForDebug(),
         ];
     }
 
