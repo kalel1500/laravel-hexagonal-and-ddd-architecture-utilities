@@ -225,7 +225,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      */
     public static function fromRelationData($data)
     {
-        $isFromQuery = !is_array($data);
+        $isFromQuery = is_object($data);
         return static::fromData($data, null, null, $isFromQuery);
     }
 
