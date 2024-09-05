@@ -605,27 +605,19 @@ if (!function_exists('getSubWith')) {
         $newWith = null;
         $newIsFull = null;
         foreach ($with as $key => $rel) {
-            $compareKey = is_array($rel);
-            if ($compareKey) {
-                if ((str_contains($key, ':'))) {
-                    [$key, $flag] = explode(':', $key);
-                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
-                }
+
+            if (is_string($key)) {
+                [$key, $isFull] = getInfoFromRelationWithFlag($key, $isFull);
 
                 if ($key === $relationName) {
                     $newWith = $rel;
                     $newIsFull = $isFull;
                     break;
                 }
-            }
-            if (!$compareKey) {
+            } else {
                 $arrayRels = explode('.', $rel);
                 $firstRel = $arrayRels[0];
-
-                if ((str_contains($firstRel, ':'))) {
-                    [$firstRel, $flag] = explode(':', $firstRel);
-                    $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
-                }
+                [$firstRel, $isFull] = getInfoFromRelationWithFlag($firstRel, $isFull);
 
                 if ($firstRel === $relationName) {
                     unset($arrayRels[0]);
@@ -637,6 +629,22 @@ if (!function_exists('getSubWith')) {
         }
         $newWith = (empty($newWith)) ? null : $newWith;
         return SubRelationDataDo::fromArray([$newWith, $newIsFull]);
+    }
+}
+
+if (!function_exists('getInfoFromRelationWithFlag')) {
+    /**
+     * @param string $relation
+     * @param bool|null $isFull
+     * @return array{string, ?bool}
+     */
+    function getInfoFromRelationWithFlag(string $relation, ?bool $isFull = null): array
+    {
+        if (str_contains($relation, ':')) {
+            [$relation, $flag] = explode(':', $relation);
+            $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+        }
+        return [$relation, $isFull];
     }
 }
 
