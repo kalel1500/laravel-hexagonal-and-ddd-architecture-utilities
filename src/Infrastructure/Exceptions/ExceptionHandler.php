@@ -31,6 +31,24 @@ final class ExceptionHandler
                 return $response;
             });
 
+            // Renderizar nuestras excepciones de dominio
+            $exceptions->render(function (DomainBaseException $e, Request $request) {
+
+                // Comprobar si hay que devolver un json
+                if ($request->expectsJson() || urlContainsAjax()) {
+                    return response()->json($e->exceptionData->toArray(), $e->exceptionData->code());
+                }
+
+                if (appIsInDebugMode()) {
+                    return null;
+                }
+
+                return response()->view('hexagonal::custom-error', [
+                    'code'    => $e->exceptionData->code(),
+                    'message' => $e->exceptionData->message(),
+                    'data'    => $e->exceptionData->data(),
+                ], $e->exceptionData->code());
+            });
         };
     }
 }
