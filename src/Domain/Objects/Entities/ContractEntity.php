@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
 use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
 use Thehouseofel\Hexagonal\Domain\Exceptions\NotFoundRelationDefinitionException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\UnsetRelationException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 
 abstract class ContractEntity implements Arrayable, JsonSerializable
@@ -240,5 +241,18 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     public function jsonSerialize(): array
     {
         return $this->toArray();
+    }
+
+    public function getRelation(string $name)
+    {
+        if (!property_exists($this, $name)) {
+            throw new UnsetRelationException($name, static::class);
+        }
+        return $this->$name;
+    }
+
+    public function setRelation($data, string $name, string $class)
+    {
+        $this->$name = $class::fromRelationData($data);
     }
 }
