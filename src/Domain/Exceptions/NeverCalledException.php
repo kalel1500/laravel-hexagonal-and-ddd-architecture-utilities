@@ -17,6 +17,7 @@ final class NeverCalledException extends BasicException
         ?Throwable $previous = null
     )
     {
+        $message = 'INTERNAL ERROR: '.$message;
         parent::__construct($message, $code, null, false, $previous); // TODO PHP8 - Named params (pasar solo el $previous)
     }
 }
