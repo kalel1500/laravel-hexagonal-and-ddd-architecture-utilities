@@ -43,6 +43,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Calculated properties of entities
+    |--------------------------------------------------------------------------
+    |
+    | With this option you can configure how entity relationships should behave
+    | by default. When you instantiate an entity with relationships, each entity
+    | can be generated in a simple way with only its basic properties or in a
+    | complete way by adding the calculated properties. This can be indicated every
+    | time an entity is created as a third parameter and also in the relationships
+    | with the flag 's' (simple) or 'f' (full).
+    |
+    | With this option you can indicate how entities should behave by default.
+    |
+    | Supported values: "f", "s"
+    |
+    */
+
+    'entity_calculated_props_mode' => env('HEXAGONAL_ENTITY_CALCULATED_PROPS_MODE', 's'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Jobs
     |--------------------------------------------------------------------------
     |

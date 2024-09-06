@@ -102,7 +102,8 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     public function toArray(): array
     {
-        $data = (is_null($this->isFull) || $this->isFull === true)
+        [$relation, $defaultIsFull] = getInfoFromRelationWithFlag('flag:'.config('hexagonal.entity_calculated_props_mode'));
+        $data = ($defaultIsFull || $this->isFull === true)
             ? array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps())
             : $this->toArrayProperties();
 
