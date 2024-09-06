@@ -87,6 +87,32 @@ abstract class ContractValueObject
     /**
      * @return T
      */
+    public function toNoSpaces()
+    {
+        if ($this->isNotNull()) {
+            $this->value = str_replace(' ', '', $this->value);
+        }
+        return $this;
+    }
+
+    /**
+     * @return T
+     */
+    public function toCleanString()
+    {
+        if ($this->isNotNull()) {
+            // Eliminar acentos y convertir a caracteres sin tildes
+            $this->value = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $this->value);
+
+            // Eliminar caracteres especiales excepto letras y números
+            $this->value = preg_replace('/[^A-Za-z0-9 ]/', '', $this->value);
+        }
+        return $this;
+    }
+
+    /**
+     * @return T
+     */
     public function toNull()
     {
         $class = static::IS_MODEL ? static::CLASS_MODEL_NULLABLE : static::CLASS_NULLABLE;
