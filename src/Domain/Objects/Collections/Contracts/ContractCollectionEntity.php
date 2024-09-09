@@ -186,6 +186,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
                 'page',
                 '--'
             );
+            $data = $data['data'];
         }
         return self::fromData($data, $with, $isFull, false, $isPaginate, $paginationData);
     }
