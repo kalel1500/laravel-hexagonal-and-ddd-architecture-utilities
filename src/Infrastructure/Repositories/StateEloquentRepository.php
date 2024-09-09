@@ -6,11 +6,11 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Repositories;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Exceptions\DatabaseQueryException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\StateCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\StateEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckFieldVo;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\EnumDynamicVo;
 use Thehouseofel\Hexagonal\Infrastructure\Models\State;
 
@@ -62,7 +62,7 @@ final class StateEloquentRepository implements StateRepositoryContract
                 ->firstOrFail();
             return StateEntity::fromArray($eloquentResult->toArray());
         } catch (ModelNotFoundException $e) {
-            throw new DatabaseQueryException($e->getMessage());
+            throw new RecordNotFoundException($e->getMessage());
         }
     }
 }

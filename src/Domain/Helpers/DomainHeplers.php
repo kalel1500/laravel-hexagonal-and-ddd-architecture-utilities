@@ -3,14 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Arr;
-use Thehouseofel\Hexagonal\Domain\Exceptions\CustomException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\DomainException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\GeneralException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\CollectionAny;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\DataExceptionDo;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\SubRelationDataDo;
-use Thehouseofel\Hexagonal\Infrastructure\Exceptions\DomainBaseException;
 
 if (!function_exists('dashesToCamelCase')) {
     function dashesToCamelCase($string, $capitalizeFirstCharacter = false)
@@ -290,7 +289,7 @@ if (!function_exists('abortC')) {
         ?Throwable $previous = null
     ): void
     {
-        throw new CustomException($message, $code, $data, $success, $previous);
+        throw new GeneralException($code, $message, $previous, $data, $success);
     }
 }
 
@@ -318,34 +317,6 @@ if (!function_exists('abortC_if')) {
         if ($condition) {
             abortC($code, $message, $data, $success, $previous);
         }
-    }
-}
-
-if (!function_exists('getExceptionData')) {
-    function getExceptionData(Throwable $e, ?array $data = null, bool $success = false): DataExceptionDo
-    {
-        if (isDomainException($e) && isset($e->exceptionData)) {
-            return $e->exceptionData;
-        }
-
-        $code = $e->getCode();
-        $code = ($code === 0 && $e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) ? $e->getStatusCode() : $code;
-        $code = (!is_int($code)) ? 500 : $code;
-        $code = ($code === 0) ? 500 : $code;
-        $trace = collect($e->getTrace())->map(function ($trace) {
-            return Arr::except($trace, ['args']);
-        })->all();
-        return new DataExceptionDo(
-            $code,
-            $success,
-            getExceptionMessage($e),
-            $data,
-            get_class($e),
-            $e->getFile(),
-            $e->getLine(),
-            $trace,
-            $e->getPrevious()
-        );
     }
 }
 
@@ -390,8 +361,7 @@ if (!function_exists('isDomainException')) {
      */
     function isDomainException(Throwable $e): bool
     {
-//        return (($e instanceof \DomainException) || ($e instanceof CustomException));
-        return (($e instanceof DomainBaseException));
+        return ($e instanceof DomainException);
     }
 }
 
@@ -560,15 +530,6 @@ if (!function_exists('isBlank')) {
         }
 
         return empty($value);
-    }
-}
-
-if (!function_exists('getExceptionMessage')) {
-    function getExceptionMessage(Throwable $e): string
-    {
-        return (isDomainException($e) || appIsInDebugMode())
-            ? $e->getMessage()
-            : __('serverError');
     }
 }
 

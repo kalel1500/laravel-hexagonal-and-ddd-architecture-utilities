@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\EnvVo;
 use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
 
@@ -342,8 +343,8 @@ if (! function_exists('responseJsonError')) {
     function responseJsonError(Throwable $e, bool $throwInDebugMode = true): JsonResponse
     {
         // INFO kalel1500 - mi_estructura_de_respuesta
-        $exceptionData = getExceptionData($e);
-        return response()->json($exceptionData->toArray($throwInDebugMode), $exceptionData->code());
+        $exceptionData = ExceptionContextDo::from($e);
+        return response()->json($exceptionData->toArray($throwInDebugMode), $exceptionData->getStatusCode());
     }
 }
 
