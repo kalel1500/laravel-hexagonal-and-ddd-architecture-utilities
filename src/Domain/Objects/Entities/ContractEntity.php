@@ -153,11 +153,11 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     /**
      * @param string|array $relations
-     * @return void
+     * @return $this
      */
     public function with($relations)
     {
-        if (!$relations) return;
+        if (!$relations) return $this;
 
         $relations = is_array($relations) ? $relations : [$relations];
         $firstRelations = [];
@@ -165,7 +165,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
         foreach ($relations as $key => $rel) {
 
-            if (is_null($rel)) return;
+            if (is_null($rel)) continue;
 
             $currentRel = ($isKey = is_string($key)) ? $key : $rel;
 
@@ -191,6 +191,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 //        $this->originalArray = null;
         $this->with = $firstRelations;
         $this->withFull = $firstRelationsFull;
+        return $this;
     }
 
     /**
