@@ -167,19 +167,16 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
             if (is_null($rel)) return;
 
-            if (is_string($key)) {
-                $currentRels = explode('.', $key);
-                $first = $currentRels[0];
-                unset($currentRels[0]);
-                $last = ($temp = implode('.', $currentRels)) !== ''
-                    ? [$temp => $rel]
-                    : $rel;
-            } else {
-                $currentRels = explode('.', $rel);
-                $first = $currentRels[0];
-                unset($currentRels[0]);
-                $last = ($temp = implode('.', $currentRels)) !== '' ? $temp : null;
-            }
+            $currentRel = ($isKey = is_string($key)) ? $key : $rel;
+
+            $currentRels = explode('.', $currentRel);
+            $first = $currentRels[0];
+            unset($currentRels[0]);
+            $hasRelsAfterPoint = ($relsAfterPoint = implode('.', $currentRels)) !== '';
+
+            $last = ($isKey)
+                ? ($hasRelsAfterPoint ? [$relsAfterPoint => $rel] : $rel)
+                : ($hasRelsAfterPoint ? $relsAfterPoint : null);
 
             $isFull = null;
             $firstFull = $first;
