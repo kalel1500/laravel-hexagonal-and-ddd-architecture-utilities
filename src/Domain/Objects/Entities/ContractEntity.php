@@ -163,18 +163,22 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         $firstRelations = [];
         $firstRelationsFull = [];
 
-        foreach ($relations as $key => $relationString) {
+        foreach ($relations as $key => $rel) {
 
-            if (is_null($relationString)) return;
+            if (is_null($rel)) return;
 
-            if (is_array($relationString)) {
-                $first = $key;
-                $last = $relationString;
+            if (is_string($key)) {
+                $currentRels = explode('.', $key);
+                $first = $currentRels[0];
+                unset($currentRels[0]);
+                $last = ($temp = implode('.', $currentRels)) !== ''
+                    ? [$temp => $rel]
+                    : $rel;
             } else {
-                $array = explode('.', $relationString);
-                $first = $array[0];
-                unset($array[0]);
-                $last = ($temp = implode('.', $array)) !== '' ? $temp : null;
+                $currentRels = explode('.', $rel);
+                $first = $currentRels[0];
+                unset($currentRels[0]);
+                $last = ($temp = implode('.', $currentRels)) !== '' ? $temp : null;
             }
 
             $isFull = null;
