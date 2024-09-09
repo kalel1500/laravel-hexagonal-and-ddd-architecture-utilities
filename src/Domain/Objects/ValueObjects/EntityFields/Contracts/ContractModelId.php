@@ -11,6 +11,11 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 abstract class ContractModelId extends ContractIntVo
 {
+    protected const CLASS_REQUIRED = null;
+    protected const CLASS_NULLABLE = null;
+    protected const CLASS_MODEL_REQUIRED = ModelId::class;
+    protected const CLASS_MODEL_NULLABLE = ModelIdNull::class;
+
     public function __construct(?int $value)
     {
         parent::__construct($value);
