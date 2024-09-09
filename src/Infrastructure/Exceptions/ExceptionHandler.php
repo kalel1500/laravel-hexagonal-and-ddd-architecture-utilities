@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Infrastructure\Exceptions;
 
+use Illuminate\Contracts\Foundation\ExceptionRenderer;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\DomainException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
 use Throwable;
 
 final class ExceptionHandler
@@ -31,23 +36,34 @@ final class ExceptionHandler
                 return $response;
             });
 
+            // Sobreescribir todos los ModelNotFoundException por DatabaseQueryException para que los metodos findOrFail() lanzen un error de dominio
+            /*$exceptions->render(function (NotFoundHttpException $e, Request $request) {
+                $exception = $e->getPrevious();
+                if ($exception instanceof ModelNotFoundException) {
+                    throw new RecordNotFoundException($exception->getMessage(), $exception);
+                }
+            });*/
+
             // Renderizar nuestras excepciones de dominio
-            $exceptions->render(function (DomainBaseException $e, Request $request) {
+            $exceptions->render(function (DomainException $e, Request $request) {
+                $context = $e->getContext();
 
                 // Comprobar si hay que devolver un json
                 if ($request->expectsJson() || urlContainsAjax()) {
-                    return response()->json($e->exceptionData->toArray(), $e->exceptionData->code());
+                    return response()->json($context->toArray(), $context->getStatusCode());
                 }
 
                 if (appIsInDebugMode()) {
                     return null;
+                    // $content = app(ExceptionRenderer::class)->render($e); // $context->previous()
+                    // return response($content, $context->getStatusCode());
                 }
 
                 return response()->view('hexagonal::custom-error', [
-                    'code'    => $e->exceptionData->code(),
-                    'message' => $e->exceptionData->message(),
-                    'data'    => $e->exceptionData->data(),
-                ], $e->exceptionData->code());
+                    'code'    => $context->getStatusCode(),
+                    'message' => $context->message(),
+                    'data'    => $context->data(),
+                ], $context->getStatusCode());
             });
         };
     }

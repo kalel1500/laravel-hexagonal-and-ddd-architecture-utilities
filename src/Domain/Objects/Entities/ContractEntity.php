@@ -7,8 +7,8 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\Entities;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
 use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
-use Thehouseofel\Hexagonal\Domain\Exceptions\NotFoundRelationDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\UnsetRelationException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\NotFoundRelationDefinitionException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\UnsetRelationException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 
 abstract class ContractEntity implements Arrayable, JsonSerializable
