@@ -45,6 +45,16 @@ final class ArrayTabulatorFiltersVo extends ContractArrayVo
         $this->checkFilterTime($isRequiredFilterTime);
     }
 
+    public static function new(
+        $value,
+        string $filterTimeName = 'null',
+        bool $isRequired = false,
+        bool $isRequiredFilterTime = false
+    )
+    {
+        return new ArrayTabulatorFiltersVo($value, $filterTimeName, $isRequired, $isRequiredFilterTime);
+    }
+
     /**
      * @param array|string|null $value
      * @return void
