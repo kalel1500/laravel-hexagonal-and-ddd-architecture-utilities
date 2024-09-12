@@ -1,6 +1,76 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.5.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.6.0-beta.1...master)
+
+## [v1.6.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.5.0-beta.1...v1.6.0-beta.1) - 2024-09-10
+
+### Added
+
+* Nuevos métodos `toNoSpaces()` y `toCleanString()` en `ContractValueObject`.
+* Nuevos métodos `formatToSpainDatetime()` y `carbon()` en `ContractDateVo`
+* Nuevos métodos `toNull()` y `toNotNull()` en `ContractValueObject` (y nuevas constantes para guardar las clases y hacer el cálculo).
+* Nuevo método `toCamelCase()` en `ContractValueObject`.
+* Nuevo método `toArrayCalculatedProps` en `ContractEntity` para poder sobreescribirlo y definir las propiedades calculadas.
+* Nuevo método `clearString` en la clase `ContractStringVo` para hacer que si se recibe un string vacío, se asigne el valor `null`.
+* Registrar en el `ServiceProvider` la relación entre la interfaz del StateRepository y su implementación (en el array de `$singletons`) para no tener que hacerlo en la aplicación.
+* Nuevo método `from()` en la clase `ContractModelId` + utilizarlo en lugar del `new ModelIdNull` en las entidades.
+
+### Changed
+
+* Sobreescribir método `new()` en el ArrayTabulatorFiltersVo para poder pasarle todos los parámetros que tiene el constructor.
+* Permitir que al definir las relaciones, si son asociativas, la key pueda tener varias con punto. Ej: `[relOne.SubRel1 => [SubRel2, SubRel3]`.
+* Ordenar y documentar las variables de entorno del archivo de configuración del paquete.
+* Rediseño completo de la gestión de errores:
+    * Ordenar y documentar código del `ExceptionHandler`.
+    * Mover renderizado de las excepciones del dominio al `ExceptionHandler`.
+    * Añadir información previous al `toArrayForDebug`.
+    * Permitir que el $message y el `$code` sean opcionales en el `DomainBaseException`.
+    * No hacer que el `previous` sobreescriba la información de la excepción actual.
+    * Modificar mensajes de error de las excepciones.
+    * Implementar bien la Hexagonal.
+    * Excepciones ordenadas y renombradas.
+    * Parámetros ordenados y simplificados.
+    * Nuevo parámetro `$statusCode` en las excepciones para no usar el `$code` que no es para eso.
+    * Los códigos HTTP se definen en las excepciones en lugar de pasarlo cada vez (asi por cada ex se controla su code).
+    * Lógica `getExceptionData()` y `getExceptionMessage()` movida al DTO `ExceptionContextDo`.
+    * Clase `CustomException` renombrada a `GeneralException`.
+    * `ExceptionHandler` mejorado con el `getStatusCode()` del contexto.
+    * Nuevo código comentado en el `ExceptionHandler` para en un futuro poder sobreescribir otras excepciones (database).
+    * Nuevo código comentado en el `ExceptionHandler` para en un futuro poder sobreescribir el renderizado de la vista de errores (por si se quiere pasar una excepción previa).
+    * Ahora el `responseJsonError()` ya no hace falta para las excepciones de dominio (y para las otras casi tampoco).
+* Mejorar método `MyCarbon::parse()` para que no devuelva `null`.
+* Hacer que el método `createFromObject()` de la clase `ContractEntity` no sea obligatorio.
+* Modificar métodos `toUppercase()` y `toLowercase()` de `ContractValueObject`.
+* No permitir ni devolver null en el `fromArray()` y `fromObject()`.
+* Rediseño completo del funcionamiento de las Entidades y sus relaciones:
+  * Una entidad solo tiene que tener sus propiedades en el constructor (ni relaciones ni propiedades calculadas en eloquent).
+  * En lugar de recibir los cálculos de eloquent, se definirán en la entidad utilizando las relaciones definidas también en la entidad.
+  * Se ha creado el nuevo método `toArrayCalculatedProps()` para separar los campos de las propiedades calculadas y poder decidir si traerlas o no al crear las entidades y relaciones.
+  * Nuevos métodos `getRelation()` y `setRelation()` `ContractEntity` para poder definir mejor las relaciones en las entidades y no tener que definir una propiedad para cada relación.
+  * Al crear las entidades y colecciones se podrá pasar el parámetro `$isFull` para indicar si se tiene que traer las propiedades calculadas.
+  * Al crear las entidades y colecciones, en las relaciones se podrá añadir un flag para indicar si son full o no. Ej.: `OneEntityCollection::fromArray($data, ['relOne:f', 'relTwo:s', 'relThree:f.subRelOne:s'])`.
+  * Se ha definido la variable de entorno `HEXAGONAL_ENTITY_CALCULATED_PROPS_MODE` para definir si como se comportan las relaciones por defecto cuando no se indica el flag.
+* Mejorar la lógica del método `pluck()` de la clase `ContractCollectionBase`.
+* Utilizar las nuevas interfaces en el método `getItemToArray()` y hacer el código más legible.
+* Renombrar método `toArrayWithAll` por `toArrayForBuild` en la clase `ContractDataObject` (nueva interfaz `BuildArrayable` para indicar que la clase debe contener el método `toArrayForBuild()`).
+* Renombrar interfaces: `MyArrayableContract` a `Arrayable` y `ExportableEntityC` a `ExportableEntity`.
+* Modificar firma métodos de `ContractCollectionEntity` y `ContractEntity`, para permitir que se pueda recibir un string en lugar de un array en el parámetro `$with`.
+* Dejar que se cree la relación vacía si no hay datos en el método `with()` de la clase `ContractEntity`.
+* Cambiar el `new ModelIdNull(...)` de las entidades por el `ModelId::from(...)` para que solo se cree la instancia `ModelIdNull` si el valor recibido es null y de lo contrario se cree la instancia de `ModelId`.
+
+### Removed
+
+* Eliminar método `toArrayForJs()` de la clase `ContractDataObject`.
+* Eliminar `FindStateByCodeUseCase` de infraestructura y mover lógica a `StateDataService` en el dominio.
+* Eliminar el método `toModelId` de la clase `ModelIdNull`.
+
+### Fixed
+
+* Solucionado error en el método `fromArray()` cuando recibimos una paginación (no se estaba setenado bien el `$data` tras guardar los datos de la paginación).
+* Solucionar error de tipo en el método `flatten()` de `ContractCollectionBase`.
+* Quitar lógica duplicada:
+  * Quitar parámetro `$last` método `setFirstRelation()` de la clase `ContractEntity` y no pasarlo al método `$setRelation()` de cada entidad (ya que de esto se encarga el método `setLastRelation()`).
+  * Quitar parámetro `$with` método `fromRelationData()` de la clase `ContractCollectionEntity`, ya que, los métodos `set...()` de las entidades que llaman a este método ya no reciben en `$with`.
 
 ## [v1.5.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.3...v1.5.0-beta.1) - 2024-08-16
 
