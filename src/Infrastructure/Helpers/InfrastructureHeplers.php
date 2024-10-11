@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -29,6 +30,62 @@ if (!function_exists('showActiveClass')) {
         } else {
             return ($routeName === $value && isset($param) && $param === $paramValue);
         }
+    }
+}
+
+if (!function_exists('isRouteActive')) {
+    function isRouteActive($url): bool
+    {
+        $currentUrl = Request::fullUrl();
+        return $currentUrl === $url;
+    }
+}
+
+if (!function_exists('dropdownIsOpen')) {
+    function dropdownIsOpen($htmlLinks): bool
+    {
+        $currentUrl = Request::fullUrl();
+        // Expresión regular para encontrar todos los href en los enlaces
+        preg_match_all('/<a\s+href=["\']([^"\']+)["\']/', $htmlLinks, $matches);
+        $hrefs = $matches[1]; // $matches[1] contiene todos los href encontrados
+        return in_array($currentUrl, $hrefs); // Comprueba si la URL actual está en la lista
+    }
+}
+
+if (!function_exists('currentRouteNamed')) {
+    function currentRouteNamed($name, array $params = null): bool
+    {
+        // Comprobar si el nombre de la ruta actual coincide con la recibida
+        $currentRouteNamed = Route::currentRouteNamed($name);
+
+        // Si no recibimos parámetros devolvemos el resultado anterior
+        if (is_null($params)) {
+            return $currentRouteNamed;
+        }
+
+        // Obtener los parámetros de la ruta actual
+        $currentRouteParams = Route::getCurrentRoute()->parameters();
+
+        // Caso 1: solo keys (valores vacíos o con índices numéricos)
+        $onlyKeys = array_filter($params, 'is_int', ARRAY_FILTER_USE_KEY);
+        if (!empty($onlyKeys)) {
+            // Si alguna de las keys del input no está en el array origen
+            if (!Arr::has($currentRouteParams, $onlyKeys)) { // array_diff($onlyKeys, array_keys($currentRouteParams))
+                return false;
+            }
+        }
+
+        // Caso 2: keys con valores
+        $keysWithValues = array_filter($params, 'is_string', ARRAY_FILTER_USE_KEY);
+        if (!empty($keysWithValues)) {
+            // Si alguna de las claves o valores no coinciden
+            $originSubset = Arr::only($currentRouteParams, array_keys($keysWithValues));
+            if ($originSubset !== $keysWithValues) { // array_diff_assoc($keysWithValues, array_intersect_key($currentRouteParams, $keysWithValues))
+                return false;
+            }
+        }
+
+        return $currentRouteNamed;
     }
 }
 
