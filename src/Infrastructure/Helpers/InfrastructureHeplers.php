@@ -19,8 +19,12 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\EnvVo;
 use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
 
 if (!function_exists('showActiveClass')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function showActiveClass(string $value, ?string $paramName = null, ?string $paramValue = null): bool
     {
+        trigger_error('The function showActiveClass() is deprecated.', E_USER_DEPRECATED);
         $routeName = Route::currentRouteName();
         $param = Route::current()->parameters[$paramName] ?? null;
         if (is_null($paramName)) {
@@ -188,6 +192,8 @@ if (!function_exists('compareDates')) {
 
 if (! function_exists('collectE')) {
     /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     *
      * Create a collection from the given value.
      *
      * @param mixed $value
@@ -195,13 +201,18 @@ if (! function_exists('collectE')) {
      */
     function collectE($value = null)
     {
+        trigger_error('The function collectE() is deprecated.', E_USER_DEPRECATED);
         return new CollectionE($value);
     }
 }
 
 if (! function_exists('collectionContains')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function collectionContains(Collection $collection, $keySearch, $valueSearch): bool
     {
+        trigger_error('The function collectionContains() is deprecated.', E_USER_DEPRECATED);
         $filtered = $collection->filter(function ($value, $key) use ($keySearch, $valueSearch) {
 //        return strtolower($value->$keySearch) == strtolower($valueSearch);
             return stristr(strtolower($value->$keySearch), strtolower($valueSearch)) == true;
@@ -211,8 +222,12 @@ if (! function_exists('collectionContains')) {
 }
 
 if (! function_exists('myCarbon')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function myCarbon(): MyCarbon
     {
+        trigger_error('The function myCarbon() is deprecated.', E_USER_DEPRECATED);
         return new MyCarbon();
     }
 }
@@ -358,12 +373,8 @@ if (! function_exists('responseJsonWith')) {
 if (! function_exists('responseJsonError')) {
     /**
      * @param Throwable $e
-     * @param bool $success
-     * @param string|null $message
-     * @param array $data
      * @param bool $throwInDebugMode
      * @return JsonResponse
-     * @throws Throwable
      */
     function responseJsonError(Throwable $e, bool $throwInDebugMode = true): JsonResponse
     {
