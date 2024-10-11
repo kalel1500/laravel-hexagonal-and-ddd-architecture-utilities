@@ -33,6 +33,7 @@
 
     "serverError": "Error del Servidor",
     "Unexpected response format": "Formato de respuesta inesperado",
+    "Several errors have been detected": "Se han detectado varios errores",
     "database_notFoundRecords": "No se han encontrado registros.",
     "database_notFoundRecordOfModel": "No se ha encontrado ningún/a :model en el que el campo :field coincida con :value",
     "database_notFoundRecordsOfModel": "No se han encontrado :model en los que los :field coincidan con :value",
