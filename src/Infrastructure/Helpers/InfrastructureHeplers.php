@@ -9,7 +9,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request as RequestF;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -17,37 +16,6 @@ use Illuminate\Validation\ValidationException;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\EnvVo;
 use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
-
-if (!function_exists('getClassActiveItem')) {
-    function getClassActiveItem($arrayRouteNames, $activeClass = 'active', $returnBoolean = false)
-    {
-        $arrayRouteNames = (!is_array($arrayRouteNames)) ? [$arrayRouteNames] : $arrayRouteNames;
-        if (in_array(Route::currentRouteName(), $arrayRouteNames, true)) {
-            return $returnBoolean ? true : $activeClass;
-        }
-        return $returnBoolean ? false : '';
-    }
-}
-
-if (!function_exists('classActivePath')) {
-    function classActivePath($path): string
-    {
-        return RequestF::is($path) ? 'active' : '';
-    }
-}
-
-if (!function_exists('classActiveSegment')) {
-    function classActiveSegment($segment, $value): string
-    {
-        if(!is_array($value)) {
-            return RequestF::segment($segment) == $value ? 'active' : '';
-        }
-        if (in_array(RequestF::segment($segment), $value)) {
-            return 'active';
-        }
-        return '';
-    }
-}
 
 if (!function_exists('showActiveClass')) {
     function showActiveClass(string $value, ?string $paramName = null, ?string $paramValue = null): bool
