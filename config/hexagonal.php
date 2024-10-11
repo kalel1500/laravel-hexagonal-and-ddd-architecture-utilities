@@ -73,4 +73,15 @@ return [
     */
 
     'job_paths_from_other_packages' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Blades
+    |--------------------------------------------------------------------------
+    |
+    | ...
+    |
+    */
+
+    'blade_show_main_border' => (bool) env('HEXAGONAL_BLADE_SHOW_MAIN_BORDER', false),
 ];
