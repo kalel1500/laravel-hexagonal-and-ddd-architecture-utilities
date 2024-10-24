@@ -31,7 +31,7 @@ abstract class ContractCollectionVo extends ContractCollectionBase
      */
     static function fromArray(?array $values, bool $allowNull = true, callable $valueModifierCallback = null)
     {
-        $values = $values ?? [];
+        if (is_null($values)) return null;
         $valueClass = ($allowNull) ? static::VALUE_CLASS_NULL : static::VALUE_CLASS_REQ;
         $res = [];
         foreach ($values as $value) {

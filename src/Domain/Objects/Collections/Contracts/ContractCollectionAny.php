@@ -24,7 +24,7 @@ abstract class ContractCollectionAny extends ContractCollectionBase implements R
      */
     static function fromArray(?array $values, $with = null, ?bool $isFull = null)
     {
-        $values = $values ?? [];
+        if (is_null($values)) return null;
         $collection = new static($values);
         $collection->with = $with;
         $collection->isFull = $isFull;

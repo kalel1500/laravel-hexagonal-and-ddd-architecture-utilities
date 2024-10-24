@@ -129,7 +129,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         ?PaginationDataDo $paginationData = null
     )
     {
-        $data = $data ?? [];
+        if (is_null($data)) return null;
 
         $entity = static::ENTITY;
         if (is_null($entity)) {
