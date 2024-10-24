@@ -498,6 +498,17 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return $this->where(...func_get_args())->first();
     }
 
+    public function each(callable $callback)
+    {
+        foreach ($this->items as $key => $item) {
+            if ($callback($item, $key) === false) {
+                break;
+            }
+        }
+
+        return $this;
+    }
+
     protected function getArrayableItems($items): array
     {
         if (is_array($items)) {
