@@ -19,7 +19,7 @@ abstract class ContractCollectionDo extends ContractCollectionBase
 
     static function fromArray(?array $values)
     {
-        $values = $values ?? [];
+        if (is_null($values)) return null;
         $valueClass = static::VALUE_CLASS;
         $res = [];
         try {
