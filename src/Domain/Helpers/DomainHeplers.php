@@ -45,6 +45,29 @@ if (!function_exists('strToCamelCase')) {
         return lcfirst($intermediate);
     }
 }
+
+if (!function_exists('strToSlug')) {
+    function strToSlug(?string $string): ?string
+    {
+        if (is_null($string)) return null;
+
+        // Convertimos a minúsculas
+        $input = strtolower($string);
+
+        // Reemplazamos cualquier espacio en blanco por un guión
+        $input = preg_replace('/\s+/', '-', $input);
+
+        // Eliminamos cualquier carácter no alfanumérico o guiones
+        $input = preg_replace('/[^a-z0-9\-]/', '', $input);
+
+        // Removemos guiones repetidos
+        $input = preg_replace('/-+/', '-', $input);
+
+        // Removemos guiones al principio o al final
+        return trim($input, '-');
+    }
+}
+
 if (!function_exists('remove_accents')) {
     function remove_accents($cadena){
         $cadena = mb_convert_encoding($cadena, 'UTF-8');
@@ -90,6 +113,7 @@ if (!function_exists('remove_accents')) {
 		return $cadena;
 	}
 }
+
 if (!function_exists('getFirstMessageIfIsArray')) {
     function getFirstMessageIfIsArray($message)
     {
