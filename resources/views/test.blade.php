@@ -10,6 +10,10 @@
         <!-- JavaScript y CSS compilados -->
         @vite(['resources/css/app.css', 'resources/js/app.ts'])
 
+        {{--<script src="{{ asset('vendor/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/public/js/app.js') }}"></script>--}}
+        {{--<script src="{{ url('hexagonal/public/js/app.js') }}"></script>--}}
+        <script src="{{ route('hexagonal.public', ['js', 'app.js']) }}"></script>
+
         {{-- Acceso a las rutas de laravel desde javascipt --}}
         @routes
 
