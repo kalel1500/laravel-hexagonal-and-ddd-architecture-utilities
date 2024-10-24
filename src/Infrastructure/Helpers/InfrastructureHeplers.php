@@ -40,8 +40,7 @@ if (!function_exists('showActiveClass')) {
 if (!function_exists('isRouteActive')) {
     function isRouteActive($url): bool
     {
-        $currentUrl = Request::fullUrl();
-        return $currentUrl === $url;
+        return Request::fullUrl() === $url;
     }
 }
 
@@ -561,6 +560,13 @@ if (! function_exists('broadcastingIsActive')) {
     function broadcastingIsActive(): bool
     {
         return (bool)config('hexagonal.broadcasting_enabled');
+    }
+}
+
+if (! function_exists('getUrlFromRoute')) {
+    function getUrlFromRoute($route): string
+    {
+        return is_null($route) ? '#' : route($route);
     }
 }
 
