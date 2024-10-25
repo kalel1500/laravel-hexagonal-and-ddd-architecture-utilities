@@ -1,18 +1,18 @@
 @php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\SidebarItemDo $item */ @endphp
 @php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\SidebarItemDo $subItem */ @endphp
 
-<x-sidebar>
+<x-hexagonal::sidebar>
     @if($showSearch)
         <x-slot:header>
-            <x-sidebar.search-from :action="$searchAction"/>
+            <x-hexagonal::sidebar.search-from :action="$searchAction"/>
         </x-slot:header>
     @endif
 
     @foreach($items as $item)
         @if($item->is_separator)
-            <x-sidebar.separator/>
+            <x-hexagonal::sidebar.separator/>
         @else
-            <x-sidebar.item
+            <x-hexagonal::sidebar.item
                 :href="$item->hasDropdown() ? null : $item->getHref()"
                 :counter="$item->hasCounter() ? $item->getCounter() : null"
             >
@@ -25,19 +25,19 @@
                 @if($item->hasDropdown())
                     <x-slot:dropdown :id="$item->getCode()">
                         @foreach($item->dropdown as $subItem)
-                            <x-sidebar.item subitem :href="$subItem->getHref()">{{ $subItem->text }}</x-sidebar.item>
+                            <x-hexagonal::sidebar.item subitem :href="$subItem->getHref()">{{ $subItem->text }}</x-hexagonal::sidebar.item>
                         @endforeach
                     </x-slot:dropdown>
                 @endif
-            </x-sidebar.item>
+            </x-hexagonal::sidebar.item>
         @endif
     @endforeach
 
     @if($hasFooter)
         <x-slot:footer>
-            <x-sidebar.footer>
+            <x-hexagonal::sidebar.footer>
                 @foreach($footer as $item)
-                    <x-sidebar.footer.item
+                    <x-hexagonal::sidebar.footer.item
                         :href="$item->hasDropdown() ? null : $item->getHref()"
                         :id="$item->code ?? null"
                         :tooltip="$item->tooltip ?? null"
@@ -46,16 +46,16 @@
                         @if($item->hasDropdown())
                             <x-slot:dropdown>
                                 @foreach($item->dropdown as $subItem)
-                                    <x-sidebar.footer.subitem>
+                                    <x-hexagonal::sidebar.footer.subitem>
                                         {!! $subItem->icon !!}
                                         {{ $subItem->text }}
-                                    </x-sidebar.footer.subitem>
+                                    </x-hexagonal::sidebar.footer.subitem>
                                 @endforeach
                             </x-slot:dropdown>
                         @endif
-                    </x-sidebar.footer.item>
+                    </x-hexagonal::sidebar.footer.item>
                 @endforeach
-            </x-sidebar.footer>
+            </x-hexagonal::sidebar.footer>
         </x-slot:footer>
     @endif
-</x-sidebar>
+</x-hexagonal::sidebar>

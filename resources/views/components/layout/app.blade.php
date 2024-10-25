@@ -23,11 +23,11 @@
     <body class="bg-gray-50 antialiased dark:bg-gray-900">
 
         <!-- Navbar -->
-        <x-navbar.full/>
-{{--        <x-navbar.full-old/>--}}
+        <x-hexagonal::navbar.full/>
+{{--        <x-hexagonal::navbar.full-old/>--}}
 
         <!-- Sidebar -->
-        <x-sidebar.full/>
+        <x-hexagonal::sidebar.full/>
 
         <!-- Wrapper -->
         <div class="h-auto p-4 pt-20 md:ml-64 md:sc:ml-20 md:transition-all">
@@ -40,7 +40,7 @@
                 {{ $breadcrumb ?? '' }}
 
                 <!-- Page mensajes -->
-                <x-messages/>
+                <x-hexagonal::messages/>
 
                 <!-- Page content -->
                 {{ $slot }}
@@ -48,7 +48,7 @@
             </main>
 
             <!-- Footer -->
-            <x-footer/>
+            <x-hexagonal::footer/>
         </div>
 
     </body>

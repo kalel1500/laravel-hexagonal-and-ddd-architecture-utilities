@@ -21,9 +21,9 @@
 </button>
 
 @if($hasTooltip)
-    <x-tooltip id="tooltip-{{ $attributes->get('id') }}">
+    <x-hexagonal::tooltip id="tooltip-{{ $attributes->get('id') }}">
         {{ $tooltip }}
-    </x-tooltip>
+    </x-hexagonal::tooltip>
 @endif
 
 @if($hasDropdown)
