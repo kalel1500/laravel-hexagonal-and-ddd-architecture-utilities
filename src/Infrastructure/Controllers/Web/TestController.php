@@ -10,6 +10,6 @@ final class TestController extends Controller
 {
     public function test(): \Illuminate\Contracts\View\View
     {
-        return view('hexagonal::test');
+        return view('hexagonal::pages.test');
     }
 }
