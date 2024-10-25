@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Arr;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\DomainException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\GeneralException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\AbortException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\CollectionAny;
@@ -313,7 +313,7 @@ if (!function_exists('abortC')) {
         ?Throwable $previous = null
     ): void
     {
-        throw new GeneralException($code, $message, $previous, $data, $success);
+        throw new AbortException($code, $message, $previous, $data, $success);
     }
 }
 
