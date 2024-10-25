@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Controllers;
+namespace Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax;
 
 use Illuminate\Http\JsonResponse;
 use Thehouseofel\Hexagonal\Domain\Exceptions\ServiceException;
-use Thehouseofel\Hexagonal\Infrastructure\Services\QueueService;
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Controller;
 use Thehouseofel\Hexagonal\Infrastructure\Events\EventCheckQueuesStatus;
+use Thehouseofel\Hexagonal\Infrastructure\Services\QueueService;
 use Thehouseofel\Hexagonal\Infrastructure\Services\WebsocketsService;
 use Throwable;
 

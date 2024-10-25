@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Controllers;
+namespace Thehouseofel\Hexagonal\Infrastructure\Controllers\Web;
+
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Controller;
 
 final class JobsController extends Controller
 {
