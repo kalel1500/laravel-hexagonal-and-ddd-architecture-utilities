@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\AjaxJobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\AjaxQueuesController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\AjaxWebsocketsController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\JobsController;
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxJobsController;
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxQueuesController;
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxWebsocketsController;
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\JobsController;
 
 /**
  * Service routes
@@ -25,13 +25,13 @@ Route::get('/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'get
 /**
  * Test routes
  */
-Route::get('/test',                             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\TestController::class, 'test'])->name('hexagonal.test');
+Route::get('/test',                             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController::class, 'test'])->name('hexagonal.test');
 
 /**
  * Layout routes
  */
 // Definir una ruta para servir los assets del paquete
-Route::get('/public/{type}/{file}',             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\LayoutController::class, 'public'])
+Route::get('/public/{type}/{file}',             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\LayoutController::class, 'public'])
     ->whereIn('type', ['js', 'css'])
     ->where('file', '.*')
     ->name('public');
