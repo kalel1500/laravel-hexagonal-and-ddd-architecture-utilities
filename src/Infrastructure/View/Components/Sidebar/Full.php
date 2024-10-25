@@ -22,10 +22,10 @@ class Full extends Component
      */
     public function __construct()
     {
-        $this->showSearch = config('template.sidebar.search.show');
-        $this->searchAction = getUrlFromRoute(config('template.sidebar.search.route'));
-        $this->items = SidebarItemCollection::fromArray(config('template.sidebar.items'));
-        $this->footer = SidebarItemCollection::fromArray(config('template.sidebar.footer'));
+        $this->showSearch = config('hexagonal.sidebar.search.show');
+        $this->searchAction = getUrlFromRoute(config('hexagonal.sidebar.search.route'));
+        $this->items = SidebarItemCollection::fromArray(config('hexagonal.sidebar.items'));
+        $this->footer = SidebarItemCollection::fromArray(config('hexagonal.sidebar.footer'));
         $this->hasFooter = $this->footer->countInt()->isBiggerThan(0);
 
         $this->items = $this->items->map(function (SidebarItemDo $item) {
@@ -38,9 +38,11 @@ class Full extends Component
 
     /**
      * Get the view / contents that represent the component.
+     *
+     * @return View|Closure|string
      */
-    public function render(): View|Closure|string
+    public function render()
     {
-        return view('components.sidebar.full');
+        return view('hexagonal::components.sidebar.full');
     }
 }

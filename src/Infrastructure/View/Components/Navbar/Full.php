@@ -25,12 +25,14 @@ class Full extends Component
 
     /**
      * Get the view / contents that represent the component.
+     *
+     * @return View|Closure|string
      */
-    public function render(): View|Closure|string
+    public function render()
     {
-        $this->showSearch = config('template.navbar.search.show');
-        $this->searchAction = getUrlFromRoute(config('template.navbar.search.route'));
-        $this->items = NavbarItemCollection::fromArray(config('template.navbar.items'));
+        $this->showSearch = config('hexagonal.navbar.search.show');
+        $this->searchAction = getUrlFromRoute(config('hexagonal.navbar.search.route'));
+        $this->items = NavbarItemCollection::fromArray(config('hexagonal.navbar.items'));
 
         $this->items = $this->items->map(function (NavbarItemDo $item) {
             if (!is_null($dropdown = $item->dropdown) && !is_null($action = $dropdown->get_data_action)) {
@@ -46,6 +48,6 @@ class Full extends Component
             return $item;
         });
 
-        return view('components.navbar.full');
+        return view('hexagonal::components.navbar.full');
     }
 }
