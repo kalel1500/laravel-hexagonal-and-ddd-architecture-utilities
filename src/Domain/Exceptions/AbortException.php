@@ -7,7 +7,7 @@ namespace Thehouseofel\Hexagonal\Domain\Exceptions;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\DomainException;
 use Throwable;
 
-final class GeneralException extends DomainException
+final class AbortException extends DomainException
 {
     public function __construct(
         int        $statusCode = 500,
