@@ -1,5 +1,5 @@
-@php /** @var Src\Shared\Domain\Objects\DataObjects\SidebarItemDo $item */ @endphp
-@php /** @var Src\Shared\Domain\Objects\DataObjects\SidebarItemDo $subItem */ @endphp
+@php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\SidebarItemDo $item */ @endphp
+@php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\SidebarItemDo $subItem */ @endphp
 
 <x-sidebar>
     @if($showSearch)

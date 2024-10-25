@@ -1,5 +1,5 @@
-@php /** @var Src\Shared\Domain\Objects\DataObjects\NavbarItemDo $item */ @endphp
-@php /** @var Src\Shared\Domain\Objects\DataObjects\NavbarItemDo $subItem */ @endphp
+@php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo $item */ @endphp
+@php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo $subItem */ @endphp
 
 <!-- New -->
 <x-navbar>
