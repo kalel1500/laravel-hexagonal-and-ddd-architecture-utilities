@@ -566,7 +566,11 @@ if (! function_exists('broadcastingIsActive')) {
 if (! function_exists('getUrlFromRoute')) {
     function getUrlFromRoute($route): string
     {
-        return is_null($route) ? '#' : route($route);
+        try {
+            return is_null($route) ? '#' : route($route);
+        } catch (\Symfony\Component\Routing\Exception\RouteNotFoundException $exception) {
+            return '#';
+        }
     }
 }
 
