@@ -29,10 +29,10 @@ final class MyMailDM
             return;
         }
         if (empty($this->mailable->to)) {
-            abortC(500, 'A la clase mailable le faltan los destinatarios del correo.');
+            abort_d(500, 'A la clase mailable le faltan los destinatarios del correo.');
         }
         if (empty($this->mailable->subject)) {
-            abortC(500, 'A la clase mailable le falta el Asunto del mail.');
+            abort_d(500, 'A la clase mailable le falta el Asunto del mail.');
         }
         Mail::send($this->mailable);
     }

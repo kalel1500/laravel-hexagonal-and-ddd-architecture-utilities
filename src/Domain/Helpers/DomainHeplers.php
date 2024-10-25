@@ -294,7 +294,7 @@ if (!function_exists('addMessagesSeparator')) {
     }
 }
 
-if (!function_exists('abortC')) {
+if (!function_exists('abort_d')) {
     /**
      * Throw an HttpException with the given data.
      *
@@ -305,7 +305,7 @@ if (!function_exists('abortC')) {
      * @param Throwable|null $previous
      * @return void
      */
-    function abortC(
+    function abort_d(
         int $code,
         string $message,
         ?array $data = null,
@@ -339,7 +339,7 @@ if (!function_exists('abortC_if')) {
     ): void
     {
         if ($condition) {
-            abortC($code, $message, $data, $success, $previous);
+            abort_d($code, $message, $data, $success, $previous);
         }
     }
 }
