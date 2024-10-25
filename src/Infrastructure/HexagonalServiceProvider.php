@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Infrastructure;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
@@ -69,6 +70,7 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->registerMigrations();
         $this->registerTranslations();
+        $this->registerComponents();
 
         // Middlewares
 //        $router = $this->app->make(Router::class);
@@ -184,6 +186,20 @@ class HexagonalServiceProvider extends ServiceProvider
     {
         $this->loadTranslationsFrom(HEXAGONAL_PATH.'/lang', 'hexagonal');
         $this->loadJsonTranslationsFrom(HEXAGONAL_PATH.'/lang');
+    }
+
+    /**
+     * Register Package's components files.
+     *
+     * @return void
+     */
+    protected function registerComponents(): void
+    {
+        // Registrar componentes con Clase
+        Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'hexagonal');
+
+        // Registrar componentes anónimos
+        Blade::anonymousComponentPath(HEXAGONAL_PATH.'/resources/views/components', 'hexagonal');
     }
 
     /**
