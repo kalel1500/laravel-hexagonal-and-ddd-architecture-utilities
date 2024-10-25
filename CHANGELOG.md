@@ -1,6 +1,27 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.6.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.7.0-beta.1...master)
+
+## [v1.7.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.6.0-beta.1...v1.7.0-beta.1) - 2024-10-25
+
+### Added
+
+* Nueva ruta "LayoutController@public" para servir los assets del paquete (y asi poder compilarlo internamente)
+* Nueva ruta (y vista) "test" para probar como compila el @vite desde el paquete
+* Nuevo método "each" en la Colección Base
+* nuevos helpers: "getUrlFromRoute()", "strToSlug()"
+* nuevos helpers: "isRouteActive()", "dropdownIsOpen()", "currentRouteNamed()"
+
+### Changed
+
+* (breaking) modificar comportamiento del método "Collection::fromArray()" para que si recibe null devuelva null, en lugar de una colección vacía (en todas las colecciones)
+* varios helpers marcados como deprecados + PhpDoc helper actualizado
+* componentes: nueva variable (config) para el componente <x-layouts.app>
+* componentes: nueva traducción para el componente <x-messages>
+
+### Removed
+
+* eliminar helpers antiguos
 
 ## [v1.6.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.5.0-beta.1...v1.6.0-beta.1) - 2024-09-10
 
