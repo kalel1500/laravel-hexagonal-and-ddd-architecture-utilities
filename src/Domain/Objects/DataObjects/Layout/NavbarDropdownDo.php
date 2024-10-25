@@ -47,9 +47,9 @@ final class NavbarDropdownDo extends ContractDataObject
         );
     }
 
-    public function setItems(array $items): void
+    public function setItems(NavbarItemCollection $items): void
     {
-        $this->items = NavbarItemCollection::fromArray($items);
+        $this->items = $items;
     }
 
     public function setUserInfo(UserInfoDo $userInfo): void
