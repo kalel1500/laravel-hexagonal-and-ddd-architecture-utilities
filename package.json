@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "laravel-ts-utilities": "^1.2.0-beta.14"
+  }
+}
