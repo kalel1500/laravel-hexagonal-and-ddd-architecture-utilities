@@ -59,7 +59,7 @@ final class ExceptionHandler
                     // return response($content, $context->getStatusCode());
                 }
 
-                return response()->view('hexagonal::custom-error', [
+                return response()->view('hexagonal::pages.custom-error', [
                     'code'    => $context->getStatusCode(),
                     'message' => $context->message(),
                     'data'    => $context->data(),
