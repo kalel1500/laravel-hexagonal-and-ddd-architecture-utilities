@@ -27,7 +27,7 @@ Route::get('/test',                             [\Thehouseofel\Hexagonal\Infrast
  * Layout routes
  */
 // Definir una ruta para servir los assets del paquete
-Route::get('/public/{type}/{file}',             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\LayoutController::class, 'public'])
+Route::get('/public/assets/{file}',             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\LayoutController::class, 'public'])
     ->whereIn('type', ['js', 'css'])
     ->where('file', '.*')
     ->name('public');
