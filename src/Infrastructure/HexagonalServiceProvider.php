@@ -7,6 +7,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
+use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
@@ -22,6 +23,7 @@ class HexagonalServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
+        'layoutService' => LayoutService::class,
         StateRepositoryContract::class => StateEloquentRepository::class,
     ];
 
