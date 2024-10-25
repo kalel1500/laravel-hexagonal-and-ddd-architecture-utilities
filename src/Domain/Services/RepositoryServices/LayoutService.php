@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Services\RepositoryServices;
 
+use Thehouseofel\Hexagonal\Domain\Objects\Collections\Layout\NavbarItemCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\UserInfoDo;
 
 final class LayoutService
@@ -13,9 +14,9 @@ final class LayoutService
         return 4;
     }
 
-    public function getNavbarNotifications()
+    public function getNavbarNotifications(): NavbarItemCollection
     {
-        return [
+        return NavbarItemCollection::fromArray([
             [
                 'icon'  => 'hexagonal::icon.user',
                 'text'  => 'New message from Bonnie Green: "Hey, what\'s up? All set for the presentation?"',
@@ -41,7 +42,7 @@ final class LayoutService
                 'text'  => 'Robert Brown posted a new video: Glassmorphism - learn how to implement the new design trend.',
                 'time'  => '3 hours ago',
             ],
-        ];
+        ]);
     }
 
     public function getUserInfo(): UserInfoDo
