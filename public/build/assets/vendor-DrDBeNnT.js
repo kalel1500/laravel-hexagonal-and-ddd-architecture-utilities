@@ -1,3 +1,67 @@
+const scriptRel = "modulepreload";
+const assetsURL = function(dep) {
+  return "/build/" + dep;
+};
+const seen = {};
+const __vitePreload = function preload(baseModule, deps, importerUrl) {
+  let promise = Promise.resolve();
+  if (deps && deps.length > 0) {
+    document.getElementsByTagName("link");
+    const cspNonceMeta = document.querySelector(
+      "meta[property=csp-nonce]"
+    );
+    const cspNonce = cspNonceMeta?.nonce || cspNonceMeta?.getAttribute("nonce");
+    promise = Promise.allSettled(
+      deps.map((dep) => {
+        dep = assetsURL(dep);
+        if (dep in seen) return;
+        seen[dep] = true;
+        const isCss = dep.endsWith(".css");
+        const cssSelector = isCss ? '[rel="stylesheet"]' : "";
+        if (document.querySelector(`link[href="${dep}"]${cssSelector}`)) {
+          return;
+        }
+        const link2 = document.createElement("link");
+        link2.rel = isCss ? "stylesheet" : scriptRel;
+        if (!isCss) {
+          link2.as = "script";
+        }
+        link2.crossOrigin = "";
+        link2.href = dep;
+        if (cspNonce) {
+          link2.setAttribute("nonce", cspNonce);
+        }
+        document.head.appendChild(link2);
+        if (isCss) {
+          return new Promise((res, rej) => {
+            link2.addEventListener("load", res);
+            link2.addEventListener(
+              "error",
+              () => rej(new Error(`Unable to preload CSS for ${dep}`))
+            );
+          });
+        }
+      })
+    );
+  }
+  function handlePreloadError(err) {
+    const e2 = new Event("vite:preloadError", {
+      cancelable: true
+    });
+    e2.payload = err;
+    window.dispatchEvent(e2);
+    if (!e2.defaultPrevented) {
+      throw err;
+    }
+  }
+  return promise.then((res) => {
+    for (const item of res || []) {
+      if (item.status !== "rejected") continue;
+      handlePreloadError(item.reason);
+    }
+    return baseModule().catch(handlePreloadError);
+  });
+};
 var Events = (
   /** @class */
   function() {
@@ -6950,70 +7014,6 @@ var events = new Events("load", [
   initDatepickers
 ]);
 events.init();
-const scriptRel = "modulepreload";
-const assetsURL = function(dep) {
-  return "/build/" + dep;
-};
-const seen = {};
-const __vitePreload = function preload(baseModule, deps, importerUrl) {
-  let promise = Promise.resolve();
-  if (deps && deps.length > 0) {
-    document.getElementsByTagName("link");
-    const cspNonceMeta = document.querySelector(
-      "meta[property=csp-nonce]"
-    );
-    const cspNonce = cspNonceMeta?.nonce || cspNonceMeta?.getAttribute("nonce");
-    promise = Promise.allSettled(
-      deps.map((dep) => {
-        dep = assetsURL(dep);
-        if (dep in seen) return;
-        seen[dep] = true;
-        const isCss = dep.endsWith(".css");
-        const cssSelector = isCss ? '[rel="stylesheet"]' : "";
-        if (document.querySelector(`link[href="${dep}"]${cssSelector}`)) {
-          return;
-        }
-        const link2 = document.createElement("link");
-        link2.rel = isCss ? "stylesheet" : scriptRel;
-        if (!isCss) {
-          link2.as = "script";
-        }
-        link2.crossOrigin = "";
-        link2.href = dep;
-        if (cspNonce) {
-          link2.setAttribute("nonce", cspNonce);
-        }
-        document.head.appendChild(link2);
-        if (isCss) {
-          return new Promise((res, rej) => {
-            link2.addEventListener("load", res);
-            link2.addEventListener(
-              "error",
-              () => rej(new Error(`Unable to preload CSS for ${dep}`))
-            );
-          });
-        }
-      })
-    );
-  }
-  function handlePreloadError(err) {
-    const e2 = new Event("vite:preloadError", {
-      cancelable: true
-    });
-    e2.payload = err;
-    window.dispatchEvent(e2);
-    if (!e2.defaultPrevented) {
-      throw err;
-    }
-  }
-  return promise.then((res) => {
-    for (const item of res || []) {
-      if (item.status !== "rejected") continue;
-      handlePreloadError(item.reason);
-    }
-    return baseModule().catch(handlePreloadError);
-  });
-};
 /*!
 * sweetalert2 v11.14.4
 * Released under the MIT License.

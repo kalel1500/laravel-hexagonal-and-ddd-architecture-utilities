@@ -1,4 +1,4 @@
-import { C as Constants, T as Translator, H as Html, R as Route, U as UtilitiesServiceProvider } from "./vendor-aP8Z7CnL.js";
+import { C as Constants, T as Translator, H as Html, R as Route, U as UtilitiesServiceProvider } from "./vendor-DrDBeNnT.js";
 const constants = Constants.getInstance();
 constants.extend({
   VITE_APP_ENV: void 0,
