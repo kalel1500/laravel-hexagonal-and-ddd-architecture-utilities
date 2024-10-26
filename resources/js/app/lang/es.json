@@ -1,0 +1,4 @@
+{
+    "test_message": "Mensaje de prueba",
+    "test_message_VARIABLE": "Mensaje de prueba con :variable"
+}
