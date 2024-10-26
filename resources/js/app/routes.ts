@@ -1,6 +1,6 @@
 import { Route } from 'laravel-ts-utilities';
-import TestController from '../src/home/infrastructure/TestController';
+import ExamplesController from '../src/infrastructure/ExamplesController';
 
 export function defineRoutes(): void {
-    Route.page('hexagonal.test', [TestController, 'test']);
+    Route.page('hexagonal.compareHtml', [ExamplesController, 'compareHtml']);
 }
