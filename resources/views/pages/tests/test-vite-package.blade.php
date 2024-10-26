@@ -11,7 +11,7 @@
         {{--<script src="{{ url('hexagonal/public/js/app.js') }}"></script>--}}
 {{--        <script src="{{ route('hexagonal.public', 'app.css') }}"></script>--}}
 {{--        <script src="{{ route('hexagonal.public', 'app.js') }}"></script>--}}
-        @vitePackage(['js/app.js', 'css/app.css'])
+        @vitePackage(['resources/css/app.css', 'resources/js/app.ts'])
 
         <!-- JavaScript y CSS compilados -->
 {{--        @vite(['resources/css/app.css', 'resources/js/app.ts'])--}}

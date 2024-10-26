@@ -1,4 +1,4 @@
-<x-hexagonal::layout.app title="Test">
+<x-hexagonal::layout.app package title="Example 1">
 
     <x-hexagonal::section>
 

@@ -10,8 +10,13 @@
 
         <title>{{ $title }}</title>
 
-        <!-- JavaScript y CSS compilados -->
-        @vite(['resources/css/app.css', 'resources/js/app.ts'])
+        @if($isFromPackage)
+            <!-- JavaScript y CSS del paquete -->
+            @vitePackage(['resources/css/app.css', 'resources/js/app.ts'])
+        @else
+            <!-- JavaScript y CSS compilados -->
+            @vite(['resources/css/app.css', 'resources/js/app.ts'])
+        @endif
 
         {{-- Acceso a las rutas de laravel desde javascipt --}}
         @routes

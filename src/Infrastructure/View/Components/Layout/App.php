@@ -12,12 +12,14 @@ class App extends Component
 {
     public $title;
     public $sidebarCollapsed;
+    public $isFromPackage;
 
     /**
      * Create a new component instance.
      */
     public function __construct(
-        ?string $title = null
+        ?string $title = null,
+        bool $package = false
     )
     {
         $this->title = $title ?? config('app.name');
@@ -31,6 +33,7 @@ class App extends Component
         });
 
         $this->sidebarCollapsed = Arr::get($firstCollapsed, 'collapsed', false);
+        $this->isFromPackage = $package;
     }
 
     /**

@@ -1,4 +1,4 @@
-<x-hexagonal::layout.app title="Example 3">
+<x-hexagonal::layout.app package title="Example 4">
     <x-hexagonal::section>
         <form>
             <div class="grid gap-6 mb-6 md:grid-cols-2">
