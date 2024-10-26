@@ -6,13 +6,15 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-
-        <!-- JavaScript y CSS compilados -->
-        @vite(['resources/css/app.css', 'resources/js/app.ts'])
-
+        <!-- JavaScript y CSS del paquete -->
         {{--<script src="{{ asset('vendor/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/public/js/app.js') }}"></script>--}}
         {{--<script src="{{ url('hexagonal/public/js/app.js') }}"></script>--}}
-        <script src="{{ route('hexagonal.public', ['js', 'app.js']) }}"></script>
+{{--        <script src="{{ route('hexagonal.public', 'app.css') }}"></script>--}}
+{{--        <script src="{{ route('hexagonal.public', 'app.js') }}"></script>--}}
+        @vitePackage(['js/app.js', 'css/app.css'])
+
+        <!-- JavaScript y CSS compilados -->
+{{--        @vite(['resources/css/app.css', 'resources/js/app.ts'])--}}
 
         {{-- Acceso a las rutas de laravel desde javascipt --}}
         @routes
