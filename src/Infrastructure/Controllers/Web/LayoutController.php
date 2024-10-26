@@ -9,6 +9,9 @@ use Thehouseofel\Hexagonal\Infrastructure\Controllers\Controller;
 
 final class LayoutController extends Controller
 {
+    /**
+     * Definir una ruta para servir los assets del paquete
+     */
     public function public($file)
     {
         // Determina el tipo de contenido en función de la extensión del archivo
