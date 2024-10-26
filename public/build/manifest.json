@@ -1,6 +1,6 @@
 {
-  "_vendor-aP8Z7CnL.js": {
-    "file": "assets/vendor-aP8Z7CnL.js",
+  "_vendor-DrDBeNnT.js": {
+    "file": "assets/vendor-DrDBeNnT.js",
     "name": "vendor"
   },
   "resources/css/app.css": {
@@ -8,13 +8,17 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/images/favicon.ico": {
+    "file": "assets/favicon-BTtkU5yZ.ico",
+    "src": "resources/images/favicon.ico"
+  },
   "resources/js/app.ts": {
-    "file": "assets/app-Br7QDiNE.js",
+    "file": "assets/app-bcqnNa5Z.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
     "imports": [
-      "_vendor-aP8Z7CnL.js"
+      "_vendor-DrDBeNnT.js"
     ]
   }
 }
