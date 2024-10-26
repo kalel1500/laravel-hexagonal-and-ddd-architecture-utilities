@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxJobsController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxQueuesController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxWebsocketsController;
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\ExampleController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\JobsController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\LayoutController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController;
@@ -41,3 +42,14 @@ Route::get('/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'get
  */
 
 Route::get('/public/assets/{file}',             [LayoutController::class, 'public'])->where('file', '.*')->name('public');
+
+
+/**
+ * Example routes
+ */
+
+Route::get('example/example-1',     [ExampleController::class, 'example1'])->name('example1');
+Route::get('example/example-2',     [ExampleController::class, 'example2'])->name('example2');
+Route::get('example/example-3',     [ExampleController::class, 'example3'])->name('example3');
+Route::get('example/example-4',     [ExampleController::class, 'example4'])->name('example4');
+Route::get('example/compare-html',  [ExampleController::class, 'compareHtml'])->name('compareHtml');
