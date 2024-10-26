@@ -1,0 +1,12 @@
+/*----- laravel-ts-utilities css -----*/
+@import 'laravel-ts-utilities/dist/app/styles.css';
+
+/*----- Tailwind css -----*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*----- App css -----*/
+.test {
+    background-color: red;
+}
