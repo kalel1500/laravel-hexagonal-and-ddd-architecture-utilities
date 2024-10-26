@@ -1,0 +1,20 @@
+{
+  "_vendor-aP8Z7CnL.js": {
+    "file": "assets/vendor-aP8Z7CnL.js",
+    "name": "vendor"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-BW_chD77.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.ts": {
+    "file": "assets/app-Br7QDiNE.js",
+    "name": "app",
+    "src": "resources/js/app.ts",
+    "isEntry": true,
+    "imports": [
+      "_vendor-aP8Z7CnL.js"
+    ]
+  }
+}
