@@ -16,7 +16,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController;
  * Test routes
  */
 
-Route::get('/test',                             [TestController::class, 'test'])->name('test');
+Route::get('/test-vite-package',                [TestController::class, 'testVitePackage'])->name('test');
 
 
 /**
