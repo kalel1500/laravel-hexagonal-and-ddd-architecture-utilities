@@ -8,8 +8,8 @@ use Thehouseofel\Hexagonal\Infrastructure\Controllers\Controller;
 
 final class TestController extends Controller
 {
-    public function test(): \Illuminate\Contracts\View\View
+    public function testVitePackage(): \Illuminate\Contracts\View\View
     {
-        return view('hexagonal::pages.test');
+        return view('hexagonal::pages.tests.test-vite-package');
     }
 }
