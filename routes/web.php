@@ -21,13 +21,12 @@ Route::get('/ajax/queues/failed-jobs',          [\Thehouseofel\Hexagonal\Infrast
 /**
  * Test routes
  */
-Route::get('/test',                             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController::class, 'test'])->name('hexagonal.test');
+Route::get('/test',                             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController::class, 'test'])->name('test');
 
 /**
  * Layout routes
  */
 // Definir una ruta para servir los assets del paquete
 Route::get('/public/assets/{file}',             [\Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\LayoutController::class, 'public'])
-    ->whereIn('type', ['js', 'css'])
     ->where('file', '.*')
     ->name('public');
