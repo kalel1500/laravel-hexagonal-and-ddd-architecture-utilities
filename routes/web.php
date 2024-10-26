@@ -12,6 +12,13 @@ use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController;
 
 
 /**
+ * Test routes
+ */
+
+Route::get('/test',                             [TestController::class, 'test'])->name('test');
+
+
+/**
  * Service routes
  */
 
@@ -30,15 +37,7 @@ Route::get('/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'get
 
 
 /**
- * Test routes
- */
-
-Route::get('/test',                             [TestController::class, 'test'])->name('test');
-
-
-/**
  * Layout routes
  */
 
-// Definir una ruta para servir los assets del paquete
 Route::get('/public/assets/{file}',             [LayoutController::class, 'public'])->where('file', '.*')->name('public');
