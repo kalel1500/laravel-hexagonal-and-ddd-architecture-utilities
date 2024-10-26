@@ -1,4 +1,4 @@
-<x-hexagonal::layout.app title="Example 1">
+<x-hexagonal::layout.app package title="Example 3">
 
     <x-slot:breadcrumb>
         <x-hexagonal::breadcrumb place="end">

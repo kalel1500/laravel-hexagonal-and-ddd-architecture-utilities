@@ -1,4 +1,4 @@
-<x-hexagonal::layout.app title="Test">
+<x-hexagonal::layout.app package title="Compare html">
     <x-hexagonal::section>
         <h1 class="mb-5 text-3xl font-bold dark:text-white">Comparar HTML</h1>
         <div class="flex items-center justify-center gap-10">
