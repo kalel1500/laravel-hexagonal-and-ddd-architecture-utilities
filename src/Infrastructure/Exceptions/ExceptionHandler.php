@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\DomainException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
 use Throwable;
 
@@ -45,7 +45,7 @@ final class ExceptionHandler
             });*/
 
             // Renderizar nuestras excepciones de dominio
-            $exceptions->render(function (DomainException $e, Request $request) {
+            $exceptions->render(function (HexagonalException $e, Request $request) {
                 $context = $e->getContext();
 
                 // Comprobar si hay que devolver un json

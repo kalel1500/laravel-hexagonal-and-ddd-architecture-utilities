@@ -8,7 +8,7 @@ use RuntimeException;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
 use Throwable;
 
-abstract class DomainException extends RuntimeException
+abstract class HexagonalException extends RuntimeException
 {
     protected $statusCode;
     protected $context;

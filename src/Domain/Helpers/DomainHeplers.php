@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Arr;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\DomainException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\AbortException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
@@ -385,7 +385,7 @@ if (!function_exists('isDomainException')) {
      */
     function isDomainException(Throwable $e): bool
     {
-        return ($e instanceof DomainException);
+        return ($e instanceof HexagonalException);
     }
 }
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Domain\Exceptions;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\DomainException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
 use Throwable;
 
-final class AbortException extends DomainException implements HttpExceptionInterface
+final class AbortException extends HexagonalException implements HttpExceptionInterface
 {
     public function __construct(
         int        $statusCode = 500,
