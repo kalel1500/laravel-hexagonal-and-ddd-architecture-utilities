@@ -7,6 +7,7 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
 use Thehouseofel\Hexagonal\Domain\Contracts\BuildArrayable;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayVo;
 
 abstract class ContractDataObject implements Arrayable, BuildArrayable
 {
@@ -37,6 +38,11 @@ abstract class ContractDataObject implements Arrayable, BuildArrayable
     public function toObject()
     {
         return arrayToObject($this->toArrayVisible());
+    }
+
+    public function toArrayVo(): ArrayVo
+    {
+        return ArrayVo::new($this->toArray());
     }
 
     /**
