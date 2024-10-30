@@ -14,6 +14,8 @@ use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollecti
 abstract class ContractEntity implements Arrayable, JsonSerializable
 {
     public static $databaseFields = null; // TODO PHP8 property type (?array)
+    protected $primaryKey = 'id';
+    protected $incrementing = true;
 
     protected $with;
     protected $withFull;
@@ -126,7 +128,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
         if (!is_null(static::$databaseFields)) {
             return arrayKeepKeys($array, static::$databaseFields);
         }
-        if (!$keepId) unset($array['id']);
+        if ($this->incrementing && !$keepId) unset($array[$this->primaryKey]);
         unset($array['created_at']);
         unset($array['updated_at']);
         return $array;
