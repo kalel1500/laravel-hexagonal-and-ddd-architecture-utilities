@@ -206,6 +206,15 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return $result;
     }
 
+    public function toArrayDynamic($toArrayMethod, ...$params): array
+    {
+        $result = [];
+        foreach ($this->items as $key => $item) {
+            $result[$key] = $item->$toArrayMethod(...$params);
+        }
+        return $result;
+    }
+
     public function toClearedArray(): array
     {
         return $this->encodeAndDecode($this->toArray(), true);
