@@ -92,23 +92,12 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
 
     public function toArrayDb(): array
     {
-        $result = [];
-        foreach ($this->items as $key => $item) {
-            $result[$key] = $item->toArrayDb();
-        }
-        return $result;
+        return $this->toArrayDynamic(__FUNCTION__);
     }
 
     public function toArrayWith(array $fields): array
     {
-        $result = [];
-        /**
-         * @var ContractEntity $item
-         */
-        foreach ($this->items as $key => $item) {
-            $result[$key] = $item->toArrayWith($fields);
-        }
-        return $result;
+        return $this->toArrayDynamic(__FUNCTION__, $fields);
     }
 
     /**
