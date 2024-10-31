@@ -1,20 +1,69 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.7.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.1...master)
+
+## [v1.8.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.7.0-beta.1...v1.8.0-beta.1) - 2024-10-31
+
+### Added
+
+* Nuevo Enum `EnumWIthIdsContract` y Nuevo Trait `WithIdsAndToArray` para los ValueObject de tipo Enum
+* public: new build
+* Nueva vista con código js para comparar dos bloques HTML
+* Nuevas vistas (blades) con ejemplos de Tailwind
+* Crear y compilar todo el JS y CSS necesario para las vistas internas del paquete (con nueva directiva `@vitePackage()`)
+* Instalar paquete `laravel-ts-utilities` para poder compilar js y css propios del paquete
+* Docs: Nuevos archivos con código interesante
+* Nueva interfaz `LayoutServiceContract` (para que al crear el servicio en la aplicación, tenga todos los métodos)
+* Nuevos componentes para crear una Layout inicial en tailwind:
+  * Componente Layout
+  * Componente Navbar
+  * Componente Sidebar
+  * Componente Footer
+  * Enlaces Navbar y Sidebar definidos en la configuración `config/hexagonal.php`
+* Nuevos componentes blade reutilizables en Tailwind
+
+### Changed
+
+* Establecer la variable de entorno `HEXAGONAL_BROADCASTING_ENABLED` por defecto a `false`
+* <u>**!!! (breaking) !!! Subir versiones mínimas de `PHP` y `Laravel` a `^8.2` y `^11.0` respectivamente**</u>
+* (refactor) Se utiliza el método `toArrayDynamic()` en los métodos `toArrayDb()` y `toArrayWith()` de la clase `ContractCollectionEntity`
+* Se ha añadido el método `toArrayDynamic()` en la clase `ContractCollectionBase` para facilitar la creación de otros métodos `toArray...()` en otras entidades y colecciones
+* Se han añadido las propiedades `$primaryKey` e `$incrementing` en la clase `ContractEntity` para controlar el `id` en el método `toArrayDb`
+* (breaking) Hacer que `HexagonalException` extienda de `DomainException` en vez de `RuntimeException`
+* (refactor) Renombrar `DomainException` a `HexagonalException`
+* Añadir método `toArrayVo()` en la clase `ContractDataObject`
+  <hr/>
+* (refactor) Ordenar Rutas en el `routes/web.php`
+* (refactor) importar los controllers en las Rutas en el `routes/web.php`
+* (refactor) Mover vistas a la carpeta `pages` (para separarlas de los componentes)
+* Cambiar los imports por rutas absolutas en el `web.php`
+* Separar los Controllers en las carpetas `Ajax` y `Web`
+* Hacer que la clase `AbortException` extienda de la interfaz `HttpExceptionInterface` para que Laravel la trate como una excepción Http
+* (breaking) Renombrar el helper `abortC` a `abort_d` ya que es el abort del dominio
+* (breaking) Renombrar la clase `GeneralException` a `AbortException` ya que se entiende mejor su propósito
+* Añadir la constante `MESSAGE` en la clase `BasicException` para poder definir un mensaje por defecto en cada excepción que herede de esta clase
+
+### Removed
+
+### Fixed
+
+* (fix) Quitar prefijo `hexagonal` de la ruta de test ya que el paquete ya lo añade automáticamente
+* (fix) Prevenir error del helper `getUrlFromRoute()` cuando la ruta no existe
+* (fix) Añadir modo estricto en la interfaz `Relatable`
 
 ## [v1.7.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.6.0-beta.1...v1.7.0-beta.1) - 2024-10-25
 
 ### Added
 
-* Nueva ruta "LayoutController@public" para servir los assets del paquete (y asi poder compilarlo internamente)
-* Nueva ruta (y vista) "test" para probar como compila el @vite desde el paquete
-* Nuevo método "each" en la Colección Base
-* nuevos helpers: "getUrlFromRoute()", "strToSlug()"
-* nuevos helpers: "isRouteActive()", "dropdownIsOpen()", "currentRouteNamed()"
+* Nueva ruta `LayoutController@public` para servir los assets del paquete (y asi poder compilarlo internamente)
+* Nueva ruta (y vista) `test` para probar como compila el @vite desde el paquete
+* Nuevo método `each` en la Colección Base
+* nuevos helpers: `getUrlFromRoute()`, `strToSlug()`
+* nuevos helpers: `isRouteActive()`, `dropdownIsOpen()`, `currentRouteNamed()`
 
 ### Changed
 
-* (breaking) modificar comportamiento del método "Collection::fromArray()" para que si recibe null devuelva null, en lugar de una colección vacía (en todas las colecciones)
+* (breaking) modificar comportamiento del método `Collection::fromArray()` para que si recibe null devuelva null, en lugar de una colección vacía (en todas las colecciones)
 * varios helpers marcados como deprecados + PhpDoc helper actualizado
 * componentes: nueva variable (config) para el componente <x-layouts.app>
 * componentes: nueva traducción para el componente <x-messages>
@@ -134,7 +183,7 @@
 ### Added
 
 * Añadir CHANGELOG.md con todos los cambios de cada version (todos los tags renombrados por nuevos tags beta)
-* composer.json: Añadir "minimum-stability" y "prefer-stable"
+* composer.json: Añadir `minimum-stability` y `prefer-stable`
 
 ## [v1.4.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.3.0-beta.2...v1.4.0-beta.1) - 2024-07-19
 
@@ -217,7 +266,7 @@
 
 ### Removed
 
-* Quitar el prefijo de las rutas "hexagonal" en la configuración
+* Quitar el prefijo de las rutas `hexagonal` en la configuración
 
 ## [v1.1.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.1.0-beta.1...v1.1.0-beta.2) - 2024-06-13
 
