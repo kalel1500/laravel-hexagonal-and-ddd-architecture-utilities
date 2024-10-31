@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'broadcasting_enabled' => (bool) env('HEXAGONAL_BROADCASTING_ENABLED'),
+    'broadcasting_enabled' => (bool) env('HEXAGONAL_BROADCASTING_ENABLED', false),
 
     /*
     |--------------------------------------------------------------------------
