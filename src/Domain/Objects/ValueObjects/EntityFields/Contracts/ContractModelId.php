@@ -35,6 +35,6 @@ abstract class ContractModelId extends ContractIntVo
      */
     public static function from(?int $id)
     {
-        return is_null($id) ? new ModelIdNull($id) : new ModelId($id);
+        return is_null($id) ? static::CLASS_MODEL_NULLABLE::new($id) : static::CLASS_MODEL_REQUIRED::new($id);
     }
 }
