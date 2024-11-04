@@ -54,7 +54,7 @@ if (!function_exists('strToSlug')) {
         // Convertimos a minúsculas
         $input = strtolower($string);
 
-        // Reemplazamos cualquier espacio en blanco por un guión
+        // Reemplazamos cualquier espacio en blanco por un guion
         $input = preg_replace('/\s+/', '-', $input);
 
         // Eliminamos cualquier carácter no alfanumérico o guiones
