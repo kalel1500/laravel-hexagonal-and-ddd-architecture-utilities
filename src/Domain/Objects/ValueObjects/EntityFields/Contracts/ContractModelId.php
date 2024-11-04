@@ -9,6 +9,9 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractIntVo;
 
+/**
+ * @template T of ContractModelId
+ */
 abstract class ContractModelId extends ContractIntVo
 {
     protected const CLASS_REQUIRED = null;
@@ -37,7 +40,7 @@ abstract class ContractModelId extends ContractIntVo
 
     /**
      * @param int|null $id
-     * @return ModelId|ModelIdNull
+     * @return T
      */
     public static function from(?int $id)
     {
