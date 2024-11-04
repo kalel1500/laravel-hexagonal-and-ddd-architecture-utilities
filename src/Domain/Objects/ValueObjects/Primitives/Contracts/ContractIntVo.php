@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelInt;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIntNull;
@@ -59,12 +58,8 @@ abstract class ContractIntVo extends ContractValueObject
         return $this->value() <= $other->value();
     }
 
-    private function ensureIsValidValue(?int $value): void
+    protected function ensureIsValidValue(?int $value): void
     {
         $this->checkAllowNull($value);
-
-        if (!is_null($value) && $value < 0) {
-            throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), $value));
-        }
     }
 }
