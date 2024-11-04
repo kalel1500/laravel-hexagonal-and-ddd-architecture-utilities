@@ -1,20 +1,22 @@
 @props(['id' => 'alert', 'title' => 'List title' , 'color' => 'gray'])
 
 @php
-    $divClasses = match($color) {
+    $arrayDivClasses = [
         'blue'      => 'text-blue-800   bg-blue-50   dark:text-blue-400  ',
         'red'       => 'text-red-800    bg-red-50    dark:text-red-400   ',
         'green'     => 'text-green-800  bg-green-50  dark:text-green-400 ',
         'yellow'    => 'text-yellow-800 bg-yellow-50 dark:text-yellow-300',
         'gray'      => 'text-gray-800   bg-gray-100  dark:text-gray-300  ',
-    };
-    $btnClasses = match($color) {
+    ];
+    $divClasses = $arrayDivClasses[$color];
+    $arrayBtnClasses = [
         'blue'      => 'text-blue-500   bg-blue-50   dark:text-blue-400   focus:ring-blue-400   hover:bg-blue-200   ',
         'red'       => 'text-red-500    bg-red-50    dark:text-red-400    focus:ring-red-400    hover:bg-red-200    ',
         'green'     => 'text-green-500  bg-green-50  dark:text-green-400  focus:ring-green-400  hover:bg-green-200  ',
         'yellow'    => 'text-yellow-500 bg-yellow-50 dark:text-yellow-300 focus:ring-yellow-400 hover:bg-yellow-200 ',
         'gray'      => 'text-gray-500   bg-gray-100  dark:text-gray-300   focus:ring-gray-400   hover:bg-gray-200   ',
-    };
+    ];
+    $btnClasses = $arrayBtnClasses[$color];
 @endphp
 
 
