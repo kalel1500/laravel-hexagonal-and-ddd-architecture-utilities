@@ -1,6 +1,28 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.2...master)
+
+## [v1.8.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.1...v1.8.0-beta.2) - 2024-11-04
+
+### Added
+
+* Nuevos Value Objects `ModelIdZero` y `ModelIdZeroNull` para poder crear ids permitiendo que el valor sea igual a `0`
+
+### Changed
+
+* Actualizar PhpDoc del método `ContractModelId::from()` con un `@return T` (de la template definida en la clase -> `@template T of ContractModelId`)
+* Adaptar código de `PHP 8` a `PHP 7.2.5` (cambiar `match` en los componentes y arrow function en trait `WithIdsAndToArray`)
+* !!!Rollback versiones mínimas de `PHP` y `Laravel`. Volver a añadir las versiones (`^7.2.5|^8.0|^8.1`) de php y las versiones (`^7.0|^8.0`) de laravel
+* Añadir variable `protected $minimumValueForModelId` en la clase `ContractModelId` para poder sobreescribirla desde fuera creando otras clases que extiendan de ella. Por defecto se mantiene el valor de la configuración `config('hexagonal.minimum_value_for_model_id')`
+* Usar las variables estáticas para obtener la clase al hacer el new `ModelId...()` en el método `ContractModelId::from()` para poder crear otras clases que extiendan de `ContractModelId`
+* Añadir configuración `hexagonal.minimum_value_for_model_id` para establecer el valor mínimo permitido en el value object `ModelId`
+* config: Comentario Layout terminado en `config/hexagonal.php`
+* docs: Añadido código interesante para formatear los logs como JSON
+
+### Fixed
+
+* (fix) corregir gramática comentario
+* (fix) corregir error al pasar el antiguo parámetro HTTP_CODE en el constructor de la clase `UnsetRelationException`
 
 ## [v1.8.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.7.0-beta.1...v1.8.0-beta.1) - 2024-10-31
 
@@ -42,8 +64,6 @@
 * (breaking) Renombrar el helper `abortC` a `abort_d` ya que es el abort del dominio
 * (breaking) Renombrar la clase `GeneralException` a `AbortException` ya que se entiende mejor su propósito
 * Añadir la constante `MESSAGE` en la clase `BasicException` para poder definir un mensaje por defecto en cada excepción que herede de esta clase
-
-### Removed
 
 ### Fixed
 
