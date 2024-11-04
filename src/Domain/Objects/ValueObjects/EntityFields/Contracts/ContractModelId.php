@@ -24,7 +24,7 @@ abstract class ContractModelId extends ContractIntVo
 
     private function ensureIsValidValue(?int $id): void
     {
-        if (!is_null($id) && $id < 1) {
+        if (!is_null($id) && $id < config('hexagonal.minimum_value_for_model_id')) {
             throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), $id));
         }
     }

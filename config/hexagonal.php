@@ -63,6 +63,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | ModelId value object
+    |--------------------------------------------------------------------------
+    |
+    | The following option allows you to configure the minimum value allowed
+    | in the Value Object "ModelId"
+    |
+    */
+
+    'minimum_value_for_model_id' => (int) env('HEXAGONAL_MINIMUM_VALUE_FOR_MODEL_ID', 1),
+
+    /*
+    |--------------------------------------------------------------------------
     | Jobs
     |--------------------------------------------------------------------------
     |
