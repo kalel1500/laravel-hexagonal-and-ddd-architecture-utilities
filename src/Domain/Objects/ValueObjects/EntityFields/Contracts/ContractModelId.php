@@ -16,15 +16,21 @@ abstract class ContractModelId extends ContractIntVo
     protected const CLASS_MODEL_REQUIRED = ModelId::class;
     protected const CLASS_MODEL_NULLABLE = ModelIdNull::class;
 
+    protected $minimumValueForModelId = null;
+
     public function __construct(?int $value)
     {
+        if (is_null($this->minimumValueForModelId)) {
+            $this->minimumValueForModelId = config('hexagonal.minimum_value_for_model_id');
+        }
+
         parent::__construct($value);
         $this->ensureIsValidValue($value);
     }
 
     private function ensureIsValidValue(?int $id): void
     {
-        if (!is_null($id) && $id < config('hexagonal.minimum_value_for_model_id')) {
+        if (!is_null($id) && $id < $this->minimumValueForModelId) {
             throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), $id));
         }
     }
