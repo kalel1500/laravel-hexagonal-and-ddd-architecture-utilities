@@ -31,10 +31,10 @@ abstract class ContractModelId extends ContractIntVo
         $this->ensureIsValidValue($value);
     }
 
-    private function ensureIsValidValue(?int $id): void
+    protected function ensureIsValidValue(?int $value): void
     {
-        if (!is_null($id) && $id < $this->minimumValueForModelId) {
-            throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), $id));
+        if (!is_null($value) && $value < $this->minimumValueForModelId) {
+            throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), $value));
         }
     }
 
