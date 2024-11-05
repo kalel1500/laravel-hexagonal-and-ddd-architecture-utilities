@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
 
+use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 
 abstract class ContractCollectionVo extends ContractCollectionBase
@@ -32,6 +33,11 @@ abstract class ContractCollectionVo extends ContractCollectionBase
     static function fromArray(?array $values, bool $allowNull = true, callable $valueModifierCallback = null)
     {
         if (is_null($values)) return null;
+
+        if (is_null(static::VALUE_CLASS_NULL) || is_null(static::VALUE_CLASS_REQ)) {
+            throw new RequiredDefinitionException(sprintf('<%s> needs to define <%s> and <%s> %s.', class_basename(static::class), 'VALUE_CLASS_NULL', 'VALUE_CLASS_REQ', 'constants'));
+        }
+
         $valueClass = ($allowNull) ? static::VALUE_CLASS_NULL : static::VALUE_CLASS_REQ;
         $res = [];
         foreach ($values as $value) {
