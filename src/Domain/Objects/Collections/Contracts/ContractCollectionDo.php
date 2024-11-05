@@ -24,8 +24,6 @@ abstract class ContractCollectionDo extends ContractCollectionBase
         $res = [];
         try {
             foreach ($values as $value) {
-//            if (!$value instanceof $valueClass) throw new InvalidValueException(sprintf('Los valores del array solo pueden ser de tipo <%s>', $valueClass));
-//            $res[] = $value;
                 $res[] = ($value instanceof $valueClass) ? $value : $valueClass::fromArray($value);//new $valueClass(...array_values($value));
             }
         } catch (TypeError $exception) {
