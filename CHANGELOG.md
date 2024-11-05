@@ -1,6 +1,27 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.3...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.0...master)
+
+## [v1.9.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.3...v1.9.0-beta.0) - 2024-11-05
+
+### Changed
+
+* <u>**!!! (breaking) !!!**</u> Permitir que los ValueObjects que no son NULL, estén vacíos (`empty()`) para mantener la integridad de los datos
+* <u>**!!! (breaking) !!!**</u> Dejar de limpiar el value en la clase `ContractStringVo` para mantener la integridad de los datos
+* comentarios añadidos en el método `checkAllowNull()` de la clase `ContractValueObject`
+* (phpdoc) añadir tipos dinámicos en PhpDoc con `@template` en las clases de las colecciones
+* (refactor) eliminar condición innecesaria en `ContractCollectionEntity::fromData()`
+* (refactor) ordenar código validaciones del método `ContractCollectionEntity::fromData()`
+
+### Removed
+
+* eliminar código comentado
+* eliminar código duplicado en la clase `ContractModelId`
+
+### Fixed
+
+* (fix) prevenir errores al añadir validaciones en los métodos `fromData()` de las colecciones para validar que las constantes siempre tengan un valor definido
+* (fix) Prevenir error cuando se crea un StringVo con el valor `''` (añadida propiedad `protected $allowNull = false` en los ValueObjects que no deban permitir null)
 
 ## [v1.8.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.2...v1.8.0-beta.3) - 2024-11-05
 
