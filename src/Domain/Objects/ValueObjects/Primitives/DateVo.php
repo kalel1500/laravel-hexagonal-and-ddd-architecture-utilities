@@ -8,6 +8,8 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 class DateVo extends ContractDateVo
 {
+    protected $allowNull = false;
+
     public function __construct(string $value)
     {
         parent::__construct($value);

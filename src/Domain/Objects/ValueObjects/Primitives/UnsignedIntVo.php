@@ -8,6 +8,8 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 class UnsignedIntVo extends ContractUnsignedIntVo
 {
+    protected $allowNull = false;
+
     public function __construct(int $value)
     {
         parent::__construct($value);

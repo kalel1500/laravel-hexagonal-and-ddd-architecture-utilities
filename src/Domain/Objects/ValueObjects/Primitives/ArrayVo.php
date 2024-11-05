@@ -8,6 +8,8 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 class ArrayVo extends ContractArrayVo
 {
+    protected $allowNull = false;
+
     public function __construct(array $value)
     {
         parent::__construct($value);
