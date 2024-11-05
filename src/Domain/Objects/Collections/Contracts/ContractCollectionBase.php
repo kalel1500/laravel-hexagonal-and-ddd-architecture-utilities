@@ -43,7 +43,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     /**
      * @param array $collResult
-     * @return static // TODO PHP8 - static return type
+     * @return T
      */
     private function toOriginal(array $collResult)
     {
@@ -94,7 +94,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     }
 
     /**
-     * @return static // TODO PHP8 - return static
+     * @return T
      */
     public static function empty()
     {
@@ -458,7 +458,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     /**
      * @param ContractCollectionBase|array $items
-     * @return static // TODO PHP8 - static return type
+     * @return T
      */
     public function diffKeys($items)
     {
@@ -507,6 +507,10 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
         return $this->where(...func_get_args())->first();
     }
 
+    /**
+     * @param callable $callback
+     * @return T
+     */
     public function each(callable $callback)
     {
         foreach ($this->items as $key => $item) {

@@ -107,7 +107,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      * @param bool $isPaginate
      * @param PaginationDataDo|null $paginationData
      * @param bool $isEloquentBuilder
-     * @return static // TODO PHP8 return static
+     * @return T
      */
     private static function fromData(
         $data,
