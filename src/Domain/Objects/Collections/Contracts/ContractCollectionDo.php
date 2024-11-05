@@ -9,6 +9,9 @@ use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
 use TypeError;
 
+/**
+ * @template T of ContractCollectionDo
+ */
 abstract class ContractCollectionDo extends ContractCollectionBase
 {
     protected const IS_ENTITY = false;
@@ -18,6 +21,10 @@ abstract class ContractCollectionDo extends ContractCollectionBase
         return $this->items[0] ?? null;
     }
 
+    /**
+     * @param array|null $values
+     * @return T
+     */
     static function fromArray(?array $values)
     {
         if (is_null($values)) return null;
