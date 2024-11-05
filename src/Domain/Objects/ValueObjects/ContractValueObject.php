@@ -150,9 +150,9 @@ abstract class ContractValueObject
         }
 
         // Si NO es BoolVo && NO es NULL && es '' -> throw
-        if (!($this instanceof ContractBoolVo) && !is_null($value) && empty($value)) {
+        /*if (!($this instanceof ContractBoolVo) && !is_null($value) && empty($value)) {
             throw new InvalidValueException(sprintf('<%s> does not allow an empty value.', class_basename(static::class)));
-        }
+        }*/
     }
 
     public function __toString()
