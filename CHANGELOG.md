@@ -1,6 +1,22 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.2...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.3...master)
+
+## [v1.8.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.2...v1.8.0-beta.3) - 2024-11-05
+
+### Added
+
+* Nuevas clases `UnsignedInt` (tanto primitivas como de Entidad) para tener un ValueObject que solo acepte números positivos
+
+### Changed
+
+* Actualizar dependencia de npm `laravel-ts-utilities` a la versión `1.3.0-beta.1` + actualizar identación archivos
+* Permitir que la clase `ContractIntVo` tenga números negativos (quitar de la validación el `$value < 0`)
+
+### Fixed
+
+* (fix) incluir la validación `checkAllowNull()` en el método `ensureIsValidValue` de la clase `ContractModelId`
+* (fix) adaptar método `ensureIsValidValue()` de `ContractModelId` a la clase padre haciendolo `protected` y renombrando la variable `$id` por `$value`
 
 ## [v1.8.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.1...v1.8.0-beta.2) - 2024-11-04
 
