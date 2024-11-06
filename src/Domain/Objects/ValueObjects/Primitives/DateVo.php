@@ -10,9 +10,9 @@ class DateVo extends ContractDateVo
 {
     protected $allowNull = false;
 
-    public function __construct(string $value)
+    public function __construct(string $value, ?array $formats = null)
     {
-        parent::__construct($value);
+        parent::__construct($value, $formats);
     }
 
     public function value(): string
