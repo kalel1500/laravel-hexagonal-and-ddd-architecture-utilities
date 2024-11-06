@@ -24,9 +24,6 @@ abstract class ContractDateVo extends ContractStringVo
     public function __construct(?string $value, ?string $format = null)
     {
         $this->format = is_null($format) ? $this->format : $format;
-        if (!is_null($value)) {
-            $value = MyCarbon::parse($value)->format($this->format);
-        }
         parent::__construct($value);
     }
 
