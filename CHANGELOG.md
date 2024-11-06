@@ -1,6 +1,19 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.1...master)
+
+## [v1.9.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.0...v1.9.0-beta.1) - 2024-11-06
+
+### Changed
+
+* Renombrar migraciones y validar que no existan antes de crearlas para evitar conflictos con las migraciones del proyecto
+* Mover la directiva @routes encima de los scripts
+* !!!Renderer: Insertar CSS y JS compilado en el `layout` en lugar de usar directive `@vitePackage` para no tener que generar una ruta laravel que sirva los archivos
+
+### Fixed
+
+* (fix) Prevenir error al llamar al `favicon.ico` con `Vite::asset` en el `layout` usando la nueva directiva `@viteAsset` que contiene un tryCatch
+* (fix) Prevenir error al llamar al JS con `@vite()` en el `layout` comprobando que exista un archivo `.ts` en el proyecto (usar extension `.js` si no existe)
 
 ## [v1.9.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.3...v1.9.0-beta.0) - 2024-11-05
 
