@@ -19,11 +19,11 @@ abstract class ContractDateVo extends ContractStringVo
     protected const CLASS_MODEL_REQUIRED = ModelDate::class;
     protected const CLASS_MODEL_NULLABLE = ModelDateNull::class;
 
-    private $format;
+    protected $format = 'Y-m-d H:i:s';
 
-    public function __construct(?string $value, bool $isDatetime = true)
+    public function __construct(?string $value, ?string $format = null)
     {
-        $this->format = $isDatetime ? MyCarbon::$datetime_startYear : MyCarbon::$date_startYear;
+        $this->format = is_null($format) ? $this->format : $format;
         if (!is_null($value)) {
             $value = MyCarbon::parse($value)->format($this->format);
         }

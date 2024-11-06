@@ -8,15 +8,16 @@ use Carbon\CarbonImmutable;
 
 final class MyCarbon
 {
-    public static $date_startYear                           = 'Y-m-d';
-    public static $date_startDay                            = 'd-m-Y';
-    public static $date_startYear_slash                     = 'Y/m/d';
-    public static $date_startDay_slash                      = 'd/m/Y';
-    public static $date_startMonthWithoutDay_slash          = 'm/Y';
-    public static $datetime_startYear                       = 'Y-m-d H:i:s';
-    public static $datetime_startDay_slash                  = 'd/m/Y H:i:s';
-    public static $datetime_startDay_slash_withoutSeconds   = 'd/m/Y H:i';
-    public static $time                                     = 'H:i:s';
+    public static $date_startYear                         = 'Y-m-d';
+    public static $date_startDay                          = 'd-m-Y';
+    public static $date_startYear_slash                   = 'Y/m/d';
+    public static $date_startDay_slash                    = 'd/m/Y';
+    public static $date_startMonthWithoutDay_slash        = 'm/Y';
+    public static $datetime_startYear                     = 'Y-m-d H:i:s';
+    public static $datetime_startYear_withoutSeconds      = 'Y-m-d H:i';
+    public static $datetime_startDay_slash                = 'd/m/Y H:i:s';
+    public static $datetime_startDay_slash_withoutSeconds = 'd/m/Y H:i';
+    public static $time                                   = 'H:i:s';
 
     public static function stringToformat($date, $format, $getNowIfNullRecived = false): ?string
     {
