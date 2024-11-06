@@ -574,22 +574,6 @@ if (! function_exists('getUrlFromRoute')) {
     }
 }
 
-if (!function_exists('vitePackage')) {
-    function vitePackage($entryPoints): string
-    {
-        /** @var \Illuminate\Foundation\Vite $vite */
-        $vite = app(\Illuminate\Foundation\Vite::class);
-        return $vite
-            ->createAssetPathsUsing(function ($paths) {
-                $paths = Str::after($paths, '/assets/');
-                return route('hexagonal.public', $paths);
-            })
-            ->useBuildDirectory('../vendor/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/public/build')
-            ->withEntryPoints($entryPoints)
-            ->toHtml();
-    }
-}
-
 //if (!function_exists('formatToTabulatorList')) {
 //    /**
 //     * @param Collection|ContractCollectionBase $collection // TODO PHP8 - Union types

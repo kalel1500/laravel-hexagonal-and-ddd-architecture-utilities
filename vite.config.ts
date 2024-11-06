@@ -1,13 +1,20 @@
 import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import { laravelTsUtilsPlugin } from 'laravel-ts-utilities/dist/plugins';
+import path from 'path';
 
 export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.ts'],
-            refresh: false,
-        }),
-        laravelTsUtilsPlugin()
-    ],
+    build: {
+        outDir: 'public/build',
+        assetsDir: '',
+        rollupOptions: {
+            input: {
+                scripts: path.resolve(__dirname, 'resources/js/app.ts'),
+                styles: path.resolve(__dirname, 'resources/css/app.css'),
+            },
+            output: {
+                entryFileNames: '[name].js',
+                assetFileNames: '[name][extname]',
+            },
+            external: ['bootstrap'],
+        },
+    },
 });

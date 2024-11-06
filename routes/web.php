@@ -8,7 +8,6 @@ use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxQueuesController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxWebsocketsController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\ExampleController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\JobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\LayoutController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController;
 
 
@@ -35,13 +34,6 @@ Route::get('/queues/jobs',                      [JobsController::class, 'queuedJ
 Route::get('/queues/failed-jobs',               [JobsController::class, 'failedJobs'])->name('queues.failedJobs');
 Route::get('/ajax/queues/jobs',                 [AjaxJobsController::class, 'getJobs'])->name('ajax.queues.getJobs');
 Route::get('/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'getFailedJobs'])->name('ajax.queues.getFailedJobs');
-
-
-/**
- * Layout routes
- */
-
-Route::get('/public/assets/{file}',             [LayoutController::class, 'public'])->where('file', '.*')->name('public');
 
 
 /**
