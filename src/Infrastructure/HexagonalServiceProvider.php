@@ -6,6 +6,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService;
@@ -15,6 +16,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
 use Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
+use Throwable;
 
 class HexagonalServiceProvider extends ServiceProvider
 {
@@ -71,6 +73,7 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerMigrations();
         $this->registerTranslations();
         $this->registerComponents();
+        $this->registerBladeDirectives();
 
         // Middlewares
 //        $router = $this->app->make(Router::class);
@@ -200,6 +203,23 @@ class HexagonalServiceProvider extends ServiceProvider
 
         // Registrar componentes anónimos
         Blade::anonymousComponentPath(HEXAGONAL_PATH.'/resources/views/components', 'hexagonal');
+    }
+
+    /**
+     * Register Package's Blade directives.
+     *
+     * @return void
+     */
+    protected function registerBladeDirectives(): void
+    {
+        Blade::directive('viteAsset', function ($path) {
+            $path = trim($path, '\'\"'); // Quita comillas alrededor del string
+            try {
+                return Vite::asset($path);
+            } catch (Throwable $e) {
+                return "";
+            }
+        });
     }
 
     /**

@@ -28,7 +28,7 @@
         @routes
 
         <!-- Icons -->
-        <link rel="icon" href="{{ \Illuminate\Support\Facades\Vite::asset('resources/images/favicon.ico') }}">
+        <link rel="icon" href="@viteAsset('resources/images/favicon.ico')">
     </head>
 
     <body class="bg-gray-50 antialiased dark:bg-gray-900">
