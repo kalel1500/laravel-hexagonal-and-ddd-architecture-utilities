@@ -19,11 +19,12 @@ abstract class ContractDateVo extends ContractStringVo
     protected const CLASS_MODEL_REQUIRED = ModelDate::class;
     protected const CLASS_MODEL_NULLABLE = ModelDateNull::class;
 
-    protected $format = 'Y-m-d H:i:s';
+    protected $allowZeros = false;
+    protected $formats    = ['Y-m-d H:i:s'];
 
-    public function __construct(?string $value, ?string $format = null)
+    public function __construct(?string $value, ?array $formats = null)
     {
-        $this->format = is_null($format) ? $this->format : $format;
+        $this->formats = is_null($formats) ? $this->formats : $formats;
         parent::__construct($value);
     }
 
@@ -31,8 +32,8 @@ abstract class ContractDateVo extends ContractStringVo
     {
         parent::ensureIsValidValue($value);
 
-        if (!is_null($value) && !MyCarbon::checkFormat($value, $this->format)) {
-            throw new InvalidValueException(sprintf('<%s> does not allow this format value <%s>. Needle format: <%s>', class_basename(static::class), $value, $this->format));
+        if (!is_null($value) && !MyCarbon::checkFormats($value, $this->formats, $this->allowZeros)) {
+            throw new InvalidValueException(sprintf('<%s> does not allow this format value <%s>. Needle formats: <%s>', class_basename(static::class), $value, implode(', ', $this->formats)));
         }
     }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Infrastructure\Helpers;
 
 use Carbon\CarbonImmutable;
+use Throwable;
 
 final class MyCarbon
 {
@@ -77,10 +78,49 @@ final class MyCarbon
         return self::parse($date.' '.$time);
     }
 
-    public static function checkFormat(string $date, string $format): bool
+    public static function checkFormat(string $date, string $format, bool $allowZeros = false): bool
     {
-        $formatted = CarbonImmutable::parse($date)->format($format);
-        return ($date === $formatted);
+        // Verificar si el valor es cero según el formato y $allowZeros es true
+        if ($allowZeros && self::isZeroDate($date, $format)) {
+            return true;
+        }
+
+        // Verificar el formato utilizando CarbonImmutable
+        try {
+            $formatted = CarbonImmutable::parse($date)->format($format);
+            return ($date === $formatted);
+        } catch (Throwable $e) {
+            // Si el parseo falla, retornar false
+            return false;
+        }
+    }
+
+    public static function checkFormats(string $date, array $formats, bool $allowZeros = false): bool
+    {
+        // Iterar sobre cada formato y llamar a checkFormat
+        foreach ($formats as $format) {
+            if (self::checkFormat($date, $format, $allowZeros)) {
+                return true;
+            }
+        }
+
+        // Si ningún formato coincide, retornar false
+        return false;
+    }
+
+    private static function isZeroDate(string $date, string $format): bool
+    {
+        // Crear una cadena de ceros basada en el formato
+        $zeroDate = strtr($format, [
+            'Y' => '0000',
+            'm' => '00',
+            'd' => '00',
+            'H' => '00',
+            'i' => '00',
+            's' => '00',
+        ]);
+
+        return $date === $zeroDate;
     }
 
     public static function debugTime(string $debugTitle, callable $callback)
