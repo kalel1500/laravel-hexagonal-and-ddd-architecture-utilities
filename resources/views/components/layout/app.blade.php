@@ -17,7 +17,11 @@
             {!! Renderer::js() !!}
         @else
             <!-- JavaScript y CSS compilados -->
-            @vite(['resources/css/app.css', 'resources/js/app.ts'])
+            @if(file_exists(resource_path('js/app.ts')))
+                @vite(['resources/css/app.css', 'resources/js/app.ts'])
+            @else
+                @vite(['resources/css/app.css', 'resources/js/app.js'])
+            @endif
         @endif
 
         {{-- Acceso a las rutas de laravel desde javascipt --}}
