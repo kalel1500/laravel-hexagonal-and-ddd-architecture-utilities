@@ -1,6 +1,19 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...master)
+
+## [v1.10.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.1...v1.10.0-beta.0) - 2024-11-06
+
+### Changed
+
+* Añadir parámetro $formats en el constructor de la clase `DateVo`
+* Adaptar el método `checkFormat()` de la clase `MyCarbon` para validar zeros y Crear nuevo método `checkFormats()` para validar un array de formatos
+* !!! Añadir propiedad `$allowZeros` para poder pasarle fechas con zeros.
+* !!! (breaking) Modificar propiedad `$formats` de `ContractDateVo` de `String` a `Array` para que acepte varios formatos
+* (breaking) Eliminar formateo de fecha en el constructor de la clase `ContractDateVo` para mantener la integridad de los datos
+* Añadir nuevo formato `$datetime_startYear_withoutSeconds` en la clase `MyCarbon`
+* Poner un valor por defecto a la propiedad `$format`
+* !!! (breaking) Modificar segundo parámetro constructor de `ContractDateVo` para recibir el formato
 
 ## [v1.9.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.0...v1.9.0-beta.1) - 2024-11-06
 
