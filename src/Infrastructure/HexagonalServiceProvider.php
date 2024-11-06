@@ -71,7 +71,6 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerMigrations();
         $this->registerTranslations();
         $this->registerComponents();
-        $this->registerBladeDirectives();
 
         // Middlewares
 //        $router = $this->app->make(Router::class);
@@ -201,18 +200,6 @@ class HexagonalServiceProvider extends ServiceProvider
 
         // Registrar componentes anónimos
         Blade::anonymousComponentPath(HEXAGONAL_PATH.'/resources/views/components', 'hexagonal');
-    }
-
-    /**
-     * Register Package's Blade directives.
-     *
-     * @return void
-     */
-    protected function registerBladeDirectives(): void
-    {
-        Blade::directive('vitePackage', function ($expression) {
-            return "<?php echo vitePackage({$expression}); ?>";
-        });
     }
 
     /**

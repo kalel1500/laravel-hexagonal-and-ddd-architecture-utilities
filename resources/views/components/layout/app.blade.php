@@ -1,3 +1,4 @@
+@use('Thehouseofel\Hexagonal\Infrastructure\Services\Renderer')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @if($sidebarCollapsed) class="sc" @endif>
     <head>
@@ -12,7 +13,8 @@
 
         @if($isFromPackage)
             <!-- JavaScript y CSS del paquete -->
-            @vitePackage(['resources/css/app.css', 'resources/js/app.ts'])
+            {!! Renderer::css() !!}
+            {!! Renderer::js() !!}
         @else
             <!-- JavaScript y CSS compilados -->
             @vite(['resources/css/app.css', 'resources/js/app.ts'])
