@@ -11,6 +11,9 @@
 
         <title>{{ $title }}</title>
 
+        <!-- Acceso a las rutas de laravel desde javascipt -->
+        @routes
+
         @if($isFromPackage)
             <!-- JavaScript y CSS del paquete -->
             {!! Renderer::css() !!}
@@ -23,9 +26,6 @@
                 @vite(['resources/css/app.css', 'resources/js/app.js'])
             @endif
         @endif
-
-        {{-- Acceso a las rutas de laravel desde javascipt --}}
-        @routes
 
         <!-- Icons -->
         <link rel="icon" href="@viteAsset('resources/images/favicon.ico')">
