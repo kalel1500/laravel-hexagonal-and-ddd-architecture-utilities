@@ -11,6 +11,7 @@ use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
+use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
@@ -159,6 +160,7 @@ class HexagonalServiceProvider extends ServiceProvider
     {
         $this->commands([
             ClearAll::class,
+            HexagonalStart::class,
             JobDispatch::class,
             LogsClear::class,
             ServiceCheck::class,
