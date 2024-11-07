@@ -19,13 +19,6 @@ Route::get('/root',                             [HexagonalController::class, 'ro
 
 
 /**
- * Test routes
- */
-
-Route::get('/test-vite-package',                [HexagonalController::class, 'testVitePackage'])->name('test');
-
-
-/**
  * Service routes
  */
 
