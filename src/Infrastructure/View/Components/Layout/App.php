@@ -24,7 +24,7 @@ class App extends Component
     {
         $this->title = $title ?? config('app.name');
 
-        $links = collect(config('hexagonal.sidebar_links'));
+        $links = collect(config('hexagonal.sidebar.items'));
         $firstCollapsed = $links->flatMap(function ($item) {
             // Combinar el array con sus sub_links (si existen)
             return array_merge([$item], $item['sub_links'] ?? []);
