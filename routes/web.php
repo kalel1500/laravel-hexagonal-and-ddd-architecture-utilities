@@ -8,14 +8,14 @@ use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxQueuesController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxWebsocketsController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\ExampleController;
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\JobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\TestController;
+use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\HexagonalController;
 
 
 /**
  * Test routes
  */
 
-Route::get('/test-vite-package',                [TestController::class, 'testVitePackage'])->name('test');
+Route::get('/test-vite-package',                [HexagonalController::class, 'testVitePackage'])->name('test');
 
 
 /**

@@ -6,7 +6,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Controllers\Web;
 
 use Thehouseofel\Hexagonal\Infrastructure\Controllers\Controller;
 
-final class TestController extends Controller
+final class HexagonalController extends Controller
 {
     public function testVitePackage(): \Illuminate\Contracts\View\View
     {
