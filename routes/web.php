@@ -12,6 +12,13 @@ use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\HexagonalController;
 
 
 /**
+ * Base route
+ */
+
+Route::get('/root',                             [HexagonalController::class, 'root'])->name('root');
+
+
+/**
  * Test routes
  */
 
