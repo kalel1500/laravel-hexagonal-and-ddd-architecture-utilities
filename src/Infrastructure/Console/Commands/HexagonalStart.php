@@ -7,6 +7,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\Process\Process;
 
 class HexagonalStart extends Command
 {
@@ -15,7 +17,7 @@ class HexagonalStart extends Command
      *
      * @var string
      */
-    protected $signature = 'hexagonal:start';
+    protected $signature = 'hexagonal:start {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
 
     /**
      * The console command description.
@@ -96,6 +98,12 @@ class HexagonalStart extends Command
                     'ts-build'                   => 'tsc && vite build',
                 ] + $packages;
         });
+
+        // Install "tightenco/ziggy"
+        $this->requireComposerPackages('tightenco/ziggy');
+
+        // Add the "Src" namespace into "composer.json"
+        $this->updateComposerAutoload(["Src\\" => "src/",]);
     }
 
     /**
@@ -182,5 +190,107 @@ class HexagonalStart extends Command
         );
 
         $this->info('Archivo "package.json" modificado');
+    }
+
+    /**
+     * Installs the given Composer Packages into the application.
+     *
+     * @param  mixed  $packages
+     * @return void
+     */
+    protected function requireComposerPackages($packages)
+    {
+        $composer = $this->option('composer');
+
+        if ($composer !== 'global') {
+            $command = [$this->phpBinary(), $composer, 'require'];
+        }
+
+        $command = array_merge(
+            $command ?? ['composer', 'require'],
+            is_array($packages) ? $packages : func_get_args()
+        );
+
+        $result = ! (new Process($command, base_path(), ['COMPOSER_MEMORY_LIMIT' => '-1']))
+            ->setTimeout(null)
+            ->run(function ($type, $output) {
+                $this->output->write($output);
+            });
+
+        $this->info('Dependencias instaladas');
+    }
+
+    /**
+     * Get the path to the appropriate PHP binary.
+     *
+     * @return string
+     */
+    protected function phpBinary(): string
+    {
+        if (function_exists('Illuminate\Support\php_binary')) {
+            return \Illuminate\Support\php_binary();
+        }
+
+        return (new PhpExecutableFinder())->find(false) ?: 'php';
+    }
+
+    /**
+     * Update the "autoload.psr-4" section in "composer.json" file with additional namespaces.
+     *
+     * @param array $additionalNamespaces Array of namespaces to add, e.g., ["Src\\" => "src/"]
+     * @return void
+     */
+    protected function updateComposerAutoload(array $additionalNamespaces)
+    {
+        $filePath = base_path('composer.json');
+
+        if (!file_exists($filePath)) {
+            return;
+        }
+
+        $composerConfig = json_decode(file_get_contents($filePath), true);
+
+        // Asegurarse de que las claves necesarias existan
+        if (!isset($composerConfig['autoload']['psr-4'])) {
+            return;
+        }
+
+        $psr4 = $composerConfig['autoload']['psr-4'];
+
+        // Insertar cada nuevo namespace después de "App\\"
+        $updatedPsr4 = [];
+        foreach ($psr4 as $namespace => $path) {
+            $updatedPsr4[$namespace] = $path;
+
+            // Insertar los nuevos namespaces después de "App\\"
+            if ($namespace === 'App\\') {
+                foreach ($additionalNamespaces as $newNamespace => $newPath) {
+                    $updatedPsr4[$newNamespace] = $newPath;
+                }
+            }
+        }
+
+        // Actualizar el valor de psr-4 en la configuración de composer
+        $composerConfig['autoload']['psr-4'] = $updatedPsr4;
+
+        // Convertir el arreglo a JSON y formatear con JSON_PRETTY_PRINT
+        $jsonContent = json_encode($composerConfig, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+
+        // Usa una expresión regular para encontrar la key "keywords" y ponerla en una línea
+        $jsonContent = preg_replace_callback(
+            '/"keywords": \[\s+([^\]]+?)\s+\]/s',
+            function ($matches) {
+                // Limpia el contenido de "keywords" y colócalo en una línea
+                $keywords = preg_replace('/\s+/', '', $matches[1]);  // Elimina espacios y saltos de línea
+                $keywords = str_replace('","', '", "', $keywords);   // Añade un espacio después de cada coma
+                return '"keywords": [' . $keywords . ']';
+            },
+            $jsonContent
+        );
+
+        // Guardar el archivo actualizado
+        file_put_contents($filePath, $jsonContent . PHP_EOL);
+
+        $this->info('Archivo "composer.json" modificado');
     }
 }
