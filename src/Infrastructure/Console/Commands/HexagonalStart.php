@@ -66,16 +66,16 @@ class HexagonalStart extends Command
          * --- Modificación de archivos ---
          */
 
-        // /bootstrap/providers.php
+        // bootstrap/providers.php
         ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
-        $this->info('Archivo "/bootstrap/providers.php" modificado');
+        $this->info('Archivo "bootstrap/providers.php" modificado');
 
-        // /bootstrap/app.php
+        // bootstrap/app.php
         $this->installException([
             '$callback = \Thehouseofel\Hexagonal\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();',
             '$callback($exceptions);',
         ]);
-        $this->info('Archivo "/bootstrap/app.php" modificado');
+        $this->info('Archivo "bootstrap/app.php" modificado');
 
         // Borrar los ".lock" del ".gitignore"
         $this->clearGitignore();
