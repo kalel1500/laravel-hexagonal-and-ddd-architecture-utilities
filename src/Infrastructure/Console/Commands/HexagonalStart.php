@@ -93,11 +93,7 @@ class HexagonalStart extends Command
         });
 
         // Add script "ts-build" in "package.json"
-        $this->updatePackageJsonSection('scripts', function ($packages) {
-            return [
-                    'ts-build'                   => 'tsc && vite build',
-                ] + $packages;
-        });
+        $this->updatePackageJsonSection('scripts', function ($packages) { return ['ts-build' => 'tsc && vite build',] + $packages; });
 
         // Install "tightenco/ziggy"
         $this->requireComposerPackages('tightenco/ziggy');
