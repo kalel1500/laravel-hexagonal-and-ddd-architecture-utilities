@@ -8,4 +8,5 @@ interface EnumWIthIdsContract
 {
     public static function values(): array;
     public function getId(): int;
+    public static function fromId(int $id);
 }
