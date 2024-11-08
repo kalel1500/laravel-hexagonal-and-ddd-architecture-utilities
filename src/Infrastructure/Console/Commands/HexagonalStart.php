@@ -27,11 +27,13 @@ class HexagonalStart extends Command
     protected $description = 'Create starter files for hexagonal architecture';
 
     protected $filesystem;
+    protected $stubsPath;
 
     public function __construct(Filesystem $filesystem)
     {
         parent::__construct();
         $this->filesystem = $filesystem;
+        $this->stubsPath = HEXAGONAL_PATH.'/stubs';
     }
 
     /**
@@ -44,22 +46,22 @@ class HexagonalStart extends Command
          */
 
         // DependencyServiceProvider
-        copy(HEXAGONAL_PATH.'/stubs/app/Providers/DependencyServiceProvider.php', app_path('Providers/DependencyServiceProvider.php'));
+        copy($this->stubsPath.'/app/Providers/DependencyServiceProvider.php', app_path('Providers/DependencyServiceProvider.php'));
         $this->info('Archivo "app/Providers/DependencyServiceProvider.php" creado');
 
         // resources
         $this->filesystem->ensureDirectoryExists(resource_path('views/pages'));
-        $this->filesystem->copyDirectory(HEXAGONAL_PATH.'/stubs/resources/views/pages', resource_path('views/pages'));
+        $this->filesystem->copyDirectory($this->stubsPath.'/resources/views/pages', resource_path('views/pages'));
         $this->info('Carpeta "resources/views/pages" creada');
 
         // Src
         $this->filesystem->ensureDirectoryExists(base_path('src'));
-        $this->filesystem->copyDirectory(HEXAGONAL_PATH.'/stubs/src', base_path('src'));
+        $this->filesystem->copyDirectory($this->stubsPath.'/src', base_path('src'));
         $this->info('Carpeta "src" creada');
 
         // .env.local
-        copy(HEXAGONAL_PATH.'/stubs/.env.local', base_path('.env.local'));
-        copy(HEXAGONAL_PATH.'/stubs/.env.local', base_path('.env'));
+        copy($this->stubsPath.'/.env.local', base_path('.env.local'));
+        copy($this->stubsPath.'/.env.local', base_path('.env'));
         $this->call('key:generate');
         $this->info('Archivos ".env" creados');
 
@@ -100,7 +102,7 @@ class HexagonalStart extends Command
         $this->info('Archivo "bootstrap/app.php" modificado');
 
         // routes/web.php
-        copy(HEXAGONAL_PATH.'/stubs/routes/web.php', base_path('routes/web.php'));
+        copy($this->stubsPath.'/routes/web.php', base_path('routes/web.php'));
         $this->info('Archivo "routes/web.php" modificado');
 
         // Comment User factory in "database/seeders/DatabaseSeeder.php"
@@ -112,7 +114,7 @@ class HexagonalStart extends Command
         $this->info('Archivo "resources/js/bootstrap.js" modificado');
 
         // tailwind.config.js
-        copy(HEXAGONAL_PATH.'/stubs/tailwind.config.js', base_path('tailwind.config.js'));
+        copy($this->stubsPath.'/tailwind.config.js', base_path('tailwind.config.js'));
         $this->info('Archivo "tailwind.config.js" modificado');
 
         // Borrar los ".lock" del ".gitignore"
