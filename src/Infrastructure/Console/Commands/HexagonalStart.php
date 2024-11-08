@@ -17,7 +17,8 @@ class HexagonalStart extends Command
      *
      * @var string
      */
-    protected $signature = 'hexagonal:start {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
+    protected $signature = 'hexagonal:start 
+                    {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
 
     /**
      * The console command description.
