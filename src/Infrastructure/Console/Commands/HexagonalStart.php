@@ -59,7 +59,9 @@ class HexagonalStart extends Command
 
         // .env.local
         copy(HEXAGONAL_PATH.'/stubs/.env.local', base_path('.env.local'));
-        $this->info('Archivo ".env.local" creado');
+        copy(HEXAGONAL_PATH.'/stubs/.env.local', base_path('.env'));
+        $this->call('key:generate');
+        $this->info('Archivos ".env" creados');
 
 
         /**
