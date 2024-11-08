@@ -81,6 +81,14 @@ class HexagonalStart extends Command
         copy(HEXAGONAL_PATH.'/stubs/routes/web.php', base_path('routes/web.php'));
         $this->info('Archivo "routes/web.php" modificado');
 
+        // Comment User factory in "database/seeders/DatabaseSeeder.php"
+        $this->filesystem->replaceInFile(['User::factory()->create([', ']);'], ['/*User::factory()->create([', ']);*/'], database_path('seeders/DatabaseSeeder.php'));
+        $this->info('Archivo "database/seeders/DatabaseSeeder.php" modificado');
+
+        // Import "flowbite" in resources/js/bootstrap.js
+        $this->filesystem->replaceInFile("import axios from 'axios';", "import axios from 'axios';".PHP_EOL."import 'flowbite';", resource_path('js/bootstrap.js'));
+        $this->info('Archivo "resources/js/bootstrap.js" modificado');
+
         // tailwind.config.js
         copy(HEXAGONAL_PATH.'/stubs/tailwind.config.js', base_path('tailwind.config.js'));
         $this->info('Archivo "tailwind.config.js" modificado');
