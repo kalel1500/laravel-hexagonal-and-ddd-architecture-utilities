@@ -77,6 +77,14 @@ class HexagonalStart extends Command
         ]);
         $this->info('Archivo "bootstrap/app.php" modificado');
 
+        // routes/web.php
+        copy(HEXAGONAL_PATH.'/stubs/routes/web.php', base_path('routes/web.php'));
+        $this->info('Archivo "routes/web.php" modificado');
+
+        // tailwind.config.js
+        copy(HEXAGONAL_PATH.'/stubs/tailwind.config.js', base_path('tailwind.config.js'));
+        $this->info('Archivo "tailwind.config.js" modificado');
+
         // Borrar los ".lock" del ".gitignore"
         $this->clearGitignore();
 
