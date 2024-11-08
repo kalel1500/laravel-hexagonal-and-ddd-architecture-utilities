@@ -1,6 +1,60 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...master)
+
+## [v1.10.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...v1.10.0-beta.1) - 2024-11-08
+
+### Added
+
+* docs: código interesante para añadir limitaciones a las peticiones por API
+* Nuevo comando (`HexagonalStart`) creado para crear los archivos iniciales en la aplicación
+  <details>
+  
+    - creados: 
+      - `app/Providers/DependencyServiceProvider.php`
+      - `resources/views/pages/home/index.blade.php`
+      - `src/Home/Infrastructure/HomeController.php`
+      - `src/Shared/Domain/Services/RepositoryServices/LayoutService.php`
+      - `.env`, `.env.local` y `APP_KEY` generada
+    - eliminados:
+      - eliminar los archivos `.lock` del `.gitignore`
+      - eliminar carpeta `app/Http`
+      - eliminar carpeta `app/Models`
+      - eliminar archivo `CHANGELOG.md`
+    - modificados: 
+      - añadir `DependencyServiceProvider` en `/bootstrap/providers.php`
+      - añadir `ExceptionHandler` en `/bootstrap/app.php`
+      - añadir dependencias de NPM en el `package.json`
+      - añadir script `ts-build` en el `package.json`
+      - instalar `tightenco/ziggy`
+      - añadir namespace `Src` en el `composer.json`
+      - añadir rutas iniciales en `routes/web.php`
+      - añadir archivos iniciales en `tailwind.config.js`
+      - comentar User factory en `database/seeders/DatabaseSeeder`
+      - importar `flowbite` in `resources/js/bootstrap.js`
+      - añadir comentario `HexagonalService::ignoreMigrations()` en el `app/Providers/AppServiceProvider.php`
+  
+  </details>
+
+### Changed
+
+* Nuevo método estático `fromId()` en el trait `WithIdsAndToArray` para poder instanciar un `BackedEnum` a partir del `Id`
+* Rutas: Añadir la ruta `hexagonal.root` en el componente `navbar.brand`
+* Rutas: Añadir las rutas `hexagonal.queues.queuedJobs` y `hexagonal.queues.queuedJobs` en la configuración del `sidebar`
+* Rutas: Cambiar `route('default')` de la vista `jobs.blade.php` por `route('hexagonal.root')` para no depender de que la aplicación tenga creada la ruta `default`
+* Rutas: Crear nueva ruta `/root` que hace una redirección hacia `/`
+* Rutas: Clase `TestController` renombrada a `HexagonalController`
+* Añadir middleware `web` en las rutas del paquete
+
+### Fixed
+
+* (fix) añadir el icono al breadcrumb del example2.blade.php (que se perdió en algún momento)
+* (fix) Sol. error al obtener los `$links` para comprobar `$this->sidebarCollapsed` -> cambiar `hexagonal.sidebar_links` por `hexagonal.sidebar.items`
+* (fix) Prevenir errores cuando en la configuración no hay `navbar.items`, `sidebar.items` o `sidebar.footer`
+
+### Removed
+
+* renderer: eliminar ruta y vista `testVitePackage`, ya que ahora se hace de otra forma y ya está funcionando en el Layout
 
 ## [v1.10.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.1...v1.10.0-beta.0) - 2024-11-06
 
