@@ -74,6 +74,28 @@ class HexagonalStart extends Command
             '$callback($exceptions);',
         ]);
         $this->info('Archivo "/bootstrap/app.php" modificado');
+
+        // Borrar los ".lock" del ".gitignore"
+        $this->clearGitignore();
+
+        // Install NPM packages...
+        $this->updatePackageJsonSection('devDependencies', function ($packages) {
+            return [
+                '@types/node'                   => '^22.5.5',
+                'flowbite'                      => '^2.5.1',
+                'prettier'                      => '^3.3.3',
+                'prettier-plugin-blade'         => '^2.1.19',
+                'prettier-plugin-tailwindcss'   => '^0.6.8',
+                'typescript'                    => '^5.6.2',
+            ] + $packages;
+        });
+
+        // Add script "ts-build" in "package.json"
+        $this->updatePackageJsonSection('scripts', function ($packages) {
+            return [
+                    'ts-build'                   => 'tsc && vite build',
+                ] + $packages;
+        });
     }
 
     /**
@@ -102,5 +124,63 @@ class HexagonalStart extends Command
 
                 file_put_contents(base_path('bootstrap/app.php'), $bootstrapApp);
             });
+    }
+
+    protected function clearGitignore()
+    {
+        // Ruta del archivo .gitignore
+        $gitignorePath    = base_path('.gitignore');
+        $gitignoreContent = file($gitignorePath, FILE_IGNORE_NEW_LINES); // Leer el archivo como un array de líneas
+
+        // Definir las líneas que queremos eliminar
+        $linesToRemove = ['composer.lock', 'package-lock.json'];
+
+        // Filtrar el contenido para eliminar solo las líneas especificadas
+        $gitignoreContent = array_filter($gitignoreContent, function ($line) use ($linesToRemove) {
+            return !in_array($line, $linesToRemove, true); // Mantener líneas que no están en $linesToRemove
+        });
+
+        // Eliminar cualquier línea vacía adicional al final del contenido
+        while (end($gitignoreContent) === '') {
+            array_pop($gitignoreContent);
+        }
+
+        // Escribir el contenido actualizado en el archivo con una sola línea vacía al final
+        file_put_contents($gitignorePath, implode(PHP_EOL, $gitignoreContent) . PHP_EOL);
+
+        // Informar al usuario
+        $this->info('Archivos ".lock" eliminados del ".gitignore"');
+    }
+
+    /**
+     * Update the "package.json" file.
+     *
+     * @param string $configurationKey
+     * @param callable $callback
+     * @return void
+     */
+    protected function updatePackageJsonSection(string $configurationKey, callable $callback)
+    {
+        $filePath = base_path('package.json');
+
+        if (!file_exists($filePath)) {
+            return;
+        }
+
+        $packages = json_decode(file_get_contents($filePath), true);
+
+        $packages[$configurationKey] = $callback(
+            $packages[$configurationKey] ?? [],
+            $configurationKey
+        );
+
+        ksort($packages[$configurationKey]);
+
+        file_put_contents(
+            $filePath,
+            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
+        );
+
+        $this->info('Archivo "package.json" modificado');
     }
 }
