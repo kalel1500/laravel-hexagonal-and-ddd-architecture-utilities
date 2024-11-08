@@ -274,7 +274,7 @@ class HexagonalStart extends Command
 
         // Usa una expresión regular para encontrar la key "keywords" y ponerla en una línea
         $jsonContent = preg_replace_callback(
-            '/"keywords": \[\s+([^\]]+?)\s+\]/s',
+            '/"keywords": \[\s+([^]]+?)\s+]/s',
             function ($matches) {
                 // Limpia el contenido de "keywords" y colócalo en una línea
                 $keywords = preg_replace('/\s+/', '', $matches[1]);  // Elimina espacios y saltos de línea
