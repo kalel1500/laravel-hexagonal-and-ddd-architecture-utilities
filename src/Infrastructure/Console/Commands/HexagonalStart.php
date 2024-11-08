@@ -65,6 +65,23 @@ class HexagonalStart extends Command
 
 
         /**
+         * --- Eliminar archivos ---
+         */
+
+        // Delete directory "app/Http"
+        $this->filesystem->deleteDirectory(app_path('Http'));
+        $this->info('Directorio "app/Http" eliminado');
+
+        // Delete directory "app/Models"
+        $this->filesystem->deleteDirectory(app_path('Models'));
+        $this->info('Directorio "app/Models" eliminado');
+
+        // Delete file "CHANGELOG.md"
+        $this->filesystem->delete(base_path('CHANGELOG.md'));
+        $this->info('Archivo "CHANGELOG.md" eliminado');
+
+
+        /**
          * --- Modificación de archivos ---
          */
 
