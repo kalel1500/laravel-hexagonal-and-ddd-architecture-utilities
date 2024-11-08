@@ -85,6 +85,9 @@ class HexagonalStart extends Command
          * --- Modificación de archivos ---
          */
 
+        // app/Providers/AppServiceProvider.php
+        $this->updateAppServiceProvider();
+
         // bootstrap/providers.php
         ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
         $this->info('Archivo "bootstrap/providers.php" modificado');
@@ -135,6 +138,22 @@ class HexagonalStart extends Command
 
         // Add the "Src" namespace into "composer.json"
         $this->updateComposerAutoload(["Src\\" => "src/",]);
+    }
+
+    protected function updateAppServiceProvider(): void
+    {
+        $filePath = app_path('Providers/AppServiceProvider.php');
+
+        // Detecta el tipo de salto de línea en el archivo
+        $lineEnding = strpos(file_get_contents($filePath), "\r\n") !== false ? "\r\n" : "\n";
+
+        $this->filesystem->replaceInFile(
+            "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        //",
+            "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        // HexagonalService::ignoreMigrations();",
+            app_path('Providers/AppServiceProvider.php')
+        );
+
+        $this->info('Archivo "app/Providers/AppServiceProvider.php" modificado');
     }
 
     /**
