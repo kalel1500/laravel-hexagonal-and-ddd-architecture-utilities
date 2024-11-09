@@ -1,6 +1,19 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.2...master)
+
+## [v1.10.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...v1.10.0-beta.2) - 2024-11-09
+
+### Changed
+
+* HexagonalStart:
+  * añadir propiedad `$stubsPath` para no repetir todo el rato `HEXAGONAL_PATH.'/stubs'`
+  * formatear propiedad `$signature`
+  * usar el trait `use InteractsWithComposerPackages` y eliminar métodos `requireComposerPackages()` y `phpBinary()`
+  * añadir PhpDoc a los métodos
+  * (refactor) renombrar métodos y extraer el `$this->info()` fuera
+  * añadir comando para publicar la configuración del paquete
+  * añadir comandos `composer dump-autoload`, `npm install` y `npm run build`
 
 ## [v1.10.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...v1.10.0-beta.1) - 2024-11-08
 
