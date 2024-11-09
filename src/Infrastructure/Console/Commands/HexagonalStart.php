@@ -19,7 +19,7 @@ class HexagonalStart extends Command
      *
      * @var string
      */
-    protected $signature = 'hexagonal:start 
+    protected $signature = 'hexagonal:start
                     {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
 
     /**
@@ -67,9 +67,7 @@ class HexagonalStart extends Command
         $this->info('Carpeta "src" creada');
 
         // .env.local
-        copy($this->stubsPath.'/.env.local', base_path('.env.local'));
-        copy($this->stubsPath.'/.env.local', base_path('.env'));
-        $this->call('key:generate');
+        $this->createEnvFiles();
         $this->info('Archivos ".env" creados');
 
 
@@ -156,6 +154,26 @@ class HexagonalStart extends Command
         // Run commands
         $this->executeComposerDumpAutoload();
         $this->installNodeDependencies();
+    }
+
+    /**
+     * Custom method
+     *
+     * @return void
+     */
+    protected function createEnvFiles()
+    {
+        // Crear archivo ".env.local"
+        copy($this->stubsPath.'/.env.local', base_path('.env.local'));
+
+        // Crear archivo ".env"
+        copy($this->stubsPath.'/.env.local', base_path('.env'));
+
+        // Borrar manualmente el valor de config('app.key') para que se regenere correctamente
+        config(['app.key' => '']);
+
+        // Regenerar Key
+        $this->call('key:generate');
     }
 
     /**
