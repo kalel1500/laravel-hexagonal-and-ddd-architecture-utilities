@@ -49,8 +49,8 @@ class HexagonalStart extends Command
          */
 
         // Publish "config/hexagonal.php"
-        $this->call('config:publish', ['name' => 'hexagonal-config']);
-        $this->info('Archivo "app/Providers/AppServiceProvider.php" modificado');
+        $this->call('vendor:publish', ['--tag' => 'hexagonal-config']);
+        $this->info('Configuración del paquete publicada: "config/hexagonal.php"');
 
         // DependencyServiceProvider
         copy($this->stubsPath.'/app/Providers/DependencyServiceProvider.php', app_path('Providers/DependencyServiceProvider.php'));
