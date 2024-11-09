@@ -147,7 +147,12 @@ class HexagonalStart extends Command
         $this->updateComposerAutoload(["Src\\" => "src/",]);
     }
 
-    protected function updateAppServiceProvider(): void
+    /**
+     * Custom method
+     *
+     * @return void
+     */
+    protected function updateAppServiceProvider()
     {
         $filePath = app_path('Providers/AppServiceProvider.php');
 
@@ -191,6 +196,11 @@ class HexagonalStart extends Command
             });
     }
 
+    /**
+     * Custom method
+     *
+     * @return void
+     */
     protected function clearGitignore()
     {
         // Ruta del archivo .gitignore
