@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\InteractsWithComposerPackages;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -151,6 +152,10 @@ class HexagonalStart extends Command
         // Add the "Src" namespace into "composer.json"
         $this->addNamespacesInComposerJson(["Src\\" => "src/",]);
         $this->info('Namespace "Src" añadido al "composer.json"');
+
+        // Run commands
+        $this->executeComposerDumpAutoload();
+        $this->installNodeDependencies();
     }
 
     /**
@@ -315,4 +320,47 @@ class HexagonalStart extends Command
         // Guardar el archivo actualizado
         file_put_contents($filePath, $jsonContent . PHP_EOL);
     }
+
+    /**
+     * Execute the "composer dump-autoload" command
+     *
+     * @return void
+     */
+    protected function executeComposerDumpAutoload()
+    {
+        $run = Process::run('composer dump-autoload');
+        if ($run->failed()) {
+            $this->warn('The command "composer dump-autoload" has failed');
+        } else {
+            $this->info('Command "composer dump-autoload" successfully.');
+        }
+    }
+
+    /**
+     * Install and build Node dependencies.
+     *
+     * @return void
+     */
+    protected function installNodeDependencies()
+    {
+        $this->info('Installing and building Node dependencies.');
+
+        $commands = [
+            'npm install',
+            'npm run build',
+        ];
+
+        $command = Process::command(implode(' && ', $commands))->path(base_path());
+
+        if (! windows_os()) {
+            $command->tty();
+        }
+
+        if ($command->run()->failed()) {
+            $this->warn("Node dependency installation failed. Please run the following commands manually: \n\n".implode(' && ', $commands));
+        } else {
+            $this->info('Node dependencies installed successfully.');
+        }
+    }
+
 }
