@@ -1,6 +1,14 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.2...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.3...master)
+
+## [v1.10.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.2...v1.10.0-beta.3) - 2024-11-09
+
+### Fixed
+
+* HexagonalStart:
+  * (fix) arreglar comando `config:publish` -> el nombre es `vendor:publish` y el parámetro es `--tag`
+  * (fix) borrar manualmente el valor de `config('app.key')` para que se regenere correctamente al crear el archivo `.env`
 
 ## [v1.10.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...v1.10.0-beta.2) - 2024-11-09
 
