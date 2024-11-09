@@ -8,8 +8,6 @@ use Illuminate\Foundation\Console\InteractsWithComposerPackages;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Symfony\Component\Process\PhpExecutableFinder;
-use Symfony\Component\Process\Process;
 
 class HexagonalStart extends Command
 {
@@ -92,7 +90,7 @@ class HexagonalStart extends Command
          */
 
         // app/Providers/AppServiceProvider.php
-        $this->updateAppServiceProvider();
+        $this->addCommentIgnoreMigrationsInAppServiceProvider();
 
         // bootstrap/providers.php
         ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
@@ -122,7 +120,8 @@ class HexagonalStart extends Command
         $this->info('Archivo "tailwind.config.js" modificado');
 
         // Borrar los ".lock" del ".gitignore"
-        $this->clearGitignore();
+        $this->deleteLockFilesFromGitignore();
+        $this->info('Archivos ".lock" eliminados del ".gitignore"');
 
         // Install NPM packages...
         $this->updatePackageJsonSection('devDependencies', function ($packages) {
@@ -135,16 +134,19 @@ class HexagonalStart extends Command
                 'typescript'                    => '^5.6.2',
             ] + $packages;
         });
+        $this->info('Dependencias de NPM instaladas');
 
         // Add script "ts-build" in "package.json"
         $this->updatePackageJsonSection('scripts', function ($packages) { return ['ts-build' => 'tsc && vite build',] + $packages; });
+        $this->info('Script "ts-build" añadido al "package.json"');
 
         // Install "tightenco/ziggy"
         $this->requireComposerPackages($this->option('composer'), ['tightenco/ziggy']);
         $this->info('Dependencias instaladas');
 
         // Add the "Src" namespace into "composer.json"
-        $this->updateComposerAutoload(["Src\\" => "src/",]);
+        $this->addNamespacesInComposerJson(["Src\\" => "src/",]);
+        $this->info('Namespace "Src" añadido al "composer.json"');
     }
 
     /**
@@ -152,7 +154,7 @@ class HexagonalStart extends Command
      *
      * @return void
      */
-    protected function updateAppServiceProvider()
+    protected function addCommentIgnoreMigrationsInAppServiceProvider()
     {
         $filePath = app_path('Providers/AppServiceProvider.php');
 
@@ -164,8 +166,6 @@ class HexagonalStart extends Command
             "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        // HexagonalService::ignoreMigrations();",
             app_path('Providers/AppServiceProvider.php')
         );
-
-        $this->info('Archivo "app/Providers/AppServiceProvider.php" modificado');
     }
 
     /**
@@ -201,7 +201,7 @@ class HexagonalStart extends Command
      *
      * @return void
      */
-    protected function clearGitignore()
+    protected function deleteLockFilesFromGitignore()
     {
         // Ruta del archivo .gitignore
         $gitignorePath    = base_path('.gitignore');
@@ -222,9 +222,6 @@ class HexagonalStart extends Command
 
         // Escribir el contenido actualizado en el archivo con una sola línea vacía al final
         file_put_contents($gitignorePath, implode(PHP_EOL, $gitignoreContent) . PHP_EOL);
-
-        // Informar al usuario
-        $this->info('Archivos ".lock" eliminados del ".gitignore"');
     }
 
     /**
@@ -255,8 +252,6 @@ class HexagonalStart extends Command
             $filePath,
             json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
         );
-
-        $this->info('Archivo "package.json" modificado');
     }
 
     /**
@@ -265,7 +260,7 @@ class HexagonalStart extends Command
      * @param array $additionalNamespaces Array of namespaces to add, e.g., ["Src\\" => "src/"]
      * @return void
      */
-    protected function updateComposerAutoload(array $additionalNamespaces)
+    protected function addNamespacesInComposerJson(array $additionalNamespaces)
     {
         $filePath = base_path('composer.json');
 
@@ -315,7 +310,5 @@ class HexagonalStart extends Command
 
         // Guardar el archivo actualizado
         file_put_contents($filePath, $jsonContent . PHP_EOL);
-
-        $this->info('Archivo "composer.json" modificado');
     }
 }
