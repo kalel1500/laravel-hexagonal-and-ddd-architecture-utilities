@@ -4,6 +4,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Console\InteractsWithComposerPackages;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -12,6 +13,8 @@ use Symfony\Component\Process\Process;
 
 class HexagonalStart extends Command
 {
+    use InteractsWithComposerPackages;
+
     /**
      * The name and signature of the console command.
      *
@@ -137,7 +140,8 @@ class HexagonalStart extends Command
         $this->updatePackageJsonSection('scripts', function ($packages) { return ['ts-build' => 'tsc && vite build',] + $packages; });
 
         // Install "tightenco/ziggy"
-        $this->requireComposerPackages('tightenco/ziggy');
+        $this->requireComposerPackages($this->option('composer'), ['tightenco/ziggy']);
+        $this->info('Dependencias instaladas');
 
         // Add the "Src" namespace into "composer.json"
         $this->updateComposerAutoload(["Src\\" => "src/",]);
@@ -243,48 +247,6 @@ class HexagonalStart extends Command
         );
 
         $this->info('Archivo "package.json" modificado');
-    }
-
-    /**
-     * Installs the given Composer Packages into the application.
-     *
-     * @param  mixed  $packages
-     * @return void
-     */
-    protected function requireComposerPackages($packages)
-    {
-        $composer = $this->option('composer');
-
-        if ($composer !== 'global') {
-            $command = [$this->phpBinary(), $composer, 'require'];
-        }
-
-        $command = array_merge(
-            $command ?? ['composer', 'require'],
-            is_array($packages) ? $packages : func_get_args()
-        );
-
-        $result = ! (new Process($command, base_path(), ['COMPOSER_MEMORY_LIMIT' => '-1']))
-            ->setTimeout(null)
-            ->run(function ($type, $output) {
-                $this->output->write($output);
-            });
-
-        $this->info('Dependencias instaladas');
-    }
-
-    /**
-     * Get the path to the appropriate PHP binary.
-     *
-     * @return string
-     */
-    protected function phpBinary(): string
-    {
-        if (function_exists('Illuminate\Support\php_binary')) {
-            return \Illuminate\Support\php_binary();
-        }
-
-        return (new PhpExecutableFinder())->find(false) ?: 'php';
     }
 
     /**
