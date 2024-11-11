@@ -1,42 +1,23 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.3...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...master)
 
-## [v1.10.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.2...v1.10.0-beta.3) - 2024-11-09
-
-### Fixed
-
-* HexagonalStart:
-  * (fix) arreglar comando `config:publish` -> el nombre es `vendor:publish` y el parámetro es `--tag`
-  * (fix) borrar manualmente el valor de `config('app.key')` para que se regenere correctamente al crear el archivo `.env`
-
-## [v1.10.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...v1.10.0-beta.2) - 2024-11-09
-
-### Changed
-
-* HexagonalStart:
-  * añadir propiedad `$stubsPath` para no repetir todo el rato `HEXAGONAL_PATH.'/stubs'`
-  * formatear propiedad `$signature`
-  * usar el trait `use InteractsWithComposerPackages` y eliminar métodos `requireComposerPackages()` y `phpBinary()`
-  * añadir PhpDoc a los métodos
-  * (refactor) renombrar métodos y extraer el `$this->info()` fuera
-  * añadir comando para publicar la configuración del paquete
-  * añadir comandos `composer dump-autoload`, `npm install` y `npm run build`
-
-## [v1.10.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...v1.10.0-beta.1) - 2024-11-08
+## [v1.10.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...v1.10.0-beta.1) - 2024-11-11
 
 ### Added
 
-* docs: código interesante para añadir limitaciones a las peticiones por API
+* docs: `code-of-interest` -> código interesante para añadir limitaciones a las peticiones por API (`limit-api-action.md`)
+* stubs: Nueva carpeta `stubs` con todos los archivos necesarios en el comando `HexagonalStart`
 * Nuevo comando (`HexagonalStart`) creado para crear los archivos iniciales en la aplicación
   <details>
   
     - creados: 
-      - `app/Providers/DependencyServiceProvider.php`
-      - `resources/views/pages/home/index.blade.php`
-      - `src/Home/Infrastructure/HomeController.php`
-      - `src/Shared/Domain/Services/RepositoryServices/LayoutService.php`
-      - `.env`, `.env.local` y `APP_KEY` generada
+      - crear provider `app/Providers/DependencyServiceProvider.php`
+      - crear vista `resources/views/pages/home/index.blade.php`
+      - crear controlador `src/Home/Infrastructure/HomeController.php`
+      - crear servicio `src/Shared/Domain/Services/RepositoryServices/LayoutService.php`
+      - crear envs `.env`, `.env.local` y `APP_KEY` generada
+      - publicar configuración `config/hexagonal.php` generada
     - eliminados:
       - eliminar los archivos `.lock` del `.gitignore`
       - eliminar carpeta `app/Http`
@@ -50,15 +31,18 @@
       - instalar `tightenco/ziggy`
       - añadir namespace `Src` en el `composer.json`
       - añadir rutas iniciales en `routes/web.php`
-      - añadir archivos iniciales en `tailwind.config.js`
+      - añadir configuración inicial en `tailwind.config.js`
       - comentar User factory en `database/seeders/DatabaseSeeder`
       - importar `flowbite` in `resources/js/bootstrap.js`
       - añadir comentario `HexagonalService::ignoreMigrations()` en el `app/Providers/AppServiceProvider.php`
-  
+    - otros:
+      - añadir comandos `composer dump-autoload`, `npm install` y `npm run build`
+
   </details>
 
 ### Changed
 
+* docs: `development-tips.md` -> añadir comandos para eliminar un tag
 * Nuevo método estático `fromId()` en el trait `WithIdsAndToArray` para poder instanciar un `BackedEnum` a partir del `Id`
 * Rutas: Añadir la ruta `hexagonal.root` en el componente `navbar.brand`
 * Rutas: Añadir las rutas `hexagonal.queues.queuedJobs` y `hexagonal.queues.queuedJobs` en la configuración del `sidebar`
