@@ -162,6 +162,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      */
     public static function fromArray($data, $with = null, $isFull = null)
     {
+        if (is_null($data)) return null;
         $isPaginate         = array_key_exists('current_page', $data);
         $paginationData     = null;
         if ($isPaginate) {
@@ -191,6 +192,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         // $data = $response->isFromQuery() ? $response->originalObject() : $response->originalArray();
         // return self::fromData($data, $with, $response->isFromQuery(), $response->isPaginate(), $response->paginationData());
 
+        if (is_null($queryResult)) return null;
         $isPaginate     = is_a($queryResult, LengthAwarePaginator::class);
         $paginationData = null;
         if ($isPaginate) {
