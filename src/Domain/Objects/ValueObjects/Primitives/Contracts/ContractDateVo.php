@@ -36,6 +36,17 @@ abstract class ContractDateVo extends ContractStringVo
         return new static($value, $formats);
     }
 
+    /**
+     * @return static // TODO PHP8 static return type
+     */
+    public static function from($value)
+    {
+        $formatted = MyCarbon::parse($value)
+            ->setTimezone(config('app.timezone'))
+            ->format('Y-m-d H:i:s');
+        return static::new($formatted);
+    }
+
     protected function ensureIsValidValue(?string $value): void
     {
         parent::ensureIsValidValue($value);
