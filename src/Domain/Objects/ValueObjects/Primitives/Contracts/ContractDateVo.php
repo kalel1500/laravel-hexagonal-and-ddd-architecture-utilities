@@ -28,6 +28,14 @@ abstract class ContractDateVo extends ContractStringVo
         parent::__construct($value);
     }
 
+    /**
+     * @return static // TODO PHP8 static return type
+     */
+    public static function new($value, ?array $formats = null)
+    {
+        return new static($value, $formats);
+    }
+
     protected function ensureIsValidValue(?string $value): void
     {
         parent::ensureIsValidValue($value);
