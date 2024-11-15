@@ -21,6 +21,7 @@ abstract class ContractDateVo extends ContractStringVo
 
     protected $allowZeros = false;
     protected $formats    = ['Y-m-d H:i:s'];
+    protected $valueCarbon;
 
     public function __construct(?string $value, ?array $formats = null)
     {
@@ -63,6 +64,6 @@ abstract class ContractDateVo extends ContractStringVo
 
     public function carbon(): CarbonImmutable
     {
-        return MyCarbon::parse($this->value);
+        return $this->valueCarbon ?? MyCarbon::parse($this->value)->setTimezone(config('app.timezone'));
     }
 }
