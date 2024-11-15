@@ -105,7 +105,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      * @param bool $isPaginate
      * @param PaginationDataDo|null $paginationData
      * @param bool $isEloquentBuilder
-     * @return static // TODO PHP8 return static
+     * @return static|null // TODO PHP8 return static
      */
     private static function fromData(
         $data,
@@ -158,7 +158,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      * @param array|Collection|null $data // TODO PHP8 union types
      * @param string|array|null $with
      * @param bool|string|null $isFull
-     * @return static // TODO PHP8 return static
+     * @return static|null // TODO PHP8 return static
      */
     public static function fromArray($data, $with = null, $isFull = null)
     {
@@ -185,7 +185,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      * @param string|array|null $with
      * @param bool|string|null $isFull
      * @param bool $saveBuilderObject
-     * @return static
+     * @return static|null
      */
     public static function fromEloquent($queryResult, $with = null, $isFull = null, bool $saveBuilderObject = false)
     {
