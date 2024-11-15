@@ -14,6 +14,9 @@
         <!-- Acceso a las rutas de laravel desde javascipt -->
         @routes
 
+        <!-- Variables CSS de cada vista -->
+        @stack('css-variables')
+
         @if($isFromPackage)
             <!-- JavaScript y CSS del paquete -->
             {!! Renderer::css() !!}
@@ -26,6 +29,9 @@
                 @vite(['resources/css/app.css', 'resources/js/app.js'])
             @endif
         @endif
+
+        <!-- Estilos de cada vista -->
+        @stack('styles')
 
         <!-- Icons -->
         <link rel="icon" href="@viteAsset('resources/images/favicon.ico')">
