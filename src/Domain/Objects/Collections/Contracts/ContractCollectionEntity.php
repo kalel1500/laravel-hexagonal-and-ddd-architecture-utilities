@@ -28,7 +28,11 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         return $this;
     }
 
-    public function setIsFull(?bool $isFull): ContractCollectionEntity
+    /**
+     * @param bool|string|null $isFull
+     * @return ContractCollectionEntity
+     */
+    public function setIsFull($isFull): ContractCollectionEntity
     {
         $this->isFull = $isFull;
         return $this;
@@ -97,7 +101,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     /**
      * @param array|Collection|null $data // TODO PHP8 union types
      * @param string|array|null $with
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      * @param bool $isPaginate
      * @param PaginationDataDo|null $paginationData
      * @param bool $isEloquentBuilder
@@ -106,7 +110,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     private static function fromData(
         $data,
         $with = null,
-        ?bool $isFull = null,
+        $isFull = null,
         bool $isEloquentBuilder = false,
         bool $isPaginate = false,
         ?PaginationDataDo $paginationData = null
@@ -153,10 +157,10 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     /**
      * @param array|Collection|null $data // TODO PHP8 union types
      * @param string|array|null $with
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      * @return static // TODO PHP8 return static
      */
-    public static function fromArray($data, $with = null, ?bool $isFull = null)
+    public static function fromArray($data, $with = null, $isFull = null)
     {
         $isPaginate         = array_key_exists('current_page', $data);
         $paginationData     = null;
@@ -178,11 +182,11 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
     /**
      * @param Collection|CollectionS|LengthAwarePaginator $queryResult
      * @param string|array|null $with
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      * @param bool $saveBuilderObject
      * @return static
      */
-    public static function fromEloquent($queryResult, $with = null, ?bool $isFull = null, bool $saveBuilderObject = false)
+    public static function fromEloquent($queryResult, $with = null, $isFull = null, bool $saveBuilderObject = false)
     {
         // $data = $response->isFromQuery() ? $response->originalObject() : $response->originalArray();
         // return self::fromData($data, $with, $response->isFromQuery(), $response->isPaginate(), $response->paginationData());

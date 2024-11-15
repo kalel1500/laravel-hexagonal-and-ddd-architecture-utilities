@@ -19,10 +19,10 @@ abstract class ContractCollectionAny extends ContractCollectionBase implements R
     /**
      * @param array|null $values
      * @param string|array|null $with
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      * @return static // TODO PHP8 static return type
      */
-    static function fromArray(?array $values, $with = null, ?bool $isFull = null)
+    static function fromArray(?array $values, $with = null, $isFull = null)
     {
         if (is_null($values)) return null;
         $collection = new static($values);

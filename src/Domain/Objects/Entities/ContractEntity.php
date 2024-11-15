@@ -42,10 +42,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     /**
      * @param array|null $data
      * @param string|array|null $with
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      * @return static|null // TODO PHP8 static return type
      */
-    public static function fromArray(?array $data, $with = null, ?bool $isFull = null)
+    public static function fromArray(?array $data, $with = null, $isFull = null)
     {
         if (is_null($data)) return null;
 
@@ -61,10 +61,10 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     /**
      * @param Model|object|null $item
      * @param string|array|null $with
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      * @return static // TODO PHP8 static return type
      */
-    public static function fromObject($item, $with = null, ?bool $isFull = null)
+    public static function fromObject($item, $with = null, $isFull = null)
     {
         if (is_null($item)) return null;
 
@@ -106,9 +106,14 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     public function toArray(): array
     {
         [$relation, $defaultIsFull] = getInfoFromRelationWithFlag('flag:'.config('hexagonal.entity_calculated_props_mode'));
-        $data = ($defaultIsFull || $this->isFull === true)
-            ? array_merge($this->toArrayProperties(), $this->toArrayCalculatedProps())
-            : $this->toArrayProperties();
+
+        $data = $this->toArrayProperties();
+        $isFull = $this->isFull ?? $defaultIsFull;
+        if ($isFull === true) {
+            $data = array_merge($data, $this->toArrayCalculatedProps());
+        } elseif (is_string($isFull)) {
+            $data = array_merge($data, $this->{$isFull}());
+        }
 
         if ($this->withFull) {
             foreach ($this->withFull as $key => $rel) {
@@ -219,9 +224,9 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
     /**
      * @param string $first
      * @param string|array $last // TODO PHP8 - Union types
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      */
-    private function setLastRelation(string $first, $last, ?bool $isFull)
+    private function setLastRelation(string $first, $last, $isFull)
     {
         // if (empty($last)) return; // OLD
         // $last = (is_array($last)) ? $last : [$last]; // OLD
