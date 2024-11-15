@@ -18,6 +18,7 @@ final class MyCarbon
     public static $datetime_startYear_withoutSeconds      = 'Y-m-d H:i';
     public static $datetime_startDay_slash                = 'd/m/Y H:i:s';
     public static $datetime_startDay_slash_withoutSeconds = 'd/m/Y H:i';
+    public static $datetime_eloquent_timestamps           = 'Y-m-d\TH:i:s.u\Z';
     public static $time                                   = 'H:i:s';
 
     public static function stringToformat($date, $format, $getNowIfNullRecived = false): ?string
