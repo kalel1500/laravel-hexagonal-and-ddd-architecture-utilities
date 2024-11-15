@@ -577,11 +577,11 @@ if (!function_exists('clearWith')) {
 if (!function_exists('getSubWith')) {
     /**
      * @param string|array|null $with
-     * @param bool|null $isFull
+     * @param bool|string|null $isFull
      * @param string|null $relationName
      * @return SubRelationDataDo
      */
-    function getSubWith($with, ?bool $isFull, ?string $relationName): SubRelationDataDo
+    function getSubWith($with, $isFull, ?string $relationName): SubRelationDataDo
     {
         if (is_null($with)) return SubRelationDataDo::fromArray([null, null]);
         if (is_null($relationName)) return SubRelationDataDo::fromArray([$with, $isFull]);
@@ -620,14 +620,14 @@ if (!function_exists('getSubWith')) {
 if (!function_exists('getInfoFromRelationWithFlag')) {
     /**
      * @param string $relation
-     * @param bool|null $isFull
-     * @return array{string, ?bool}
+     * @param bool|string|null $isFull
+     * @return array{string, bool|string|null}
      */
-    function getInfoFromRelationWithFlag(string $relation, ?bool $isFull = null): array
+    function getInfoFromRelationWithFlag(string $relation, $isFull = null): array
     {
         if (str_contains($relation, ':')) {
             [$relation, $flag] = explode(':', $relation);
-            $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $isFull);
+            $isFull = $flag === 'f' ? true : ($flag === 's' ? false : $flag);
         }
         return [$relation, $isFull];
     }
