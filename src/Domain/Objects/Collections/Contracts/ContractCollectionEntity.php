@@ -14,9 +14,6 @@ use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\PaginationDataDo;
 
-/**
- * @template T of ContractCollectionEntity
- */
 abstract class ContractCollectionEntity extends ContractCollectionBase implements Relatable
 {
     protected const IS_ENTITY = true;
@@ -37,9 +34,6 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
         return $this;
     }
 
-    /**
-     * @return T|null
-     */
     public function first(): ?ContractEntity
     {
         return $this->items[0] ?? null;
@@ -107,7 +101,7 @@ abstract class ContractCollectionEntity extends ContractCollectionBase implement
      * @param bool $isPaginate
      * @param PaginationDataDo|null $paginationData
      * @param bool $isEloquentBuilder
-     * @return T
+     * @return static // TODO PHP8 return static
      */
     private static function fromData(
         $data,

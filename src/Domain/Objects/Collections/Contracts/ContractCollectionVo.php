@@ -7,9 +7,6 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
 use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 
-/**
- * @template T of ContractCollectionVo
- */
 abstract class ContractCollectionVo extends ContractCollectionBase
 {
     protected const IS_ENTITY = false;
@@ -31,7 +28,7 @@ abstract class ContractCollectionVo extends ContractCollectionBase
      * @param array|null $values
      * @param bool $allowNull
      * @param callable|null $valueModifierCallback
-     * @return T
+     * @return static // TODO PHP8 static return type
      */
     static function fromArray(?array $values, bool $allowNull = true, callable $valueModifierCallback = null)
     {

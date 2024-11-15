@@ -6,9 +6,6 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
 
 use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
 
-/**
- * @template T of ContractCollectionAny
- */
 abstract class ContractCollectionAny extends ContractCollectionBase implements Relatable
 {
     protected const IS_ENTITY = false;
@@ -23,7 +20,7 @@ abstract class ContractCollectionAny extends ContractCollectionBase implements R
      * @param array|null $values
      * @param string|array|null $with
      * @param bool|null $isFull
-     * @return T
+     * @return static // TODO PHP8 static return type
      */
     static function fromArray(?array $values, $with = null, ?bool $isFull = null)
     {
