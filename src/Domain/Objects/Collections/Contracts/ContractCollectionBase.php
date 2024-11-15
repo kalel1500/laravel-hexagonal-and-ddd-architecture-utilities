@@ -94,7 +94,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     }
 
     /**
-     * @return T
+     * @return static // TODO PHP8 static return type
      */
     public static function empty()
     {
@@ -509,7 +509,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     /**
      * @param callable $callback
-     * @return T
+     * @return $this
      */
     public function each(callable $callback)
     {
