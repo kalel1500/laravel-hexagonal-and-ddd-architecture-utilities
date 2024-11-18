@@ -19,11 +19,6 @@ abstract class ContractValueObject
     protected const CLASS_MODEL_NULLABLE = null;
 
     protected $allowNull = true;
-    protected $reasonNullNotAllowed = null;
-
-    protected $mustBeNull = false;
-    protected $reasonMustBeNull = null;
-
     protected $value;
 
     /**
@@ -130,29 +125,9 @@ abstract class ContractValueObject
 
     protected function checkAllowNull($value): void
     {
-        // Si se permite NULL convertir '' a null
-        $value = ($this->allowNull && empty($value)) ? null : $value;
-
-        // Si NO permite NULL y es NULL -> throw
         if (!$this->allowNull && is_null($value)) {
-            $reason = is_null($this->reasonNullNotAllowed)
-                ? sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), 'null')
-                : $this->reasonNullNotAllowed;
-            throw new InvalidValueException($reason);
+            throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), 'null'));
         }
-
-        // Si debe ser NULL y NO es NULL -> throw
-        if ($this->mustBeNull && !is_null($value)) {
-            $reason = is_null($this->reasonMustBeNull)
-                ? sprintf('<%s> must be null on this case.', class_basename(static::class))
-                : $this->reasonMustBeNull;
-            throw new InvalidValueException($reason);
-        }
-
-        // Si NO es BoolVo && NO es NULL && es '' -> throw
-        /*if (!($this instanceof ContractBoolVo) && !is_null($value) && empty($value)) {
-            throw new InvalidValueException(sprintf('<%s> does not allow an empty value.', class_basename(static::class)));
-        }*/
     }
 
     public function __toString()
