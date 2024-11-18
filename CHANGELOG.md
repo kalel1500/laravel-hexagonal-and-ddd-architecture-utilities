@@ -1,6 +1,31 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.11.0-beta.0...master)
+
+## [v1.11.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...v1.11.0-beta.0) - 2024-11-11
+
+### Added
+
+* Añadidas las traducciones en español (del paquete `Laraveles/spanish`)
+* Publicadas las traducciones de laravel en el paquete
+
+### Changed
+
+* (breaking) Renombrar propiedad `$allowNull` por `$nullable` y método `checkAllowNull()` por `checkNullable()` (en todas las clases que los usan)
+* (breaking) Eliminar helpers innecesarios `HTTP_...()` ya que son constantes que están definidas en la clase `Symfony\Component\HttpFoundation\Response`
+* (breaking) Eliminar propiedades `$reasonNullNotAllowed`, `$mustBeNull` y `$reasonMustBeNull` y simplificar lógica `checkAllowNull()` de la clase `ContractValueObject` (se ha movido la lógica a la aplicación que la usa, ya que es un caso concreto de esa aplicación)
+* (phpdoc) Añadir el tipo de retorno `null` en el PhpDoc del método `CollectionEntity::fromArray()`
+* (breaking) Modificar parámetro `$isFull` de las entidades para que se pueda pasar un `string` con el nombre del método que queramos usar para obtener las propiedades calculadas de la entidad al hacer el `toArray()`
+* Añadir la propiedad `$datetime_eloquent_timestamps = 'Y-m-d\TH:i:s.u\Z'` en el helper `MyCarbon`
+* Añadir el `->setTimezone()` en el método `carbon()` de la clase `ContractDateVo` (por si es una fecha UTC) y guardar en la propiedad `$valueCarbon` para evitar hacer el cálculo varias veces
+* Nuevo método `from()` en la clase `ContractDateVo` para poder crear las fechas con formato `timestamp` (de Eloquent) que se formatean con el timezone UTC en el `toArray()`
+* (phpdoc) simplificar return types en los PhpDoc (cambiar varios `@return T` por `@return static` o `@return $this`)
+* Añadir `@stack('css-variables')` y `@stack('styles')` en el componente `layout/app.blade.php` para poder añadir CSS adicional en cada página
+
+### Fixed
+
+* (fix) Prevenir error si el método `CollectionEntity::fromArray()` recibe un `null`
+* (fix) Sobreescribir método `new()` en la clase `ContractDateVo` para pasar el parámetro `$formats` al constructor
 
 ## [v1.10.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...v1.10.0-beta.1) - 2024-11-11
 
