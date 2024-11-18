@@ -8,6 +8,6 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 class JsonStrictVo extends ContractJsonVo
 {
-    protected $allowNull = false;
+    protected $nullable                = false;
     protected $allowStringInformatable = false;
 }

@@ -8,7 +8,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 class ArrayVo extends ContractArrayVo
 {
-    protected $allowNull = false;
+    protected $nullable = false;
 
     public function __construct(array $value)
     {

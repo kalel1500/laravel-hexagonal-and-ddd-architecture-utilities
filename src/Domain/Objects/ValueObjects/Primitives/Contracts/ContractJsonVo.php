@@ -34,7 +34,7 @@ abstract class ContractJsonVo extends ContractValueObject
 
     protected function ensureIsValidValue($value): void
     {
-        $this->checkAllowNull($value);
+        $this->checkNullable($value);
 
         if (!empty($value) && (!is_string($value) && !is_array($value) && !is_object($value))) {
             throw new InvalidValueException(sprintf('<%s> must have a value of type string object or array.', class_basename(static::class)));

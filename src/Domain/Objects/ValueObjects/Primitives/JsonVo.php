@@ -8,5 +8,5 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 class JsonVo extends ContractJsonVo
 {
-    protected $allowNull = false;
+    protected $nullable = false;
 }

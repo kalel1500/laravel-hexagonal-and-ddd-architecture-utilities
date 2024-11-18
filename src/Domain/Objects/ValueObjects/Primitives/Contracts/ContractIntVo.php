@@ -60,6 +60,6 @@ abstract class ContractIntVo extends ContractValueObject
 
     protected function ensureIsValidValue(?int $value): void
     {
-        $this->checkAllowNull($value);
+        $this->checkNullable($value);
     }
 }

@@ -39,7 +39,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     protected const VALUE_CLASS_NULL    = null;
 
     protected $items;
-    protected $allowNull = true;
+    protected $nullable = true;
 
     /**
      * @param array $collResult
@@ -48,7 +48,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
     private function toOriginal(array $collResult)
     {
         if ($this->isInstanceOfRelatable()) return static::fromArray($collResult, $this->with, $this->isFull);
-        if ($this instanceof ContractCollectionVo) return static::fromArray($collResult, $this->allowNull);
+        if ($this instanceof ContractCollectionVo) return static::fromArray($collResult, $this->nullable);
         if ($this instanceof ContractCollectionDo) return static::fromArray($collResult);
         throw new NeverCalledException('La instancia de la colección no extiende de ninguna entidad valida.');
     }
@@ -74,7 +74,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     protected function ensureIsValid($value): void
     {
-        $valueClass = ($this->allowNull) ? static::VALUE_CLASS_NULL : static::VALUE_CLASS_REQ;
+        $valueClass = ($this->nullable) ? static::VALUE_CLASS_NULL : static::VALUE_CLASS_REQ;
         $valueClass = is_null($valueClass) ? static::VALUE_CLASS : $valueClass;
         $class = ($this->isEntity()) ? static::ENTITY : $valueClass;
 

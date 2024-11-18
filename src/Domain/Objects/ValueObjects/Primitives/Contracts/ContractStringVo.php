@@ -30,7 +30,7 @@ abstract class ContractStringVo extends ContractValueObject
 
     protected function ensureIsValidValue(?string $value): void
     {
-        $this->checkAllowNull($value);
+        $this->checkNullable($value);
     }
 
     /*protected function clearString(?string $value): ?string
