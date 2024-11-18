@@ -8,7 +8,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\Cont
 
 class StringVo extends ContractStringVo
 {
-    protected $allowNull = false;
+    protected $nullable = false;
 
     public function __construct(string $value)
     {

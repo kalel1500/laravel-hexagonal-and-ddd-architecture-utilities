@@ -30,7 +30,7 @@ abstract class ContractEnumVo extends ContractValueObject
 
     protected function ensureIsValidValue(?string $value): void
     {
-        $this->checkAllowNull($value);
+        $this->checkNullable($value);
         $this->checkPermittedValues($value);
     }
 

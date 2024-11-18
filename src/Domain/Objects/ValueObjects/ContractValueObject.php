@@ -18,7 +18,7 @@ abstract class ContractValueObject
     protected const CLASS_MODEL_REQUIRED = null;
     protected const CLASS_MODEL_NULLABLE = null;
 
-    protected $allowNull = true;
+    protected $nullable = true;
     protected $value;
 
     /**
@@ -123,9 +123,9 @@ abstract class ContractValueObject
         return $class::new($this->value);
     }
 
-    protected function checkAllowNull($value): void
+    protected function checkNullable($value): void
     {
-        if (!$this->allowNull && is_null($value)) {
+        if (!$this->nullable && is_null($value)) {
             throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), 'null'));
         }
     }

@@ -50,7 +50,7 @@ abstract class ContractBoolVo extends ContractValueObject
 
     private function ensureIsValidValue($value): void
     {
-        $this->checkAllowNull($value);
+        $this->checkNullable($value);
 
         if (!is_null($value) && !isValidBoolean($value)) {
             throw new InvalidValueException(sprintf('<%s> does not allow the value <%s> as valid boolean.', class_basename(static::class), $value));

@@ -10,7 +10,7 @@ final class ModelIdZero extends ContractModelIdZero
 {
     protected const IS_MODEL = true;
 
-    protected $allowNull = false;
+    protected $nullable = false;
 
     public function __construct(int $value)
     {

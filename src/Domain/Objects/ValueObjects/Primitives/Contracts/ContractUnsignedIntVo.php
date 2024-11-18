@@ -19,7 +19,7 @@ abstract class ContractUnsignedIntVo extends ContractIntVo
 
     protected function ensureIsValidValue(?int $value): void
     {
-        $this->checkAllowNull($value);
+        $this->checkNullable($value);
 
         if (!is_null($value) && $value < 0) {
             throw new InvalidValueException(sprintf('<%s> does not allow the value <%s>.', class_basename(static::class), $value));

@@ -26,11 +26,11 @@ abstract class ContractCollectionVo extends ContractCollectionBase
 
     /**
      * @param array|null $values
-     * @param bool $allowNull
+     * @param bool $nullable
      * @param callable|null $valueModifierCallback
      * @return static // TODO PHP8 static return type
      */
-    static function fromArray(?array $values, bool $allowNull = true, callable $valueModifierCallback = null)
+    static function fromArray(?array $values, bool $nullable = true, callable $valueModifierCallback = null)
     {
         if (is_null($values)) return null;
 
@@ -38,7 +38,7 @@ abstract class ContractCollectionVo extends ContractCollectionBase
             throw new RequiredDefinitionException(sprintf('<%s> needs to define <%s> and <%s> %s.', class_basename(static::class), 'VALUE_CLASS_NULL', 'VALUE_CLASS_REQ', 'constants'));
         }
 
-        $valueClass = ($allowNull) ? static::VALUE_CLASS_NULL : static::VALUE_CLASS_REQ;
+        $valueClass = ($nullable) ? static::VALUE_CLASS_NULL : static::VALUE_CLASS_REQ;
         $res = [];
         foreach ($values as $value) {
             if ($value instanceof $valueClass) {
@@ -51,7 +51,7 @@ abstract class ContractCollectionVo extends ContractCollectionBase
             }
         }
         $static = new static(...$res); // Los 3 puntos son importantes, ya que los constructores también reciben los parámetros destructurados (...)
-        $static->allowNull = $allowNull;
+        $static->nullable = $nullable;
         return $static;
     }
 }
