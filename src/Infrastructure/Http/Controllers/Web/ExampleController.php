@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Controllers\Web;
+namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web;
 
 use Illuminate\Contracts\View\View;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Controller;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
 
 final class ExampleController extends Controller
 {
