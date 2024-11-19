@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxJobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxQueuesController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Ajax\AjaxWebsocketsController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\ExampleController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\JobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Web\HexagonalController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxJobsController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxQueuesController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\ExampleController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\JobsController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalController;
 
 
 /**

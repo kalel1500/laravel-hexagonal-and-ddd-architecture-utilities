@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Controllers\Web;
+namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web;
 
-use Thehouseofel\Hexagonal\Infrastructure\Controllers\Controller;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
 
 final class HexagonalController extends Controller
 {
