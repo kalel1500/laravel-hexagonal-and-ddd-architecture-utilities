@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 return [
 
     /*
@@ -88,6 +90,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Cookies
+    |--------------------------------------------------------------------------
+    |
+    | The next option allows you to set the cookie package prefix and duration.
+    |
+    */
+
+    'cookie' => [
+        'name' => Str::slug(env('APP_NAME', 'laravel'), '_').'_hexagonal_user_preferences',
+        'duration' => (60 * 24 * 364),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
     |
@@ -96,6 +112,8 @@ return [
     */
 
     'blade_show_main_border' => (bool) env('HEXAGONAL_BLADE_SHOW_MAIN_BORDER', false),
+
+    'dark_mode_default' => (bool) env('HEXAGONAL_DARK_MODE_DEFAULT', false),
 
     'navbar' => [
         'search' => [
@@ -277,6 +295,7 @@ return [
     ],
 
     'sidebar' => [
+        'state_per_page' => (bool) env('HEXAGONAL_SIDEBAR_STATE_PER_PAGE', false),
         'search' => [
             'show' => true,
             'route' => null,
