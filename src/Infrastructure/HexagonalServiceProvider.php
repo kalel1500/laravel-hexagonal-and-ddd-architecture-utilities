@@ -132,11 +132,13 @@ class HexagonalServiceProvider extends ServiceProvider
             // Vistas
             $this->publishes([
                 HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
+                HEXAGONAL_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
             ], 'hexagonal-views');
 
             // Publicar solo la vista "app.blade.php"
             $this->publishes([
                 HEXAGONAL_PATH.'/resources/views/components/layout/app.blade.php' => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
+                HEXAGONAL_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
             ], 'hexagonal-view-layout');
 
             // Config
