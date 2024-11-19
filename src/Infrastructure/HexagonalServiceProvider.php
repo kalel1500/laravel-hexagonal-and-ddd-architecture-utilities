@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Infrastructure;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Vite;
@@ -75,10 +78,7 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerComponents();
         $this->registerBladeDirectives();
-
-        // Middlewares
-//        $router = $this->app->make(Router::class);
-//        $router->aliasMiddleware('hexagonal.anyMiddleware', HexagonalAnyMiddleware::class);
+        $this->registerMiddlewares();
     }
 
     /**
@@ -229,6 +229,39 @@ class HexagonalServiceProvider extends ServiceProvider
             } catch (Throwable $e) {
                 return "";
             }
+        });
+    }
+
+    /**
+     * Register Package's Middlewares.
+     *
+     * @return void
+     * @throws BindingResolutionException
+     */
+    protected function registerMiddlewares(): void
+    {
+//        /** @var Router $router */
+//        $router = $this->app->make(Router::class);
+
+        // Registrar un grupo de middlewares
+//        $router->middlewareGroup('web', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
+
+        // Registrar middlewares solo para rutas específicas
+//        $router->aliasMiddleware('hexagonal.anyMiddleware', HexagonalAnyMiddleware::class);
+
+        // Añadir un middleware a un grupo (con Router para soportar versiones anteriores a la 6)
+//        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);
+
+        // Añadir un middleware a un grupo (con Router para soportar versiones posteriores a la 6)
+        /** @var Kernel $kernel */
+        $kernel = $this->app->make(Kernel::class);
+        $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
+
+        // Desencriptar las cookies de las preferencias del usuario
+        $this->app->booted(function () {
+            /** @var EncryptCookies $encryptCookies */
+            $encryptCookies = $this->app->make(EncryptCookies::class);
+            $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_hexagonal_user_preferences
         });
     }
 
