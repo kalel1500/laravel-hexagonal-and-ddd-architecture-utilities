@@ -190,7 +190,7 @@ class HexagonalStart extends Command
 
         $this->filesystem->replaceInFile(
             "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        //",
-            "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        // HexagonalService::ignoreMigrations();",
+            "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        // \Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal::ignoreMigrations();",
             app_path('Providers/AppServiceProvider.php')
         );
     }
