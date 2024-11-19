@@ -12,4 +12,4 @@ Route::get('/welcome', fn() => view('welcome'));
  * Rutas de la aplicación
  */
 Route::get('/', fn() => redirect()->route('home'));
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
