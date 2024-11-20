@@ -10,54 +10,6 @@ final class Hexagonal
 
     public static $registersRoutes = true;
 
-
-    /**
-     * Determine if Package migrations should be run.
-     *
-     * @return bool
-     */
-    public static function shouldRunMigrations(): bool
-    {
-        return static::$runsMigrations;
-    }
-
-
-    /**
-     * Determine if Package migrations should be run.
-     *
-     * @return bool
-     */
-    public static function shouldRegistersRoutes(): bool
-    {
-        return static::$registersRoutes;
-    }
-
-
-    /**
-     * Configure Package to not register its migrations.
-     *
-     * @return static
-     */
-    public static function ignoreMigrations(): Hexagonal
-    {
-        static::$runsMigrations = false;
-
-        return new static;
-    }
-
-
-    /**
-     * Configure Package to not register its routes.
-     *
-     * @return static
-     */
-    public static function ignoreRoutes(): Hexagonal
-    {
-        static::$registersRoutes = false;
-
-        return new static;
-    }
-
     public static function setLogChannels(): void
     {
         config([
@@ -74,5 +26,49 @@ final class Hexagonal
                 'replace_placeholders' => true,
             ]
         ]);
+    }
+
+    /**
+     * Configure Package to not register its migrations.
+     *
+     * @return static
+     */
+    public static function ignoreMigrations(): Hexagonal
+    {
+        static::$runsMigrations = false;
+
+        return new static;
+    }
+
+    /**
+     * Configure Package to not register its routes.
+     *
+     * @return static
+     */
+    public static function ignoreRoutes(): Hexagonal
+    {
+        static::$registersRoutes = false;
+
+        return new static;
+    }
+
+    /**
+     * Determine if Package migrations should be run.
+     *
+     * @return bool
+     */
+    public static function shouldRunMigrations(): bool
+    {
+        return static::$runsMigrations;
+    }
+
+    /**
+     * Determine if Package migrations should be run.
+     *
+     * @return bool
+     */
+    public static function shouldRegistersRoutes(): bool
+    {
+        return static::$registersRoutes;
     }
 }
