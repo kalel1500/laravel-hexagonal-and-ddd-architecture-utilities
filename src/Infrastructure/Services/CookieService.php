@@ -10,10 +10,12 @@ use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\CookiePreferencesDo;
 
 final class CookieService
 {
+    private $cookieName;
     private $preferences;
 
     public function __construct()
     {
+        $this->cookieName  = config('hexagonal.cookie.name');
         $this->preferences = new CookiePreferencesDo(
             config('hexagonal.dark_mode_default'),
             config('hexagonal.sidebar.state_per_page')
@@ -40,7 +42,7 @@ final class CookieService
     {
         // Crear la cookie usando Cookie::make
         return Cookie::make(
-            config('hexagonal.cookie.name'),
+            $this->cookieName,
             $this->preferences->__toString(),
             config('hexagonal.cookie.duration'),
             '/',
@@ -53,12 +55,11 @@ final class CookieService
     public function createIfNotExist(Request $request): ?\Symfony\Component\HttpFoundation\Cookie
     {
         // Verificar si la cookie ya existe
-        if ($request->hasCookie(config('hexagonal.cookie.name'))) {
+        if ($request->hasCookie($this->cookieName)) {
             return null;
         }
 
         // Crear la cookie usando Cookie::make
         return $this->create();
     }
-
 }
