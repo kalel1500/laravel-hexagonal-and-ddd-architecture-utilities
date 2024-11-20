@@ -253,16 +253,18 @@ class HexagonalServiceProvider extends ServiceProvider
 //        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);
 
         // Añadir un middleware a un grupo (con Router para soportar versiones posteriores a la 6)
-        /** @var Kernel $kernel */
-        $kernel = $this->app->make(Kernel::class);
-        $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
+        if (Hexagonal::enabledPreferencesCookie()) {
+            /** @var Kernel $kernel */
+            $kernel = $this->app->make(Kernel::class);
+            $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
 
-        // Desencriptar las cookies de las preferencias del usuario
-        $this->app->booted(function () {
-            /** @var EncryptCookies $encryptCookies */
-            $encryptCookies = $this->app->make(EncryptCookies::class);
-            $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_hexagonal_user_preferences
-        });
+            // Desencriptar las cookies de las preferencias del usuario
+            $this->app->booted(function () {
+                /** @var EncryptCookies $encryptCookies */
+                $encryptCookies = $this->app->make(EncryptCookies::class);
+                $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_hexagonal_user_preferences
+            });
+        }
     }
 
     /**
