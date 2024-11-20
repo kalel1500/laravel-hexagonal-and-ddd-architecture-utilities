@@ -24,16 +24,7 @@ class App extends Component
     {
         $this->title = $title ?? config('app.name');
         $this->isFromPackage = $package;
-
-        $links = collect(config('hexagonal.sidebar.items'));
-        $firstCollapsed = $links->flatMap(function ($item) {
-            // Combinar el array con sus sub_links (si existen)
-            return array_merge([$item], $item['sub_links'] ?? []);
-        })->first(function ($item) {
-            return Arr::get($item, 'route_name') === Route::currentRouteName(); // Puedes ajustar el filtro aquí
-        });
-
-        $this->sidebarCollapsed = Arr::get($firstCollapsed, 'collapsed', false);
+        $this->sidebarCollapsed = $this->calculateSidebarCollapsedFromItems();
     }
 
     /**
@@ -44,5 +35,19 @@ class App extends Component
     public function render()
     {
         return view('hexagonal::components.layout.app');
+    }
+
+    private function calculateSidebarCollapsedFromItems(): bool
+    {
+        $links = collect(config('hexagonal.sidebar.items'));
+
+        $firstCollapsed = $links->flatMap(function ($item) {
+            // Combinar el array con sus sub_links (si existen)
+            return array_merge([$item], $item['sub_links'] ?? []);
+        })->first(function ($item) {
+            return Arr::get($item, 'route_name') === Route::currentRouteName(); // Puedes ajustar el filtro aquí
+        });
+
+        return Arr::get($firstCollapsed, 'collapsed', false);
     }
 }
