@@ -119,7 +119,7 @@ class HexagonalServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
 
             // Migraciones
-            if (Hexagonal::shouldRegistersRoutes()) {
+            if (Hexagonal::shouldRunMigrations()) {
                 $publishesMigrationsMethod = method_exists($this, 'publishesMigrations')
                     ? 'publishesMigrations'
                     : 'publishes';
