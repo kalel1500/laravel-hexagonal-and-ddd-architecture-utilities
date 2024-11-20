@@ -6,16 +6,29 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\CookiePreferencesDo;
 
 final class CookieService
 {
-    private $sidebarStatePerPage;
-    private $darkModeDefault;
+    private $preferences;
 
     public function __construct()
     {
-        $this->sidebarStatePerPage = config('hexagonal.sidebar.state_per_page');
-        $this->darkModeDefault = config('hexagonal.dark_mode_default');
+        $this->preferences = new CookiePreferencesDo(
+            config('hexagonal.dark_mode_default'),
+            config('hexagonal.sidebar.state_per_page')
+        );
+    }
+
+    public function preferences(): CookiePreferencesDo
+    {
+        return $this->preferences;
+    }
+
+    public function setPreferences(CookiePreferencesDo $preferences): self
+    {
+        $this->preferences = $preferences;
+        return $this;
     }
 
     public static function new(): self
@@ -23,29 +36,12 @@ final class CookieService
         return new self();
     }
 
-    public function setSidebarStatePerPage(bool $value): self
-    {
-        $this->sidebarStatePerPage = $value;
-        return $this;
-    }
-
-    public function setDarkModeDefault(bool $value): self
-    {
-        $this->darkModeDefault = $value;
-        return $this;
-    }
-
     public function create(): \Symfony\Component\HttpFoundation\Cookie
     {
-        $preferences = [
-            'sidebar_state_per_page' => $this->sidebarStatePerPage,
-            'dark_mode_default'      => $this->darkModeDefault,
-        ];
-
         // Crear la cookie usando Cookie::make
         return Cookie::make(
             config('hexagonal.cookie.name'),
-            json_encode($preferences),
+            $this->preferences->__toString(),
             config('hexagonal.cookie.duration'),
             '/',
             null,
