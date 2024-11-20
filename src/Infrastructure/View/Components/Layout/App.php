@@ -7,6 +7,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
+use Thehouseofel\Hexagonal\Infrastructure\Services\CookieService;
+use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 
 class App extends Component
 {
@@ -28,6 +30,12 @@ class App extends Component
 
         $this->darkMode         = config('hexagonal.dark_mode_default');
         $this->sidebarCollapsed = config('hexagonal.sidebar_state_per_page') ? $this->calculateSidebarCollapsedFromItems() : config('hexagonal.sidebar_collapsed_default');
+
+        if (Hexagonal::enabledPreferencesCookie()) {
+            $preferences = CookieService::read()->preferences();
+            $this->darkMode         = $preferences->dark_mode_default();
+            $this->sidebarCollapsed = $preferences->sidebar_state_per_page() ? $this->calculateSidebarCollapsedFromItems() : $preferences->sidebar_collapsed_default();
+        }
     }
 
     /**

@@ -39,6 +39,16 @@ final class CookieService
         return new self();
     }
 
+    public static function read(): self
+    {
+        $service     = self::new();
+        $preferences = CookiePreferencesDo::fromJson(Cookie::get($service->cookieName));
+        if (!is_null($preferences)) {
+            $service->setPreferences($preferences);
+        }
+        return $service;
+    }
+
     public function create(): \Symfony\Component\HttpFoundation\Cookie
     {
         // Crear la cookie usando Cookie::make
