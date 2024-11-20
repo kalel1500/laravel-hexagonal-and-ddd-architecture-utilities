@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 
+use Illuminate\Contracts\Support\Jsonable;
 use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
 use Thehouseofel\Hexagonal\Domain\Contracts\BuildArrayable;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayVo;
 
-abstract class ContractDataObject implements Arrayable, BuildArrayable
+abstract class ContractDataObject implements Arrayable, BuildArrayable, Jsonable
 {
     private function getValue($value)
     {
@@ -56,11 +57,31 @@ abstract class ContractDataObject implements Arrayable, BuildArrayable
     }
 
     /**
+     * @param string|null $data
+     * @return static|null // TODO PHP8 static return type
+     */
+    public static function fromJson(?string $data)
+    {
+        if (is_null($data)) return null;
+        return self::fromArray(json_decode($data, true));
+    }
+
+    /**
      * @param array $data
      * @return static // TODO PHP8 static return type
      */
     protected static function createFromArray(array $data)
     {
         return new static(...array_values($data));
+    }
+
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    public function __toString()
+    {
+        return $this->toJson();
     }
 }
