@@ -1,6 +1,6 @@
 @use('Thehouseofel\Hexagonal\Infrastructure\Services\Renderer')
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @if($sidebarCollapsed) class="sc" @endif>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => $darkMode, 'sc' => $sidebarCollapsed])>
     <head>
         <!-- Meta tags -->
         <meta charset="UTF-8">
