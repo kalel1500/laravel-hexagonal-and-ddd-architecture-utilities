@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxCookiesController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxJobsController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxQueuesController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsController;
@@ -34,6 +35,13 @@ Route::get('/queues/jobs',                      [JobsController::class, 'queuedJ
 Route::get('/queues/failed-jobs',               [JobsController::class, 'failedJobs'])->name('queues.failedJobs');
 Route::get('/ajax/queues/jobs',                 [AjaxJobsController::class, 'getJobs'])->name('ajax.queues.getJobs');
 Route::get('/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'getFailedJobs'])->name('ajax.queues.getFailedJobs');
+
+
+/**
+ * Cookies routes
+ */
+
+Route::put('/cookie/update',                    [AjaxCookiesController::class, 'update'])->name('ajax.cookie.update');
 
 
 /**
