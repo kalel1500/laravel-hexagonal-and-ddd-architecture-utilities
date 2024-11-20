@@ -6,8 +6,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
 final class Hexagonal
 {
-    public static $runsMigrations = true;
-
+    public static $runsMigrations = false;
     public static $registersRoutes = true;
 
     public static function setLogChannels(): void
@@ -38,9 +37,9 @@ final class Hexagonal
      *
      * @return self
      */
-    public function ignoreMigrations(): self
+    public function runMigrations(): self
     {
-        static::$runsMigrations = false;
+        static::$runsMigrations = true;
         return $this;
     }
 
