@@ -24,7 +24,7 @@ class App extends Component
     {
         $this->title = $title ?? config('app.name');
         $this->isFromPackage = $package;
-        $this->sidebarCollapsed = $this->calculateSidebarCollapsedFromItems();
+        $this->sidebarCollapsed = config('hexagonal.sidebar_state_per_page') ? $this->calculateSidebarCollapsedFromItems() : config('hexagonal.sidebar_collapsed_default');
     }
 
     /**
