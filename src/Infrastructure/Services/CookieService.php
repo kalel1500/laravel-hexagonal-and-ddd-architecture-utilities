@@ -18,7 +18,7 @@ final class CookieService
         $this->cookieName  = config('hexagonal.cookie.name');
         $this->preferences = new CookiePreferencesDo(
             config('hexagonal.dark_mode_default'),
-            config('hexagonal.sidebar.state_per_page')
+            config('hexagonal.sidebar_state_per_page')
         );
     }
 

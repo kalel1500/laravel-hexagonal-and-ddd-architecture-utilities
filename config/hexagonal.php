@@ -115,6 +115,8 @@ return [
 
     'dark_mode_default' => (bool) env('HEXAGONAL_DARK_MODE_DEFAULT', false),
 
+    'sidebar_state_per_page' => (bool) env('HEXAGONAL_SIDEBAR_STATE_PER_PAGE', false),
+
     'navbar' => [
         'search' => [
             'show' => true,
@@ -295,7 +297,6 @@ return [
     ],
 
     'sidebar' => [
-        'state_per_page' => (bool) env('HEXAGONAL_SIDEBAR_STATE_PER_PAGE', false),
         'search' => [
             'show' => true,
             'route' => null,
