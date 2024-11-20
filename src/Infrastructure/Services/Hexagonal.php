@@ -8,6 +8,7 @@ final class Hexagonal
 {
     public static $runsMigrations = false;
     public static $registersRoutes = true;
+    public static $preferencesCookie = false;
 
     public static function setLogChannels(): void
     {
@@ -54,6 +55,12 @@ final class Hexagonal
         return $this;
     }
 
+    public function enablePreferencesCookie(): self
+    {
+        static::$preferencesCookie = true;
+        return $this;
+    }
+
     /**
      * Determine if Package migrations should be run.
      *
@@ -72,5 +79,10 @@ final class Hexagonal
     public static function shouldRegistersRoutes(): bool
     {
         return static::$registersRoutes;
+    }
+
+    public static function enabledPreferencesCookie(): bool
+    {
+        return static::$preferencesCookie;
     }
 }
