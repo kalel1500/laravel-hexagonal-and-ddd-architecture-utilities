@@ -28,28 +28,31 @@ final class Hexagonal
         ]);
     }
 
+    public static function configure(): self
+    {
+        return new self();
+    }
+
     /**
      * Configure Package to not register its migrations.
      *
-     * @return static
+     * @return self
      */
-    public static function ignoreMigrations(): Hexagonal
+    public function ignoreMigrations(): self
     {
         static::$runsMigrations = false;
-
-        return new static;
+        return $this;
     }
 
     /**
      * Configure Package to not register its routes.
      *
-     * @return static
+     * @return self
      */
-    public static function ignoreRoutes(): Hexagonal
+    public function ignoreRoutes(): self
     {
         static::$registersRoutes = false;
-
-        return new static;
+        return $this;
     }
 
     /**
