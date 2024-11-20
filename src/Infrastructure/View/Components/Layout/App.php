@@ -11,8 +11,8 @@ use Illuminate\View\Component;
 class App extends Component
 {
     public $title;
-    public $sidebarCollapsed;
     public $isFromPackage;
+    public $sidebarCollapsed;
 
     /**
      * Create a new component instance.
@@ -23,6 +23,7 @@ class App extends Component
     )
     {
         $this->title = $title ?? config('app.name');
+        $this->isFromPackage = $package;
 
         $links = collect(config('hexagonal.sidebar.items'));
         $firstCollapsed = $links->flatMap(function ($item) {
@@ -33,7 +34,6 @@ class App extends Component
         });
 
         $this->sidebarCollapsed = Arr::get($firstCollapsed, 'collapsed', false);
-        $this->isFromPackage = $package;
     }
 
     /**
