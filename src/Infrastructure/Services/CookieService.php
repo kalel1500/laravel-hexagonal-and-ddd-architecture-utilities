@@ -51,7 +51,7 @@ final class CookieService
         return new self();
     }
 
-    public static function read(): self
+    public static function readOrNew(): self
     {
         $service     = self::new();
         $preferences = CookiePreferencesDo::fromJson(CookieFacade::get($service->cookieName));
