@@ -99,8 +99,8 @@ return [
 
     'cookie' => [
         'name' => Str::slug(env('APP_NAME', 'laravel'), '_').'_hexagonal_user_preferences',
-        'duration' => (60 * 24 * 364),
-        'version' => "0",
+        'duration' => (int) env('HEXAGONAL_COOKIE_DURATION', (60 * 24 * 364)),
+        'version' => env('HEXAGONAL_COOKIE_VERSION', "0"),
     ],
 
     /*
