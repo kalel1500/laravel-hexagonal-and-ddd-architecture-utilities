@@ -13,6 +13,7 @@ final class CookieService
 {
     private $cookieName;
     private $preferences;
+    private $cookie;
 
     public function __construct()
     {
@@ -23,6 +24,11 @@ final class CookieService
             config('hexagonal.sidebar_collapsed_default'),
             config('hexagonal.sidebar_state_per_page')
         );
+    }
+
+    public function cookie(): Cookie
+    {
+        return $this->cookie;
     }
 
     public function preferences(): CookiePreferencesDo
@@ -51,10 +57,10 @@ final class CookieService
         return $service;
     }
 
-    public function create(): Cookie
+    public function create(): self
     {
         // Crear la cookie usando CookieFacade::make
-        return CookieFacade::make(
+        $this->cookie = CookieFacade::make(
             $this->cookieName,
             $this->preferences->__toString(),
             config('hexagonal.cookie.duration'),
@@ -63,16 +69,25 @@ final class CookieService
             true,
             false
         );
+        return $this;
     }
 
-    public function createIfNotExist(Request $request): ?Cookie
+    public function createIfNotExist(Request $request): self
     {
-        // Verificar si la cookie ya existe
-        if ($request->hasCookie($this->cookieName)) {
-            return null;
+        // Verificar que la cookie no exista
+        if (!$request->hasCookie($this->cookieName)) {
+            // Crear la cookie usando CookieFacade::make
+            return $this->create();
         }
 
-        // Crear la cookie usando CookieFacade::make
-        return $this->create();
+        return $this;
+    }
+
+    public function queue(): void
+    {
+        if (!is_null($this->cookie)) {
+            // Poner la cookie en la cola
+            CookieFacade::queue($this->cookie);
+        }
     }
 }
