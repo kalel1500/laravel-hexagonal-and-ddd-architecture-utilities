@@ -32,7 +32,7 @@ class App extends Component
         $this->sidebarCollapsed = config('hexagonal.sidebar_state_per_page') ? $this->calculateSidebarCollapsedFromItems() : config('hexagonal.sidebar_collapsed_default');
 
         if (Hexagonal::enabledPreferencesCookie()) {
-            $preferences = CookieService::read()->preferences();
+            $preferences = CookieService::readOrNew()->preferences();
             $this->darkMode         = $preferences->dark_mode_default();
             $this->sidebarCollapsed = $preferences->sidebar_state_per_page() ? $this->calculateSidebarCollapsedFromItems() : $preferences->sidebar_collapsed_default();
         }
