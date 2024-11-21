@@ -87,11 +87,12 @@ final class CookieService
         return $this;
     }
 
-    public function queue(): void
+    public function queue(): self
     {
         if (!is_null($this->cookie)) {
             // Poner la cookie en la cola
             CookieFacade::queue($this->cookie);
         }
+        return $this;
     }
 }
