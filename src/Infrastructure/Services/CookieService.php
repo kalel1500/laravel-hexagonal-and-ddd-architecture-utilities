@@ -24,8 +24,8 @@ final class CookieService
         $this->cookieVersion  = config('hexagonal.cookie.version');
         $this->preferences    = new CookiePreferencesDo(
             config('hexagonal.cookie.version'),
-            config('hexagonal.dark_mode_default'),
-            config('hexagonal.sidebar_collapsed_default'),
+            config('hexagonal.dark_theme'),
+            config('hexagonal.sidebar_collapsed'),
             config('hexagonal.sidebar_state_per_page')
         );
     }

@@ -29,8 +29,8 @@ class App extends Component
         $this->isFromPackage = $package;
 
         $preferences = CookieService::readOrNew()->preferences();
-        $this->darkMode         = $preferences->dark_mode_default();
-        $this->sidebarCollapsed = $preferences->sidebar_state_per_page() ? $this->calculateSidebarCollapsedFromItems() : $preferences->sidebar_collapsed_default();
+        $this->darkMode         = $preferences->dark_theme();
+        $this->sidebarCollapsed = $preferences->sidebar_state_per_page() ? $this->calculateSidebarCollapsedFromItems() : $preferences->sidebar_collapsed();
     }
 
     /**

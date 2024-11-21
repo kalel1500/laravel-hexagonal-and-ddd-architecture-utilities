@@ -7,29 +7,29 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 final class CookiePreferencesDo extends ContractDataObject
 {
     protected $version;
-    protected $dark_mode_default;
-    protected $sidebar_collapsed_default;
+    protected $dark_theme;
+    protected $sidebar_collapsed;
     protected $sidebar_state_per_page;
 
     public function __construct(
         string $version,
-        bool $dark_mode_default,
-        bool $sidebar_collapsed_default,
-        bool $sidebar_state_per_page
+        bool   $dark_theme,
+        bool   $sidebar_collapsed,
+        bool   $sidebar_state_per_page
     )
     {
-        $this->version                   = $version;
-        $this->dark_mode_default         = $dark_mode_default;
-        $this->sidebar_collapsed_default = $sidebar_collapsed_default;
-        $this->sidebar_state_per_page    = $sidebar_state_per_page;
+        $this->version                = $version;
+        $this->dark_theme             = $dark_theme;
+        $this->sidebar_collapsed      = $sidebar_collapsed;
+        $this->sidebar_state_per_page = $sidebar_state_per_page;
     }
 
     protected static function createFromArray(array $data): self
     {
         return new self(
             $data['version'] ?? null,
-            $data['dark_mode_default'] ?? null,
-            $data['sidebar_collapsed_default'] ?? null,
+            $data['dark_theme'] ?? null,
+            $data['sidebar_collapsed'] ?? null,
             $data['sidebar_state_per_page'] ?? null
         );
     }
@@ -39,14 +39,14 @@ final class CookiePreferencesDo extends ContractDataObject
         return $this->version;
     }
 
-    public function dark_mode_default(): bool
+    public function dark_theme(): bool
     {
-        return $this->dark_mode_default;
+        return $this->dark_theme;
     }
 
-    public function sidebar_collapsed_default(): bool
+    public function sidebar_collapsed(): bool
     {
-        return $this->sidebar_collapsed_default;
+        return $this->sidebar_collapsed;
     }
 
     public function sidebar_state_per_page(): bool
@@ -59,14 +59,14 @@ final class CookiePreferencesDo extends ContractDataObject
         $this->version = $value;
     }
 
-    public function set_dark_mode_default(bool $value): void
+    public function set_dark_theme(bool $value): void
     {
-        $this->dark_mode_default = $value;
+        $this->dark_theme = $value;
     }
 
-    public function set_sidebar_collapsed_default(bool $value): void
+    public function set_sidebar_collapsed(bool $value): void
     {
-        $this->sidebar_collapsed_default = $value;
+        $this->sidebar_collapsed = $value;
     }
 
     public function set_sidebar_state_per_page(bool $value): void
