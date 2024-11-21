@@ -2,7 +2,7 @@
 
     <x-hexagonal::section>
 
-        <div></div>
+        <div>Hola mundo</div>
 
     </x-hexagonal::section>
 
