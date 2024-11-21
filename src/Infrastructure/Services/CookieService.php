@@ -12,13 +12,17 @@ use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\CookiePreferencesDo;
 final class CookieService
 {
     private $cookieName;
+    private $cookieDuration;
+    private $cookieVersion;
     private $preferences;
     private $cookie;
 
     public function __construct()
     {
-        $this->cookieName  = config('hexagonal.cookie.name');
-        $this->preferences = new CookiePreferencesDo(
+        $this->cookieName     = config('hexagonal.cookie.name');
+        $this->cookieDuration = config('hexagonal.cookie.duration');
+        $this->cookieVersion  = config('hexagonal.cookie.version');
+        $this->preferences    = new CookiePreferencesDo(
             config('hexagonal.cookie.version'),
             config('hexagonal.dark_mode_default'),
             config('hexagonal.sidebar_collapsed_default'),
@@ -63,7 +67,7 @@ final class CookieService
         $this->cookie = CookieFacade::make(
             $this->cookieName,
             $this->preferences->__toString(),
-            config('hexagonal.cookie.duration'),
+            $this->cookieDuration,
             '/',
             null,
             true,
