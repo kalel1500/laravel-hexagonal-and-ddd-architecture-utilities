@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Cookie as CookieFacade;
+use Symfony\Component\HttpFoundation\Cookie;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\CookiePreferencesDo;
 
 final class CookieService
@@ -43,17 +44,17 @@ final class CookieService
     public static function read(): self
     {
         $service     = self::new();
-        $preferences = CookiePreferencesDo::fromJson(Cookie::get($service->cookieName));
+        $preferences = CookiePreferencesDo::fromJson(CookieFacade::get($service->cookieName));
         if (!is_null($preferences)) {
             $service->setPreferences($preferences);
         }
         return $service;
     }
 
-    public function create(): \Symfony\Component\HttpFoundation\Cookie
+    public function create(): Cookie
     {
-        // Crear la cookie usando Cookie::make
-        return Cookie::make(
+        // Crear la cookie usando CookieFacade::make
+        return CookieFacade::make(
             $this->cookieName,
             $this->preferences->__toString(),
             config('hexagonal.cookie.duration'),
@@ -64,14 +65,14 @@ final class CookieService
         );
     }
 
-    public function createIfNotExist(Request $request): ?\Symfony\Component\HttpFoundation\Cookie
+    public function createIfNotExist(Request $request): ?Cookie
     {
         // Verificar si la cookie ya existe
         if ($request->hasCookie($this->cookieName)) {
             return null;
         }
 
-        // Crear la cookie usando Cookie::make
+        // Crear la cookie usando CookieFacade::make
         return $this->create();
     }
 }
