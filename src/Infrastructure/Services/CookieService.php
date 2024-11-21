@@ -95,4 +95,12 @@ final class CookieService
         }
         return $this;
     }
+
+    public function resetAndQueueIfExistInvalid(): ?self
+    {
+        if ($this->cookieVersion !== self::readOrNew()->preferences->version()) {
+            return self::new()->create()->queue();
+        }
+        return null;
+    }
 }

@@ -20,7 +20,8 @@ final class AddPreferencesCookies
     {
         CookieService::new()
             ->createIfNotExist($request)
-            ->queue();
+            ->queue()
+            ->resetAndQueueIfExistInvalid();
 
         return $next($request);
     }
