@@ -22,27 +22,27 @@
                 <x-hexagonal::navbar.dropdown big-list header="Notifications">
 
                     <x-hexagonal::navbar.dropdown.link time="a few moments ago" href="#">
-                        <x-slot:icon><x-hexagonal::icon.user/></x-slot:icon>
+                        <x-slot:icon><x-hexagonal::icon.user-profile/></x-slot:icon>
                         New message from Bonnie Green: "Hey, what's up? All set for the presentation?"
                     </x-hexagonal::navbar.dropdown.link>
 
                     <x-hexagonal::navbar.dropdown.link time="10 minutes ago" href="#">
-                        <x-slot:icon><x-hexagonal::icon.user/></x-slot:icon>
+                        <x-slot:icon><x-hexagonal::icon.user-profile/></x-slot:icon>
                         Jese leos and 5 others started following you.
                     </x-hexagonal::navbar.dropdown.link>
 
                     <x-hexagonal::navbar.dropdown.link time="44 minutes ago" href="#">
-                        <x-slot:icon><x-hexagonal::icon.user/></x-slot:icon>
+                        <x-slot:icon><x-hexagonal::icon.user-profile/></x-slot:icon>
                         Joseph Mcfall and 141 others love your story. See it and view more stories.
                     </x-hexagonal::navbar.dropdown.link>
 
                     <x-hexagonal::navbar.dropdown.link time="1 hour ago" href="#">
-                        <x-slot:icon><x-hexagonal::icon.user/></x-slot:icon>
+                        <x-slot:icon><x-hexagonal::icon.user-profile/></x-slot:icon>
                         Leslie Livingston mentioned you in a comment: @bonnie.green what do you say?
                     </x-hexagonal::navbar.dropdown.link>
 
                     <x-hexagonal::navbar.dropdown.link time="3 hours ago" href="#">
-                        <x-slot:icon><x-hexagonal::icon.user/></x-slot:icon>
+                        <x-slot:icon><x-hexagonal::icon.user-profile/></x-slot:icon>
                         Robert Brown posted a new video: Glassmorphism - learn how to implement the new design trend.
                     </x-hexagonal::navbar.dropdown.link>
 
@@ -112,7 +112,7 @@
         <!-- User image -->
         <x-hexagonal::navbar.item user id="user" text="Open user menu">
             <!-- User icon -->
-            <x-hexagonal::icon.user class="h-8 w-8 hover:bg-gray-700 hover:dark:bg-gray-300"/>
+            <x-hexagonal::icon.user-profile class="h-8 w-8 hover:bg-gray-700 hover:dark:bg-gray-300"/>
 
             <x-slot:dropdown>
 
