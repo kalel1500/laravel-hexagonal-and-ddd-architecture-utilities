@@ -56,10 +56,10 @@ class HexagonalStart extends Command
         copy($this->stubsPath.'/app/Providers/DependencyServiceProvider.php', app_path('Providers/DependencyServiceProvider.php'));
         $this->info('Archivo "app/Providers/DependencyServiceProvider.php" creado');
 
-        // resources
-        $this->filesystem->ensureDirectoryExists(resource_path('views/pages'));
-        $this->filesystem->copyDirectory($this->stubsPath.'/resources/views/pages', resource_path('views/pages'));
-        $this->info('Carpeta "resources/views/pages" creada');
+        // Views
+        $this->filesystem->ensureDirectoryExists(resource_path('views'));
+        $this->filesystem->copyDirectory($this->stubsPath.'/resources/views', resource_path('views'));
+        $this->info('Carpeta "resources/views" creada');
 
         // Src
         $this->filesystem->ensureDirectoryExists(base_path('src'));
