@@ -53,3 +53,4 @@ Route::get('example/example-2',     [ExampleController::class, 'example2'])->nam
 Route::get('example/example-3',     [ExampleController::class, 'example3'])->name('example3');
 Route::get('example/example-4',     [ExampleController::class, 'example4'])->name('example4');
 Route::get('example/compare-html',  [ExampleController::class, 'compareHtml'])->name('compareHtml');
+Route::get('example/modify-cookie', [ExampleController::class, 'modifyCookie'])->name('modifyCookie');
