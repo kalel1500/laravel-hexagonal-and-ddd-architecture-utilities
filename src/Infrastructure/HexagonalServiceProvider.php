@@ -9,7 +9,6 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService;
@@ -20,7 +19,6 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
 use Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
-use Throwable;
 
 class HexagonalServiceProvider extends ServiceProvider
 {
@@ -223,12 +221,7 @@ class HexagonalServiceProvider extends ServiceProvider
     protected function registerBladeDirectives(): void
     {
         Blade::directive('viteAsset', function ($path) {
-            $path = trim($path, '\'\"'); // Quita comillas alrededor del string
-            try {
-                return Vite::asset($path);
-            } catch (Throwable $e) {
-                return "";
-            }
+            return "<?php try { echo \\Thehouseofel\\Hexagonal\\Infrastructure\\Vite::asset(trim($path, '\\'\"')); } catch (\\Throwable \$e) { echo ''; } ?>";
         });
     }
 
