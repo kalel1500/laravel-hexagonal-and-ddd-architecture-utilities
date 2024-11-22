@@ -1,4 +1,4 @@
-import { Html } from 'laravel-ts-utilities';
+import { Cookie, Html } from 'laravel-ts-utilities';
 
 export default class ExamplesController {
     compareHtml()
@@ -55,6 +55,29 @@ export default class ExamplesController {
             } else {
                 $resultNok.classList.remove('hidden');
             }
+        });
+    }
+
+    modifyCookie() {
+        document.getElementById('show-cookie-value')?.addEventListener('click', e => {
+            const preferences = Cookie.new().preferences();
+            console.log(preferences);
+            console.log('valor actual: ' + preferences?.dark_theme);
+        });
+
+        document.getElementById('change-cookie')?.addEventListener('click', e => {
+            const CookieService = Cookie.new();
+
+            const preferences = CookieService.preferences();
+            // const newValue = !preferences?.dark_mode_default;
+            // this.updateUserPreference('dark_mode_default', newValue);
+
+            CookieService.setPreference('dark_theme', !preferences?.dark_theme);
+            const serializedPreferences = encodeURIComponent(JSON.stringify(preferences));
+            /*g.newFetch({ url: route('hexagonal.ajax.cookie.update', {_query: {preferences: serializedPreferences}}), type: 'PUT' }).then(r  => {
+                console.log(r);
+            });
+            console.log(`ha cambiado a ${preferences?.dark_theme}`);*/
         });
     }
 }

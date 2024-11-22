@@ -33,4 +33,9 @@ final class ExampleController extends Controller
     {
         return view('hexagonal::pages.examples.compare-html');
     }
+
+    public function modifyCookie(): View
+    {
+        return view('hexagonal::pages.examples.modify-cookie');
+    }
 }
