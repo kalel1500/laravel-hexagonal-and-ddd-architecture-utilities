@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Shared\Infrastructure\DefaultController;
+use Src\Shared\Infrastructure\Http\Controllers\DefaultController;
 
 /**
  * Ruta original de Laravel para la vista welcome
