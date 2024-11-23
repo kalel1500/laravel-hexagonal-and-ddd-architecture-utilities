@@ -574,6 +574,18 @@ if (! function_exists('getUrlFromRoute')) {
     }
 }
 
+if (!function_exists('getIconClasses')) {
+    function getIconClasses($attributes): string
+    {
+        $classes = $attributes->get('class', '');
+        // Si no hay un tamaño específico, se asegura de usar 'size-6' como base
+        if (!str_contains($classes, 'size-')) {
+            $classes = 'size-6 ' . $classes;
+        }
+        return $classes;
+    }
+}
+
 //if (!function_exists('formatToTabulatorList')) {
 //    /**
 //     * @param Collection|ContractCollectionBase $collection // TODO PHP8 - Union types
