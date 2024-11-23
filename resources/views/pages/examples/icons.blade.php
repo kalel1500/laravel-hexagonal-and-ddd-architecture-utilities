@@ -1,7 +1,7 @@
 @php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Icons\ViewIconsDo $data */ @endphp
 @php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Icons\IconDo $icon */ @endphp
 
-<x-hexagonal::layout.app package title="Example 1">
+<x-hexagonal::layout.app package title="Icons">
 
     <x-hexagonal::section>
 
