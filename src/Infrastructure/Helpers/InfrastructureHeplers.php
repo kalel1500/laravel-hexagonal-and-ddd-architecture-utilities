@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\ComponentAttributeBag;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\EnvVo;
 use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
@@ -575,14 +576,23 @@ if (! function_exists('getUrlFromRoute')) {
 }
 
 if (!function_exists('getIconClasses')) {
-    function getIconClasses($attributes): string
+    function getIconClasses(ComponentAttributeBag $attributes, $sizeNumber = '6'): string
     {
         $classes = $attributes->get('class', '');
         // Si no hay un tamaño específico, se asegura de usar 'size-6' como base
         if (!str_contains($classes, 'size-')) {
-            $classes = 'size-6 ' . $classes;
+            $classes = 'size-' . $sizeNumber . ' ' . $classes;
         }
         return $classes;
+    }
+}
+
+if (!function_exists('getOtherAttributes')) {
+    function getOtherAttributes(ComponentAttributeBag $attributes): ComponentAttributeBag
+    {
+        return $attributes->filter(function (string $value, string $key) {
+            return $key != 'class' && $key != 'outline' && $key != 'flowbite';
+        });
     }
 }
 
