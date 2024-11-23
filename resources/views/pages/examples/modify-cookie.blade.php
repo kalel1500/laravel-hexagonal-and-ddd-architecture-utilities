@@ -1,4 +1,4 @@
-<x-hexagonal::layout.app package title="Home">
+<x-hexagonal::layout.app package title="Update cookie">
 
     <x-hexagonal::section>
 
