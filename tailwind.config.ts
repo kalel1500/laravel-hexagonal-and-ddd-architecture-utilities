@@ -1,9 +1,14 @@
 import type { Config } from 'tailwindcss'
-import { laravelContent, laravelDefaultPlugins } from 'laravel-ts-utilities/dist/plugins';
+import { laravelDefaultPlugins } from 'laravel-ts-utilities/dist/plugins';
 
 export default {
     content: [
-        ...laravelContent
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
+        './resources/**/*.ts',
+        './node_modules/flowbite/**/*.js'
     ],
     theme: {
         extend: {
