@@ -1,4 +1,4 @@
-import { Cookie, Html } from 'laravel-ts-utilities';
+import { Cookie, g, Html } from 'laravel-ts-utilities';
 
 export default class ExamplesController {
     compareHtml()
@@ -78,6 +78,30 @@ export default class ExamplesController {
                 console.log(r);
             });
             console.log(`ha cambiado a ${preferences?.dark_theme}`);*/
+        });
+    }
+
+    icons() {
+        document.getElementById('icons')?.addEventListener('click', e => {
+            const element = e.target as HTMLElement | null;
+            const icon = element?.closest('[data-icon-id]');
+
+            if (!icon) return;
+
+            const text = icon.previousElementSibling?.querySelector('span');
+            const copied = icon.nextElementSibling as HTMLElement;
+
+            if (!text) return;
+
+            navigator.clipboard.writeText(text.innerText)
+              .then(async () => {
+                  copied.classList.remove('invisible');
+                  await g.sleep(1000);
+                  copied.classList.add('invisible');
+              })
+              .catch((err) => {
+                  console.error('Error al copiar al portapapeles: ', err);
+              });
         });
     }
 }

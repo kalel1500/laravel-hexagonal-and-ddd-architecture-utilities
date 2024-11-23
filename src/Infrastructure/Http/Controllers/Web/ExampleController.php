@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Thehouseofel\Hexagonal\Application\GetIconsUseCase;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
 
 final class ExampleController extends Controller
@@ -37,5 +39,15 @@ final class ExampleController extends Controller
     public function modifyCookie(): View
     {
         return view('hexagonal::pages.examples.modify-cookie');
+    }
+
+    public function icons(Request $request, GetIconsUseCase $useCase): View
+    {
+        $isShort = $request->input('name') === 'short';
+
+        $data = $useCase->__invoke($isShort);
+
+        // Retornar los nombres a la vista
+        return view('hexagonal::pages.examples.icons', compact('data'));
     }
 }
