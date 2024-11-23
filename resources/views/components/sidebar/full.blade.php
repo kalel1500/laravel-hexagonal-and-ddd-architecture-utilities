@@ -18,7 +18,7 @@
             >
                 @if(!is_null($item->icon))
                     <x-slot:icon>
-                        {!! $item->icon !!}
+                        <x-hexagonal::render-icon :icon="$item->icon" />
                     </x-slot:icon>
                 @endif
                 {{ $item->text }}
@@ -42,12 +42,12 @@
                         :id="$item->code ?? null"
                         :tooltip="$item->tooltip ?? null"
                     >
-                        {!! $item->icon !!}
+                        <x-hexagonal::render-icon :icon="$item->icon" />
                         @if($item->hasDropdown())
                             <x-slot:dropdown>
                                 @foreach($item->dropdown as $subItem)
                                     <x-hexagonal::sidebar.footer.subitem>
-                                        {!! $subItem->icon !!}
+                                        <x-hexagonal::render-icon :icon="$subItem->icon" />
                                         {{ $subItem->text }}
                                     </x-hexagonal::sidebar.footer.subitem>
                                 @endforeach

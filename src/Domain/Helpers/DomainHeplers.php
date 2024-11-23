@@ -677,3 +677,10 @@ if (!function_exists('arrFormatIsCollection')) {
         return true;
     }
 }
+
+if (!function_exists('strContainsHtml')) {
+    function strContainsHtml(string $value): bool
+    {
+        return $value !== strip_tags($value);
+    }
+}
