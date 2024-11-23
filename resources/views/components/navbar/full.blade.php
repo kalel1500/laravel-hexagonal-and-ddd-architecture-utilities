@@ -30,7 +30,7 @@
                     @if($item->is_user)
                         <x-hexagonal::icon.user-profile class="h-8 w-8 hover:bg-gray-700 hover:dark:bg-gray-300"/>
                     @else
-                        {!! $item->icon !!}
+                        <x-hexagonal::render-icon :icon="$item->icon" />
                     @endif
 
                     @if($item->hasDropdown())
@@ -50,19 +50,19 @@
                                     @if($item->dropdown->is_list)
                                         <x-hexagonal::navbar.dropdown.link :href="$subItem->getHref()" :time="$subItem->time">
                                             <x-slot:icon>
-                                                <x-dynamic-component :component="$subItem->icon" />
+                                                <x-hexagonal::render-icon :icon="$subItem->icon" />
                                             </x-slot:icon>
                                             {{ $subItem->text }}
                                         </x-hexagonal::navbar.dropdown.link>
                                     @elseif($item->dropdown->is_square)
                                         <x-hexagonal::navbar.dropdown.link :href="$subItem->getHref()" :text="$subItem->text">
-                                            {!! $subItem->icon !!}
+                                            <x-hexagonal::render-icon :icon="$subItem->icon" />
                                         </x-hexagonal::navbar.dropdown.link>
                                     @elseif($subItem->is_separator)
                                         <x-hexagonal::navbar.dropdown.separator/>
                                     @else
                                         <x-hexagonal::navbar.dropdown.link href="#">
-                                            @if($subItem->icon) {!! $subItem->icon !!} @endif
+                                            @if($subItem->icon) <x-hexagonal::render-icon :icon="$subItem->icon" class="size-5 mr-2"/> @endif
                                             {{ $subItem->text }}
                                         </x-hexagonal::navbar.dropdown.link>
                                     @endif
@@ -70,7 +70,7 @@
 
                                 @if($item->dropdown->footer)
                                     <x-slot:footer :href="$item->dropdown->footer->getHref()">
-                                        {!! $item->dropdown->footer->icon !!}
+                                        <x-hexagonal::render-icon :icon="$item->dropdown->footer->icon" />
                                         {{ $item->dropdown->footer->text }}
                                     </x-slot:footer>
                                 @endif
