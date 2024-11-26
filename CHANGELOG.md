@@ -1,6 +1,75 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.11.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.0...master)
+
+## [v1.12.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.11.0-beta.0...v1.12.0-beta.0) - 2024-11-26
+
+### Added
+
+* docs: Nuevo archivo `todo-list.md` con las siguientes tareas del paquete
+* stubs:
+  * añadir nuevo `web_php_old.php` adaptado al `PHP < 8` (en el futuro se añadirá una condición en el comando `hexagonal:start`)
+  * añadir blade `welcome.blade.php`, ya que tras las instalaciones hay que comprobar la extension del archivo JS al usar la directiva `@vite()`
+* cookies:
+  * Nuevo Middleware `AddPreferencesCookies.php` que genera las cookies (si no existen) con las preferencias del usuario por defecto 
+  * Añadir código para registrar el middleware en el `HexagonalServiceProvider.php`
+  * Nuevas variables de configuración para las cookies y las preferencias del usuario
+  * Nuevo servicio `CookieService` con la lógica de la creación de la cookie para poder reutilizarla desde la aplicación
+  * Nueva ruta `/cookie/update` (controller `AjaxCookiesController`) para actualizar la cookie por ajax
+  * Nueva clase `CookiePreferencesDo` para simplificar el código y el flujo de la clase `CookieService`
+  * Hacer que por defecto el `sidebarCollapsed` del `Layout/App` se configure globalmente (`config('hexagonal.sidebar_collapsed_default')`) y solo usar los items si `config('hexagonal.sidebar_state_per_page') === true`
+  * Nueva variable $darkMode en `Layout/App` (`hexagonal.dark_mode_default`) para configurar por defecto el modo oscuro
+  * Añadir nueva lógica en `Layout/App` para establecer las variables `$darkMode` y `$sidebarCollapsed` según las cookies recibidas (si están habilitadas)
+  * Leer variables de configuración de las cookies del archivo `.env`
+  * (fix) comprobar la config del dark-mode al pintar los iconos `theme-toggle`, ya que por defecto estaban ocultos a la vez
+  * Nueva vista de ejemplo `example/modify-cookie` con botones para modificar la cookie desde el front (código TS)
+
+### Changed
+
+* Paquete `laravel-ts-utilities` actualizado a la version `1.3.0-beta.4`
+* docs: archivo `development-tips.md` actualizado con el regex para excluir carpetas al comparar dos proyectos
+* Layout:
+  * (refactor) ordenar head del componente `layout/app`
+  * Modificar font-weight de los enlaces del sidebar cuando está colapsado
+  * Componente `icon.user` renombrado a `icon.user-profile`
+  * icons: 
+    * Creados nuevos componentes para los iconos
+    * Nueva ruta `example/icons` con la vista de todos los iconos disponibles
+    * Modificar los iconos para que reciban los `$attributes`, las propiedades `strokeWidth`, `flowbite` y `outline` y estructurarlos para poder añadir los tres tipos de iconos
+    * Cambiar todos los iconos de SVG a los nuevos componentes (nuevo componente `<x-render-icon>` para poder renderizar por el componente, el nombre, o el nombre con la clase separados por `;`
+  * Nuevos enlaces añadidos al Sidebar con todas las rutas definidas hasta ahora
+  * (fix) Corregir títulos de las páginas
+  * stubs: Ponerle nombre a la ruta `welcome` (para poder acceder a ella desde el sidebar)
+* stubs: Cambios ruta `/home` 
+  * renombrar y mover controller de `Src\Home\Infrastructure\HomeController` a `Src\Shared\Infrastructure\Http\Controllers\DefaultController` 
+  * renombrar método de `index` a `home` 
+  * renombrar y mover vista de `pages.home.index` a `pages.default.home` 
+  * renombrar nombre de ruta de `home.index` a `home` 
+  * Añadir texto `Hola mundo` en la vista `home.blade.php`
+* Añadir validación en la migración `create_states_table` para comprobar que no exista la tabla `states` antes de crearla
+* Nuevos métodos `fromJson()` `toJson()` y `__toString()` en la clase `ContractDataObject.php` + hacer que implemente la interfaz `Jsonable`
+* Cambios servicio `Hexagonal.php`:
+    * (breaking) Modificar clase `Hexagonal.php` para hacer que sea configurable en cadena
+    * (breaking) Establecer valor `$runsMigrations` por defecto a `false` para que por defecto no se ejecuten las migraciones del paquete y haya que activarlas manualmente desde la aplicación
+    * Añadir configuración en la clase `Hexagonal` para activar las Cookies de las preferencias que por defecto están desactivadas
+* (breaking) Mover la carpeta `Controllers` dentro de `Http`
+* Cambios en el `HexagonalServiceProvider`:
+  * Añadir nueva publicación en el `registerPublishing()` del `HexagonalServiceProvider.php` para permitir publicar el componente `layout/app` de forma independiente con el tag `hexagonal-view-layout`, ya que es el componente que más se puede querer editar
+  * (fix) Cambiar validación `shouldRegistersRoutes()` por `shouldRunMigrations()` al publicar las migraciones
+* Comando `hexagonal:start`
+  * Modificar el comando `hexagonal:start` para que no elimine la carpeta `app/Models`
+  * (fix) Añadir la ruta completa a la clase `Hexagonal` al añadir la línea `Hexagonal::ignoreMigrations()` al `AppServiceProvider` en el comando `hexagonal:start` para no tener que importar la clase
+  * Descomentar la línea `Hexagonal::ignoreMigrations()` en el comando `hexagonal:start` para que por defecto se ignoren las migraciones del paquete
+  * (fix) Añadir las clases de los componentes al publicar las vistas en el comando `hexagonal:start`
+  * adaptar escritura del `AppServiceProvider` a la nueva forma de configuración del paquete (y hacer que por defecto esté comentada)
+
+### Fixed
+
+* (fix) Arreglar directiva blade `@viteAsset`, ya que debe ejecutar el código en la vista y no al declarar la directiva (funcionaba solo porque le pasaba un parámetro estático)
+* (fix) Definir manualmente los archivos en los que tailwind tiene que buscar las clases al compilar el css
+* stubs: (fix) sol. error en la ruta del import `DefaultController`
+* (fix) solucionar error vite poniendo el `publicDir` a `false` (ya que coincide con el `outDir`)
+* stubs: (fix) corregir nombre ruta /home (`home.index`) para que sea coherente con el paquete del front
 
 ## [v1.11.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...v1.11.0-beta.0) - 2024-11-11
 
