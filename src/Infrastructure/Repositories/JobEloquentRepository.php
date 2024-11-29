@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Infrastructure\Repositories;
 
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\JobRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\FailedJobCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\JobCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\FailedJobCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\JobCollection;
 use Thehouseofel\Hexagonal\Infrastructure\Models\FailedJob;
 use Thehouseofel\Hexagonal\Infrastructure\Models\Jobs;
 

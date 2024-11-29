@@ -7,7 +7,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Repositories;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\StateCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\StateCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\StateEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckFieldVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;

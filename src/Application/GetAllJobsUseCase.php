@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Application;
 
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\JobRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\JobCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\JobCollection;
 
 final class GetAllJobsUseCase
 {

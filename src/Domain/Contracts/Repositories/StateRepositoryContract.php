@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Contracts\Repositories;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\StateCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\StateCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\StateEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckFieldVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;
