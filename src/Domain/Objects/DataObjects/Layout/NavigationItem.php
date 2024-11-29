@@ -6,7 +6,7 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout;
 
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
 
-class NavigationItem extends ContractDataObject
+abstract class NavigationItem extends ContractDataObject
 {
     public $code;
     public $icon;
