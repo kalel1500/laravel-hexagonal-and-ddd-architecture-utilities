@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections;
+namespace Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections;
 
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\FailedJobEntity;
