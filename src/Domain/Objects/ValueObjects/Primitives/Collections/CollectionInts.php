@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections;
+namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Collections;
 
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionVo;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractIntVo;
