@@ -5,7 +5,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\View\Components\Navbar;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Layout\NavbarItemCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo;
 use Thehouseofel\Hexagonal\Infrastructure\Facades\LayoutService;
 

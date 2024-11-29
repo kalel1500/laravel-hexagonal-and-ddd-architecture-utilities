@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Shared\Domain\Services\RepositoryServices;
 
 use Thehouseofel\Hexagonal\Domain\Contracts\Services\LayoutServiceContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Layout\NavbarItemCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\UserInfoDo;
 
 final class LayoutService implements LayoutServiceContract

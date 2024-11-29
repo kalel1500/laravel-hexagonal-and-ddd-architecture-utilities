@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Infrastructure\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Layout\NavbarItemCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\UserInfoDo;
 
 /**

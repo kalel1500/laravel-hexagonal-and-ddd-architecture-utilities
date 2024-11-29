@@ -5,7 +5,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\View\Components\Sidebar;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Layout\SidebarItemCollection;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\SidebarItemCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\SidebarItemDo;
 use Thehouseofel\Hexagonal\Infrastructure\Facades\LayoutService;
 
