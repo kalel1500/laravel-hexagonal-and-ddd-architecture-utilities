@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Layout;
+namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections;
 
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionDo;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo;
