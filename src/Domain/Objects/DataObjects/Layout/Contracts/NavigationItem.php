@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout;
+namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Contracts;
 
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
 
