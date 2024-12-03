@@ -34,7 +34,9 @@ abstract class ContractCollectionDo extends ContractCollectionBase
         $res = [];
         try {
             foreach ($values as $value) {
-                $res[] = ($value instanceof $valueClass) ? $value : $valueClass::fromArray($value);//new $valueClass(...array_values($value));
+                $res[] = ($value instanceof $valueClass)
+                    ? $value
+                    : ((is_subclass_of($valueClass, \BackedEnum::class)) ? $valueClass::from($value) : $valueClass::fromArray($value));
             }
         } catch (TypeError $exception) {
             throw new InvalidValueException(sprintf('Los valores del array no coinciden con los necesarios para instanciar la clase <%s>. Mira en <fromArray()> del ContractDataObject', $valueClass));
