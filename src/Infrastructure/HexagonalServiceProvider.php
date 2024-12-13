@@ -221,7 +221,13 @@ class HexagonalServiceProvider extends ServiceProvider
     protected function registerBladeDirectives(): void
     {
         Blade::directive('viteAsset', function ($path) {
-            return "<?php try { echo \\Thehouseofel\\Hexagonal\\Infrastructure\\Vite::asset(trim($path, '\\'\"')); } catch (\\Throwable \$e) { echo ''; } ?>";
+            return "<?php 
+                try {
+                    echo e(\\Illuminate\\Support\\Facades\\Vite::asset(trim($path, '\'\"')));
+                } catch (\\Throwable \$e) {
+                    echo e(\$e->getMessage()); 
+                }
+            ?>";
         });
     }
 
