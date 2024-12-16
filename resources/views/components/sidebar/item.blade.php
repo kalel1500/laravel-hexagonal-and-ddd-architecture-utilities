@@ -31,7 +31,7 @@
             <x-hexagonal::icon.chevron-down outline @class(['size-4', 'chevron-down', '-rotate-90' => $dropdownIsOpen]) stroke-width="3.5"/>
         </button>
 
-        <ul id="dropdown-{{ $dropdownId }}" @class(['space-y-2 py-2 ml-4', 'hidden' => !$dropdownIsOpen])>
+        <ul id="dropdown-{{ $dropdownId }}" @class(['space-y-2 py-2 ml-4 sc:ml-3 sc:space-y-0 sc:pt-0', 'hidden' => !$dropdownIsOpen])>
             {{ $dropdown }}
         </ul>
     @else
