@@ -6,6 +6,6 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-final class FailedJob extends Model
+class FailedJob extends Model
 {
 }

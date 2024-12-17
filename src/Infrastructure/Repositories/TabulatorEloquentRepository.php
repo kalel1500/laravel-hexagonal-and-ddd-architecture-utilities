@@ -9,7 +9,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Str;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\TabulatorRepository;
 
-final class TabulatorEloquentRepository implements TabulatorRepository
+class TabulatorEloquentRepository implements TabulatorRepository
 {
     const NULL_EQUIVALENT_VALUES = [
         'No aplicable',

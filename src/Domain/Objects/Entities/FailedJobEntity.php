@@ -9,7 +9,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
-final class FailedJobEntity extends ContractEntity
+class FailedJobEntity extends ContractEntity
 {
     private $id;
     private $uuid;
