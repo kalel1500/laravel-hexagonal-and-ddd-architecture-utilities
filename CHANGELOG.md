@@ -1,6 +1,34 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.1...master)
+
+## [v1.12.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.0...v1.12.0-beta.1) - 2024-11-26
+
+### Changed
+
+* Paquete `laravel-ts-utilities` actualizado a la version `1.3.0-beta.7` 
+  * (se ha añadido la funcionalidad de rotar las flechas de los dropdowns del sidebar)
+  * (se ha corregido error cuando no hay sidebar)
+* enlaces: ajustar estilos del sidebar collapsed para visualizar mejor los dropdowns
+* enlaces: rotar flecha de los dropdowns cuando están abiertos
+* enlaces: reorganizar enlaces iniciales
+* enlaces: permitir varios niveles de dropdowns
+* Añadir el `$attributes->merge(['class' => ...])` en el componente `<section>` para poder añadirle clases al componente desde cada vista
+* Refactor: `NavigationItem` movida a `...Objects\DataObjects\Layout\Contracts`
+* (breaking) Refactor: Colecciones movidas de `Src\Domain\Objects\Collections` a sus respectivas carpetas:
+  * `Src\Domain\Objects\Entities\Collections` (`Entities`)
+  * `Src\Domain\Objects\ValueObjects\EntityFields\Collections` (`ModelId`)
+  * `Src\Domain\Objects\ValueObjects\Primitives\Collections` (`Vo`)
+  * `Src\Domain\Objects\DataObjects\Layout\Collections` (`Items layout`)
+* Hacer clase `NavigationItem` abstracta
+* Paquete `laravel-ts-utilities` actualizado a la versión `1.3.0-beta.5` (se ha solucionado el warning de Vite de la compilación)
+
+### Fixed
+
+* (fix) Cambiar los `new self()` por `new static()` en los métodos `createFromArray()` de las entidades para evitar errores en las relaciones al extender las entidades
+* (fix) Quitar el `final` de todos los Modelos, Entidades, Colecciones y Repositorios para poder extenderlos desde la aplicación
+* (fix) arreglar error en la directiva `@viteAsset`
+* (fix) comprobar si el objeto es de tipo `Enum` en el `fromArray()` de la clase `ContractCollectionDo`
 
 ## [v1.12.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.11.0-beta.0...v1.12.0-beta.0) - 2024-11-26
 
