@@ -44,9 +44,13 @@ class JobEntity extends ContractEntity
     /*----------------------------------------------------------------------------------------------------------------*/
     /*---------------------------------------------- Create Functions -----------------------------------------------*/
 
-    protected static function createFromArray(array $data): self
+    /**
+     * @param array $data
+     * @return static
+     */
+    protected static function createFromArray(array $data)
     {
-        return new self(
+        return new static(
             new ModelIdNull($data['id'] ?? null),
             new ModelString($data['queue']),
             new ModelString($data['payload']),
