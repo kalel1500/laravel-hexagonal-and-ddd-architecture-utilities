@@ -6,6 +6,6 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-final class State extends Model
+class State extends Model
 {
 }

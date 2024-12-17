@@ -10,7 +10,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\JobCollection;
 use Thehouseofel\Hexagonal\Infrastructure\Models\FailedJob;
 use Thehouseofel\Hexagonal\Infrastructure\Models\Jobs;
 
-final class JobEloquentRepository implements JobRepositoryContract
+class JobEloquentRepository implements JobRepositoryContract
 {
     private $eloquentModel;
     private $failedJobseloquentModel;

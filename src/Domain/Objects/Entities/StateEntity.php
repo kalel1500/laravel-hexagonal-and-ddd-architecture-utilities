@@ -11,7 +11,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
-final class StateEntity extends ContractEntity
+class StateEntity extends ContractEntity
 {
     private $id;
     private $name;

@@ -14,7 +14,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyV
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\EnumDynamicVo;
 use Thehouseofel\Hexagonal\Infrastructure\Models\State;
 
-final class StateEloquentRepository implements StateRepositoryContract
+class StateEloquentRepository implements StateRepositoryContract
 {
     private $eloquentModel;
 

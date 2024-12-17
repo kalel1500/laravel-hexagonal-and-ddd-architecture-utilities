@@ -11,7 +11,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelInt;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIntNull;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
-final class JobEntity extends ContractEntity
+class JobEntity extends ContractEntity
 {
     private $id;
     private $queue;

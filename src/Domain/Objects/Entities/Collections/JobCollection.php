@@ -7,7 +7,7 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections;
 use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\JobEntity;
 
-final class JobCollection extends ContractCollectionEntity
+class JobCollection extends ContractCollectionEntity
 {
     public const ENTITY = JobEntity::class;
 
