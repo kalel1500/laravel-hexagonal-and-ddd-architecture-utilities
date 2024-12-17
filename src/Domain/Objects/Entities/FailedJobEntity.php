@@ -42,9 +42,13 @@ class FailedJobEntity extends ContractEntity
     /*----------------------------------------------------------------------------------------------------------------*/
     /*---------------------------------------------- Create Functions -----------------------------------------------*/
 
-    protected static function createFromArray(array $data): self
+    /**
+     * @param array $data
+     * @return static
+     */
+    protected static function createFromArray(array $data)
     {
-        return new self(
+        return new static(
             new ModelIdNull($data['id'] ?? null),
             new ModelString($data['uuid']),
             new ModelString($data['connection']),

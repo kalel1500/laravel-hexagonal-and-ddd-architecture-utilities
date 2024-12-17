@@ -41,9 +41,13 @@ class StateEntity extends ContractEntity
     /*----------------------------------------------------------------------------------------------------------------*/
     /*---------------------------------------------- Create Functions -----------------------------------------------*/
 
-    protected static function createFromArray(array $data): self
+    /**
+     * @param array $data
+     * @return static
+     */
+    protected static function createFromArray(array $data)
     {
-        return new self(
+        return new static(
             ModelId::from($data['id'] ?? null),
             new ModelString($data['name']),
             new ModelBool($data['finalized']),
