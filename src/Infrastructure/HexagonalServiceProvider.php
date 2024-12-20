@@ -7,9 +7,11 @@ namespace Thehouseofel\Hexagonal\Infrastructure;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\ComponentAttributeBag;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
@@ -77,6 +79,7 @@ class HexagonalServiceProvider extends ServiceProvider
         $this->registerComponents();
         $this->registerBladeDirectives();
         $this->registerMiddlewares();
+        $this->registerMacros();
     }
 
     /**
@@ -264,6 +267,37 @@ class HexagonalServiceProvider extends ServiceProvider
                 $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_hexagonal_user_preferences
             });
         }
+    }
+
+    /**
+     * Add Package's Macros.
+     *
+     * @return void
+     */
+    protected function registerMacros(): void
+    {
+        ComponentAttributeBag::macro('mergeTailwind', function ($defaultClasses) {
+            /** @var ComponentAttributeBag $this */
+
+            // Obtiene las clases personalizadas
+            $customClasses = $this->get('class', '');
+
+            // Divide ambas cadenas en arrays
+            $defaultArray = explode(' ', $defaultClasses);
+            $customArray = explode(' ', $customClasses);
+
+            // Filtra las clases del default eliminando conflictos con las custom
+            $filteredDefault = array_filter($defaultArray, function ($class) use ($customArray) {
+                $prefix = strtok($class, '-'); // Obtén el prefijo de la clase, como "p"
+                return !Arr::first($customArray, function ($customClass) use ($prefix) { return str_starts_with($customClass, $prefix); });
+            });
+
+            // Genera las clases finales
+            //$finalClasses = implode(' ', $filteredDefault) . ' ' . $customClasses;
+
+            // Llama al método `merge` de la clase original
+            return $this->merge(['class' => implode(' ', $filteredDefault)]);
+        });
     }
 
     /**

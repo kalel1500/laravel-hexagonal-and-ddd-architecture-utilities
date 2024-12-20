@@ -14,4 +14,4 @@
     $btnClasses = $arrayBtnClasses[$color];
 @endphp
 
-<button type="button" {{ $attributes->merge(['class' => $classes.' '.$btnClasses]) }}>{{ $slot }}</button>
+<button type="button" {{ $attributes->mergeTailwind($classes.' '.$btnClasses) }}>{{ $slot }}</button>
