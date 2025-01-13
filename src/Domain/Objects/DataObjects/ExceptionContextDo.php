@@ -81,7 +81,7 @@ final class ExceptionContextDo extends ContractDataObject
     /*----------------------------------------------------------------------------------------------------------------*/
     /*---------------------------------------------- toArray Functions -----------------------------------------------*/
 
-    public function toArrayForProd(): array
+    private function toArrayForProd(): array
     {
         return [
             'success' => $this->success,
@@ -90,17 +90,14 @@ final class ExceptionContextDo extends ContractDataObject
         ];
     }
 
-    public function toArrayForDebug(): array
+    private function arrayDebugInfo(): array
     {
         return [
-            'success'   => $this->success,
-            'message'   => $this->message,
-            'data'      => $this->data,
             'exception' => $this->exception,
             'file'      => $this->file,
             'line'      => $this->line,
             'trace'     => $this->trace,
-            'previous'  => optional($this->getPreviousData())->toArrayForDebug(),
+            'previous'  => optional($this->getPreviousData())->toArray(),
         ];
     }
 
@@ -122,7 +119,7 @@ final class ExceptionContextDo extends ContractDataObject
 
     public function toArray(bool $throwInDebugMode = true): array
     {
-        return appIsInDebugMode() && $throwInDebugMode ? $this->toArrayForDebug() : $this->toArrayForProd();
+        return appIsInDebugMode() && $throwInDebugMode ? array_merge($this->toArrayForProd(), $this->arrayDebugInfo()) : $this->toArrayForProd();
     }
 
 
