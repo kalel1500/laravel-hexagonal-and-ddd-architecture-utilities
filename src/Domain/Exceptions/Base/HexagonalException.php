@@ -38,7 +38,7 @@ abstract class HexagonalException extends DomainException
         $this->statusCode = $statusCode;
 
         // Guardar código y montar estructura del Json a devolver // INFO kalel1500 - mi_estructura_de_respuesta
-        $this->context = ExceptionContextDo::from($this, $data, $success);
+        $this->context = ExceptionContextDo::from($this, $data, $success, $this->getResponse($data));
     }
 
     public function getStatusCode(): int
@@ -49,5 +49,10 @@ abstract class HexagonalException extends DomainException
     public function getContext(): ?ExceptionContextDo
     {
         return $this->context;
+    }
+
+    public function getResponse($data): ?array
+    {
+        return null;
     }
 }

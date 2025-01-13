@@ -14,6 +14,7 @@ final class ExceptionContextDo extends ContractDataObject
     protected $success;
     protected $message;
     protected $data;
+    protected $custom_response;
     protected $exception;
     protected $file;
     protected $line;
@@ -25,6 +26,7 @@ final class ExceptionContextDo extends ContractDataObject
         string     $message,
         bool       $success,
         ?array     $data,
+        ?array     $custom_response,
         int        $code,
         string     $exception,
         string     $file,
@@ -36,6 +38,7 @@ final class ExceptionContextDo extends ContractDataObject
         $this->message      = $message;
         $this->success      = $success;
         $this->data         = $data;
+        $this->custom_response = $custom_response;
         $this->code         = $code;
         $this->exception    = $exception;
         $this->file         = $file;
@@ -51,9 +54,10 @@ final class ExceptionContextDo extends ContractDataObject
      * @param Throwable $e
      * @param array|null $data
      * @param bool $success
+     * @param array|null $custom_response
      * @return ExceptionContextDo
      */
-    public static function from(Throwable $e, ?array $data = null, bool $success = false): ExceptionContextDo
+    public static function from(Throwable $e, ?array $data = null, bool $success = false, ?array $custom_response = null): ExceptionContextDo
     {
         // if (is_null($e)) return null; // TODO Canals - pensar
 
@@ -64,6 +68,7 @@ final class ExceptionContextDo extends ContractDataObject
             'message'       => ExceptionContextDo::getMessage($e),
             'success'       => $success,
             'data'          => $data,
+            'custom_response' => $custom_response,
             'code'          => $e->getCode(),
             'exception'     => get_class($e),
             'file'          => $e->getFile(),
@@ -119,7 +124,9 @@ final class ExceptionContextDo extends ContractDataObject
 
     public function toArray(bool $throwInDebugMode = true): array
     {
-        return appIsInDebugMode() && $throwInDebugMode ? array_merge($this->toArrayForProd(), $this->arrayDebugInfo()) : $this->toArrayForProd();
+        $addDebugInfo = appIsInDebugMode() && $throwInDebugMode;
+        $toArray = $this->custom_response ?? $this->toArrayForProd();
+        return $addDebugInfo ? array_merge($toArray, $this->arrayDebugInfo()) : $toArray;
     }
 
 
