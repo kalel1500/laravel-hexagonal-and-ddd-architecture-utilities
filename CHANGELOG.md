@@ -1,6 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.2...master)
+
+## [v1.12.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.1...v1.12.0-beta.2) - 2025-01-13
+
+### Changed
+
+* Nuevo método `getResponse()` en la `HexagonalException` para poder definir la respuesta completa en cada `Exception` (nuevo parámetro `$custom_response` en el `ExceptionContextDo` para usarlo en el `toArray()`)
+* Refactor: renombrar método `toArrayForDebug()` de `ExceptionContextDo` a `arrayDebugInfo()` y hacer que solo devuelva la info del debug para mergearlo después y ahorrar código
+* Refactor: Mover todo el código de la clase `HexagonalStart` al nuevo servicio `StartCommandService` y llamar a los métodos en cadena en el método `handle()`
+* Nueva Macro `mergeTailwind` en la clase `ComponentAttributeBag` para poder usar el `$attributes->mergeTailwind(...)` en los componentes
 
 ## [v1.12.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.0...v1.12.0-beta.1) - 2024-11-26
 
