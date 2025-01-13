@@ -34,17 +34,17 @@ final class ExceptionContextDo extends ContractDataObject
         array      $trace,
         ?Throwable $previous
     ) {
-        $this->statusCode   = $statusCode;
-        $this->message      = $message;
-        $this->success      = $success;
-        $this->data         = $data;
+        $this->statusCode      = $statusCode;
+        $this->message         = $message;
+        $this->success         = $success;
+        $this->data            = $data;
         $this->custom_response = $custom_response;
-        $this->code         = $code;
-        $this->exception    = $exception;
-        $this->file         = $file;
-        $this->line         = $line;
-        $this->trace        = $trace;
-        $this->previous     = $previous;
+        $this->code            = $code;
+        $this->exception       = $exception;
+        $this->file            = $file;
+        $this->line            = $line;
+        $this->trace           = $trace;
+        $this->previous        = $previous;
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -64,17 +64,17 @@ final class ExceptionContextDo extends ContractDataObject
         if (method_exists($e, 'getContext') && !is_null($e->getContext())) return $e->getContext();
 
         return ExceptionContextDo::fromArray([
-            'statusCode'    => (method_exists($e,'getStatusCode')) ? $e->getStatusCode() : 500,
-            'message'       => ExceptionContextDo::getMessage($e),
-            'success'       => $success,
-            'data'          => $data,
+            'statusCode'      => (method_exists($e, 'getStatusCode')) ? $e->getStatusCode() : 500,
+            'message'         => ExceptionContextDo::getMessage($e),
+            'success'         => $success,
+            'data'            => $data,
             'custom_response' => $custom_response,
-            'code'          => $e->getCode(),
-            'exception'     => get_class($e),
-            'file'          => $e->getFile(),
-            'line'          => $e->getLine(),
-            'trace'         => collect($e->getTrace())->map(function ($trace) { return Arr::except($trace, ['args']); })->all(),
-            'previous'      => $e->getPrevious()
+            'code'            => $e->getCode(),
+            'exception'       => get_class($e),
+            'file'            => $e->getFile(),
+            'line'            => $e->getLine(),
+            'trace'           => collect($e->getTrace())->map(function ($trace) { return Arr::except($trace, ['args']); })->all(),
+            'previous'        => $e->getPrevious()
         ]);
     }
 
@@ -109,23 +109,23 @@ final class ExceptionContextDo extends ContractDataObject
     public function toArrayForBuild(): array
     {
         return [
-            'statusCode'    => $this->statusCode,
-            'message'       => $this->message,
-            'success'       => $this->success,
-            'data'          => $this->data,
-            'code'          => $this->code,
-            'exception'     => $this->exception,
-            'file'          => $this->file,
-            'line'          => $this->line,
-            'trace'         => $this->trace,
-            'previous'      => $this->previous,
+            'statusCode' => $this->statusCode,
+            'message'    => $this->message,
+            'success'    => $this->success,
+            'data'       => $this->data,
+            'code'       => $this->code,
+            'exception'  => $this->exception,
+            'file'       => $this->file,
+            'line'       => $this->line,
+            'trace'      => $this->trace,
+            'previous'   => $this->previous,
         ];
     }
 
     public function toArray(bool $throwInDebugMode = true): array
     {
         $addDebugInfo = appIsInDebugMode() && $throwInDebugMode;
-        $toArray = $this->custom_response ?? $this->toArrayForProd();
+        $toArray      = $this->custom_response ?? $this->toArrayForProd();
         return $addDebugInfo ? array_merge($toArray, $this->arrayDebugInfo()) : $toArray;
     }
 
