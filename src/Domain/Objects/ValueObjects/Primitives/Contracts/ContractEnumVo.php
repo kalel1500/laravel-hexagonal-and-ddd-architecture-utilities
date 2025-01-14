@@ -56,6 +56,9 @@ abstract class ContractEnumVo extends ContractValueObject
         if (!is_array($this->translatedValues)) {
             throw new RequiredDefinitionException(sprintf('<%s> necesita definir la variable <$translatedValues>', class_basename(static::class)));
         }
+        if ($this->isNull()) {
+            return null;
+        }
         $value = $this->translatedValues[$this->value()];
         return ($ucfirst) ? ucfirst($value): $value;
     }
