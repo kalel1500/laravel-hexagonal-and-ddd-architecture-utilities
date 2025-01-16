@@ -1,8 +1,8 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.2...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.13.0-beta.3...master)
 
-## [v1.12.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.1...v1.12.0-beta.2) - 2025-01-13
+## [v0.13.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.13.0-beta.2...v0.13.0-beta.3) - 2025-01-13
 
 ### Changed
 
@@ -11,7 +11,7 @@
 * Refactor: Mover todo el código de la clase `HexagonalStart` al nuevo servicio `StartCommandService` y llamar a los métodos en cadena en el método `handle()`
 * Nueva Macro `mergeTailwind` en la clase `ComponentAttributeBag` para poder usar el `$attributes->mergeTailwind(...)` en los componentes
 
-## [v1.12.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.12.0-beta.0...v1.12.0-beta.1) - 2024-11-26
+## [v0.13.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.13.0-beta.1...v0.13.0-beta.2) - 2024-11-26
 
 ### Changed
 
@@ -39,7 +39,7 @@
 * (fix) arreglar error en la directiva `@viteAsset`
 * (fix) comprobar si el objeto es de tipo `Enum` en el `fromArray()` de la clase `ContractCollectionDo`
 
-## [v1.12.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.11.0-beta.0...v1.12.0-beta.0) - 2024-11-26
+## [v0.13.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.12.0-beta.1...v0.13.0-beta.1) - 2024-11-26
 
 ### Added
 
@@ -108,7 +108,7 @@
 * (fix) solucionar error vite poniendo el `publicDir` a `false` (ya que coincide con el `outDir`)
 * stubs: (fix) corregir nombre ruta /home (`home.index`) para que sea coherente con el paquete del front
 
-## [v1.11.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.1...v1.11.0-beta.0) - 2024-11-11
+## [v0.12.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.11.0-beta.2...v0.12.0-beta.1) - 2024-11-11
 
 ### Added
 
@@ -133,7 +133,7 @@
 * (fix) Prevenir error si el método `CollectionEntity::fromArray()` recibe un `null`
 * (fix) Sobreescribir método `new()` en la clase `ContractDateVo` para pasar el parámetro `$formats` al constructor
 
-## [v1.10.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.10.0-beta.0...v1.10.0-beta.1) - 2024-11-11
+## [v0.11.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.11.0-beta.1...v0.11.0-beta.2) - 2024-11-11
 
 ### Added
 
@@ -192,7 +192,7 @@
 
 * renderer: eliminar ruta y vista `testVitePackage`, ya que ahora se hace de otra forma y ya está funcionando en el Layout
 
-## [v1.10.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.1...v1.10.0-beta.0) - 2024-11-06
+## [v0.11.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.10.0-beta.2...v0.11.0-beta.1) - 2024-11-06
 
 ### Changed
 
@@ -205,7 +205,7 @@
 * Poner un valor por defecto a la propiedad `$format`
 * !!! (breaking) Modificar segundo parámetro constructor de `ContractDateVo` para recibir el formato
 
-## [v1.9.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.9.0-beta.0...v1.9.0-beta.1) - 2024-11-06
+## [v0.10.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.10.0-beta.1...v0.10.0-beta.2) - 2024-11-06
 
 ### Changed
 
@@ -218,7 +218,7 @@
 * (fix) Prevenir error al llamar al `favicon.ico` con `Vite::asset` en el `layout` usando la nueva directiva `@viteAsset` que contiene un tryCatch
 * (fix) Prevenir error al llamar al JS con `@vite()` en el `layout` comprobando que exista un archivo `.ts` en el proyecto (usar extension `.js` si no existe)
 
-## [v1.9.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.3...v1.9.0-beta.0) - 2024-11-05
+## [v0.10.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.9.0-beta.3...v0.10.0-beta.1) - 2024-11-05
 
 ### Changed
 
@@ -239,7 +239,7 @@
 * (fix) prevenir errores al añadir validaciones en los métodos `fromData()` de las colecciones para validar que las constantes siempre tengan un valor definido
 * (fix) Prevenir error cuando se crea un StringVo con el valor `''` (añadida propiedad `protected $allowNull = false` en los ValueObjects que no deban permitir null)
 
-## [v1.8.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.2...v1.8.0-beta.3) - 2024-11-05
+## [v0.9.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.9.0-beta.2...v0.9.0-beta.3) - 2024-11-05
 
 ### Added
 
@@ -255,7 +255,7 @@
 * (fix) incluir la validación `checkAllowNull()` en el método `ensureIsValidValue` de la clase `ContractModelId`
 * (fix) adaptar método `ensureIsValidValue()` de `ContractModelId` a la clase padre haciendolo `protected` y renombrando la variable `$id` por `$value`
 
-## [v1.8.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.8.0-beta.1...v1.8.0-beta.2) - 2024-11-04
+## [v0.9.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.9.0-beta.1...v0.9.0-beta.2) - 2024-11-04
 
 ### Added
 
@@ -277,7 +277,7 @@
 * (fix) corregir gramática comentario
 * (fix) corregir error al pasar el antiguo parámetro HTTP_CODE en el constructor de la clase `UnsetRelationException`
 
-## [v1.8.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.7.0-beta.1...v1.8.0-beta.1) - 2024-10-31
+## [v0.9.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.8.0-beta.1...v0.9.0-beta.1) - 2024-10-31
 
 ### Added
 
@@ -324,7 +324,7 @@
 * (fix) Prevenir error del helper `getUrlFromRoute()` cuando la ruta no existe
 * (fix) Añadir modo estricto en la interfaz `Relatable`
 
-## [v1.7.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.6.0-beta.1...v1.7.0-beta.1) - 2024-10-25
+## [v0.8.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.7.0-beta.1...v0.8.0-beta.1) - 2024-10-25
 
 ### Added
 
@@ -345,7 +345,7 @@
 
 * eliminar helpers antiguos
 
-## [v1.6.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.5.0-beta.1...v1.6.0-beta.1) - 2024-09-10
+## [v0.7.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.6.0-beta.1...v0.7.0-beta.1) - 2024-09-10
 
 ### Added
 
@@ -415,7 +415,7 @@
   * Quitar parámetro `$last` método `setFirstRelation()` de la clase `ContractEntity` y no pasarlo al método `$setRelation()` de cada entidad (ya que de esto se encarga el método `setLastRelation()`).
   * Quitar parámetro `$with` método `fromRelationData()` de la clase `ContractCollectionEntity`, ya que, los métodos `set...()` de las entidades que llaman a este método ya no reciben en `$with`.
 
-## [v1.5.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.3...v1.5.0-beta.1) - 2024-08-16
+## [v0.6.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.5.0-beta.3...v0.6.0-beta.1) - 2024-08-16
 
 ### Added
 
@@ -432,7 +432,7 @@
 * Método `->values()` de la clase `ContractCollectionBase.php` modificado para que sea como el de Laravel, ya que antes no hacía nada util
 * Mejoras `@PHPDoc`
 
-## [v1.4.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.2...v1.4.0-beta.3) - 2024-08-16
+## [v0.5.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.5.0-beta.2...v0.5.0-beta.3) - 2024-08-16
 
 ### Added
 
@@ -451,14 +451,14 @@
 * Eliminar método `getWithValue()` y mover lógica al `toBase()`
 * Quitar lógica `isInstanceOfRelatable()` y `isClassRelatable()` de `DomainHeplers.php` y hacer que las clases con relaciones implementen la interfaz `Relatable`
 
-## [v1.4.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.4.0-beta.1...v1.4.0-beta.2) - 2024-08-12
+## [v0.5.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.5.0-beta.1...v0.5.0-beta.2) - 2024-08-12
 
 ### Added
 
 * Añadir CHANGELOG.md con todos los cambios de cada version (todos los tags renombrados por nuevos tags beta)
 * composer.json: Añadir `minimum-stability` y `prefer-stable`
 
-## [v1.4.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.3.0-beta.2...v1.4.0-beta.1) - 2024-07-19
+## [v0.5.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.4.0-beta.2...v0.5.0-beta.1) - 2024-07-19
 
 ### Changed
 
@@ -471,13 +471,13 @@
 * `ExceptionHandler` -> cambiar orden del array
 * `responseJsonError()` -> simplificar código con el `getExceptionData()`
 
-## [v1.3.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.3.0-beta.1...v1.3.0-beta.2) - 2024-07-19
+## [v0.4.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.4.0-beta.1...v0.4.0-beta.2) - 2024-07-19
 
 ### Fixed
 
 * Mejora método `pluck` de la `CollectionBase` para que funcione con las propiedades readonly en PHP 8.2
 
-## [v1.3.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.2.0-beta.1...v1.3.0-beta.1) - 2024-07-17
+## [v0.4.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.3.0-beta.1...v0.4.0-beta.1) - 2024-07-17
 
 ### Changed
 
@@ -494,7 +494,7 @@
 
 * Quitar referencia vista externa `pages.errors.custom-error` en `DomainBaseException` trayendo el html a la vista `hexagonal::custom-error`
 
-## [v1.2.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.1.0-beta.4...v1.2.0-beta.1) - 2024-06-28
+## [v0.3.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.2.0-beta.4...v0.3.0-beta.1) - 2024-06-28
 
 ### Added
 
@@ -515,7 +515,7 @@
 
 * Sol. error en la forma de mergear la configuracion de los nuevos canales de Logs
 
-## [v1.1.0-beta.4](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.1.0-beta.3...v1.1.0-beta.4) - 2024-06-26
+## [v0.2.0-beta.4](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.2.0-beta.3...v0.2.0-beta.4) - 2024-06-26
 
 ### Fixed
 
@@ -525,7 +525,7 @@
 
 * Quitar dependencia del paquete `laravel-ts-utilities` del `composer.json` y el `README.md`
 
-## [v1.1.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.1.0-beta.2...v1.1.0-beta.3) - 2024-06-19
+## [v0.2.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.2.0-beta.2...v0.2.0-beta.3) - 2024-06-19
 
 ### Added
 
@@ -541,13 +541,13 @@
 
 * Quitar el prefijo de las rutas `hexagonal` en la configuración
 
-## [v1.1.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.1.0-beta.1...v1.1.0-beta.2) - 2024-06-13
+## [v0.2.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.2.0-beta.1...v0.2.0-beta.2) - 2024-06-13
 
 ### Removed
 
 * Quitar condición `runningInConsole()` al registrar los comandos para poder usarlos desde el código con `Artisan:call()`
 
-## [v1.1.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.0.0-beta.2...v1.1.0-beta.1) - 2024-06-13
+## [v0.2.0-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.1.0-beta.2...v0.2.0-beta.1) - 2024-06-13
 
 ### Changed
 
@@ -558,7 +558,7 @@
 
 * Quitar el throws del PhpDoc del método `emitEvent()` ya que tiene un `tryCatch`
 
-## [v1.0.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v1.0.0-beta.1...v1.0.0-beta.2) - 2024-05-23
+## [v0.1.0-beta.2](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.1.0-beta.1...v0.1.0-beta.2) - 2024-05-23
 
 ### Added
 
@@ -568,6 +568,6 @@
 
 * Eliminar puntos y coma innecesarios
 
-## v1.0.0-beta.1 - 2024-05-23
+## v0.1.0-beta.1 - 2024-05-23
 
 Primera versión funcional del paquete
