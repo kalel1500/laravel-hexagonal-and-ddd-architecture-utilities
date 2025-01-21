@@ -224,12 +224,19 @@ EOD;
     public function commentUserFactoryInDatabaseSeeder(): self
     {
         // Comment User factory in "database/seeders/DatabaseSeeder.php"
-        $this->filesystem->replaceInFile(
-            ['User::factory()->create([', ']);'],
-            ['/*User::factory()->create([', ']);*/'],
-            database_path('seeders/DatabaseSeeder.php')
-        );
-        $this->command->info('Archivo "database/seeders/DatabaseSeeder.php" modificado');
+
+        $filePath = database_path('seeders/DatabaseSeeder.php');
+        $content = $this->filesystem->get($filePath);
+
+        // Verificar si el bloque ya está comentado
+        if (!str_contains($content, '/*User::factory()->create([')) {
+            $this->filesystem->replaceInFile(
+                ['User::factory()->create([', ']);'],
+                ['/*User::factory()->create([', ']);*/'],
+                $filePath
+            );
+            $this->command->info('Archivo "database/seeders/DatabaseSeeder.php" modificado');
+        }
 
         return $this;
     }
