@@ -244,10 +244,16 @@ EOD;
     public function modifyFile_JsBootstrap_toAddImportFlowbite(): self
     {
         // Import "flowbite" in resources/js/bootstrap.js
+        $filePath = resource_path('js/bootstrap.js');
+        $content = file_get_contents($filePath);
+        if (str_contains($content, 'flowbite')) {
+            return $this;
+        }
+
         $this->filesystem->replaceInFile(
             "import axios from 'axios';",
             "import axios from 'axios';".PHP_EOL."import 'flowbite';",
-            resource_path('js/bootstrap.js')
+            $filePath
         );
         $this->command->info('Archivo "resources/js/bootstrap.js" modificado');
 
