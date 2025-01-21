@@ -175,7 +175,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function addDependencyServiceProviderToBootstrapFile(): self
+    public function modifyFile_BootstrapProviders_toAddDependencyServiceProvider(): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             return $this;
@@ -188,7 +188,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function addHexagonalExceptionHandlerInBootstrapApp(): self
+    public function modifyFile_BootstrapApp_toAddExceptionHandler(): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             return $this;
@@ -221,7 +221,7 @@ EOD;
         return $this;
     }
 
-    public function commentUserFactoryInDatabaseSeeder(): self
+    public function modifyFile_DatabaseSeeder_toCommentUserFactory(): self
     {
         // Comment User factory in "database/seeders/DatabaseSeeder.php"
 
@@ -241,7 +241,7 @@ EOD;
         return $this;
     }
 
-    public function addImportFlowbiteInBootstrapJs(): self
+    public function modifyFile_JsBootstrap_toAddImportFlowbite(): self
     {
         // Import "flowbite" in resources/js/bootstrap.js
         $this->filesystem->replaceInFile(
