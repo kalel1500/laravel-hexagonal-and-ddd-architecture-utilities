@@ -53,6 +53,11 @@ final class StartCommandService
         );
     }
 
+    private function phpVersionIsEqualOrGreaterThan74(): bool
+    {
+        return version_compare(PHP_VERSION, '7.4', '>=');
+    }
+
     public static function configure(HexagonalStart $command): self
     {
         return new self($command);
@@ -202,7 +207,8 @@ final class StartCommandService
     public function modifyWebRoutesFromStubs(): self
     {
         // routes/web.php
-        copy($this->stubsPath.'/routes/web.php', base_path('routes/web.php'));
+        $webFile = $this->phpVersionIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
+        copy($this->stubsPath.'/routes/'.$webFile, base_path('routes/web.php'));
         $this->command->info('Archivo "routes/web.php" modificado');
 
         return $this;
