@@ -33,7 +33,7 @@ class HexagonalStart extends Command
     {
         parent::__construct();
         $this->filesystem = $filesystem;
-        $this->stubsPath = HEXAGONAL_PATH.'/stubs';
+        $this->stubsPath = HEXAGONAL_PATH.'/stubs/generate';
     }
 
     public function filesystem(): Filesystem
