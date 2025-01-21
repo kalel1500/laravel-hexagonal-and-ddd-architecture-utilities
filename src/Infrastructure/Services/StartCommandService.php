@@ -57,6 +57,11 @@ final class StartCommandService
         return version_compare(PHP_VERSION, '7.4', '>=');
     }
 
+    private function laravelVersionIsEqualOrGreaterThan11(): bool
+    {
+        return version_compare(app()->version(), '11', '>=');
+    }
+
     public static function configure(HexagonalStart $command): self
     {
         return new self($command);
@@ -179,6 +184,10 @@ final class StartCommandService
 
     public function addDependencyServiceProviderToBootstrapFile(): self
     {
+        if (!$this->laravelVersionIsEqualOrGreaterThan11()) {
+            return $this;
+        }
+
         // bootstrap/providers.php
         ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
         $this->command->info('Archivo "bootstrap/providers.php" modificado');
@@ -188,6 +197,10 @@ final class StartCommandService
 
     public function addHexagonalExceptionHandlerInBootstrapApp(): self
     {
+        if (!$this->laravelVersionIsEqualOrGreaterThan11()) {
+            return $this;
+        }
+
         // Ruta del archivo a modificar
         $filePath = base_path('bootstrap/app.php');
 
