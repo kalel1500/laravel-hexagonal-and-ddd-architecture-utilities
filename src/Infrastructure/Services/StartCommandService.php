@@ -54,6 +54,9 @@ final class StartCommandService
 
     public static function configure(HexagonalStart $command): self
     {
+        if (!Version::laravelIsEqualOrGreaterThan11()) {
+            $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
+        }
         return new self($command);
     }
 
