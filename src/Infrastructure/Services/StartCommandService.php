@@ -52,16 +52,6 @@ final class StartCommandService
         );
     }
 
-    private function phpVersionIsEqualOrGreaterThan74(): bool
-    {
-        return version_compare(PHP_VERSION, '7.4', '>=');
-    }
-
-    private function laravelVersionIsEqualOrGreaterThan11(): bool
-    {
-        return version_compare(app()->version(), '11', '>=');
-    }
-
     public static function configure(HexagonalStart $command): self
     {
         return new self($command);
@@ -120,7 +110,7 @@ final class StartCommandService
     public function stubsCopyFile_RoutesWeb(): self
     {
         // routes/web.php
-        $webFile = $this->phpVersionIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
+        $webFile = Version::phpIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
         copy($this->stubsPath.'/routes/'.$webFile, base_path('routes/web.php'));
         $this->command->info('Archivo "routes/web.php" modificado');
 
@@ -184,7 +174,7 @@ final class StartCommandService
 
     public function addDependencyServiceProviderToBootstrapFile(): self
     {
-        if (!$this->laravelVersionIsEqualOrGreaterThan11()) {
+        if (!Version::laravelIsEqualOrGreaterThan11()) {
             return $this;
         }
 
@@ -197,7 +187,7 @@ final class StartCommandService
 
     public function addHexagonalExceptionHandlerInBootstrapApp(): self
     {
-        if (!$this->laravelVersionIsEqualOrGreaterThan11()) {
+        if (!Version::laravelIsEqualOrGreaterThan11()) {
             return $this;
         }
 

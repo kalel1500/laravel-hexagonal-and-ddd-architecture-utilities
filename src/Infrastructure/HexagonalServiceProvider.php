@@ -21,6 +21,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
 use Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
+use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
 
 class HexagonalServiceProvider extends ServiceProvider
 {
@@ -148,7 +149,7 @@ class HexagonalServiceProvider extends ServiceProvider
             ], 'hexagonal-config');
 
             // Traducciones
-            if ($this->versionIsEqualOrGreaterThan9()) {
+            if (Version::laravelIsEqualOrGreaterThan9()) {
                 $langPath = $this->app->langPath('vendor/hexagonal');
             } else {
                 $langPath = $this->app->resourcePath('lang/vendor/hexagonal');
@@ -185,7 +186,7 @@ class HexagonalServiceProvider extends ServiceProvider
         if (
             $this->app->runningInConsole() &&
             Hexagonal::shouldRunMigrations() &&
-            $this->versionIsEqualOrGreaterThan9()
+            Version::laravelIsEqualOrGreaterThan9()
         ) {
             $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');
         }
@@ -298,15 +299,5 @@ class HexagonalServiceProvider extends ServiceProvider
             // Llama al método `merge` de la clase original
             return $this->merge(['class' => implode(' ', $filteredDefault)]);
         });
-    }
-
-    /**
-     * Determinar si la version de laravel instalada es mayor a la 9
-     *
-     * @return bool
-     */
-    private function versionIsEqualOrGreaterThan9(): bool
-    {
-        return version_compare($this->app->version(), '9', '>=');
     }
 }
