@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
 
 final class StartCommandService
@@ -189,30 +188,27 @@ final class StartCommandService
 
     public function addHexagonalExceptionHandlerInBootstrapApp(): self
     {
-        // bootstrap/app.php
-        $exceptionHnadlerLines = [
-            '$callback = \Thehouseofel\Hexagonal\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();',
-            '$callback($exceptions);',
-        ];
+        // Ruta del archivo a modificar
+        $filePath = base_path('bootstrap/app.php');
 
-        $bootstrapApp = file_get_contents(base_path('bootstrap/app.php'));
+        // Leer el contenido del archivo
+        $content = File::get($filePath);
 
-        collect(Arr::wrap($exceptionHnadlerLines))
-            ->filter(function ($name) use ($bootstrapApp) { return ! Str::contains($bootstrapApp, $name); })
-            ->whenNotEmpty(function ($names) use ($bootstrapApp) {
-                $names = $names->implode(PHP_EOL.'        ');
+        // Usar una expresión regular para encontrar y reemplazar el bloque `withExceptions`
+        $pattern = '/->withExceptions\(function \(Exceptions \$exceptions\) \{(.*?)}\)/s';
 
-                // Paso 2: Convertir todos los saltos de línea a "\n"
-//                $bootstrapApp = str_replace(["\r\n", "\n"], PHP_EOL, $bootstrapApp);
+        // Reemplazar el contenido del bloque con las nuevas líneas
+        $replacement = <<<'EOD'
+->withExceptions(function (Exceptions $exceptions) {
+        $callback = \Thehouseofel\Hexagonal\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();
+        $callback($exceptions);
+    })
+EOD;
 
-                $bootstrapApp = str_replace(
-                    '->withExceptions(function (Exceptions $exceptions) {'.PHP_EOL."        //",
-                    '->withExceptions(function (Exceptions $exceptions) {'.PHP_EOL."        $names",
-                    $bootstrapApp
-                );
+        $newContent = preg_replace($pattern, $replacement, $content);
 
-                file_put_contents(base_path('bootstrap/app.php'), $bootstrapApp);
-            });
+        // Guardar el archivo con el contenido actualizado
+        File::put($filePath, $newContent);
 
         $this->command->info('Archivo "bootstrap/app.php" modificado');
 
