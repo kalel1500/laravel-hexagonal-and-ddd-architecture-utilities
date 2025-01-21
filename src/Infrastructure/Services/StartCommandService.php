@@ -75,7 +75,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function stubsCopyAppServiceProvider(): self
+    public function stubsCopyFile_AppServiceProvider(): self
     {
         // DependencyServiceProvider
         copy($this->stubsPath . '/app/Providers/AppServiceProvider.php', app_path('Providers/AppServiceProvider.php'));
@@ -84,7 +84,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function stubsCopyDependencyServiceProvider(): self
+    public function stubsCopyFile_DependencyServiceProvider(): self
     {
         // DependencyServiceProvider
         copy($this->stubsPath . '/app/Providers/DependencyServiceProvider.php', app_path('Providers/DependencyServiceProvider.php'));
@@ -93,7 +93,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function stubsCopyViewsFolder(): self
+    public function stubsCopyFolder_Views(): self
     {
         // Views
         $this->filesystem->ensureDirectoryExists(resource_path('views'));
@@ -103,7 +103,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function stubsCopySrc(): self
+    public function stubsCopyFolder_Src(): self
     {
         // Src
         $this->filesystem->ensureDirectoryExists(base_path('src'));
@@ -132,7 +132,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function deleteHttpDirectory(): self
+    public function deleteDirectory_Http(): self
     {
         // Delete directory "app/Http"
         $this->filesystem->deleteDirectory(app_path('Http'));
@@ -141,7 +141,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function deleteModelsDirectory(): self
+    public function deleteDirectory_Models(): self
     {
         // Delete directory "app/Models"
 //        $this->filesystem->deleteDirectory(app_path('Models'));
@@ -150,7 +150,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function deleteChangelogFile(): self
+    public function deleteFile_Changelog(): self
     {
         // Delete file "CHANGELOG.md"
         $this->filesystem->delete(base_path('CHANGELOG.md'));
@@ -200,7 +200,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function modifyWebRoutesFromStubs(): self
+    public function stubsCopyFile_RoutesWeb(): self
     {
         // routes/web.php
         $webFile = $this->phpVersionIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
@@ -236,7 +236,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function modifyTailwindConfigFromStubs(): self
+    public function stubsCopyFile_tailwindConfigJs(): self
     {
         // tailwind.config.js
         copy($this->stubsPath.'/tailwind.config.js', base_path('tailwind.config.js'));
