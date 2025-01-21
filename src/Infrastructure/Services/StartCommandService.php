@@ -65,6 +65,9 @@ final class StartCommandService
 
     public function publishHexagonalConfig(): self
     {
+        // Delete "config/hexagonal.php"
+        $this->filesystem->delete(config_path('hexagonal.php'));
+
         // Publish "config/hexagonal.php"
         $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config']);
         $this->command->info('Configuración del paquete publicada: "config/hexagonal.php"');
