@@ -53,6 +53,7 @@ class HexagonalStart extends Command
     {
         StartCommandService::configure($this)
             ->publishHexagonalConfig()
+            ->stubsCopyAppServiceProvider()
             ->stubsCopyDependencyServiceProvider()
             ->stubsCopyViewsFolder()
             ->stubsCopySrc()
@@ -60,7 +61,6 @@ class HexagonalStart extends Command
             ->deleteHttpDirectory()
             ->deleteModelsDirectory()
             ->deleteChangelogFile()
-            ->addCommentIgnoreMigrationsInAppServiceProvider()
             ->addDependencyServiceProviderToBootstrapFile()
             ->addHexagonalExceptionHandlerInBootstrapApp()
             ->modifyWebRoutesFromStubs()

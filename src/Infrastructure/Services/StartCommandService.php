@@ -75,6 +75,15 @@ final class StartCommandService
         return $this;
     }
 
+    public function stubsCopyAppServiceProvider(): self
+    {
+        // DependencyServiceProvider
+        copy($this->stubsPath . '/app/Providers/AppServiceProvider.php', app_path('Providers/AppServiceProvider.php'));
+        $this->command->info('Archivo "app/Providers/AppServiceProvider.php" creado');
+
+        return $this;
+    }
+
     public function stubsCopyDependencyServiceProvider(): self
     {
         // DependencyServiceProvider
@@ -146,22 +155,6 @@ final class StartCommandService
         // Delete file "CHANGELOG.md"
         $this->filesystem->delete(base_path('CHANGELOG.md'));
         $this->command->info('Archivo "CHANGELOG.md" eliminado');
-
-        return $this;
-    }
-
-    public function addCommentIgnoreMigrationsInAppServiceProvider(): self
-    {
-        $filePath = app_path('Providers/AppServiceProvider.php');
-
-        // Detecta el tipo de salto de línea en el archivo
-        $lineEnding = strpos(file_get_contents($filePath), "\r\n") !== false ? "\r\n" : "\n";
-
-        $this->filesystem->replaceInFile(
-            "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        //",
-            "public function register(): void" . $lineEnding . "    {" . $lineEnding . "        // \Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal::configure()->enablePreferencesCookie();",
-            app_path('Providers/AppServiceProvider.php')
-        );
 
         return $this;
     }
