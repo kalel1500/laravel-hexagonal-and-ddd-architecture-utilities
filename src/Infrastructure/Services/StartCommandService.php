@@ -113,6 +113,25 @@ final class StartCommandService
         return $this;
     }
 
+    public function stubsCopyFile_RoutesWeb(): self
+    {
+        // routes/web.php
+        $webFile = $this->phpVersionIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
+        copy($this->stubsPath.'/routes/'.$webFile, base_path('routes/web.php'));
+        $this->command->info('Archivo "routes/web.php" modificado');
+
+        return $this;
+    }
+
+    public function stubsCopyFile_tailwindConfigJs(): self
+    {
+        // tailwind.config.js
+        copy($this->stubsPath.'/tailwind.config.js', base_path('tailwind.config.js'));
+        $this->command->info('Archivo "tailwind.config.js" modificado');
+
+        return $this;
+    }
+
     public function createEnvFiles(): self
     {
         // Crear archivo ".env.local"
@@ -200,16 +219,6 @@ final class StartCommandService
         return $this;
     }
 
-    public function stubsCopyFile_RoutesWeb(): self
-    {
-        // routes/web.php
-        $webFile = $this->phpVersionIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
-        copy($this->stubsPath.'/routes/'.$webFile, base_path('routes/web.php'));
-        $this->command->info('Archivo "routes/web.php" modificado');
-
-        return $this;
-    }
-
     public function commentUserFactoryInDatabaseSeeder(): self
     {
         // Comment User factory in "database/seeders/DatabaseSeeder.php"
@@ -232,15 +241,6 @@ final class StartCommandService
             resource_path('js/bootstrap.js')
         );
         $this->command->info('Archivo "resources/js/bootstrap.js" modificado');
-
-        return $this;
-    }
-
-    public function stubsCopyFile_tailwindConfigJs(): self
-    {
-        // tailwind.config.js
-        copy($this->stubsPath.'/tailwind.config.js', base_path('tailwind.config.js'));
-        $this->command->info('Archivo "tailwind.config.js" modificado');
 
         return $this;
     }
