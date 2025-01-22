@@ -14,6 +14,7 @@ final class StartCommandService
     private $command;
     private $filesystem;
     private $stubsPath;
+    protected $originalStubsPath;
     private $skipHarmlessMethods;
 
     public function __construct(HexagonalStart $command)
@@ -21,6 +22,7 @@ final class StartCommandService
         $this->command             = $command;
         $this->filesystem          = $command->filesystem();
         $this->stubsPath           = $command->stubsPath();
+        $this->originalStubsPath   = $command->originalStubsPath();
         $this->skipHarmlessMethods = false;
     }
 
@@ -60,6 +62,32 @@ final class StartCommandService
             $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
         }
         return new self($command);
+    }
+
+    public function restoreFilesModifiedByPackageLaravelTsUtils(): self
+    {
+        // Restore "resources"
+        $this->filesystem->deleteDirectory(resource_path());
+        $this->filesystem->ensureDirectoryExists(resource_path());
+        $this->filesystem->copyDirectory($this->originalStubsPath.'/resources', base_path('resources'));
+
+        // Delete ".prettierrc"
+        $this->filesystem->delete(base_path('.prettierrc'));
+
+        // Delete "tailwind.config.ts"
+        $this->filesystem->delete(base_path('tailwind.config.ts'));
+        copy($this->originalStubsPath . '/tailwind.config.js', base_path('tailwind.config.js'));
+
+        // Delete "tailwind.config.ts"
+        $this->filesystem->delete(base_path('tsconfig.json'));
+
+        // Delete "vite.config.ts"
+        $this->filesystem->delete(base_path('vite.config.ts'));
+        copy($this->originalStubsPath . '/vite.config.js', base_path('vite.config.js'));
+
+        $this->command->info('Restaurados todos los archivos modificados por el paquete laravel-ts-utils');
+
+        return $this;
     }
 
     public function publishHexagonalConfig(): self

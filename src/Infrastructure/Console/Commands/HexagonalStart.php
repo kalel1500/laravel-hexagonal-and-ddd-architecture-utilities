@@ -28,12 +28,14 @@ class HexagonalStart extends Command
 
     protected $filesystem;
     protected $stubsPath;
+    protected $originalStubsPath;
 
     public function __construct(Filesystem $filesystem)
     {
         parent::__construct();
         $this->filesystem = $filesystem;
         $this->stubsPath = HEXAGONAL_PATH.'/stubs/generate';
+        $this->originalStubsPath = HEXAGONAL_PATH.'/stubs/original';
     }
 
     public function filesystem(): Filesystem
@@ -44,6 +46,11 @@ class HexagonalStart extends Command
     public function stubsPath(): string
     {
         return $this->stubsPath;
+    }
+
+    public function originalStubsPath(): string
+    {
+        return $this->originalStubsPath;
     }
 
     public function executeRequireComposerPackages(...$params)
@@ -57,6 +64,7 @@ class HexagonalStart extends Command
     public function handle()
     {
         StartCommandService::configure($this)
+            ->restoreFilesModifiedByPackageLaravelTsUtils()
             ->publishHexagonalConfig()
             ->stubsCopyFile_AppServiceProvider()
             ->stubsCopyFile_DependencyServiceProvider()
