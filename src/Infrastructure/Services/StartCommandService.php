@@ -14,12 +14,14 @@ final class StartCommandService
     private $command;
     private $filesystem;
     private $stubsPath;
+    private $skipHarmlessMethods;
 
     public function __construct(HexagonalStart $command)
     {
-        $this->command    = $command;
-        $this->filesystem = $command->filesystem();
-        $this->stubsPath  = $command->stubsPath();
+        $this->command             = $command;
+        $this->filesystem          = $command->filesystem();
+        $this->stubsPath           = $command->stubsPath();
+        $this->skipHarmlessMethods = false;
     }
 
     /**
@@ -403,6 +405,11 @@ EOD;
     public function execute_ComposerDumpAutoload(): self
     {
         // Execute the "composer dump-autoload" command
+
+        if ($this->skipHarmlessMethods) {
+            return $this;
+        }
+
         $run = Process::run('composer dump-autoload');
         if ($run->failed()) {
             $this->command->warn('The command "composer dump-autoload" has failed');
@@ -416,6 +423,10 @@ EOD;
     public function execute_NpminstallAndNpmRunBuild(): self
     {
         // Install and build Node dependencies.
+
+        if ($this->skipHarmlessMethods) {
+            return $this;
+        }
 
         $this->command->info('Installing and building Node dependencies.');
 
