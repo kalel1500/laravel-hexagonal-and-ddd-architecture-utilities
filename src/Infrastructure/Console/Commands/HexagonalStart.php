@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\InteractsWithComposerPackages;
 use Thehouseofel\Hexagonal\Infrastructure\Services\StartCommandService;
+use function Illuminate\Filesystem\join_paths;
 
 class HexagonalStart extends Command
 {
@@ -34,8 +35,8 @@ class HexagonalStart extends Command
     {
         parent::__construct();
         $this->filesystem = $filesystem;
-        $this->stubsPath = HEXAGONAL_PATH.'/stubs/generate';
-        $this->originalStubsPath = HEXAGONAL_PATH.'/stubs/original';
+        $this->stubsPath = HEXAGONAL_PATH . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'generate';
+        $this->originalStubsPath = HEXAGONAL_PATH . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'original';
     }
 
     public function filesystem(): Filesystem
@@ -43,14 +44,14 @@ class HexagonalStart extends Command
         return $this->filesystem;
     }
 
-    public function stubsPath(): string
+    public function stubsPath($path = ''): string
     {
-        return $this->stubsPath;
+        return join_paths($this->stubsPath, $path);
     }
 
-    public function originalStubsPath(): string
+    public function originalStubsPath($path = ''): string
     {
-        return $this->originalStubsPath;
+        return join_paths($this->originalStubsPath, $path);
     }
 
     public function executeRequireComposerPackages(...$params)

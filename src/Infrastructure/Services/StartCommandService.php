@@ -13,16 +13,12 @@ final class StartCommandService
 {
     private $command;
     private $filesystem;
-    private $stubsPath;
-    protected $originalStubsPath;
     private $skipHarmlessMethods;
 
     public function __construct(HexagonalStart $command)
     {
         $this->command             = $command;
         $this->filesystem          = $command->filesystem();
-        $this->stubsPath           = $command->stubsPath();
-        $this->originalStubsPath   = $command->originalStubsPath();
         $this->skipHarmlessMethods = false;
     }
 
@@ -69,21 +65,21 @@ final class StartCommandService
         // Restore "resources"
         $this->filesystem->deleteDirectory(resource_path());
         $this->filesystem->ensureDirectoryExists(resource_path());
-        $this->filesystem->copyDirectory($this->originalStubsPath.'/resources', base_path('resources'));
+        $this->filesystem->copyDirectory($this->command->originalStubsPath('resources'), base_path('resources'));
 
         // Delete ".prettierrc"
         $this->filesystem->delete(base_path('.prettierrc'));
 
         // Delete "tailwind.config.ts"
         $this->filesystem->delete(base_path('tailwind.config.ts'));
-        copy($this->originalStubsPath . '/tailwind.config.js', base_path('tailwind.config.js'));
+        copy($this->command->originalStubsPath('tailwind.config.js'), base_path('tailwind.config.js'));
 
         // Delete "tailwind.config.ts"
         $this->filesystem->delete(base_path('tsconfig.json'));
 
         // Delete "vite.config.ts"
         $this->filesystem->delete(base_path('vite.config.ts'));
-        copy($this->originalStubsPath . '/vite.config.js', base_path('vite.config.js'));
+        copy($this->command->originalStubsPath('vite.config.js'), base_path('vite.config.js'));
 
         $this->command->info('Restaurados todos los archivos modificados por el paquete laravel-ts-utils');
 
@@ -105,7 +101,7 @@ final class StartCommandService
     public function stubsCopyFile_AppServiceProvider(): self
     {
         // DependencyServiceProvider
-        copy($this->stubsPath . '/app/Providers/AppServiceProvider.php', app_path('Providers/AppServiceProvider.php'));
+        copy($this->command->stubsPath('app/Providers/AppServiceProvider.php'), app_path('Providers/AppServiceProvider.php'));
         $this->command->info('Archivo "app/Providers/AppServiceProvider.php" creado');
 
         return $this;
@@ -114,7 +110,7 @@ final class StartCommandService
     public function stubsCopyFile_DependencyServiceProvider(): self
     {
         // DependencyServiceProvider
-        copy($this->stubsPath . '/app/Providers/DependencyServiceProvider.php', app_path('Providers/DependencyServiceProvider.php'));
+        copy($this->command->stubsPath('app/Providers/DependencyServiceProvider.php'), app_path('Providers/DependencyServiceProvider.php'));
         $this->command->info('Archivo "app/Providers/DependencyServiceProvider.php" creado');
 
         return $this;
@@ -124,7 +120,7 @@ final class StartCommandService
     {
         // Views
         $this->filesystem->ensureDirectoryExists(resource_path('views'));
-        $this->filesystem->copyDirectory($this->stubsPath . '/resources/views', resource_path('views'));
+        $this->filesystem->copyDirectory($this->command->stubsPath('resources/views'), resource_path('views'));
         $this->command->info('Carpeta "resources/views" creada');
 
         return $this;
@@ -134,7 +130,7 @@ final class StartCommandService
     {
         // Src
         $this->filesystem->ensureDirectoryExists(base_path('src'));
-        $this->filesystem->copyDirectory($this->stubsPath.'/src', base_path('src'));
+        $this->filesystem->copyDirectory($this->command->stubsPath('src'), base_path('src'));
         $this->command->info('Carpeta "src" creada');
 
         return $this;
@@ -144,7 +140,7 @@ final class StartCommandService
     {
         // routes/web.php
         $webFile = Version::phpIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
-        copy($this->stubsPath.'/routes/'.$webFile, base_path('routes/web.php'));
+        copy($this->command->stubsPath('routes/'.$webFile), base_path('routes/web.php'));
         $this->command->info('Archivo "routes/web.php" modificado');
 
         return $this;
@@ -153,7 +149,7 @@ final class StartCommandService
     public function stubsCopyFile_tailwindConfigJs(): self
     {
         // tailwind.config.js
-        copy($this->stubsPath.'/tailwind.config.js', base_path('tailwind.config.js'));
+        copy($this->command->stubsPath('tailwind.config.js'), base_path('tailwind.config.js'));
         $this->command->info('Archivo "tailwind.config.js" modificado');
 
         return $this;
@@ -162,10 +158,10 @@ final class StartCommandService
     public function createEnvFiles(): self
     {
         // Crear archivo ".env.local"
-        copy($this->stubsPath.'/.env.local', base_path('.env.local'));
+        copy($this->command->stubsPath('.env.local'), base_path('.env.local'));
 
         // Crear archivo ".env"
-        copy($this->stubsPath.'/.env.local', base_path('.env'));
+        copy($this->command->stubsPath('.env.local'), base_path('.env'));
 
         // Borrar manualmente el valor de config('app.key') para que se regenere correctamente
         config(['app.key' => '']);
