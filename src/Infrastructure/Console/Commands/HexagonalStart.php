@@ -67,12 +67,12 @@ class HexagonalStart extends Command
             ->modifyFile_BootstrapApp_toAddExceptionHandler()
             ->modifyFile_DatabaseSeeder_toCommentUserFactory() // ¿pasar a copy?
             ->modifyFile_JsBootstrap_toAddImportFlowbite() // ¿pasar a copy?
-            ->deleteLockFilesFromGitignore() // empezar
-            ->addNpmDevDependenciesInPackageJsonFile()
-            ->addScriptTsBuildInPackageJsonFile()
-            ->installComposerDependencies()
-            ->addNamespacesInComposerJson()
-            ->executeComposerDumpAutoload()
-            ->installNodeDependencies();
+            ->modifyFile_Gitignore_toDeleteLockFileLines()
+            ->modifyFile_PackageJson_toAddNpmDevDependencies()
+            ->modifyFile_PackageJson_toAddScriptTsBuild()
+            ->execute_ComposerRequire_toInstallComposerDependencies()
+            ->modifyFile_ComposerJson_toAddSrcNamespace()
+            ->execute_ComposerDumpAutoload()
+            ->execute_NpminstallAndNpmRunBuild();
     }
 }

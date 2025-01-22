@@ -260,7 +260,7 @@ EOD;
         return $this;
     }
 
-    public function deleteLockFilesFromGitignore(): self
+    public function modifyFile_Gitignore_toDeleteLockFileLines(): self
     {
         // Borrar los ".lock" del ".gitignore"
 
@@ -289,7 +289,7 @@ EOD;
         return $this;
     }
 
-    public function addNpmDevDependenciesInPackageJsonFile(): self
+    public function modifyFile_PackageJson_toAddNpmDevDependencies(): self
     {
         // Install NPM packages...
         $this->updatePackageJsonSection('devDependencies', function ($packages) {
@@ -307,7 +307,7 @@ EOD;
         return $this;
     }
 
-    public function addScriptTsBuildInPackageJsonFile(): self
+    public function modifyFile_PackageJson_toAddScriptTsBuild(): self
     {
         // Add script "ts-build" in "package.json"
         $this->updatePackageJsonSection('scripts', function ($packages) {
@@ -320,7 +320,7 @@ EOD;
         return $this;
     }
 
-    public function installComposerDependencies(): self
+    public function execute_ComposerRequire_toInstallComposerDependencies(): self
     {
         // Install "tightenco/ziggy"
         $this->command->requireComposerPackages(
@@ -332,7 +332,7 @@ EOD;
         return $this;
     }
 
-    public function addNamespacesInComposerJson(): self
+    public function modifyFile_ComposerJson_toAddSrcNamespace(): self
     {
         // Update the "autoload.psr-4" section in "composer.json" file with additional namespaces.
         // Add the "Src" namespace into "composer.json"
@@ -394,7 +394,7 @@ EOD;
         return $this;
     }
 
-    public function executeComposerDumpAutoload(): self
+    public function execute_ComposerDumpAutoload(): self
     {
         // Execute the "composer dump-autoload" command
         $run = Process::run('composer dump-autoload');
@@ -407,7 +407,7 @@ EOD;
         return $this;
     }
 
-    public function installNodeDependencies(): self
+    public function execute_NpminstallAndNpmRunBuild(): self
     {
         // Install and build Node dependencies.
 
