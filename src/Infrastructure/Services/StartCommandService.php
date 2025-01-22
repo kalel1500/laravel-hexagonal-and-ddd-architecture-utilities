@@ -323,6 +323,12 @@ EOD;
     public function execute_ComposerRequire_toInstallComposerDependencies(): self
     {
         // Install "tightenco/ziggy"
+
+        $content = file_get_contents(base_path('composer.json'));
+        if (str_contains($content, 'tightenco/ziggy')) {
+            return $this;
+        }
+
         $this->command->executeRequireComposerPackages(
             $this->command->option('composer'),
             ['tightenco/ziggy']
