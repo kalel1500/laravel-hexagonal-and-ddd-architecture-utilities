@@ -323,7 +323,7 @@ EOD;
     public function execute_ComposerRequire_toInstallComposerDependencies(): self
     {
         // Install "tightenco/ziggy"
-        $this->command->requireComposerPackages(
+        $this->command->executeRequireComposerPackages(
             $this->command->option('composer'),
             ['tightenco/ziggy']
         );

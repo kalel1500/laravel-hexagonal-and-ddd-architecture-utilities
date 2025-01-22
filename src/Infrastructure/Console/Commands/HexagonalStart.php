@@ -46,6 +46,11 @@ class HexagonalStart extends Command
         return $this->stubsPath;
     }
 
+    public function executeRequireComposerPackages(...$params)
+    {
+        $this->requireComposerPackages(...$params);
+    }
+
     /**
      * Execute the console command.
      */
