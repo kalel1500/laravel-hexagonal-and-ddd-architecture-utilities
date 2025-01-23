@@ -233,9 +233,17 @@ final class StartCommandService
     {
         // Delete directory "app/Http"
         $folder = 'app/Http';
-        $dir = base_path($folder);
+        $dest = base_path($folder);
 
-        $this->filesystem->deleteDirectory($dir);
+        if ($this->reset) {
+            $dir = $this->command->originalStubsPath($folder);
+            $this->filesystem->ensureDirectoryExists($dest);
+            $this->filesystem->copyDirectory($dir, $dest);
+            $this->command->info('Carpeta "'.$folder.'" creada');
+            return $this;
+        }
+
+        $this->filesystem->deleteDirectory($dest);
         $this->command->info('Directorio "'.$folder.'" eliminado');
 
         return $this;
