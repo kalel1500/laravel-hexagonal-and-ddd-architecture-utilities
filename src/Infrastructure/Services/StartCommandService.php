@@ -291,18 +291,32 @@ EOD;
     {
         // Comment User factory in "database/seeders/DatabaseSeeder.php"
 
+        // Leer el contenido del archivo
         $filePath = database_path('seeders/DatabaseSeeder.php');
-        $content = $this->filesystem->get($filePath);
+        $fileContent = file_get_contents($filePath);
 
-        // Verificar si el bloque ya está comentado
-        if (!str_contains($content, '/*User::factory()->create([')) {
-            $this->filesystem->replaceInFile(
-                ['User::factory()->create([', ']);'],
-                ['/*User::factory()->create([', ']);*/'],
-                $filePath
-            );
-            $this->command->info('Archivo "database/seeders/DatabaseSeeder.php" modificado');
-        }
+        // Expresión regular para encontrar el contenido dentro del método run()
+        $pattern = '/public function run\(\): void\s*\{([\s\S]*?)\}/';
+
+        $modifiedContent = preg_replace_callback($pattern, function ($matches) {
+            $lines = explode("\n", $matches[1]); // Separar en líneas
+
+            $processedLines = array_map(function ($line) {
+                $trimmedLine = trim($line);
+
+                // Comentar líneas no comentadas
+                if ($trimmedLine !== '' && !str_starts_with($trimmedLine, '//')) {
+                    return '//0 ' . $line;
+                }
+
+                return $line; // Dejar la línea intacta si no se aplica la acción
+            }, $lines);
+
+            return "public function run(): void\n    {" . implode("\n", $processedLines) . "}";
+        }, $fileContent);
+
+        // Sobrescribir el archivo con el contenido modificado
+        file_put_contents($filePath, $modifiedContent);
 
         return $this;
     }
