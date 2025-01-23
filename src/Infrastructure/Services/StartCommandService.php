@@ -93,6 +93,8 @@ final class StartCommandService
         // Delete "config/hexagonal.php"
         $this->filesystem->delete(config_path('hexagonal.php'));
 
+        if ($this->reset) return $this;
+
         // Publish "config/hexagonal.php"
         $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config']);
         $this->command->info('Configuración del paquete publicada: "config/hexagonal.php"');
@@ -104,7 +106,7 @@ final class StartCommandService
     {
         $file = 'app/Providers/AppServiceProvider.php';
 
-        $from = $this->command->stubsPath($file);
+        $from = ($this->reset) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
         $to = base_path($file);
 
         copy($from, $to);
@@ -120,6 +122,12 @@ final class StartCommandService
         $from = $this->command->stubsPath($file);
         $to = base_path($file);
 
+        if ($this->reset) {
+            $this->filesystem->delete($to);
+            $this->command->info('Archivo "'.$file.'" eliminado');
+            return $this;
+        }
+
         copy($from, $to);
         $this->command->info('Archivo "'.$file.'" creado');
 
@@ -131,7 +139,7 @@ final class StartCommandService
         // Views
         $folder = 'resources/views';
 
-        $dir = $this->command->stubsPath($folder);
+        $dir = ($this->reset) ? $this->command->originalStubsPath($folder) : $this->command->stubsPath($folder);
         $dest = base_path($folder);
 
         $this->filesystem->ensureDirectoryExists($dest);
@@ -149,6 +157,12 @@ final class StartCommandService
         $dir = $this->command->stubsPath($folder);
         $dest = base_path($folder);
 
+        if ($this->reset) {
+            $this->filesystem->deleteDirectory($dest);
+            $this->command->info('Carpeta "'.$folder.'" eliminada');
+            return $this;
+        }
+
         $this->filesystem->ensureDirectoryExists($dest);
         $this->filesystem->copyDirectory($dir, $dest);
         $this->command->info('Carpeta "'.$folder.'" creada');
@@ -162,7 +176,7 @@ final class StartCommandService
         $originalFile = 'routes/web.php';
         $generatedFile = 'routes/'.(Version::phpIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php');
 
-        $from = $this->command->stubsPath($generatedFile);
+        $from = ($this->reset) ? $this->command->originalStubsPath($originalFile) : $this->command->stubsPath($generatedFile);
         $to = base_path($originalFile);
 
         copy($from, $to);
@@ -176,7 +190,7 @@ final class StartCommandService
         // tailwind.config.js
         $file = 'tailwind.config.js';
 
-        $from = $this->command->stubsPath($file);
+        $from = ($this->reset) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
         $to = base_path($file);
 
         copy($from, $to);
@@ -193,6 +207,13 @@ final class StartCommandService
         $from = $this->command->stubsPath($file);
         $to_envLocal = base_path($file);
         $to_env = base_path('.env');
+
+        if ($this->reset) {
+            $this->filesystem->delete($to_envLocal);
+            $this->filesystem->delete($to_env);
+            $this->command->info('Archivos ".env" eliminados');
+            return $this;
+        }
 
         copy($from, $to_envLocal);
         copy($from, $to_env);
