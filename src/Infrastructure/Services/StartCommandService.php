@@ -187,15 +187,15 @@ final class StartCommandService
 
     public function createEnvFiles(): self
     {
-        // Crear archivo ".env.local"
+        // Crear archivos ".env" y ".env.local"
+
         $file = '.env.local';
         $from = $this->command->stubsPath($file);
-        $to = base_path($file);
-        copy($from, $to);
+        $to_envLocal = base_path($file);
+        $to_env = base_path('.env');
 
-        // Crear archivo ".env"
-        $to = base_path('.env');
-        copy($from, $to);
+        copy($from, $to_envLocal);
+        copy($from, $to_env);
 
         // Borrar manualmente el valor de config('app.key') para que se regenere correctamente
         config(['app.key' => '']);
