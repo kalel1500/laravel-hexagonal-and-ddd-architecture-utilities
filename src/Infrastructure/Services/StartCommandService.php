@@ -102,18 +102,26 @@ final class StartCommandService
 
     public function stubsCopyFile_AppServiceProvider(): self
     {
-        // DependencyServiceProvider
-        copy($this->command->stubsPath('app/Providers/AppServiceProvider.php'), app_path('Providers/AppServiceProvider.php'));
-        $this->command->info('Archivo "app/Providers/AppServiceProvider.php" creado');
+        $file = 'app/Providers/AppServiceProvider.php';
+
+        $from = $this->command->stubsPath($file);
+        $to = base_path($file);
+
+        copy($from, $to);
+        $this->command->info('Archivo "'.$file.'" creado');
 
         return $this;
     }
 
     public function stubsCopyFile_DependencyServiceProvider(): self
     {
-        // DependencyServiceProvider
-        copy($this->command->stubsPath('app/Providers/DependencyServiceProvider.php'), app_path('Providers/DependencyServiceProvider.php'));
-        $this->command->info('Archivo "app/Providers/DependencyServiceProvider.php" creado');
+        $file = 'app/Providers/DependencyServiceProvider.php';
+
+        $from = $this->command->stubsPath($file);
+        $to = base_path($file);
+
+        copy($from, $to);
+        $this->command->info('Archivo "'.$file.'" creado');
 
         return $this;
     }
@@ -121,9 +129,14 @@ final class StartCommandService
     public function stubsCopyFolder_Views(): self
     {
         // Views
-        $this->filesystem->ensureDirectoryExists(resource_path('views'));
-        $this->filesystem->copyDirectory($this->command->stubsPath('resources/views'), resource_path('views'));
-        $this->command->info('Carpeta "resources/views" creada');
+        $folder = 'resources/views';
+
+        $dir = $this->command->stubsPath($folder);
+        $dest = base_path($folder);
+
+        $this->filesystem->ensureDirectoryExists($dest);
+        $this->filesystem->copyDirectory($dir, $dest);
+        $this->command->info('Carpeta "'.$folder.'" creada');
 
         return $this;
     }
@@ -131,9 +144,14 @@ final class StartCommandService
     public function stubsCopyFolder_Src(): self
     {
         // Src
-        $this->filesystem->ensureDirectoryExists(base_path('src'));
-        $this->filesystem->copyDirectory($this->command->stubsPath('src'), base_path('src'));
-        $this->command->info('Carpeta "src" creada');
+        $folder = 'src';
+
+        $dir = $this->command->stubsPath($folder);
+        $dest = base_path($folder);
+
+        $this->filesystem->ensureDirectoryExists($dest);
+        $this->filesystem->copyDirectory($dir, $dest);
+        $this->command->info('Carpeta "'.$folder.'" creada');
 
         return $this;
     }
@@ -141,9 +159,14 @@ final class StartCommandService
     public function stubsCopyFile_RoutesWeb(): self
     {
         // routes/web.php
-        $webFile = Version::phpIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php';
-        copy($this->command->stubsPath('routes/'.$webFile), base_path('routes/web.php'));
-        $this->command->info('Archivo "routes/web.php" modificado');
+        $originalFile = 'routes/web.php';
+        $generatedFile = 'routes/'.(Version::phpIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php');
+
+        $from = $this->command->stubsPath($generatedFile);
+        $to = base_path($originalFile);
+
+        copy($from, $to);
+        $this->command->info('Archivo "'.$originalFile.'" modificado');
 
         return $this;
     }
@@ -151,8 +174,13 @@ final class StartCommandService
     public function stubsCopyFile_tailwindConfigJs(): self
     {
         // tailwind.config.js
-        copy($this->command->stubsPath('tailwind.config.js'), base_path('tailwind.config.js'));
-        $this->command->info('Archivo "tailwind.config.js" modificado');
+        $file = 'tailwind.config.js';
+
+        $from = $this->command->stubsPath($file);
+        $to = base_path($file);
+
+        copy($from, $to);
+        $this->command->info('Archivo "'.$file.'" modificado');
 
         return $this;
     }
@@ -160,10 +188,14 @@ final class StartCommandService
     public function createEnvFiles(): self
     {
         // Crear archivo ".env.local"
-        copy($this->command->stubsPath('.env.local'), base_path('.env.local'));
+        $file = '.env.local';
+        $from = $this->command->stubsPath($file);
+        $to = base_path($file);
+        copy($from, $to);
 
         // Crear archivo ".env"
-        copy($this->command->stubsPath('.env.local'), base_path('.env'));
+        $to = base_path('.env');
+        copy($from, $to);
 
         // Borrar manualmente el valor de config('app.key') para que se regenere correctamente
         config(['app.key' => '']);
@@ -179,8 +211,11 @@ final class StartCommandService
     public function deleteDirectory_Http(): self
     {
         // Delete directory "app/Http"
-        $this->filesystem->deleteDirectory(app_path('Http'));
-        $this->command->info('Directorio "app/Http" eliminado');
+        $folder = 'app/Http';
+        $dir = base_path($folder);
+
+        $this->filesystem->deleteDirectory($dir);
+        $this->command->info('Directorio "'.$folder.'" eliminado');
 
         return $this;
     }
@@ -188,8 +223,11 @@ final class StartCommandService
     public function deleteDirectory_Models(): self
     {
         // Delete directory "app/Models"
-//        $this->filesystem->deleteDirectory(app_path('Models'));
-//        $this->command->info('Directorio "app/Models" eliminado');
+        /*$folder = 'app/Models';
+        $dir = base_path($folder);
+
+        $this->filesystem->deleteDirectory($dir);
+        $this->command->info('Directorio "'.$folder.'" eliminado');*/
 
         return $this;
     }
