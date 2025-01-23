@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
+use Thehouseofel\Hexagonal\Infrastructure\HexagonalServiceProvider;
 
 final class StartCommandService
 {
@@ -272,12 +273,18 @@ final class StartCommandService
 
     public function modifyFile_BootstrapProviders_toAddDependencyServiceProvider(): self
     {
+        // bootstrap/providers.php
+
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             return $this;
         }
 
-        // bootstrap/providers.php
-        ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
+        if ($this->reset) {
+            HexagonalServiceProvider::removeProviderFromBootstrapFile('App\Providers\DependencyServiceProvider');
+        } else {
+            ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
+        }
+
         $this->command->info('Archivo "bootstrap/providers.php" modificado');
 
         return $this;
