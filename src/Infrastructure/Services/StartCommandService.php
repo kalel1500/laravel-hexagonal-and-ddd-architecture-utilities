@@ -306,7 +306,13 @@ final class StartCommandService
         $pattern = '/->withExceptions\(function \(Exceptions \$exceptions\) \{(.*?)}\)/s';
 
         // Reemplazar el contenido del bloque con las nuevas líneas
-        $replacement = <<<'EOD'
+        $replacement = ($this->reset)
+            ?  <<<'EOD'
+->withExceptions(function (Exceptions $exceptions) {
+        //
+    })
+EOD
+            : <<<'EOD'
 ->withExceptions(function (Exceptions $exceptions) {
         $callback = \Thehouseofel\Hexagonal\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();
         $callback($exceptions);
@@ -340,9 +346,16 @@ EOD;
             $processedLines = array_map(function ($line) {
                 $trimmedLine = trim($line);
 
-                // Comentar líneas no comentadas
-                if ($trimmedLine !== '' && !str_starts_with($trimmedLine, '//')) {
-                    return '//0 ' . $line;
+                if ($this->reset) {
+                    // Descomentar líneas que tengan "//0"
+                    if (str_starts_with($trimmedLine, '//0')) {
+                        return substr($line, strpos($line, '//0') + 4); // Quitar "//0 " del inicio
+                    }
+                } else {
+                    // Comentar líneas no comentadas
+                    if ($trimmedLine !== '' && !str_starts_with($trimmedLine, '//')) {
+                        return '//0 ' . $line;
+                    }
                 }
 
                 return $line; // Dejar la línea intacta si no se aplica la acción
