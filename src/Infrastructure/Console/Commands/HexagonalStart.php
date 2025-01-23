@@ -18,7 +18,8 @@ class HexagonalStart extends Command
      * @var string
      */
     protected $signature = 'hexagonal:start
-                    {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
+                    {--composer=global : Absolute path to the Composer binary which should be used to install packages}
+                    {--reset : Reset all changes made by the command to the original state}';
 
     /**
      * The console command description.
@@ -64,7 +65,9 @@ class HexagonalStart extends Command
      */
     public function handle()
     {
-        StartCommandService::configure($this)
+        $reset = $this->option('reset');
+
+        StartCommandService::configure($this, $reset)
             ->restoreFilesModifiedByPackageLaravelTsUtils()
             ->publishHexagonalConfig()
             ->stubsCopyFile_AppServiceProvider()

@@ -12,12 +12,14 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
 final class StartCommandService
 {
     private $command;
+    private $reset;
     private $filesystem;
     private $skipHarmlessMethods;
 
-    public function __construct(HexagonalStart $command)
+    public function __construct(HexagonalStart $command, bool $reset)
     {
         $this->command             = $command;
+        $this->reset               = $reset;
         $this->filesystem          = $command->filesystem();
         $this->skipHarmlessMethods = false;
     }
@@ -52,12 +54,12 @@ final class StartCommandService
         );
     }
 
-    public static function configure(HexagonalStart $command): self
+    public static function configure(HexagonalStart $command, bool $reset): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
         }
-        return new self($command);
+        return new self($command, $reset);
     }
 
     public function restoreFilesModifiedByPackageLaravelTsUtils(): self
