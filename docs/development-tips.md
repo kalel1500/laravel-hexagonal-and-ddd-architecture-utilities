@@ -19,3 +19,20 @@ git push origin --delete <nombre_del_tag>
 ```regexp
 !vendor/*&!node_modules/*&!.idea/*
 ```
+
+## Instalar la versión "dev-master" del paquete con un enlace durante el desarrollo
+
+```json
+{
+  "require": {
+    "kalel1500/laravel-hexagonal-and-ddd-architecture-utilities": "dev-master"
+  },
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../laravel-hexagonal-and-ddd-architecture-utilities"
+    }
+  ]
+}
+```
