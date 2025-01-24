@@ -58,7 +58,13 @@ final class StartCommandService
             foreach ($items as $key => $value) {
                 unset($currentSection[$key]);
             }
-            $packages[$configurationKey] = $currentSection;
+
+            // Si la sección queda vacía, la eliminamos completamente
+            if (empty($currentSection)) {
+                unset($packages[$configurationKey]);
+            } else {
+                $packages[$configurationKey] = $currentSection;
+            }
         } else {
             // Añadimos los elementos a la sección
             $packages[$configurationKey] = $items + $currentSection;
@@ -466,6 +472,17 @@ EOD;
         ], $this->reset);
 
         $this->line($number,'Archivo package.json actualizado (devDependencies)');
+
+        return $this;
+    }
+
+    public function modifyFile_PackageJson_toAddNpmDependencies($number): self
+    {
+        $this->modifyPackageJsonSection('dependencies', [
+            '@kalel1500/laravel-ts-utils'   => '^0.4.0-beta.9',
+        ], $this->reset);
+
+        $this->line($number,'Archivo package.json actualizado (dependencies)');
 
         return $this;
     }

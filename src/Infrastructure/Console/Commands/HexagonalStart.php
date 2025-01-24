@@ -106,10 +106,11 @@ class HexagonalStart extends Command
             ->modifyFile_JsBootstrap_toAddImportFlowbite(15)
             ->modifyFile_Gitignore_toDeleteLockFileLines(16)
             ->modifyFile_PackageJson_toAddNpmDevDependencies(17)
-            ->modifyFile_PackageJson_toAddScriptTsBuild(18)
-            ->modifyFile_ComposerJson_toAddSrcNamespace(19)
-            ->execute_ComposerRequire_toInstallComposerDependencies(20)
-            ->execute_NpminstallAndNpmRunBuild(21);
+            ->modifyFile_PackageJson_toAddNpmDependencies(18)
+            ->modifyFile_PackageJson_toAddScriptTsBuild(19)
+            ->modifyFile_ComposerJson_toAddSrcNamespace(20)
+            ->execute_ComposerRequire_toInstallComposerDependencies(21)
+            ->execute_NpminstallAndNpmRunBuild(22);
 
         $this->info('Configuración finalizada');
 
