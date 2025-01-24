@@ -613,33 +613,40 @@ EOD;
         return $this;
     }*/
 
-    public function execute_NpminstallAndNpmRunBuild($number): self
+    public function execute_NpmInstall($number): self
     {
-        // Install and build Node dependencies.
-
         if ($this->packageInDevelop) {
             return $this;
         }
 
         $this->line($number,'Installing and building Node dependencies.');
 
-        $commands = [
-            'npm install',
-            'npm run build',
-        ];
-
-        $command = Process::command(implode(' && ', $commands))->path(base_path());
-
-        if (! windows_os()) {
-            $command->tty();
-        }
-
-        if ($command->run()->failed()) {
-            $this->command->warn("Node dependency installation failed. Please run the following commands manually: \n\n".implode(' && ', $commands));
+        $run = Process::run(['npm', 'install']);
+        if ($run->failed()) {
+            $this->command->warn("Node dependency installation failed. Please run the following commands manually: \n\n npm install");
+            $this->command->error($run->errorOutput());
         } else {
             $this->line($number,'Node dependencies installed successfully.');
         }
 
+        return $this;
+    }
+
+    public function execute_NpmRunBuild($number): self
+    {
+        if ($this->packageInDevelop) {
+            return $this;
+        }
+
+        $this->line($number,'Building app.');
+
+        $run = Process::run(['npm', 'run', 'build']);
+        if ($run->failed()) {
+            $this->command->warn("Build failed. Please run the following commands manually: \"npm run build\"");
+            $this->command->error($run->errorOutput());
+        } else {
+            $this->line($number,'App built successfully.');
+        }
 
         return $this;
     }

@@ -90,7 +90,7 @@ class HexagonalStart extends Command
 
         $this->info('Inicio configuración:');
 
-        StartCommandService::configure($this, $reset, $simple, 22)
+        StartCommandService::configure($this, $reset, $simple, 23)
             ->restoreFilesModifiedByPackageLaravelTsUtils(1)
             ->publishHexagonalConfig(2)
             ->stubsCopyFile_AppServiceProvider(3)
@@ -112,7 +112,8 @@ class HexagonalStart extends Command
             ->modifyFile_PackageJson_toAddScriptTsBuild(19)
             ->modifyFile_ComposerJson_toAddSrcNamespace(20)
             ->execute_ComposerRequire_toInstallComposerDependencies(21)
-            ->execute_NpminstallAndNpmRunBuild(22);
+            ->execute_NpmInstall(22)
+            ->execute_NpmRunBuild(23);
 
         $this->info('Configuración finalizada');
 
