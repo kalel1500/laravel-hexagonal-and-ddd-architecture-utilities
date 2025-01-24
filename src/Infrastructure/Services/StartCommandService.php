@@ -14,15 +14,22 @@ final class StartCommandService
 {
     private $command;
     private $reset;
+    private $steps;
     private $filesystem;
     private $skipHarmlessMethods;
 
-    public function __construct(HexagonalStart $command, bool $reset)
+    public function __construct(HexagonalStart $command, bool $reset, int $steps)
     {
         $this->command             = $command;
         $this->reset               = $reset;
+        $this->steps               = $steps;
         $this->filesystem          = $command->filesystem();
         $this->skipHarmlessMethods = false;
+    }
+
+    private function line($number, $message)
+    {
+        $this->command->line("  - <fg=yellow>$number/$this->steps</> $message");
     }
 
     /**
@@ -65,15 +72,15 @@ final class StartCommandService
         );
     }
 
-    public static function configure(HexagonalStart $command, bool $reset): self
+    public static function configure(HexagonalStart $command, bool $reset, int $steps): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
         }
-        return new self($command, $reset);
+        return new self($command, $reset, $steps);
     }
 
-    public function restoreFilesModifiedByPackageLaravelTsUtils(): self
+    public function restoreFilesModifiedByPackageLaravelTsUtils($number): self
     {
         // Restore "resources"
         $this->filesystem->deleteDirectory(resource_path());
@@ -94,12 +101,12 @@ final class StartCommandService
         $this->filesystem->delete(base_path('vite.config.ts'));
         copy($this->command->originalStubsPath('vite.config.js'), base_path('vite.config.js'));
 
-        $this->command->info('Restaurados todos los archivos modificados por el paquete laravel-ts-utils');
+        $this->line($number,'Restaurados todos los archivos modificados por el paquete laravel-ts-utils');
 
         return $this;
     }
 
-    public function publishHexagonalConfig(): self
+    public function publishHexagonalConfig($number): self
     {
         // Delete "config/hexagonal.php"
         $this->filesystem->delete(config_path('hexagonal.php'));
@@ -108,12 +115,12 @@ final class StartCommandService
 
         // Publish "config/hexagonal.php"
         $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config']);
-        $this->command->info('Configuración del paquete publicada: "config/hexagonal.php"');
+        $this->line($number,'Configuración del paquete publicada: "config/hexagonal.php"');
 
         return $this;
     }
 
-    public function stubsCopyFile_AppServiceProvider(): self
+    public function stubsCopyFile_AppServiceProvider($number): self
     {
         $file = 'app/Providers/AppServiceProvider.php';
 
@@ -121,12 +128,12 @@ final class StartCommandService
         $to = base_path($file);
 
         copy($from, $to);
-        $this->command->info('Archivo "'.$file.'" creado');
+        $this->line($number,'Archivo "'.$file.'" creado');
 
         return $this;
     }
 
-    public function stubsCopyFile_DependencyServiceProvider(): self
+    public function stubsCopyFile_DependencyServiceProvider($number): self
     {
         $file = 'app/Providers/DependencyServiceProvider.php';
 
@@ -135,17 +142,17 @@ final class StartCommandService
 
         if ($this->reset) {
             $this->filesystem->delete($to);
-            $this->command->info('Archivo "'.$file.'" eliminado');
+            $this->line($number,'Archivo "'.$file.'" eliminado');
             return $this;
         }
 
         copy($from, $to);
-        $this->command->info('Archivo "'.$file.'" creado');
+        $this->line($number,'Archivo "'.$file.'" creado');
 
         return $this;
     }
 
-    public function stubsCopyFolder_Views(): self
+    public function stubsCopyFolder_Views($number): self
     {
         // Views
         $folder = 'resources/views';
@@ -155,12 +162,12 @@ final class StartCommandService
 
         $this->filesystem->ensureDirectoryExists($dest);
         $this->filesystem->copyDirectory($dir, $dest);
-        $this->command->info('Carpeta "'.$folder.'" creada');
+        $this->line($number,'Carpeta "'.$folder.'" creada');
 
         return $this;
     }
 
-    public function stubsCopyFolder_Src(): self
+    public function stubsCopyFolder_Src($number): self
     {
         // Src
         $folder = 'src';
@@ -170,18 +177,18 @@ final class StartCommandService
 
         if ($this->reset) {
             $this->filesystem->deleteDirectory($dest);
-            $this->command->info('Carpeta "'.$folder.'" eliminada');
+            $this->line($number,'Carpeta "'.$folder.'" eliminada');
             return $this;
         }
 
         $this->filesystem->ensureDirectoryExists($dest);
         $this->filesystem->copyDirectory($dir, $dest);
-        $this->command->info('Carpeta "'.$folder.'" creada');
+        $this->line($number,'Carpeta "'.$folder.'" creada');
 
         return $this;
     }
 
-    public function stubsCopyFile_RoutesWeb(): self
+    public function stubsCopyFile_RoutesWeb($number): self
     {
         // routes/web.php
         $originalFile = 'routes/web.php';
@@ -191,12 +198,12 @@ final class StartCommandService
         $to = base_path($originalFile);
 
         copy($from, $to);
-        $this->command->info('Archivo "'.$originalFile.'" modificado');
+        $this->line($number,'Archivo "'.$originalFile.'" modificado');
 
         return $this;
     }
 
-    public function stubsCopyFile_tailwindConfigJs(): self
+    public function stubsCopyFile_tailwindConfigJs($number): self
     {
         // tailwind.config.js
         $file = 'tailwind.config.js';
@@ -205,12 +212,12 @@ final class StartCommandService
         $to = base_path($file);
 
         copy($from, $to);
-        $this->command->info('Archivo "'.$file.'" modificado');
+        $this->line($number,'Archivo "'.$file.'" modificado');
 
         return $this;
     }
 
-    public function createEnvFiles(): self
+    public function createEnvFiles($number): self
     {
         // Crear archivos ".env" y ".env.local"
 
@@ -222,7 +229,7 @@ final class StartCommandService
         if ($this->reset) {
             $this->filesystem->delete($to_envLocal);
             $this->filesystem->delete($to_env);
-            $this->command->info('Archivos ".env" eliminados');
+            $this->line($number,'Archivos ".env" eliminados');
             return $this;
         }
 
@@ -235,12 +242,12 @@ final class StartCommandService
         // Regenerar Key
         $this->command->call('key:generate');
 
-        $this->command->info('Archivos ".env" creados');
+        $this->line($number,'Archivos ".env" creados');
 
         return $this;
     }
 
-    public function deleteDirectory_Http(): self
+    public function deleteDirectory_Http($number): self
     {
         // Delete directory "app/Http"
         $folder = 'app/Http';
@@ -250,38 +257,38 @@ final class StartCommandService
             $dir = $this->command->originalStubsPath($folder);
             $this->filesystem->ensureDirectoryExists($dest);
             $this->filesystem->copyDirectory($dir, $dest);
-            $this->command->info('Carpeta "'.$folder.'" creada');
+            $this->line($number,'Carpeta "'.$folder.'" creada');
             return $this;
         }
 
         $this->filesystem->deleteDirectory($dest);
-        $this->command->info('Directorio "'.$folder.'" eliminado');
+        $this->line($number,'Directorio "'.$folder.'" eliminado');
 
         return $this;
     }
 
-    public function deleteDirectory_Models(): self
+    public function deleteDirectory_Models($number): self
     {
         // Delete directory "app/Models"
         /*$folder = 'app/Models';
         $dir = base_path($folder);
 
         $this->filesystem->deleteDirectory($dir);
-        $this->command->info('Directorio "'.$folder.'" eliminado');*/
+        $this->line($number,'Directorio "'.$folder.'" eliminado');*/
 
         return $this;
     }
 
-    public function deleteFile_Changelog(): self
+    public function deleteFile_Changelog($number): self
     {
         // Delete file "CHANGELOG.md"
         $this->filesystem->delete(base_path('CHANGELOG.md'));
-        $this->command->info('Archivo "CHANGELOG.md" eliminado');
+        $this->line($number,'Archivo "CHANGELOG.md" eliminado');
 
         return $this;
     }
 
-    public function modifyFile_BootstrapProviders_toAddDependencyServiceProvider(): self
+    public function modifyFile_BootstrapProviders_toAddDependencyServiceProvider($number): self
     {
         // bootstrap/providers.php
 
@@ -295,12 +302,12 @@ final class StartCommandService
             ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
         }
 
-        $this->command->info('Archivo "bootstrap/providers.php" modificado');
+        $this->line($number,'Archivo "bootstrap/providers.php" modificado');
 
         return $this;
     }
 
-    public function modifyFile_BootstrapApp_toAddExceptionHandler(): self
+    public function modifyFile_BootstrapApp_toAddExceptionHandler($number): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             return $this;
@@ -334,12 +341,12 @@ EOD;
         // Guardar el archivo con el contenido actualizado
         File::put($filePath, $newContent);
 
-        $this->command->info('Archivo "bootstrap/app.php" modificado');
+        $this->line($number,'Archivo "bootstrap/app.php" modificado');
 
         return $this;
     }
 
-    public function modifyFile_DatabaseSeeder_toCommentUserFactory(): self
+    public function modifyFile_DatabaseSeeder_toCommentUserFactory($number): self
     {
         // Comment User factory in "database/seeders/DatabaseSeeder.php"
 
@@ -380,7 +387,7 @@ EOD;
         return $this;
     }
 
-    public function modifyFile_JsBootstrap_toAddImportFlowbite(): self
+    public function modifyFile_JsBootstrap_toAddImportFlowbite($number): self
     {
         // Import "flowbite" in resources/js/bootstrap.js
         $filePath = base_path('resources/js/bootstrap.js');
@@ -406,12 +413,12 @@ EOD;
 
         file_put_contents($filePath, $fileContents);
 
-        $this->command->info('Archivo "resources/js/bootstrap.js" modificado');
+        $this->line($number,'Archivo "resources/js/bootstrap.js" modificado');
 
         return $this;
     }
 
-    public function modifyFile_Gitignore_toDeleteLockFileLines(): self
+    public function modifyFile_Gitignore_toDeleteLockFileLines($number): self
     {
         // Borrar los ".lock" del ".gitignore"
 
@@ -435,12 +442,12 @@ EOD;
         // Escribir el contenido actualizado en el archivo con una sola línea vacía al final
         file_put_contents($gitignorePath, implode(PHP_EOL, $gitignoreContent) . PHP_EOL);
 
-        $this->command->info('Archivos ".lock" eliminados del ".gitignore"');
+        $this->line($number,'Archivos ".lock" eliminados del ".gitignore"');
 
         return $this;
     }
 
-    public function modifyFile_PackageJson_toAddNpmDevDependencies(): self
+    public function modifyFile_PackageJson_toAddNpmDevDependencies($number): self
     {
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
@@ -452,24 +459,24 @@ EOD;
             'typescript'                    => '^5.6.2',
         ], $this->reset);
 
-        $this->command->info('Archivo package.json actualizado (devDependencies)');
+        $this->line($number,'Archivo package.json actualizado (devDependencies)');
 
         return $this;
     }
 
-    public function modifyFile_PackageJson_toAddScriptTsBuild(): self
+    public function modifyFile_PackageJson_toAddScriptTsBuild($number): self
     {
         // Add script "ts-build" in "package.json"
         $this->modifyPackageJsonSection('scripts', [
             'ts-build' => 'tsc && vite build',
         ], $this->reset);
 
-        $this->command->info('Archivo package.json actualizado (script "ts-build")');
+        $this->line($number,'Archivo package.json actualizado (script "ts-build")');
 
         return $this;
     }
 
-    public function modifyFile_ComposerJson_toAddSrcNamespace(): self
+    public function modifyFile_ComposerJson_toAddSrcNamespace($number): self
     {
         // Update the "autoload.psr-4" section in "composer.json" file with additional namespaces.
         // Add the "Src" namespace into "composer.json"
@@ -520,12 +527,12 @@ EOD;
         file_put_contents($filePath, $jsonContent . PHP_EOL);
 
 
-        $this->command->info('Namespace "Src" añadido al "composer.json"');
+        $this->line($number,'Namespace "Src" añadido al "composer.json"');
 
         return $this;
     }
 
-    public function execute_ComposerRequire_toInstallComposerDependencies(): self
+    public function execute_ComposerRequire_toInstallComposerDependencies($number): self
     {
         // Install "tightenco/ziggy"
 
@@ -544,7 +551,7 @@ EOD;
                 $packages
             );
 
-            $this->command->info('Dependencias de composer desinstaladas');
+            $this->line($number,'Dependencias de composer desinstaladas');
 
             return $this;
         }
@@ -558,12 +565,12 @@ EOD;
             $packages
         );
 
-        $this->command->info('Dependencias de composer instaladas');
+        $this->line($number,'Dependencias de composer instaladas');
 
         return $this;
     }
 
-    public function execute_ComposerDumpAutoload(): self
+    public function execute_ComposerDumpAutoload($number): self
     {
         // Execute the "composer dump-autoload" command
 
@@ -575,13 +582,13 @@ EOD;
         if ($run->failed()) {
             $this->command->warn('The command "composer dump-autoload" has failed');
         } else {
-            $this->command->info('Command "composer dump-autoload" successfully.');
+            $this->line($number,'Command "composer dump-autoload" successfully.');
         }
 
         return $this;
     }
 
-    public function execute_NpminstallAndNpmRunBuild(): self
+    public function execute_NpminstallAndNpmRunBuild($number): self
     {
         // Install and build Node dependencies.
 
@@ -589,7 +596,7 @@ EOD;
             return $this;
         }
 
-        $this->command->info('Installing and building Node dependencies.');
+        $this->line($number,'Installing and building Node dependencies.');
 
         $commands = [
             'npm install',
@@ -605,7 +612,7 @@ EOD;
         if ($command->run()->failed()) {
             $this->command->warn("Node dependency installation failed. Please run the following commands manually: \n\n".implode(' && ', $commands));
         } else {
-            $this->command->info('Node dependencies installed successfully.');
+            $this->line($number,'Node dependencies installed successfully.');
         }
 
 

@@ -86,29 +86,34 @@ class HexagonalStart extends Command
     {
         $reset = $this->option('reset');
 
-        StartCommandService::configure($this, $reset)
-            ->restoreFilesModifiedByPackageLaravelTsUtils()
-            ->publishHexagonalConfig()
-            ->stubsCopyFile_AppServiceProvider()
-            ->stubsCopyFile_DependencyServiceProvider()
-            ->stubsCopyFolder_Views()
-            ->stubsCopyFolder_Src()
-            ->stubsCopyFile_RoutesWeb()
-            ->stubsCopyFile_tailwindConfigJs()
-            ->createEnvFiles()
-            ->deleteDirectory_Http()
-            ->deleteDirectory_Models()
-            ->deleteFile_Changelog()
-            ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider()
-            ->modifyFile_BootstrapApp_toAddExceptionHandler()
-            ->modifyFile_DatabaseSeeder_toCommentUserFactory()
-            ->modifyFile_JsBootstrap_toAddImportFlowbite()
-            ->modifyFile_Gitignore_toDeleteLockFileLines()
-            ->modifyFile_PackageJson_toAddNpmDevDependencies()
-            ->modifyFile_PackageJson_toAddScriptTsBuild()
-            ->modifyFile_ComposerJson_toAddSrcNamespace()
-            ->execute_ComposerRequire_toInstallComposerDependencies()
-            ->execute_ComposerDumpAutoload()
-            ->execute_NpminstallAndNpmRunBuild();
+        $this->info('Inicio configuración:');
+
+        StartCommandService::configure($this, $reset, 23)
+            ->restoreFilesModifiedByPackageLaravelTsUtils(1)
+            ->publishHexagonalConfig(2)
+            ->stubsCopyFile_AppServiceProvider(3)
+            ->stubsCopyFile_DependencyServiceProvider(4)
+            ->stubsCopyFolder_Views(5)
+            ->stubsCopyFolder_Src(6)
+            ->stubsCopyFile_RoutesWeb(7)
+            ->stubsCopyFile_tailwindConfigJs(8)
+            ->createEnvFiles(9)
+            ->deleteDirectory_Http(10)
+            ->deleteDirectory_Models(11)
+            ->deleteFile_Changelog(12)
+            ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider(13)
+            ->modifyFile_BootstrapApp_toAddExceptionHandler(14)
+            ->modifyFile_DatabaseSeeder_toCommentUserFactory(15)
+            ->modifyFile_JsBootstrap_toAddImportFlowbite(16)
+            ->modifyFile_Gitignore_toDeleteLockFileLines(17)
+            ->modifyFile_PackageJson_toAddNpmDevDependencies(18)
+            ->modifyFile_PackageJson_toAddScriptTsBuild(19)
+            ->modifyFile_ComposerJson_toAddSrcNamespace(20)
+            ->execute_ComposerRequire_toInstallComposerDependencies(21)
+            ->execute_ComposerDumpAutoload(22)
+            ->execute_NpminstallAndNpmRunBuild(23);
+
+        $this->info('Configuración finalizada');
+
     }
 }
