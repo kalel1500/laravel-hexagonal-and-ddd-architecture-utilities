@@ -80,6 +80,26 @@ final class StartCommandService
         );
     }
 
+    private function execute_Process($number, $command, $startMessage, $successMessage, $failureMessage)
+    {
+        // Imprimir mensaje de inicio del proceso
+        $this->line($number, $startMessage);
+
+        // Ejecutamos el proceso
+        $run = Process::run($command);
+
+        // Verificamos si el proceso falló
+        if ($run->failed()) {
+            $failureMessageEnd = ' Please run the following command manually: "' . implode(' ', $command) . '"';
+            $this->command->warn($failureMessage.$failureMessageEnd);
+            $this->command->error($run->errorOutput());
+        } else {
+            // Imprimimos el mensaje de éxito
+            $this->line($number, $successMessage);
+        }
+    }
+
+
     public static function configure(HexagonalStart $command, bool $reset, bool $simple, int $steps): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
@@ -615,38 +635,30 @@ EOD;
 
     public function execute_NpmInstall($number): self
     {
-        if ($this->packageInDevelop) {
-            return $this;
-        }
+        if ($this->packageInDevelop) return $this;
 
-        $this->line($number,'Installing and building Node dependencies.');
-
-        $run = Process::run(['npm', 'install']);
-        if ($run->failed()) {
-            $this->command->warn("Node dependency installation failed. Please run the following commands manually: \n\n npm install");
-            $this->command->error($run->errorOutput());
-        } else {
-            $this->line($number,'Node dependencies installed successfully.');
-        }
+        $this->execute_Process(
+            $number,
+            ['npm', 'install'],
+            'Installing Node dependencies.',
+            'Node dependencies installed successfully.',
+            'Node dependency installation failed.'
+        );
 
         return $this;
     }
 
     public function execute_NpmRunBuild($number): self
     {
-        if ($this->packageInDevelop) {
-            return $this;
-        }
+        if ($this->packageInDevelop) return $this;
 
-        $this->line($number,'Building app.');
-
-        $run = Process::run(['npm', 'run', 'build']);
-        if ($run->failed()) {
-            $this->command->warn("Build failed. Please run the following commands manually: \"npm run build\"");
-            $this->command->error($run->errorOutput());
-        } else {
-            $this->line($number,'App built successfully.');
-        }
+        $this->execute_Process(
+            $number,
+            ['npm', 'run', 'build'],
+            'Building app.',
+            'App built successfully.',
+            'Build failed.'
+        );
 
         return $this;
     }
