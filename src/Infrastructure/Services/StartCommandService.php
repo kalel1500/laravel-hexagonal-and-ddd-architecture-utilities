@@ -530,14 +530,34 @@ EOD;
         // Install "tightenco/ziggy"
 
         $content = file_get_contents(base_path('composer.json'));
-        if (str_contains($content, 'tightenco/ziggy')) {
+
+        $packages = ['tightenco/ziggy'];
+        $package1 = $packages[0];
+
+        if ($this->reset) {
+            if (!str_contains($content, $package1)) {
+                return $this;
+            }
+
+            $this->command->removeComposerPackages(
+                $this->command->option('composer'),
+                $packages
+            );
+
+            $this->command->info('Dependencias de composer desinstaladas');
+
+            return $this;
+        }
+
+        if (str_contains($content, $package1)) {
             return $this;
         }
 
         $this->command->executeRequireComposerPackages(
             $this->command->option('composer'),
-            ['tightenco/ziggy']
+            $packages
         );
+
         $this->command->info('Dependencias de composer instaladas');
 
         return $this;
