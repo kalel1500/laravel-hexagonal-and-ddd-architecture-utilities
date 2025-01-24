@@ -113,6 +113,8 @@ final class StartCommandService
 
         if ($this->reset) return $this;
 
+        if ($this->packageInDevelop) return $this;
+
         // Publish "config/hexagonal.php"
         $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config']);
         $this->line($number,'Configuración del paquete publicada: "config/hexagonal.php"');
@@ -122,6 +124,8 @@ final class StartCommandService
 
     public function stubsCopyFile_AppServiceProvider($number): self
     {
+        if ($this->packageInDevelop && !$this->reset) return $this;
+
         $file = 'app/Providers/AppServiceProvider.php';
 
         $from = ($this->reset) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
@@ -421,6 +425,8 @@ EOD;
     public function modifyFile_Gitignore_toDeleteLockFileLines($number): self
     {
         // Borrar los ".lock" del ".gitignore"
+
+        if ($this->packageInDevelop) return $this;
 
         // Ruta del archivo .gitignore
         $gitignorePath    = base_path('.gitignore');
