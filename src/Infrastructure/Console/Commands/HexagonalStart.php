@@ -88,7 +88,7 @@ class HexagonalStart extends Command
 
         $this->info('Inicio configuración:');
 
-        StartCommandService::configure($this, $reset, 23)
+        StartCommandService::configure($this, $reset, 21)
             ->restoreFilesModifiedByPackageLaravelTsUtils(1)
             ->publishHexagonalConfig(2)
             ->stubsCopyFile_AppServiceProvider(3)
@@ -99,19 +99,17 @@ class HexagonalStart extends Command
             ->stubsCopyFile_tailwindConfigJs(8)
             ->createEnvFiles(9)
             ->deleteDirectory_Http(10)
-            ->deleteDirectory_Models(11)
-            ->deleteFile_Changelog(12)
-            ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider(13)
-            ->modifyFile_BootstrapApp_toAddExceptionHandler(14)
-            ->modifyFile_DatabaseSeeder_toCommentUserFactory(15)
-            ->modifyFile_JsBootstrap_toAddImportFlowbite(16)
-            ->modifyFile_Gitignore_toDeleteLockFileLines(17)
-            ->modifyFile_PackageJson_toAddNpmDevDependencies(18)
-            ->modifyFile_PackageJson_toAddScriptTsBuild(19)
-            ->modifyFile_ComposerJson_toAddSrcNamespace(20)
-            ->execute_ComposerRequire_toInstallComposerDependencies(21)
-            ->execute_ComposerDumpAutoload(22)
-            ->execute_NpminstallAndNpmRunBuild(23);
+            ->deleteFile_Changelog(11)
+            ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider(12)
+            ->modifyFile_BootstrapApp_toAddExceptionHandler(13)
+            ->modifyFile_DatabaseSeeder_toCommentUserFactory(14)
+            ->modifyFile_JsBootstrap_toAddImportFlowbite(15)
+            ->modifyFile_Gitignore_toDeleteLockFileLines(16)
+            ->modifyFile_PackageJson_toAddNpmDevDependencies(17)
+            ->modifyFile_PackageJson_toAddScriptTsBuild(18)
+            ->modifyFile_ComposerJson_toAddSrcNamespace(19)
+            ->execute_ComposerRequire_toInstallComposerDependencies(20)
+            ->execute_NpminstallAndNpmRunBuild(21);
 
         $this->info('Configuración finalizada');
 

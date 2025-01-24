@@ -267,17 +267,17 @@ final class StartCommandService
         return $this;
     }
 
-    public function deleteDirectory_Models($number): self
+    /*public function deleteDirectory_Models($number): self
     {
         // Delete directory "app/Models"
-        /*$folder = 'app/Models';
+        $folder = 'app/Models';
         $dir = base_path($folder);
 
         $this->filesystem->deleteDirectory($dir);
-        $this->line($number,'Directorio "'.$folder.'" eliminado');*/
+        $this->line($number,'Directorio "'.$folder.'" eliminado');
 
         return $this;
-    }
+    }*/
 
     public function deleteFile_Changelog($number): self
     {
@@ -570,7 +570,7 @@ EOD;
         return $this;
     }
 
-    public function execute_ComposerDumpAutoload($number): self
+    /*public function execute_ComposerDumpAutoload($number): self
     {
         // Execute the "composer dump-autoload" command
 
@@ -586,7 +586,7 @@ EOD;
         }
 
         return $this;
-    }
+    }*/
 
     public function execute_NpminstallAndNpmRunBuild($number): self
     {
