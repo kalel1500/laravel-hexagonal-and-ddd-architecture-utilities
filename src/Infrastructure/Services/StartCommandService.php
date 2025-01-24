@@ -457,12 +457,12 @@ EOD;
     {
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            '@types/node'                   => '^22.5.5',
-            'flowbite'                      => '^2.5.1',
-            'prettier'                      => '^3.3.3',
+            '@types/node'                   => '^22.10.10',
+            'flowbite'                      => '^2.5.2',
+            'prettier'                      => '^3.4.2',
             'prettier-plugin-blade'         => '^2.1.19',
-            'prettier-plugin-tailwindcss'   => '^0.6.8',
-            'typescript'                    => '^5.6.2',
+            'prettier-plugin-tailwindcss'   => '^0.6.11',
+            'typescript'                    => '^5.7.3',
         ], $this->reset);
 
         $this->line($number,'Archivo package.json actualizado (devDependencies)');
