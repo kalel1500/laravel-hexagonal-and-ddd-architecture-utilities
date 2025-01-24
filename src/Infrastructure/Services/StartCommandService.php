@@ -731,6 +731,20 @@ EOD;
         return $this;
     }
 
+    public function execute_gitAdd(): self
+    {
+        $this->number++;
+
+        $this->execute_Process(
+            ['git', 'add', '.'],
+            null,
+            'New files added to the Git Staged Area.',
+            'Error adding new files to the Git Staged Area.'
+        );
+
+        return $this;
+    }
+
     public function execute_NpmRunBuild(): self
     {
         $this->number++;
