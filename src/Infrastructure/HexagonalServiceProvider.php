@@ -283,9 +283,9 @@ class HexagonalServiceProvider extends ServiceProvider
             // Obtiene las clases personalizadas
             $customClasses = $this->get('class', '');
 
-            // Divide ambas cadenas en arrays
-            $defaultArray = explode(' ', $defaultClasses);
-            $customArray = explode(' ', $customClasses);
+            // Divide ambas cadenas en arrays y elimina los strings vacíos
+            $defaultArray = array_filter(explode(' ', $defaultClasses));
+            $customArray = array_filter(explode(' ', $customClasses));
 
             // Filtra las clases del default eliminando conflictos con las custom
             $filteredDefault = array_filter($defaultArray, function ($class) use ($customArray) {
