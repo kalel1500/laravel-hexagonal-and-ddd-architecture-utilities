@@ -14,14 +14,16 @@ final class StartCommandService
 {
     private $command;
     private $reset;
+    private $simple;
     private $steps;
     private $filesystem;
     private $packageInDevelop;
 
-    public function __construct(HexagonalStart $command, bool $reset, int $steps)
+    public function __construct(HexagonalStart $command, bool $reset, bool $simple, int $steps)
     {
         $this->command          = $command;
         $this->reset            = $reset;
+        $this->simple           = $simple;
         $this->steps            = $steps;
         $this->filesystem       = $command->filesystem();
         $this->packageInDevelop = config('hexagonal.package_in_develop');
@@ -78,12 +80,12 @@ final class StartCommandService
         );
     }
 
-    public static function configure(HexagonalStart $command, bool $reset, int $steps): self
+    public static function configure(HexagonalStart $command, bool $reset, bool $simple, int $steps): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
         }
-        return new self($command, $reset, $steps);
+        return new self($command, $reset, $simple, $steps);
     }
 
     public function restoreFilesModifiedByPackageLaravelTsUtils($number): self
