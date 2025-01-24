@@ -383,12 +383,17 @@ EOD;
 
         $importLine = "import 'flowbite';";
 
-        if (str_contains($fileContents, $importLine)) {
-            return $this;
+        if ($this->reset) {
+            // Remove the import line from the file
+            $fileContents = str_replace($importLine . PHP_EOL, '', $fileContents);
+        } else {
+            if (str_contains($fileContents, $importLine)) {
+                return $this;
+            }
+            // Add the import line to the beginning of the file
+            $fileContents = $importLine . PHP_EOL . $fileContents;
         }
 
-        // Add the import line to the beginning of the file
-        $fileContents = $importLine . PHP_EOL . $fileContents;
         file_put_contents($filePath, $fileContents);
 
         $this->command->info('Archivo "resources/js/bootstrap.js" modificado');
