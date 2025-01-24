@@ -159,7 +159,7 @@ final class StartCommandService
     {
         $this->number++;
 
-        if ($this->developMode && !$this->reset) return $this;
+        if ($this->developMode) return $this;
 
         $file = 'app/Providers/AppServiceProvider.php';
 
