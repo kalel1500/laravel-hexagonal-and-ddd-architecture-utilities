@@ -99,7 +99,9 @@ final class StartCommandService
     private function execute_Process($command, ?string $startMessage, string $successMessage, string $failureMessage): void
     {
         // Imprimir mensaje de inicio del proceso
-        $this->line($startMessage);
+        if (!is_null($startMessage)) {
+            $this->line($startMessage);
+        }
 
         // Ejecutamos el proceso
         $run = Process::run($command);
