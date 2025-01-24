@@ -30,7 +30,13 @@ final class StartCommandService
         $this->developMode      = config('hexagonal.package_in_develop');
     }
 
-    private function line($message)
+    /**
+     * Write a string as indented output.
+     *
+     * @param string $message
+     * @return void
+     */
+    private function line(string $message): void
     {
         $this->command->line("  - <fg=yellow>$this->number/$this->steps</> $message");
     }
@@ -81,7 +87,16 @@ final class StartCommandService
         );
     }
 
-    private function execute_Process($command, $startMessage, $successMessage, $failureMessage)
+    /**
+     * Execute a process.
+     *
+     * @param array|string $command
+     * @param string|null $startMessage
+     * @param string $successMessage
+     * @param string $failureMessage
+     * @return void
+     */
+    private function execute_Process($command, ?string $startMessage, string $successMessage, string $failureMessage): void
     {
         // Imprimir mensaje de inicio del proceso
         $this->line($startMessage);
