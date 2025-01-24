@@ -18,7 +18,7 @@ final class StartCommandService
     private $steps;
     private $number = 0;
     private $filesystem;
-    private $packageInDevelop;
+    private $developMode;
 
     public function __construct(HexagonalStart $command, bool $reset, bool $simple, int $steps)
     {
@@ -27,7 +27,7 @@ final class StartCommandService
         $this->simple           = $simple;
         $this->steps            = $steps;
         $this->filesystem       = $command->filesystem();
-        $this->packageInDevelop = config('hexagonal.package_in_develop');
+        $this->developMode      = config('hexagonal.package_in_develop');
     }
 
     private function line($message)
@@ -146,7 +146,7 @@ final class StartCommandService
 
         if ($this->reset) return $this;
 
-        if ($this->packageInDevelop) return $this;
+        if ($this->developMode) return $this;
 
         // Publish "config/hexagonal.php"
         $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config']);
@@ -159,7 +159,7 @@ final class StartCommandService
     {
         $this->number++;
 
-        if ($this->packageInDevelop && !$this->reset) return $this;
+        if ($this->developMode && !$this->reset) return $this;
 
         $file = 'app/Providers/AppServiceProvider.php';
 
@@ -489,7 +489,7 @@ EOD;
 
         // Borrar los ".lock" del ".gitignore"
 
-        if ($this->packageInDevelop) return $this;
+        if ($this->developMode) return $this;
 
         // Ruta del archivo .gitignore
         $gitignorePath    = base_path('.gitignore');
@@ -684,7 +684,7 @@ EOD;
     {
         $this->number++;
 
-        if ($this->packageInDevelop) return $this;
+        if ($this->developMode) return $this;
 
         $this->execute_Process(
             ['npm', 'install'],
@@ -700,7 +700,7 @@ EOD;
     {
         $this->number++;
 
-        if ($this->packageInDevelop) return $this;
+        if ($this->developMode) return $this;
 
         $this->execute_Process(
             ['npm', 'run', 'build'],
