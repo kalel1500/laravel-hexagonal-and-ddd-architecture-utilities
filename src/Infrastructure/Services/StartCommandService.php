@@ -16,15 +16,15 @@ final class StartCommandService
     private $reset;
     private $steps;
     private $filesystem;
-    private $skipHarmlessMethods;
+    private $packageInDevelop;
 
     public function __construct(HexagonalStart $command, bool $reset, int $steps)
     {
-        $this->command             = $command;
-        $this->reset               = $reset;
-        $this->steps               = $steps;
-        $this->filesystem          = $command->filesystem();
-        $this->skipHarmlessMethods = false;
+        $this->command          = $command;
+        $this->reset            = $reset;
+        $this->steps            = $steps;
+        $this->filesystem       = $command->filesystem();
+        $this->packageInDevelop = config('hexagonal.package_in_develop');
     }
 
     private function line($number, $message)
@@ -574,7 +574,7 @@ EOD;
     {
         // Execute the "composer dump-autoload" command
 
-        if ($this->skipHarmlessMethods) {
+        if ($this->packageInDevelop) {
             return $this;
         }
 
@@ -592,7 +592,7 @@ EOD;
     {
         // Install and build Node dependencies.
 
-        if ($this->skipHarmlessMethods) {
+        if ($this->packageInDevelop) {
             return $this;
         }
 

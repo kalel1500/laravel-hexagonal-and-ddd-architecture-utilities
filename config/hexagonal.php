@@ -655,4 +655,16 @@ return [
             ],
         ]
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Package in develop
+    |--------------------------------------------------------------------------
+    |
+    | With this option you can configure if the package is in development to
+    | avoid executing unnecessary methods in the "hexagonal:start" command.
+    |
+    */
+
+    'package_in_develop' => false,
 ];
