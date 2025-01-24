@@ -1,5 +1,5 @@
-/*----- laravel-ts-utilities css -----*/
-@import 'laravel-ts-utilities/dist/app/styles.css';
+/*----- @kalel1500/laravel-ts-utils css -----*/
+@import '@kalel1500/laravel-ts-utils/dist/app/styles.css';
 
 /*----- Tailwind css -----*/
 @tailwind base;

@@ -1,4 +1,4 @@
-import { Cookie, g, Html } from 'laravel-ts-utilities';
+import { Cookie, g, Html } from '@kalel1500/laravel-ts-utils';
 
 export default class ExamplesController {
     compareHtml()

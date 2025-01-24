@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { laravelDefaultPlugins } from 'laravel-ts-utilities/dist/plugins/tailwind';
+import { laravelDefaultPlugins } from '@kalel1500/laravel-ts-utils/dist/plugins/tailwind';
 
 export default {
     content: [

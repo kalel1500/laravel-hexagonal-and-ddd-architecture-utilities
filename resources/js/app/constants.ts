@@ -1,4 +1,4 @@
-import { Constants, DefaultConstants } from 'laravel-ts-utilities';
+import { Constants, DefaultConstants } from '@kalel1500/laravel-ts-utils';
 
 interface AppConstants extends DefaultConstants {
     anotherSetting: string;

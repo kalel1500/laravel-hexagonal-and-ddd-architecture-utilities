@@ -17,7 +17,7 @@ import './constants';
 import './translations';
 
 // Los otros imports (debajo)
-import { Route, UtilitiesServiceProvider } from 'laravel-ts-utilities';
+import { Route, UtilitiesServiceProvider } from '@kalel1500/laravel-ts-utils';
 import { defineRoutes } from './routes';
 
 // Definir que acciones ejecutar del paquete

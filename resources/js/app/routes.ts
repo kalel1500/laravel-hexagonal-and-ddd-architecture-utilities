@@ -1,4 +1,4 @@
-import { Route } from 'laravel-ts-utilities';
+import { Route } from '@kalel1500/laravel-ts-utils';
 import ExamplesController from '../src/infrastructure/ExamplesController';
 
 export function defineRoutes(): void {

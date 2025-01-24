@@ -1,6 +1,6 @@
 import es from './lang/es.json';
 import en from './lang/en.json';
-import { DefaultTranslations, TranslationReplacements, Translator } from 'laravel-ts-utilities';
+import { DefaultTranslations, TranslationReplacements, Translator } from '@kalel1500/laravel-ts-utils';
 
 export interface AppTranslations extends DefaultTranslations {
     'test_message': string;
