@@ -490,9 +490,16 @@ EOD;
 
         $psr4 = $composer['autoload']['psr-4'];
 
-        // Añadimos los nuevos namespaces
-        $composer['autoload']['psr-4'] = $namespaces + $psr4;
-        ksort($composer['autoload']['psr-4']);
+        if ($this->reset) {
+            // Eliminamos los namespaces especificados
+            foreach ($namespaces as $namespace => $path) {
+                unset($composer['autoload']['psr-4'][$namespace]);
+            }
+        } else {
+            // Añadimos los nuevos namespaces
+            $composer['autoload']['psr-4'] = $namespaces + $psr4;
+            ksort($composer['autoload']['psr-4']);
+        }
 
         // Convertir el arreglo a JSON y formatear con JSON_PRETTY_PRINT
         $jsonContent = json_encode($composer, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
