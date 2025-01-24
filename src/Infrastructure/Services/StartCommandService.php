@@ -624,6 +624,8 @@ EOD;
     {
         $this->number++;
 
+        if ($this->developMode) return $this;
+
         // Install "tightenco/ziggy"
 
         $content = file_get_contents(base_path('composer.json'));
