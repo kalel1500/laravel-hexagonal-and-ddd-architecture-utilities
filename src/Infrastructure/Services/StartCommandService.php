@@ -474,7 +474,7 @@ EOD;
         // Update the "autoload.psr-4" section in "composer.json" file with additional namespaces.
         // Add the "Src" namespace into "composer.json"
 
-        $additionalNamespaces = ["Src\\" => "src/"];
+        $namespaces = ['Src\\' => 'src/'];
 
         $filePath = base_path('composer.json');
 
@@ -482,33 +482,20 @@ EOD;
             return $this;
         }
 
-        $composerConfig = json_decode(file_get_contents($filePath), true);
+        $composer = json_decode(file_get_contents($filePath), true);
 
-        // Asegurarse de que las claves necesarias existan
-        if (!isset($composerConfig['autoload']['psr-4'])) {
-            return $this;
+        if (!isset($composer['autoload']['psr-4'])) {
+            $composer['autoload']['psr-4'] = [];
         }
 
-        $psr4 = $composerConfig['autoload']['psr-4'];
+        $psr4 = $composer['autoload']['psr-4'];
 
-        // Insertar cada nuevo namespace después de "App\\"
-        $updatedPsr4 = [];
-        foreach ($psr4 as $namespace => $path) {
-            $updatedPsr4[$namespace] = $path;
-
-            // Insertar los nuevos namespaces después de "App\\"
-            if ($namespace === 'App\\') {
-                foreach ($additionalNamespaces as $newNamespace => $newPath) {
-                    $updatedPsr4[$newNamespace] = $newPath;
-                }
-            }
-        }
-
-        // Actualizar el valor de psr-4 en la configuración de composer
-        $composerConfig['autoload']['psr-4'] = $updatedPsr4;
+        // Añadimos los nuevos namespaces
+        $composer['autoload']['psr-4'] = $namespaces + $psr4;
+        ksort($composer['autoload']['psr-4']);
 
         // Convertir el arreglo a JSON y formatear con JSON_PRETTY_PRINT
-        $jsonContent = json_encode($composerConfig, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        $jsonContent = json_encode($composer, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
         // Usa una expresión regular para encontrar la key "keywords" y ponerla en una línea
         $jsonContent = preg_replace_callback(
@@ -522,7 +509,7 @@ EOD;
             $jsonContent
         );
 
-        // Guardar el archivo actualizado
+        // Guardamos los cambios en composer.json
         file_put_contents($filePath, $jsonContent . PHP_EOL);
 
 
