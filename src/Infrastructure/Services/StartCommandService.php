@@ -469,24 +469,6 @@ EOD;
         return $this;
     }
 
-    public function execute_ComposerRequire_toInstallComposerDependencies(): self
-    {
-        // Install "tightenco/ziggy"
-
-        $content = file_get_contents(base_path('composer.json'));
-        if (str_contains($content, 'tightenco/ziggy')) {
-            return $this;
-        }
-
-        $this->command->executeRequireComposerPackages(
-            $this->command->option('composer'),
-            ['tightenco/ziggy']
-        );
-        $this->command->info('Dependencias de composer instaladas');
-
-        return $this;
-    }
-
     public function modifyFile_ComposerJson_toAddSrcNamespace(): self
     {
         // Update the "autoload.psr-4" section in "composer.json" file with additional namespaces.
@@ -545,6 +527,24 @@ EOD;
 
 
         $this->command->info('Namespace "Src" añadido al "composer.json"');
+
+        return $this;
+    }
+
+    public function execute_ComposerRequire_toInstallComposerDependencies(): self
+    {
+        // Install "tightenco/ziggy"
+
+        $content = file_get_contents(base_path('composer.json'));
+        if (str_contains($content, 'tightenco/ziggy')) {
+            return $this;
+        }
+
+        $this->command->executeRequireComposerPackages(
+            $this->command->option('composer'),
+            ['tightenco/ziggy']
+        );
+        $this->command->info('Dependencias de composer instaladas');
 
         return $this;
     }

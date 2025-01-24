@@ -87,8 +87,8 @@ class HexagonalStart extends Command
             ->modifyFile_Gitignore_toDeleteLockFileLines()
             ->modifyFile_PackageJson_toAddNpmDevDependencies()
             ->modifyFile_PackageJson_toAddScriptTsBuild()
-            ->execute_ComposerRequire_toInstallComposerDependencies()
             ->modifyFile_ComposerJson_toAddSrcNamespace()
+            ->execute_ComposerRequire_toInstallComposerDependencies()
             ->execute_ComposerDumpAutoload()
             ->execute_NpminstallAndNpmRunBuild();
     }
