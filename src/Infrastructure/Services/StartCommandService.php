@@ -29,10 +29,11 @@ final class StartCommandService
      * Update the "package.json" file.
      *
      * @param string $configurationKey
-     * @param callable $callback
+     * @param array $items
+     * @param bool $remove
      * @return void
      */
-    private function updatePackageJsonSection(string $configurationKey, callable $callback)
+    private function modifyPackageJsonSection(string $configurationKey, array $items, bool $remove = false)
     {
         $filePath = base_path('package.json');
 
@@ -42,13 +43,22 @@ final class StartCommandService
 
         $packages = json_decode(file_get_contents($filePath), true);
 
-        $packages[$configurationKey] = $callback(
-            $packages[$configurationKey] ?? [],
-            $configurationKey
-        );
+        // Obtenemos la sección que se va a modificar o un array vacío si no existe
+        $currentSection = $packages[$configurationKey] ?? [];
 
-        ksort($packages[$configurationKey]);
+        if ($remove) {
+            // Eliminamos los elementos especificados
+            foreach ($items as $key => $value) {
+                unset($currentSection[$key]);
+            }
+            $packages[$configurationKey] = $currentSection;
+        } else {
+            // Añadimos los elementos a la sección
+            $packages[$configurationKey] = $items + $currentSection;
+            ksort($packages[$configurationKey]);
+        }
 
+        // Guardamos los cambios en package.json
         file_put_contents(
             $filePath,
             json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
@@ -433,17 +443,16 @@ EOD;
     public function modifyFile_PackageJson_toAddNpmDevDependencies(): self
     {
         // Install NPM packages...
-        $this->updatePackageJsonSection('devDependencies', function ($packages) {
-            return [
-                    '@types/node'                   => '^22.5.5',
-                    'flowbite'                      => '^2.5.1',
-                    'prettier'                      => '^3.3.3',
-                    'prettier-plugin-blade'         => '^2.1.19',
-                    'prettier-plugin-tailwindcss'   => '^0.6.8',
-                    'typescript'                    => '^5.6.2',
-                ] + $packages;
-        });
-        $this->command->info('Dependencias de NPM instaladas');
+        $this->modifyPackageJsonSection('devDependencies', [
+            '@types/node'                   => '^22.5.5',
+            'flowbite'                      => '^2.5.1',
+            'prettier'                      => '^3.3.3',
+            'prettier-plugin-blade'         => '^2.1.19',
+            'prettier-plugin-tailwindcss'   => '^0.6.8',
+            'typescript'                    => '^5.6.2',
+        ], $this->reset);
+
+        $this->command->info('Archivo package.json actualizado (devDependencies)');
 
         return $this;
     }
@@ -451,12 +460,11 @@ EOD;
     public function modifyFile_PackageJson_toAddScriptTsBuild(): self
     {
         // Add script "ts-build" in "package.json"
-        $this->updatePackageJsonSection('scripts', function ($packages) {
-            return [
-                'ts-build' => 'tsc && vite build',
-                ] + $packages;
-        });
-        $this->command->info('Script "ts-build" añadido al "package.json"');
+        $this->modifyPackageJsonSection('scripts', [
+            'ts-build' => 'tsc && vite build',
+        ], $this->reset);
+
+        $this->command->info('Archivo package.json actualizado (script "ts-build")');
 
         return $this;
     }
