@@ -27,7 +27,7 @@ final class ExceptionContextDo extends ContractDataObject
         bool       $success,
         ?array     $data,
         ?array     $custom_response,
-        int        $code,
+                   $code,
         string     $exception,
         string     $file,
         int        $line,
