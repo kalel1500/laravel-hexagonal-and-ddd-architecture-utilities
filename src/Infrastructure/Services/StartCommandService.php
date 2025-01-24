@@ -696,6 +696,22 @@ EOD;
         return $this;
     }
 
+    public function execute_NpxLaravelTsUtils(): self
+    {
+        $this->number++;
+
+        if ($this->reset) return $this;
+
+        $this->execute_Process(
+            ['npx', 'laravel-ts-utils'],
+            'Running the "laravel-ts-utils" package start command.',
+            'Laravel-ts-utils package files generated successfully.',
+            'Error while generating files for the "laravel-ts-utils" package.'
+        );
+
+        return $this;
+    }
+
     public function execute_NpmRunBuild(): self
     {
         $this->number++;

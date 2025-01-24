@@ -113,6 +113,7 @@ class HexagonalStart extends Command
             ->modifyFile_ComposerJson_toAddSrcNamespace()
             ->execute_ComposerRequire_toInstallComposerDependencies()
             ->execute_NpmInstall()
+            ->execute_NpxLaravelTsUtils()
             ->execute_NpmRunBuild();
 
         $this->info('Configuración finalizada');
