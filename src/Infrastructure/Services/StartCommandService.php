@@ -314,15 +314,19 @@ final class StartCommandService
             $to_envLocal = base_path($file);
         }
 
-        // Copiar origen a ".env.local" y ".env"
+        // Copiar origen a ".env.local"
         copy($from, $to_envLocal);
-        copy($from, $to_env);
 
-        // Borrar manualmente el valor de config('app.key') para que se regenere correctamente
-        config(['app.key' => '']);
+        if (!$this->developMode) {
+            // Copiar origen a ".env" (si no es "developMode")
+            copy($from, $to_env);
 
-        // Regenerar Key
-        $this->command->call('key:generate');
+            // Borrar manualmente el valor de config('app.key') para que se regenere correctamente
+            config(['app.key' => '']);
+
+            // Regenerar Key
+            $this->command->call('key:generate');
+        }
 
         $this->line($message);
 
