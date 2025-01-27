@@ -289,18 +289,29 @@ final class StartCommandService
 
         // Crear archivos ".env" y ".env.local"
 
+        $message = 'Archivos ".env" creados';
+
+        // Definir archivo origen (al generar)
         $file = '.env.local';
         $from = $this->command->stubsPath($file);
         $to_envLocal = base_path($file);
+
+        // Definir archivo destino
         $to_env = base_path('.env');
 
         if ($this->reset) {
+            $message = 'Archivos ".env" restaurados';
+
+            // Eliminar archivo ".env.local"
             $this->filesystem->delete($to_envLocal);
-            $this->filesystem->delete($to_env);
-            $this->line('Archivos ".env" eliminados');
-            return $this;
+
+            // Definir archivo origen (reset)
+            $file = '.env.example';
+            $from = $this->command->originalStubsPath($file);
+            $to_envLocal = base_path($file);
         }
 
+        // Copiar origen a ".env.local" y ".env"
         copy($from, $to_envLocal);
         copy($from, $to_env);
 
@@ -310,7 +321,7 @@ final class StartCommandService
         // Regenerar Key
         $this->command->call('key:generate');
 
-        $this->line('Archivos ".env" creados');
+        $this->line($message);
 
         return $this;
     }
