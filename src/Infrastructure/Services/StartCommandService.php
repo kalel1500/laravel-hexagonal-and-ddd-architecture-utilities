@@ -230,6 +230,31 @@ final class StartCommandService
         return $this;
     }
 
+    public function stubsCopyFolder_Images(): self
+    {
+        $this->number++;
+
+        if ($this->simple) return $this;
+
+        // Views
+        $folder = 'resources/images';
+
+        $dir = ($this->reset) ? $this->command->originalStubsPath($folder) : $this->command->stubsPath($folder);
+        $dest = base_path($folder);
+
+        if ($this->reset) {
+            $this->filesystem->deleteDirectory($dest);
+            $this->line('Carpeta "'.$folder.'" eliminada');
+            return $this;
+        }
+
+        $this->filesystem->ensureDirectoryExists($dest);
+        $this->filesystem->copyDirectory($dir, $dest);
+        $this->line('Carpeta "'.$folder.'" creada');
+
+        return $this;
+    }
+
     public function stubsCopyFolder_Src(): self
     {
         $this->number++;

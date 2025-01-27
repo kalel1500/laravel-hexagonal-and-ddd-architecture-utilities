@@ -96,6 +96,7 @@ class HexagonalStart extends Command
             ->stubsCopyFile_AppServiceProvider()
             ->stubsCopyFile_DependencyServiceProvider()
             ->stubsCopyFolder_Views()
+            ->stubsCopyFolder_Images()
             ->stubsCopyFolder_Src()
             ->stubsCopyFile_RoutesWeb()
             ->stubsCopyFile_tailwindConfigJs()
