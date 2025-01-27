@@ -570,6 +570,8 @@ EOD;
     {
         $this->number++;
 
+        if ($this->simple) return $this;
+
         $this->modifyPackageJsonSection('dependencies', [
             '@kalel1500/laravel-ts-utils'   => '^0.4.0-beta.9',
         ], $this->reset);
@@ -732,6 +734,8 @@ EOD;
     public function execute_NpxLaravelTsUtils(): self
     {
         $this->number++;
+
+        if ($this->simple) return $this;
 
         if ($this->reset) return $this;
 
