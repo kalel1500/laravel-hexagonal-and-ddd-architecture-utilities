@@ -7,11 +7,14 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
+use Thehouseofel\Hexagonal\Domain\Traits\CountMethods;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
 use Thehouseofel\Hexagonal\Infrastructure\HexagonalServiceProvider;
 
 final class StartCommandService
 {
+    use CountMethods;
+
     private $command;
     private $reset;
     private $simple;
@@ -20,12 +23,12 @@ final class StartCommandService
     private $filesystem;
     private $developMode;
 
-    public function __construct(HexagonalStart $command, bool $reset, bool $simple, int $steps)
+    public function __construct(HexagonalStart $command, bool $reset, bool $simple)
     {
         $this->command          = $command;
         $this->reset            = $reset;
         $this->simple           = $simple;
-        $this->steps            = $steps;
+        $this->steps            = $this->countPublicMethods();
         $this->filesystem       = $command->filesystem();
         $this->developMode      = config('hexagonal.package_in_develop');
     }
@@ -118,12 +121,12 @@ final class StartCommandService
     }
 
 
-    public static function configure(HexagonalStart $command, bool $reset, bool $simple, int $steps): self
+    public static function configure(HexagonalStart $command, bool $reset, bool $simple): self
     {
         if (!Version::laravelIsEqualOrGreaterThan11()) {
             $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
         }
-        return new self($command, $reset, $simple, $steps);
+        return new self($command, $reset, $simple);
     }
 
     public function restoreFilesModifiedByPackageLaravelTsUtils(): self

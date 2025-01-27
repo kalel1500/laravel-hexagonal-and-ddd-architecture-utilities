@@ -90,7 +90,7 @@ class HexagonalStart extends Command
 
         $this->info('Inicio configuración:');
 
-        StartCommandService::configure($this, $reset, $simple, 25)
+        StartCommandService::configure($this, $reset, $simple)
             ->restoreFilesModifiedByPackageLaravelTsUtils()
             ->publishHexagonalConfig()
             ->stubsCopyFile_AppServiceProvider()
