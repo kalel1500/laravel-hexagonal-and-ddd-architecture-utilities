@@ -256,7 +256,11 @@ class HexagonalServiceProvider extends ServiceProvider
 //        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);
 
         // Añadir un middleware a un grupo (con Router para soportar versiones posteriores a la 6)
-        if (Hexagonal::enabledPreferencesCookie()) {
+        if (
+            !$this->app->runningInConsole() &&
+            !empty(config('app.key')) &&
+            Hexagonal::enabledPreferencesCookie()
+        ) {
             /** @var Kernel $kernel */
             $kernel = $this->app->make(Kernel::class);
             $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
