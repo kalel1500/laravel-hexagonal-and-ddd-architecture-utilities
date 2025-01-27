@@ -666,5 +666,5 @@ return [
     |
     */
 
-    'package_in_develop' => false,
+    'package_in_develop' => (bool) env('HEXAGONAL_PACKAGE_IN_DEVELOP', false),
 ];
