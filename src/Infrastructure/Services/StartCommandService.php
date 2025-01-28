@@ -562,16 +562,16 @@ EOD;
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            'flowbite'                      => '^2.5.2',
+            'flowbite'                      => config('hexagonal.version_flowbite'),
         ], $this->isReset());
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            '@types/node'                   => '^22.10.10',
-            'prettier'                      => '^3.4.2',
-            'prettier-plugin-blade'         => '^2.1.19',
-            'prettier-plugin-tailwindcss'   => '^0.6.11',
-            'typescript'                    => '^5.7.3',
+            '@types/node'                   => config('hexagonal.version_types_node'),
+            'prettier'                      => config('hexagonal.version_prettier'),
+            'prettier-plugin-blade'         => config('hexagonal.version_prettier_plugin_blade'),
+            'prettier-plugin-tailwindcss'   => config('hexagonal.version_prettier_plugin_tailwindcss'),
+            'typescript'                    => config('hexagonal.version_typescript'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (devDependencies)');
@@ -584,7 +584,7 @@ EOD;
         $this->number++;
 
         $this->modifyPackageJsonSection('dependencies', [
-            '@kalel1500/laravel-ts-utils'   => '^0.4.0-beta.10',
+            '@kalel1500/laravel-ts-utils'   => config('hexagonal.version_kalel1500_laravel_ts_utils'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (dependencies)');
