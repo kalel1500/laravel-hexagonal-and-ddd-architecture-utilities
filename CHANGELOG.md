@@ -1,6 +1,101 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.13.0-beta.3...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.0-beta.0...master)
+
+## [v0.14.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.13.0-beta.3...v0.14.0-beta.0) - 2025-01-28
+
+### Added
+
+* Nuevo trait `CountMethods` para contar los métodos que tiene una clase
+* Nueva clase `Version` para centralizar todas las comparaciones de versiones (tanto de laravel como PHP)
+
+### Changed
+
+* hexagonalStart:
+  * actualizar dependencia `@kalel1500/laravel-ts-utils` a la versión `^0.4.0-beta.10`
+  * configurar las versiones de las dependencias de NPM en la configuración (`config/hexagonal`)
+* Dependencias de NPM actualizadas
+* layout:
+  * Establecer un ancho y alto fijos a la imagen del logo de la App para prevenir salto de imagen (por si tarda en cargar)
+  * (refactor) simplificar lógica extension del Javascript en el `welcome.blade.php`
+  * cambiar origen logo Flowbite a local (con la directiva `@viteAsset()`) en vez de apuntar a internet
+* stubs:
+  * actualizar archivos a la version 11.6 de `laravel/laravel`
+  * guardar las imágenes en el paquete `hexagonal` en lugar de en el `@kalel1500/laravel-ts-utils`
+* hexagonalStart:
+  * Nuevo método `modifyFile_PackageJson_toAddNpmDependencies()` para instalar el paquete `@kalel1500/laravel-ts-utils` en `dependencies` + añadir condición para eliminar propiedad si queda un array vacío
+  * Nuevo parámetro `$simple` para poder limitar la instalación a solo lo necesario para un backend o una api
+  * Separar método `execute_NpmInstallAndNpmRunBuild()` en dos (`execute_NpmInstall()` y `execute_NpmRunBuild()`)
+  * Extraer el código repetido de `execute_NpmInstall()` y `execute_NpmRunBuild()` al método `execute_Process()`
+  * Automatizar lógica de los números para no tener que pasarlo por parámetro en la ejecución de cada método
+  * Propiedad `$packageInDevelop` renombrada a `$developMode`
+  * Nuevo método `execute_NpxLaravelTsUtils()`
+  * Quitar condición `&& !$this->reset` para cortar la ejecución en `developMode` del método `stubsCopyFile_AppServiceProvider()`
+  * Añadir condición `$developMode` en el método `execute_ComposerRequire_toInstallComposerDependencies()` (para que no se instale cada vez)
+  * Documentar y tipar métodos privados
+  * Pintar mensaje inicial del método `execute_Process()` solo si no es `null`
+  * Nuevo método `execute_gitAdd()`
+  * Mejorar método `createEnvFiles()` para que el `reset` solo elimine el `.env.local` y regenere el `.env` y el `.env.example` en base al archivo que ahora se guarda en `stubs/original/.env.example` y después genere la key
+  * Usar el nuevo trait `CountMethods` para contar los pasos del `StartCommandService` en vez de pasarlo manualmente por el constructor
+  * Añadir las condiciones del parámetro `$this->simple` para no ejecutar los métodos relacionados con el paquete `@kalel1500/laravel-ts-utils` cuando se pasa el parámetro `--simple`
+  * Obtener la configuración `hexagonal.package_in_develop` de la nueva variable de entorno `env('HEXAGONAL_PACKAGE_IN_DEVELOP', false)`
+  * No sobreescribir el archivo `.env` si el parámetro `$this->developMode` es `true` para poder configurarlo en la variable `HEXAGONAL_PACKAGE_IN_DEVELOP` del `.env`
+  * Nuevo método `stubsCopyFolder_Images()`
+  * Unificar métodos `stubsCopyFolder_Views()` y `stubsCopyFolder_Images()` en `stubsCopyFolder_Resources()`
+  * Añadir condición ` || $this->simple` al deshacer los métodos del front para que se pueda lanzar el `--simple` después del full y que siga funcionando:
+    * -`modifyFile_PackageJson_toAddNpmDevDependencies`
+    * -`modifyFile_PackageJson_toAddNpmDependencies`
+    * -`modifyFile_PackageJson_toAddScriptTsBuild`
+    * -`execute_NpxLaravelTsUtils`
+  * Nuevo método privado `isReset($isFront)` para poder definir que métodos pertenecen al front y mover la lógica del `$this->simple` dentro de este nuevo método
+  * Añadir el archivo `resources/js/app.js` a los stubs con la compilación de las imágenes
+* development-tips: añadida información del `composer.json` para instalar la versión `dev-master` del paquete con un enlace durante el desarrollo
+* tsUtilsDevelop: instalado el nuevo paquete `@kalel1500/laravel-ts-utils` y ejecutado el comando `npx laravel-ts-utils` (se han actualizado los imports de los archivos `.ts`)
+* (breaking) Dejar de soportar la version `7.2.5` de PHP (ahora como mínimo la `7.4`)
+* hexagonalStartReset:
+  * (refactor) mejorar método `createEnvFiles()` (para facilitar el borrado)
+  * (refactor) mejorar método `modifyFile_DatabaseSeeder_toCommentUserFactory()` (hacerlo mas genérico)
+  * Añadir código para revertir cada método (cuando recibamos el parámetro `--reset`)
+  * (refactor) mejorar método `modifyFile_JsBootstrap_toAddImportFlowbite()` (hacerlo mas genérico)
+  * Métodos reordenados
+  * (refactor) mejorar método `modifyFile_ComposerJson_toAddSrcNamespace()` (para facilitar el borrado y eliminar orden)
+  * Identar los mensajes y añadir prefijo con el número de la tarea y el total de tareas
+  * Comentar los métodos que no se utilizan en vez de llamarlos y comentar el contenido
+  * Renombrar propiedad `$skipHarmlessMethods` por `$packageInDevelop` y añadir la configuración en el `config/hexagonal.php`
+  * Desactivar los siguientes métodos cuando se ha configurado a true la variable $packageInDevelop en la config` ->
+    * -`publishHexagonalConfig()`
+    * -`stubsCopyFile_AppServiceProvider()`
+    * -`modifyFile_Gitignore_toDeleteLockFileLines()`
+    * -`execute_NpminstallAndNpmRunBuild()`
+* hexagonalStartReset:
+  * Añadir parámetro `--reset` al comando `hexagonal:start`
+  * (refactor) Mejorar estructura rutas archivos para evitar repeticiones
+* hexagonalStartRelaunch:
+  * `publishHexagonalConfig()` -> forzar republicación de la configuración eliminando la actual
+  * Cambiar `addCommentIgnoreMigrationsInAppServiceProvider()` por `stubsCopyAppServiceProvider()` ya que es más fácil tener el archivo creado en `stubs` que hacer el regex
+  * (fix) arreglar método `addHexagonalExceptionHandlerInBootstrapApp()` (no funcionaba siempre)
+  * Añadir validación de la versión de Laravel 11 en los métodos `addDependencyServiceProviderToBootstrapFile()` y `addHexagonalExceptionHandlerInBootstrapApp()`
+  * No permitir lanzar el comando en versiones de Laravel inferiores a Laravel 11
+  * (fix) prevenir error al relanzar el método `commentUserFactoryInDatabaseSeeder()`
+  * Métodos renombrados con `_` para separar los conceptos
+  * (fix) Prevenir error al relanzar el método `modifyFile_JsBootstrap_toAddImportFlowbite()`
+  * (fix) Sol. error al ejecutar el método `$this->command->requireComposerPackages()` desde el servicio (se ha movido al comando, ya que el trait no se pasa con el $this)
+  * Prevenir `execute_ComposerRequire_toInstallComposerDependencies()` para que no se ejecute si ya está instalado
+  * Añadir propiedad `$skipHarmlessMethods` para poder saltar los comandos de instalación durante el desarrollo
+  * Nuevo método `restoreFilesModifiedByPackageLaravelTsUtils()` en el `HexagonalStart.php` para deshacer el comando `npx laravel-ts-utils` por si se relanza el `hexagonal:start` después del npx del paquete de JS
+  * (refactor) Usar las rutas con los métodos `stubsPath()` y `originalStubsPath()` en vez de concatenarlas
+* hexagonalStartReset:
+  * Mover los archivos de `stubs` a la carpeta `stubs/generate`
+  * Añadir los archivos originales en la carpeta `stubs/original`
+* hexagonalStartRoutes: Comprobar la versión de php para las rutas
+* Tags de las versiones renombrados
+
+### Fixed
+
+* (fix) añadir validaciones `!$this->app->runningInConsole() && !empty(config('app.key'))` al registrar el middleware `AddPreferencesCookies` en el `HexagonalServiceProvider` (para solucionar error cuando la variable `APP_KEY=` está vacía y en el `AppServiceProvider` se llama a `Hexagonal::configure()->enablePreferencesCookie()`)
+* (fix) sol. error en la macro `@mergeTailwind()` cuando las clases tienen espacios (se ha añadido `array_filter` después del `explode`)
+* (fix) eliminar tipado del parámetro $code de la clase `ExceptionContextDo.php`, ya que puede ser string (en las excepciones de eloquent)
+* (fix) sol. error en el método `translatedValue()` de la clase `ContractEnumVo` cuando el valor del `enum` es `null`
 
 ## [v0.13.0-beta.3](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.13.0-beta.2...v0.13.0-beta.3) - 2025-01-13
 
