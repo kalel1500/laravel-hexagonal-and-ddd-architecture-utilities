@@ -584,7 +584,7 @@ EOD;
         $this->number++;
 
         $this->modifyPackageJsonSection('dependencies', [
-            '@kalel1500/laravel-ts-utils'   => '^0.4.0-beta.9',
+            '@kalel1500/laravel-ts-utils'   => '^0.4.0-beta.10',
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (dependencies)');
