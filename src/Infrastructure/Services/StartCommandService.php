@@ -557,13 +557,17 @@ EOD;
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            '@types/node'                   => '^22.10.10',
             'flowbite'                      => '^2.5.2',
+        ], $this->reset);
+
+        // Install NPM packages...
+        $this->modifyPackageJsonSection('devDependencies', [
+            '@types/node'                   => '^22.10.10',
             'prettier'                      => '^3.4.2',
             'prettier-plugin-blade'         => '^2.1.19',
             'prettier-plugin-tailwindcss'   => '^0.6.11',
             'typescript'                    => '^5.7.3',
-        ], $this->reset);
+        ], $this->reset || $this->simple);
 
         $this->line('Archivo package.json actualizado (devDependencies)');
 
@@ -574,11 +578,9 @@ EOD;
     {
         $this->number++;
 
-        if ($this->simple) return $this;
-
         $this->modifyPackageJsonSection('dependencies', [
             '@kalel1500/laravel-ts-utils'   => '^0.4.0-beta.9',
-        ], $this->reset);
+        ], $this->reset || $this->simple);
 
         $this->line('Archivo package.json actualizado (dependencies)');
 
@@ -592,7 +594,7 @@ EOD;
         // Add script "ts-build" in "package.json"
         $this->modifyPackageJsonSection('scripts', [
             'ts-build' => 'tsc && vite build',
-        ], $this->reset);
+        ], $this->reset || $this->simple);
 
         $this->line('Archivo package.json actualizado (script "ts-build")');
 
@@ -739,9 +741,7 @@ EOD;
     {
         $this->number++;
 
-        if ($this->simple) return $this;
-
-        if ($this->reset) return $this;
+        if ($this->reset || $this->simple) return $this;
 
         $this->execute_Process(
             ['npx', 'laravel-ts-utils'],
