@@ -33,6 +33,11 @@ final class StartCommandService
         $this->developMode      = config('hexagonal.package_in_develop');
     }
 
+    private function isReset(bool $isFront = false): bool
+    {
+        return $isFront ? ($this->reset || $this->simple) : $this->reset;
+    }
+
     /**
      * Write a string as indented output.
      *
@@ -164,7 +169,7 @@ final class StartCommandService
         // Delete "config/hexagonal.php"
         $this->filesystem->delete(config_path('hexagonal.php'));
 
-        if ($this->reset) return $this;
+        if ($this->isReset()) return $this;
 
         if ($this->developMode) return $this;
 
@@ -183,7 +188,7 @@ final class StartCommandService
 
         $file = 'app/Providers/AppServiceProvider.php';
 
-        $from = ($this->reset) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
+        $from = ($this->isReset()) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
         $to = base_path($file);
 
         copy($from, $to);
@@ -201,7 +206,7 @@ final class StartCommandService
         $from = $this->command->stubsPath($file);
         $to = base_path($file);
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             $this->filesystem->delete($to);
             $this->line('Archivo "'.$file.'" eliminado');
             return $this;
@@ -220,7 +225,7 @@ final class StartCommandService
         // Views
         $folder = 'resources';
 
-        $dir = ($this->reset) ? $this->command->originalStubsPath($folder) : $this->command->stubsPath($folder);
+        $dir = ($this->isReset()) ? $this->command->originalStubsPath($folder) : $this->command->stubsPath($folder);
         $dest = base_path($folder);
 
         $this->filesystem->ensureDirectoryExists($dest);
@@ -240,7 +245,7 @@ final class StartCommandService
         $dir = $this->command->stubsPath($folder);
         $dest = base_path($folder);
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             $this->filesystem->deleteDirectory($dest);
             $this->line('Carpeta "'.$folder.'" eliminada');
             return $this;
@@ -261,7 +266,7 @@ final class StartCommandService
         $originalFile = 'routes/web.php';
         $generatedFile = 'routes/'.(Version::phpIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php');
 
-        $from = ($this->reset) ? $this->command->originalStubsPath($originalFile) : $this->command->stubsPath($generatedFile);
+        $from = ($this->isReset()) ? $this->command->originalStubsPath($originalFile) : $this->command->stubsPath($generatedFile);
         $to = base_path($originalFile);
 
         copy($from, $to);
@@ -277,7 +282,7 @@ final class StartCommandService
         // tailwind.config.js
         $file = 'tailwind.config.js';
 
-        $from = ($this->reset) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
+        $from = ($this->isReset()) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
         $to = base_path($file);
 
         copy($from, $to);
@@ -302,7 +307,7 @@ final class StartCommandService
         // Definir archivo destino
         $to_env = base_path('.env');
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             $message = 'Archivos ".env" restaurados';
 
             // Eliminar archivo ".env.local"
@@ -341,7 +346,7 @@ final class StartCommandService
         $folder = 'app/Http';
         $dest = base_path($folder);
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             $dir = $this->command->originalStubsPath($folder);
             $this->filesystem->ensureDirectoryExists($dest);
             $this->filesystem->copyDirectory($dir, $dest);
@@ -390,7 +395,7 @@ final class StartCommandService
             return $this;
         }
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             HexagonalServiceProvider::removeProviderFromBootstrapFile('App\Providers\DependencyServiceProvider');
         } else {
             ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
@@ -419,7 +424,7 @@ final class StartCommandService
         $pattern = '/->withExceptions\(function \(Exceptions \$exceptions\) \{(.*?)}\)/s';
 
         // Reemplazar el contenido del bloque con las nuevas líneas
-        $replacement = ($this->reset)
+        $replacement = ($this->isReset())
             ?  <<<'EOD'
 ->withExceptions(function (Exceptions $exceptions) {
         //
@@ -461,7 +466,7 @@ EOD;
             $processedLines = array_map(function ($line) {
                 $trimmedLine = trim($line);
 
-                if ($this->reset) {
+                if ($this->isReset()) {
                     // Descomentar líneas que tengan "//0"
                     if (str_starts_with($trimmedLine, '//0')) {
                         return substr($line, strpos($line, '//0') + 4); // Quitar "//0 " del inicio
@@ -500,7 +505,7 @@ EOD;
 
         $importLine = "import 'flowbite';";
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             // Remove the import line from the file
             $fileContents = str_replace($importLine . PHP_EOL, '', $fileContents);
         } else {
@@ -558,7 +563,7 @@ EOD;
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
             'flowbite'                      => '^2.5.2',
-        ], $this->reset);
+        ], $this->isReset());
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
@@ -567,7 +572,7 @@ EOD;
             'prettier-plugin-blade'         => '^2.1.19',
             'prettier-plugin-tailwindcss'   => '^0.6.11',
             'typescript'                    => '^5.7.3',
-        ], $this->reset || $this->simple);
+        ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (devDependencies)');
 
@@ -580,7 +585,7 @@ EOD;
 
         $this->modifyPackageJsonSection('dependencies', [
             '@kalel1500/laravel-ts-utils'   => '^0.4.0-beta.9',
-        ], $this->reset || $this->simple);
+        ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (dependencies)');
 
@@ -594,7 +599,7 @@ EOD;
         // Add script "ts-build" in "package.json"
         $this->modifyPackageJsonSection('scripts', [
             'ts-build' => 'tsc && vite build',
-        ], $this->reset || $this->simple);
+        ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (script "ts-build")');
 
@@ -624,7 +629,7 @@ EOD;
 
         $psr4 = $composer['autoload']['psr-4'];
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             // Eliminamos los namespaces especificados
             foreach ($namespaces as $namespace => $path) {
                 unset($composer['autoload']['psr-4'][$namespace]);
@@ -672,7 +677,7 @@ EOD;
         $packages = ['tightenco/ziggy'];
         $package1 = $packages[0];
 
-        if ($this->reset) {
+        if ($this->isReset()) {
             if (!str_contains($content, $package1)) {
                 return $this;
             }
@@ -741,7 +746,7 @@ EOD;
     {
         $this->number++;
 
-        if ($this->reset || $this->simple) return $this;
+        if ($this->isReset(true)) return $this;
 
         $this->execute_Process(
             ['npx', 'laravel-ts-utils'],
