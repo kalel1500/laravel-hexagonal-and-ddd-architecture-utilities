@@ -157,7 +157,7 @@ final class StartCommandService
         $this->filesystem->delete(base_path('vite.config.ts'));
         copy($this->command->originalStubsPath('vite.config.js'), base_path('vite.config.js'));
 
-        $this->line('Restaurados todos los archivos modificados por el paquete laravel-ts-utils');
+        $this->line('Restaurados todos los archivos modificados por el paquete @kalel1500/laravel-ts-utils');
 
         return $this;
     }
