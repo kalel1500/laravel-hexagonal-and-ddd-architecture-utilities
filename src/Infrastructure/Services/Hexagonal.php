@@ -6,10 +6,10 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
 final class Hexagonal
 {
-    public static $runsMigrations = false;
-    public static $publishMigrations = false;
-    public static $registersRoutes = true;
-    public static $preferencesCookie = false;
+    public static bool $runsMigrations    = false;
+    public static bool $publishMigrations = false;
+    public static bool $registersRoutes   = true;
+    public static bool $preferencesCookie = false;
 
     public static function setLogChannels(): void
     {
@@ -41,7 +41,7 @@ final class Hexagonal
      */
     public function runMigrations(): self
     {
-        static::$runsMigrations = true;
+        self::$runsMigrations = true;
         return $this;
     }
 
@@ -52,7 +52,7 @@ final class Hexagonal
      */
     public function publishMigrations(): self
     {
-        static::$publishMigrations = true;
+        self::$publishMigrations = true;
         return $this;
     }
 
@@ -63,13 +63,13 @@ final class Hexagonal
      */
     public function ignoreRoutes(): self
     {
-        static::$registersRoutes = false;
+        self::$registersRoutes = false;
         return $this;
     }
 
     public function enablePreferencesCookie(): self
     {
-        static::$preferencesCookie = true;
+        self::$preferencesCookie = true;
         return $this;
     }
 
@@ -80,7 +80,7 @@ final class Hexagonal
      */
     public static function shouldRunMigrations(): bool
     {
-        return static::$runsMigrations;
+        return self::$runsMigrations;
     }
 
     /**
@@ -90,7 +90,7 @@ final class Hexagonal
      */
     public static function shouldPublishMigrations(): bool
     {
-        return static::$publishMigrations;
+        return self::$publishMigrations;
     }
 
     /**
@@ -100,11 +100,11 @@ final class Hexagonal
      */
     public static function shouldRegistersRoutes(): bool
     {
-        return static::$registersRoutes;
+        return self::$registersRoutes;
     }
 
     public static function enabledPreferencesCookie(): bool
     {
-        return static::$preferencesCookie;
+        return self::$preferencesCookie;
     }
 }
