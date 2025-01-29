@@ -1,6 +1,24 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.1...master)
+
+## [v0.14.1-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.0...v0.14.1-beta.1) - 2025-01-29
+
+### Added
+
+* Nuevos métodos `publishMigrations()` y `shouldRunMigrations()` en la clase `Hexagonal` para separar la configuración en el `HexagonalServiceProvider`
+
+### Changed
+
+* Renombrar migración de "CreateStatesTable" (se ha cambiado la fecha)
+* Hexagonal: 
+  * Nuevos métodos `publishMigrations()` y `shouldRunMigrations()` en la clase `Hexagonal` para separar la lógica en el `HexagonalServiceProvider`
+  * (refactor) Tipar las propiedades de la clase `Hexagonal` y cambiar los `static::` por `self::`, ya que es `final`
+  * (refactor) renombrar propiedades de la clase `Hexagonal` y formatear código
+  * (refactor) ordenar métodos de la clase `Hexagonal`
+  * (refactor) eliminar comentarios para simplificar la clase
+* Renombrar migración de `Sessions` a `Users` y añadir la creación de `users` y `password_reset_tokens`
+* Renombrar las migraciones de `Cache` y `Jobs` como vienen en `Laravel 11`
 
 ## [v0.14.1-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.0-beta.0...v0.14.1-beta.0) - 2025-01-29
 
