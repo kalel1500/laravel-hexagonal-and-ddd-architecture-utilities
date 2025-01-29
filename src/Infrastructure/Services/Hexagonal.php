@@ -7,6 +7,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 final class Hexagonal
 {
     public static $runsMigrations = false;
+    public static $publishMigrations = false;
     public static $registersRoutes = true;
     public static $preferencesCookie = false;
 
@@ -45,6 +46,17 @@ final class Hexagonal
     }
 
     /**
+     * Configure Package to not publish its migrations.
+     *
+     * @return self
+     */
+    public function publishMigrations(): self
+    {
+        static::$publishMigrations = true;
+        return $this;
+    }
+
+    /**
      * Configure Package to not register its routes.
      *
      * @return self
@@ -69,6 +81,16 @@ final class Hexagonal
     public static function shouldRunMigrations(): bool
     {
         return static::$runsMigrations;
+    }
+
+    /**
+     * Determine if Package migrations should be run.
+     *
+     * @return bool
+     */
+    public static function shouldPublishMigrations(): bool
+    {
+        return static::$publishMigrations;
     }
 
     /**

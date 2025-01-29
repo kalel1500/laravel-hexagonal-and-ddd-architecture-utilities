@@ -207,7 +207,7 @@ return [
         if ($this->app->runningInConsole()) {
 
             // Migraciones
-            if (Hexagonal::shouldRunMigrations()) {
+            if (Hexagonal::shouldPublishMigrations()) {
                 $existNewMethod = method_exists($this, 'publishesMigrations');
                 $publishesMigrationsMethod = $existNewMethod
                     ? 'publishesMigrations'
