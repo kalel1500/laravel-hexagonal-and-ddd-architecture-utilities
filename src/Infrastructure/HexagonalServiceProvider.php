@@ -7,10 +7,14 @@ namespace Thehouseofel\Hexagonal\Infrastructure;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Events\VendorTagPublished;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService;
@@ -34,6 +38,48 @@ class HexagonalServiceProvider extends ServiceProvider
         'layoutService' => LayoutService::class,
         StateRepositoryContract::class => StateEloquentRepository::class,
     ];
+
+    private function updateNameOfMigrationsIfExist()
+    {
+        $filesystem = new Filesystem();
+        $migrationsPath = database_path('migrations');
+
+        // Lista de nombres de migraciones que quieres renombrar (sin timestamp)
+        $migrationFiles = [
+            'create_cache_table',
+            'create_jobs_table',
+            'create_sessions_table',
+            'create_states_table',
+        ];
+
+        // Verificar si hay al menos una migración publicada usando coincidencia parcial
+        $migrationsExist = collect($filesystem->files($migrationsPath))->some(function ($file) use ($migrationFiles) {
+            return collect($migrationFiles)->contains(fn($migration) => Str::contains($file->getFilename(), $migration));
+        });
+
+        // Salir si no hay migraciones publicadas
+        if (!$migrationsExist) return;
+
+        $timestamp = now(); // Iniciar con el timestamp actual
+
+        foreach ($filesystem->files($migrationsPath) as $file) {
+            foreach ($migrationFiles as $migration) {
+                if (Str::contains($file->getFilename(), $migration)) {
+                    // Generar nuevo nombre con timestamp actual + nombre de la migración
+                    $newName = $timestamp->format('Y_m_d_His') . '_' . $migration . '.php';
+
+                    // Renombrar el archivo
+                    $filesystem->move($file->getPathname(), $migrationsPath . '/' . $newName);
+
+                    // Incrementar el timestamp en 1 segundo para la próxima migración
+                    $timestamp->addSecond();
+
+                    break; // Salimos del bucle interno tras encontrar la coincidencia
+                }
+            }
+        }
+    }
+
 
     /**
      * Register any application services.
@@ -122,13 +168,29 @@ class HexagonalServiceProvider extends ServiceProvider
 
             // Migraciones
             if (Hexagonal::shouldRunMigrations()) {
-                $publishesMigrationsMethod = method_exists($this, 'publishesMigrations')
+                $existNewMethod = method_exists($this, 'publishesMigrations');
+                $publishesMigrationsMethod = $existNewMethod
                     ? 'publishesMigrations'
                     : 'publishes';
 
                 $this->{$publishesMigrationsMethod}([
                     HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
                 ], 'hexagonal-migrations');
+
+                if (!$existNewMethod) {
+                    Event::listen(function (VendorTagPublished $event) {
+                        // Definir que palabras identifican las migraciones del paquete
+                        $keywords = ['kalel1500', 'hexagonal', 'migrations'];
+
+                        // Buscar en las rutas publicadas si alguna contiene las 3 palabras
+                        $publishedHexagonalMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
+
+                        // Actualizar nombres de las migraciones solo si se han ejecutado
+                        if ($publishedHexagonalMigrations) {
+                            $this->updateNameOfMigrationsIfExist();
+                        }
+                    });
+                }
             }
 
             // Vistas
