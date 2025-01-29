@@ -7,18 +7,15 @@
     <a href="https://packagist.org/packages/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" target="_blank"><img src="https://img.shields.io/packagist/l/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities" alt="License"></a>
 </p>
 
+## ✨ Features
 
-## Introduction
+- Utilities for developing in hexagonal architecture and DDD in Laravel.
 
-Utilidades para desarrollar en arquitectura hexagonal y DDD en laravel.
-
-
-## Instalación
+## Quick start
 
 ```bash
 composer require kalel1500/laravel-hexagonal-and-ddd-architecture-utilities
 ```
-
 
 ## Publish files
 
@@ -37,7 +34,6 @@ php artisan vendor:publish --tag="hexagonal-view-layout"
 php artisan vendor:publish --tag="hexagonal-config"
 php artisan vendor:publish --tag="hexagonal-lang"
 ```
-
 
 ## License
 
