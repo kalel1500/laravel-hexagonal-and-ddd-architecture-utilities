@@ -684,3 +684,12 @@ if (!function_exists('strContainsHtml')) {
         return $value !== strip_tags($value);
     }
 }
+
+if (!function_exists('normalize_path')) {
+    function normalize_path(string $path): string
+    {
+        return DIRECTORY_SEPARATOR === '\\'
+            ? str_replace('/', '\\', $path)  // Windows
+            : str_replace('\\', '/', $path); // Linux/macOS
+    }
+}
