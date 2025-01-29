@@ -1,6 +1,20 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.0...master)
+
+## [v0.14.1-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.0-beta.0...v0.14.1-beta.0) - 2025-01-29
+
+### Added
+
+* Nuevo helper `normalize_path()`
+* Nuevo método `updateNameOfMigrationsIfExist()` en el `HexagonalServiceProvider` para actualizar la fecha de las migraciones publicadas en versiones anteriores a `Laravel 11`
+
+### Changed
+
+* (literal) Nombre del paquete `@kalel1500/laravel-ts-utils` corregido en el string del comando de inicio
+* README.md: Títulos mejorados + espacios eliminados + textos traducidos
+* README.md: Añadida la información para publicar los archivos del paquete
+* (refactor) Método `removeProviderFromBootstrapFile()` movido al principio de la clase `HexagonalServiceProvider`
 
 ## [v0.14.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.13.0-beta.3...v0.14.0-beta.0) - 2025-01-28
 
