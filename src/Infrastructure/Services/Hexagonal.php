@@ -6,24 +6,24 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
 final class Hexagonal
 {
-    public static bool $runsMigrations    = false;
+    public static bool $runMigrations     = false;
     public static bool $publishMigrations = false;
-    public static bool $registersRoutes   = true;
+    public static bool $registerRoutes    = true;
     public static bool $preferencesCookie = false;
 
     public static function setLogChannels(): void
     {
         config([
             'logging.channels.queues' => [
-                'driver' => 'single',
-                'path' => storage_path('logs/queues.log'),
-                'level' => env('LOG_LEVEL', 'debug'),
+                'driver'               => 'single',
+                'path'                 => storage_path('logs/queues.log'),
+                'level'                => env('LOG_LEVEL', 'debug'),
                 'replace_placeholders' => true,
             ],
-            'logging.channels.loads' => [
-                'driver' => 'single',
-                'path' => storage_path('logs/loads.log'),
-                'level' => env('LOG_LEVEL', 'debug'),
+            'logging.channels.loads'  => [
+                'driver'               => 'single',
+                'path'                 => storage_path('logs/loads.log'),
+                'level'                => env('LOG_LEVEL', 'debug'),
                 'replace_placeholders' => true,
             ]
         ]);
@@ -41,7 +41,7 @@ final class Hexagonal
      */
     public function runMigrations(): self
     {
-        self::$runsMigrations = true;
+        self::$runMigrations = true;
         return $this;
     }
 
@@ -63,7 +63,7 @@ final class Hexagonal
      */
     public function ignoreRoutes(): self
     {
-        self::$registersRoutes = false;
+        self::$registerRoutes = false;
         return $this;
     }
 
@@ -80,7 +80,7 @@ final class Hexagonal
      */
     public static function shouldRunMigrations(): bool
     {
-        return self::$runsMigrations;
+        return self::$runMigrations;
     }
 
     /**
@@ -100,7 +100,7 @@ final class Hexagonal
      */
     public static function shouldRegistersRoutes(): bool
     {
-        return self::$registersRoutes;
+        return self::$registerRoutes;
     }
 
     public static function enabledPreferencesCookie(): bool
