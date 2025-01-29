@@ -34,64 +34,35 @@ final class Hexagonal
         return new self();
     }
 
-    /**
-     * Configure Package to not register its migrations.
-     *
-     * @return self
-     */
+
     public function runMigrations(): self
     {
         self::$runMigrations = true;
         return $this;
     }
 
-    /**
-     * Determine if Package migrations should be run.
-     *
-     * @return bool
-     */
     public static function shouldRunMigrations(): bool
     {
         return self::$runMigrations;
     }
 
-    /**
-     * Configure Package to not publish its migrations.
-     *
-     * @return self
-     */
     public function publishMigrations(): self
     {
         self::$publishMigrations = true;
         return $this;
     }
 
-    /**
-     * Determine if Package migrations should be run.
-     *
-     * @return bool
-     */
     public static function shouldPublishMigrations(): bool
     {
         return self::$publishMigrations;
     }
 
-    /**
-     * Configure Package to not register its routes.
-     *
-     * @return self
-     */
     public function ignoreRoutes(): self
     {
         self::$registerRoutes = false;
         return $this;
     }
 
-    /**
-     * Determine if Package migrations should be run.
-     *
-     * @return bool
-     */
     public static function shouldRegistersRoutes(): bool
     {
         return self::$registerRoutes;
