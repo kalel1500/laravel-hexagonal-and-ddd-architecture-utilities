@@ -39,6 +39,46 @@ class HexagonalServiceProvider extends ServiceProvider
         StateRepositoryContract::class => StateEloquentRepository::class,
     ];
 
+    /**
+     * Remove the given provider from the application's provider bootstrap file.
+     *
+     * @param  string  $provider
+     * @param  string|null  $path
+     * @return bool
+     */
+    public static function removeProviderFromBootstrapFile(string $provider, ?string $path = null): bool
+    {
+        $path ??= app()->getBootstrapProvidersPath();
+
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($path, true);
+        }
+
+        // Cargar los proveedores actuales del archivo
+        $providers = collect(require $path)
+            ->reject(fn($p) => $p === $provider) // Eliminar el provider específico
+            ->unique()
+            ->sort()
+            ->values()
+            ->map(fn($p) => '    '.$p.'::class,') // Formatear las líneas
+            ->implode(PHP_EOL);
+
+        $content = '<?php
+
+return [
+'.$providers.'
+];';
+
+        // Escribir el contenido actualizado en el archivo
+        file_put_contents($path, $content.PHP_EOL);
+
+        return true;
+    }
+
     private function updateNameOfMigrationsIfExist()
     {
         $filesystem = new Filesystem();
@@ -365,45 +405,5 @@ class HexagonalServiceProvider extends ServiceProvider
             // Llama al método `merge` de la clase original
             return $this->merge(['class' => implode(' ', $filteredDefault)]);
         });
-    }
-
-    /**
-     * Remove the given provider from the application's provider bootstrap file.
-     *
-     * @param  string  $provider
-     * @param  string|null  $path
-     * @return bool
-     */
-    public static function removeProviderFromBootstrapFile(string $provider, ?string $path = null): bool
-    {
-        $path ??= app()->getBootstrapProvidersPath();
-
-        if (!file_exists($path)) {
-            return false;
-        }
-
-        if (function_exists('opcache_invalidate')) {
-            opcache_invalidate($path, true);
-        }
-
-        // Cargar los proveedores actuales del archivo
-        $providers = collect(require $path)
-            ->reject(fn($p) => $p === $provider) // Eliminar el provider específico
-            ->unique()
-            ->sort()
-            ->values()
-            ->map(fn($p) => '    '.$p.'::class,') // Formatear las líneas
-            ->implode(PHP_EOL);
-
-        $content = '<?php
-
-return [
-'.$providers.'
-];';
-
-        // Escribir el contenido actualizado en el archivo
-        file_put_contents($path, $content.PHP_EOL);
-
-        return true;
     }
 }
