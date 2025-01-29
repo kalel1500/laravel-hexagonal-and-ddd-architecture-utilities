@@ -46,6 +46,16 @@ final class Hexagonal
     }
 
     /**
+     * Determine if Package migrations should be run.
+     *
+     * @return bool
+     */
+    public static function shouldRunMigrations(): bool
+    {
+        return self::$runMigrations;
+    }
+
+    /**
      * Configure Package to not publish its migrations.
      *
      * @return self
@@ -54,33 +64,6 @@ final class Hexagonal
     {
         self::$publishMigrations = true;
         return $this;
-    }
-
-    /**
-     * Configure Package to not register its routes.
-     *
-     * @return self
-     */
-    public function ignoreRoutes(): self
-    {
-        self::$registerRoutes = false;
-        return $this;
-    }
-
-    public function enablePreferencesCookie(): self
-    {
-        self::$preferencesCookie = true;
-        return $this;
-    }
-
-    /**
-     * Determine if Package migrations should be run.
-     *
-     * @return bool
-     */
-    public static function shouldRunMigrations(): bool
-    {
-        return self::$runMigrations;
     }
 
     /**
@@ -94,6 +77,17 @@ final class Hexagonal
     }
 
     /**
+     * Configure Package to not register its routes.
+     *
+     * @return self
+     */
+    public function ignoreRoutes(): self
+    {
+        self::$registerRoutes = false;
+        return $this;
+    }
+
+    /**
      * Determine if Package migrations should be run.
      *
      * @return bool
@@ -101,6 +95,12 @@ final class Hexagonal
     public static function shouldRegistersRoutes(): bool
     {
         return self::$registerRoutes;
+    }
+
+    public function enablePreferencesCookie(): self
+    {
+        self::$preferencesCookie = true;
+        return $this;
     }
 
     public static function enabledPreferencesCookie(): bool
