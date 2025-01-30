@@ -6,13 +6,12 @@
 
 ### Added
 
-* Nuevos métodos `publishMigrations()` y `shouldRunMigrations()` en la clase `Hexagonal` para separar la configuración en el `HexagonalServiceProvider`
+* Nuevos métodos `publishMigrations()` y `shouldRunMigrations()` en la clase `Hexagonal` para separar la lógica en el `HexagonalServiceProvider` y asi poder configurar las dos acciones por separado.
 
 ### Changed
 
 * Renombrar migración de "CreateStatesTable" (se ha cambiado la fecha)
-* Hexagonal: 
-  * Nuevos métodos `publishMigrations()` y `shouldRunMigrations()` en la clase `Hexagonal` para separar la lógica en el `HexagonalServiceProvider`
+* Hexagonal:
   * (refactor) Tipar las propiedades de la clase `Hexagonal` y cambiar los `static::` por `self::`, ya que es `final`
   * (refactor) renombrar propiedades de la clase `Hexagonal` y formatear código
   * (refactor) ordenar métodos de la clase `Hexagonal`
