@@ -102,6 +102,7 @@ class HexagonalStart extends Command
             ->stubsCopyFile_tailwindConfigJs()
             ->createEnvFiles()
             ->deleteDirectory_Http()
+            ->deleteDirectory_Models()
             ->deleteFile_Changelog()
             ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider()
             ->modifyFile_BootstrapApp_toAddExceptionHandler()

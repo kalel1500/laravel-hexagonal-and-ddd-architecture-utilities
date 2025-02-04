@@ -387,19 +387,27 @@ final class StartCommandService
         return $this;
     }
 
-    /*public function deleteDirectory_Models(): self
+    public function deleteDirectory_Models(): self
     {
         $this->number++;
 
         // Delete directory "app/Models"
         $folder = 'app/Models';
-        $dir = base_path($folder);
+        $dest = base_path($folder);
 
-        $this->filesystem->deleteDirectory($dir);
+        if ($this->isReset()) {
+            $dir = $this->command->originalStubsPath($folder);
+            $this->filesystem->ensureDirectoryExists($dest);
+            $this->filesystem->copyDirectory($dir, $dest);
+            $this->line('Carpeta "'.$folder.'" creada');
+            return $this;
+        }
+
+        $this->filesystem->deleteDirectory($dest);
         $this->line('Directorio "'.$folder.'" eliminado');
 
         return $this;
-    }*/
+    }
 
     public function deleteFile_Changelog(): self
     {
