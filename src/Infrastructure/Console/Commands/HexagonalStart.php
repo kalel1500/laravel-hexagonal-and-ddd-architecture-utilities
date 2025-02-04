@@ -105,6 +105,7 @@ class HexagonalStart extends Command
             ->deleteDirectory_Models()
             ->deleteFile_Changelog()
             ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider()
+            ->modifyFile_BootstrapApp_toAddMiddlewareRedirect()
             ->modifyFile_BootstrapApp_toAddExceptionHandler()
             ->modifyFile_DatabaseSeeder_toCommentUserFactory()
             ->modifyFile_JsBootstrap_toAddImportFlowbite()

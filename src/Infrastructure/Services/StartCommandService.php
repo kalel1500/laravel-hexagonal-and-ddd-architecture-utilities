@@ -441,6 +441,46 @@ final class StartCommandService
         return $this;
     }
 
+    public function modifyFile_BootstrapApp_toAddMiddlewareRedirect(): self
+    {
+        $this->number++;
+
+        if (!Version::laravelIsEqualOrGreaterThan11()) {
+            return $this;
+        }
+
+        // Ruta del archivo a modificar
+        $filePath = base_path('bootstrap/app.php');
+
+        // Leer el contenido del archivo
+        $content = File::get($filePath);
+
+        // Usar una expresión regular para encontrar y modificar el bloque `withMiddleware`
+        $pattern = '/->withMiddleware\(function \(Middleware \$middleware\) \{(.*?)}\)/s';
+
+        // Reemplazar el contenido del bloque con la nueva línea
+        $replacement = ($this->isReset())
+            ? <<<'EOD'
+->withMiddleware(function (Middleware $middleware) {
+        //
+    })
+EOD
+            : <<<'EOD'
+->withMiddleware(function (Middleware $middleware) {
+        $middleware->redirectUsersTo('home'); // Ruta a la que redirigir si entran en rutas con el middleware "guest" (RedirectIfAuthenticated)
+    })
+EOD;
+
+        $newContent = preg_replace($pattern, $replacement, $content);
+
+        // Guardar el archivo con el contenido actualizado
+        File::put($filePath, $newContent);
+
+        $this->line('Archivo "bootstrap/app.php" modificado para agregar redirectUsersTo en withMiddleware');
+
+        return $this;
+    }
+
     public function modifyFile_BootstrapApp_toAddExceptionHandler(): self
     {
         $this->number++;
