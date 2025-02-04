@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Shared\Domain\Services\RepositoryServices\LayoutService;
 
 final class DependencyServiceProvider extends ServiceProvider
 {
@@ -15,6 +14,10 @@ final class DependencyServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        'layoutService' => LayoutService::class,
+        'layoutService' => \Src\Shared\Domain\Services\RepositoryServices\LayoutService::class,
+
+        \Src\Shared\Domain\Contracts\Repositories\CommentRepositoryContract::class => \Src\Shared\Infrastructure\Repositories\Eloquent\CommentRepository::class,
+        \Src\Shared\Domain\Contracts\Repositories\PostRepositoryContract::class => \Src\Shared\Infrastructure\Repositories\Eloquent\PostRepository::class,
+        \Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract::class => \Src\Shared\Infrastructure\Repositories\Eloquent\TagRepository::class,
     ];
 }
