@@ -61,7 +61,7 @@
                                     @elseif($subItem->is_separator)
                                         <x-hexagonal::navbar.dropdown.separator/>
                                     @else
-                                        <x-hexagonal::navbar.dropdown.link href="#">
+                                        <x-hexagonal::navbar.dropdown.link :href="$subItem->getHref()">
                                             @if($subItem->icon) <x-hexagonal::render-icon :icon="$subItem->icon" class="size-5 mr-2"/> @endif
                                             {{ $subItem->text }}
                                         </x-hexagonal::navbar.dropdown.link>
