@@ -168,6 +168,8 @@ final class StartCommandService
 
         // Delete "config/hexagonal.php"
         $this->filesystem->delete(config_path('hexagonal.php'));
+        $this->filesystem->delete(config_path('hexagonal_layout.php'));
+        $this->filesystem->delete(config_path('hexagonal_user.php'));
 
         if ($this->isReset()) return $this;
 
@@ -175,6 +177,8 @@ final class StartCommandService
 
         // Publish "config/hexagonal.php"
         $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config']);
+        $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config-layout']);
+        $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config-user']);
         $this->line('Configuración del paquete publicada: "config/hexagonal.php"');
 
         return $this;
