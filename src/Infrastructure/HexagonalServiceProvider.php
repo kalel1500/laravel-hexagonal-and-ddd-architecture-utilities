@@ -24,6 +24,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
 use Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository;
+use Thehouseofel\Hexagonal\Infrastructure\Services\AuthService;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
 
@@ -36,6 +37,7 @@ class HexagonalServiceProvider extends ServiceProvider
      */
     public $singletons = [
         'layoutService' => LayoutService::class,
+        'authService' => AuthService::class,
         StateRepositoryContract::class => StateEloquentRepository::class,
     ];
 
@@ -146,6 +148,7 @@ return [
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
+            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_user.php', 'hexagonal_user');
 
             Hexagonal::setLogChannels();
         }
@@ -255,6 +258,11 @@ return [
             $this->publishes([
                 HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
             ], 'hexagonal-config-layout');
+
+            // Config user
+            $this->publishes([
+                HEXAGONAL_PATH.'/config/hexagonal_user.php' => config_path('hexagonal_user.php'),
+            ], 'hexagonal-config-user');
 
             // Traducciones
             if (Version::laravelIsEqualOrGreaterThan9()) {
