@@ -15,6 +15,9 @@ use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalControll
 Route::get('/hexagonal/root', [HexagonalController::class, 'root'])
     ->name('hexagonal.root');
 
+Route::get('/hexagonal/sessions',  [HexagonalController::class, 'sessions'])
+    ->name('hexagonal.sessions');
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])
         ->name('login');
