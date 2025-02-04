@@ -11,44 +11,25 @@ use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\ExampleController
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\JobsController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalController;
 
-
-/**
- * Base route
- */
-
 Route::get('/hexagonal/root',                             [HexagonalController::class, 'root'])->name('hexagonal.root');
 
 
 Route::middleware('auth')->group(function () {
-    /**
-     * Service routes
-     */
 
+    // Service routes
     Route::get('/hexagonal/ajax/check-service-queues',        [AjaxQueuesController::class, 'checkService'])->name('hexagonal.ajax.queues.checkService');
     Route::get('/hexagonal/ajax/check-service-websockets',    [AjaxWebsocketsController::class, 'checkService'])->name('hexagonal.ajax.websockets.checkService');
 
-
-    /**
-     * Queues routes
-     */
-
+    // Queues routes
     Route::get('/hexagonal/queues/jobs',                      [JobsController::class, 'queuedJobs'])->name('hexagonal.queues.queuedJobs');
     Route::get('/hexagonal/queues/failed-jobs',               [JobsController::class, 'failedJobs'])->name('hexagonal.queues.failedJobs');
     Route::get('/hexagonal/ajax/queues/jobs',                 [AjaxJobsController::class, 'getJobs'])->name('hexagonal.ajax.queues.getJobs');
     Route::get('/hexagonal/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'getFailedJobs'])->name('hexagonal.ajax.queues.getFailedJobs');
 
-
-    /**
-     * Cookies routes
-     */
-
+    // Cookies routes
     Route::put('/hexagonal/cookie/update',                    [AjaxCookiesController::class, 'update'])->name('hexagonal.ajax.cookie.update');
 
-
-    /**
-     * Example routes
-     */
-
+    // Example routes
     Route::get('/hexagonal/example/example-1',     [ExampleController::class, 'example1'])->name('hexagonal.example1');
     Route::get('/hexagonal/example/example-2',     [ExampleController::class, 'example2'])->name('hexagonal.example2');
     Route::get('/hexagonal/example/example-3',     [ExampleController::class, 'example3'])->name('hexagonal.example3');
