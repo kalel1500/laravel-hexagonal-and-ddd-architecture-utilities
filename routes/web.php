@@ -7,6 +7,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxCookiesContr
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxJobsController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxQueuesController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\AuthController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\ExampleController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\JobsController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalController;
@@ -14,8 +15,17 @@ use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalControll
 Route::get('/hexagonal/root', [HexagonalController::class, 'root'])
     ->name('hexagonal.root');
 
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'create'])
+        ->name('login');
+
+    Route::post('/login', [AuthController::class, 'store']);
+});
 
 Route::middleware('auth')->group(function () {
+
+    Route::post('logout', [AuthController::class, 'destroy'])
+        ->name('logout');
 
     // Service routes
     Route::get('/hexagonal/ajax/check-service-queues', [AjaxQueuesController::class, 'checkService'])

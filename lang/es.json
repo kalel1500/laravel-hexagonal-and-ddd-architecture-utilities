@@ -41,5 +41,6 @@
     "websockets_failedActionMessage": "La acción se ha realizado correctamente aunque el evento no se ha transmitido a otros usuarios (tendrán que actualizar su navegador).",
     "websockets_failedActionBladeMessage": "El avance no se esta reflejando en tiempo real a otros usuarios, aunque esto no afectará a la ejecución de le página.",
     "queues_ServiceActive": "El servicio de colas esta activado.",
-    "queues_ServiceInactive": "El servicio de colas esta desactivado."
+    "queues_ServiceInactive": "El servicio de colas esta desactivado.",
+    "error_featureUnavailable": "Esta funcionalidad aun no esta lista."
 }

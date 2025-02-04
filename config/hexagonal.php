@@ -14,6 +14,18 @@ return [
     |
     */
 
+    'fake_login_active' => (bool) env('HEXAGONAL_FAKE_LOGIN_ACTIVE', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Real environment during testing
+    |--------------------------------------------------------------------------
+    |
+    | It is equivalent to the 'app.env' that you are in when doing the tests,
+    | since during the tests the value of 'app.env' testing.
+    |
+    */
+
     'real_env_in_tests' => env('HEXAGONAL_REAL_ENV_IN_TESTS', 'local'),
 
     /*
