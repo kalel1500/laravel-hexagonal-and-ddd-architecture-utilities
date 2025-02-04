@@ -107,6 +107,7 @@ class HexagonalStart extends Command
             ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider()
             ->modifyFile_BootstrapApp_toAddMiddlewareRedirect()
             ->modifyFile_BootstrapApp_toAddExceptionHandler()
+            ->modifyFile_ConfigAuth_toUpdateModel()
             ->modifyFile_DatabaseSeeder_toCommentUserFactory()
             ->modifyFile_JsBootstrap_toAddImportFlowbite()
             ->modifyFile_Gitignore_toDeleteLockFileLines()
