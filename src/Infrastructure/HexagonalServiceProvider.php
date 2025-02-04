@@ -145,6 +145,7 @@ return [
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
+            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
 
             Hexagonal::setLogChannels();
         }
@@ -249,6 +250,11 @@ return [
             $this->publishes([
                 HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
             ], 'hexagonal-config');
+
+            // Config layout
+            $this->publishes([
+                HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
+            ], 'hexagonal-config-layout');
 
             // Traducciones
             if (Version::laravelIsEqualOrGreaterThan9()) {
