@@ -222,6 +222,29 @@ final class StartCommandService
         return $this;
     }
 
+    public function stubsCopyFolder_Lang(): self
+    {
+        $this->number++;
+
+        // Views
+        $folder = 'lang';
+
+        $dir = $this->command->stubsPath($folder);
+        $dest = base_path($folder);
+
+        if ($this->isReset()) {
+            $this->filesystem->deleteDirectory($dest);
+            $this->line('Carpeta "'.$folder.'" eliminada');
+            return $this;
+        }
+
+        $this->filesystem->ensureDirectoryExists($dest);
+        $this->filesystem->copyDirectory($dir, $dest);
+        $this->line('Carpeta "'.$folder.'" creada');
+
+        return $this;
+    }
+
     public function stubsCopyFolder_Resources(): self
     {
         $this->number++;
