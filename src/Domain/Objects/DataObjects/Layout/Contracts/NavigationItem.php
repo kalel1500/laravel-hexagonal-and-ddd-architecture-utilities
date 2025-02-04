@@ -13,6 +13,7 @@ abstract class NavigationItem extends ContractDataObject
     public $text;
     public $tooltip;
     public $route_name;
+    public $is_post;
     public $dropdown;
     protected $hasDropdown;
 

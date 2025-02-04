@@ -1,5 +1,5 @@
 @aware(['bigList', 'bigSquare'])
-@props(['href' => '#', 'text', 'icon', 'time'])
+@props(['href' => '#', 'text', 'icon', 'time', 'is_post' => false])
 
 @if($bigList)
     <a href="{{ $href }}" class="flex border-b px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
@@ -24,9 +24,17 @@
     </a>
 @else
     <li>
-        <a href="{{ $href }}" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-            {{ $slot }}
-        </a>
+        @php($classes = "flex items-center px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white")
+        @if($is_post)
+            <form method="POST" action="{{ $href }}" class="{{ $classes }}">
+                @csrf
+                <button class="flex items-center w-full">{{ $slot }}</button>
+            </form>
+        @else
+            <a href="{{ $href }}" class="{{ $classes }}">
+                {{ $slot }}
+            </a>
+        @endif
     </li>
 @endif
 

@@ -14,6 +14,7 @@ final class SidebarItemDo extends NavigationItem
     public $text;
     public $tooltip;
     public $route_name;
+    public $is_post;
     public $collapsed;
     public $counter_action;
     public $is_separator;
@@ -29,6 +30,7 @@ final class SidebarItemDo extends NavigationItem
         ?string                $text,
         ?string                $tooltip,
         ?string                $route_name,
+        ?bool                  $is_post,
         ?string                $counter_action,
         ?bool                  $collapsed,
         ?bool                  $is_separator,
@@ -40,6 +42,7 @@ final class SidebarItemDo extends NavigationItem
         $this->text             = $text;
         $this->tooltip          = $tooltip;
         $this->route_name       = $route_name;
+        $this->is_post          = $is_post;
         $this->counter_action   = $counter_action;
         $this->collapsed        = $collapsed;
         $this->is_separator     = $is_separator;
@@ -57,6 +60,7 @@ final class SidebarItemDo extends NavigationItem
             $data['text'] ?? null,
             $data['tooltip'] ?? null,
             $data['route_name'] ?? null,
+            $data['is_post'] ?? null,
             $data['counter_action'] ?? null,
             $data['collapsed'] ?? null,
             $data['is_separator'] ?? null,

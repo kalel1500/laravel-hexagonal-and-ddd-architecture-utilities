@@ -14,6 +14,7 @@ final class NavbarItemDo extends NavigationItem
     public $time;
     public $tooltip;
     public $route_name;
+    public $is_post;
     public $is_theme_toggle;
     public $is_user;
     public $is_separator;
@@ -26,6 +27,7 @@ final class NavbarItemDo extends NavigationItem
         ?string             $time,
         ?string             $tooltip,
         ?string             $route_name,
+        ?bool               $is_post,
         ?bool               $is_theme_toggle,
         ?bool               $is_user,
         ?bool               $is_separator,
@@ -38,6 +40,7 @@ final class NavbarItemDo extends NavigationItem
         $this->time             = $time;
         $this->tooltip          = $tooltip;
         $this->route_name       = $route_name;
+        $this->is_post          = $is_post;
         $this->is_theme_toggle  = $is_theme_toggle;
         $this->is_user          = $is_user;
         $this->is_separator     = $is_separator;
@@ -54,6 +57,7 @@ final class NavbarItemDo extends NavigationItem
             $data['time'] ?? null,
             $data['tooltip'] ?? null,
             $data['route_name'] ?? null,
+                $data['is_post'] ?? null,
             $data['is_theme_toggle'] ?? null,
             $data['is_user'] ?? null,
             $data['is_separator'] ?? null,
