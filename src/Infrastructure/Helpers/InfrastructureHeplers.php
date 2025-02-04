@@ -297,7 +297,17 @@ if (! function_exists('envIsTest')) {
 }
 
 if (! function_exists('appIsInDebugMode')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function appIsInDebugMode(): bool {
+        trigger_error('The function appIsInDebugMode() is deprecated. Use debugIsActive().', E_USER_DEPRECATED);
+        return config('app.debug');
+    }
+}
+
+if (! function_exists('debugIsActive')) {
+    function debugIsActive(): bool {
         return config('app.debug');
     }
 }
