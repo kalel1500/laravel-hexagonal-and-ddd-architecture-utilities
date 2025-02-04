@@ -16,42 +16,42 @@ use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalControll
  * Base route
  */
 
-Route::get('/root',                             [HexagonalController::class, 'root'])->name('root');
+Route::get('/hexagonal/root',                             [HexagonalController::class, 'root'])->name('hexagonal.root');
 
 
 /**
  * Service routes
  */
 
-Route::get('/ajax/check-service-queues',        [AjaxQueuesController::class, 'checkService'])->name('ajax.queues.checkService');
-Route::get('/ajax/check-service-websockets',    [AjaxWebsocketsController::class, 'checkService'])->name('ajax.websockets.checkService');
+Route::get('/hexagonal/ajax/check-service-queues',        [AjaxQueuesController::class, 'checkService'])->name('hexagonal.ajax.queues.checkService');
+Route::get('/hexagonal/ajax/check-service-websockets',    [AjaxWebsocketsController::class, 'checkService'])->name('hexagonal.ajax.websockets.checkService');
 
 
 /**
  * Queues routes
  */
 
-Route::get('/queues/jobs',                      [JobsController::class, 'queuedJobs'])->name('queues.queuedJobs');
-Route::get('/queues/failed-jobs',               [JobsController::class, 'failedJobs'])->name('queues.failedJobs');
-Route::get('/ajax/queues/jobs',                 [AjaxJobsController::class, 'getJobs'])->name('ajax.queues.getJobs');
-Route::get('/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'getFailedJobs'])->name('ajax.queues.getFailedJobs');
+Route::get('/hexagonal/queues/jobs',                      [JobsController::class, 'queuedJobs'])->name('hexagonal.queues.queuedJobs');
+Route::get('/hexagonal/queues/failed-jobs',               [JobsController::class, 'failedJobs'])->name('hexagonal.queues.failedJobs');
+Route::get('/hexagonal/ajax/queues/jobs',                 [AjaxJobsController::class, 'getJobs'])->name('hexagonal.ajax.queues.getJobs');
+Route::get('/hexagonal/ajax/queues/failed-jobs',          [AjaxJobsController::class, 'getFailedJobs'])->name('hexagonal.ajax.queues.getFailedJobs');
 
 
 /**
  * Cookies routes
  */
 
-Route::put('/cookie/update',                    [AjaxCookiesController::class, 'update'])->name('ajax.cookie.update');
+Route::put('/hexagonal/cookie/update',                    [AjaxCookiesController::class, 'update'])->name('hexagonal.ajax.cookie.update');
 
 
 /**
  * Example routes
  */
 
-Route::get('example/example-1',     [ExampleController::class, 'example1'])->name('example1');
-Route::get('example/example-2',     [ExampleController::class, 'example2'])->name('example2');
-Route::get('example/example-3',     [ExampleController::class, 'example3'])->name('example3');
-Route::get('example/example-4',     [ExampleController::class, 'example4'])->name('example4');
-Route::get('example/compare-html',  [ExampleController::class, 'compareHtml'])->name('compareHtml');
-Route::get('example/modify-cookie', [ExampleController::class, 'modifyCookie'])->name('modifyCookie');
-Route::get('example/icons',         [ExampleController::class, 'icons'])->name('icons');
+Route::get('/hexagonal/example/example-1',     [ExampleController::class, 'example1'])->name('hexagonal.example1');
+Route::get('/hexagonal/example/example-2',     [ExampleController::class, 'example2'])->name('hexagonal.example2');
+Route::get('/hexagonal/example/example-3',     [ExampleController::class, 'example3'])->name('hexagonal.example3');
+Route::get('/hexagonal/example/example-4',     [ExampleController::class, 'example4'])->name('hexagonal.example4');
+Route::get('/hexagonal/example/compare-html',  [ExampleController::class, 'compareHtml'])->name('hexagonal.compareHtml');
+Route::get('/hexagonal/example/modify-cookie', [ExampleController::class, 'modifyCookie'])->name('hexagonal.modifyCookie');
+Route::get('/hexagonal/example/icons',         [ExampleController::class, 'icons'])->name('hexagonal.icons');

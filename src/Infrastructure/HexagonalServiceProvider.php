@@ -178,8 +178,8 @@ return [
     {
         if (Hexagonal::shouldRegistersRoutes()) {
             Route::group([
-                'as' => 'hexagonal.',
-                'prefix' => 'hexagonal',
+//                'as' => 'hexagonal.',
+//                'prefix' => 'hexagonal',
                 'middleware' => 'web',
             ], function () {
                 $this->loadRoutesFrom(HEXAGONAL_PATH.'/routes/web.php');
