@@ -26,7 +26,8 @@ final class StartCommandService
     public function __construct(HexagonalStart $command, bool $reset, bool $simple)
     {
         if (!Version::laravelMin11()) {
-            $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
+            $command->error('Por ahora este comando solo esta preparado para la version de laravel 11');
+            exit(1); // Terminar la ejecución con código de error
         }
         $this->command          = $command;
         $this->reset            = $reset;
