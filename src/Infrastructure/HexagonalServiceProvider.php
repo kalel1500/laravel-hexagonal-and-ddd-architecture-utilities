@@ -265,11 +265,9 @@ return [
             ], 'hexagonal-config-user');
 
             // Traducciones
-            if (Version::laravelIsEqualOrGreaterThan9()) {
-                $langPath = $this->app->langPath('vendor/hexagonal');
-            } else {
-                $langPath = $this->app->resourcePath('lang/vendor/hexagonal');
-            }
+            $langPath = Version::laravelIsEqualOrGreaterThan9()
+                ? $this->app->langPath('vendor/hexagonal')
+                : $this->app->resourcePath('lang/vendor/hexagonal');
             $this->publishes([
                 HEXAGONAL_PATH.'/lang' => $langPath,
             ], 'hexagonal-lang');
