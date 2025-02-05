@@ -227,7 +227,7 @@ return [
                 HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
             ], 'hexagonal-migrations');
 
-            if (!$existNewMethod) {
+            /*if (!$existNewMethod) {
                 Event::listen(function (VendorTagPublished $event) {
                     // Definir que palabras identifican las migraciones del paquete
                     $keywords = ['laravel-hexagonal-and-ddd-architecture-utilities', 'migrations'];
@@ -240,7 +240,7 @@ return [
                         $this->updateNameOfMigrationsIfExist();
                     }
                 });
-            }
+            }*/
         }
 
 
