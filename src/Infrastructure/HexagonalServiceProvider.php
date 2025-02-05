@@ -208,95 +208,94 @@ return [
      */
     protected function registerPublishing(): void
     {
-        if ($this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()) return;
 
-            /*
-             * -------------------
-             * --- Migraciones ---
-             * -------------------
-             */
+        /*
+         * -------------------
+         * --- Migraciones ---
+         * -------------------
+         */
 
-            if (Hexagonal::shouldPublishMigrations()) {
-                $existNewMethod = method_exists($this, 'publishesMigrations');
-                $publishesMigrationsMethod = $existNewMethod
-                    ? 'publishesMigrations'
-                    : 'publishes';
+        if (Hexagonal::shouldPublishMigrations()) {
+            $existNewMethod = method_exists($this, 'publishesMigrations');
+            $publishesMigrationsMethod = $existNewMethod
+                ? 'publishesMigrations'
+                : 'publishes';
 
-                $this->{$publishesMigrationsMethod}([
-                    HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
-                ], 'hexagonal-migrations');
+            $this->{$publishesMigrationsMethod}([
+                HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
+            ], 'hexagonal-migrations');
 
-                if (!$existNewMethod) {
-                    Event::listen(function (VendorTagPublished $event) {
-                        // Definir que palabras identifican las migraciones del paquete
-                        $keywords = ['kalel1500', 'hexagonal', 'migrations'];
+            if (!$existNewMethod) {
+                Event::listen(function (VendorTagPublished $event) {
+                    // Definir que palabras identifican las migraciones del paquete
+                    $keywords = ['kalel1500', 'hexagonal', 'migrations'];
 
-                        // Buscar en las rutas publicadas si alguna contiene las 3 palabras
-                        $publishedHexagonalMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
+                    // Buscar en las rutas publicadas si alguna contiene las 3 palabras
+                    $publishedHexagonalMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
 
-                        // Actualizar nombres de las migraciones solo si se han ejecutado
-                        if ($publishedHexagonalMigrations) {
-                            $this->updateNameOfMigrationsIfExist();
-                        }
-                    });
-                }
+                    // Actualizar nombres de las migraciones solo si se han ejecutado
+                    if ($publishedHexagonalMigrations) {
+                        $this->updateNameOfMigrationsIfExist();
+                    }
+                });
             }
-
-
-            /*
-             * --------------
-             * --- Vistas ---
-             * --------------
-             */
-
-            // Todas
-            $this->publishes([
-                HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
-                HEXAGONAL_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
-            ], 'hexagonal-views');
-
-            // Publicar solo la vista "app.blade.php"
-            $this->publishes([
-                HEXAGONAL_PATH.'/resources/views/components/layout/app.blade.php' => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
-                HEXAGONAL_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
-            ], 'hexagonal-view-layout');
-
-
-            /*
-             * -----------------------
-             * --- Configuraciones ---
-             * -----------------------
-             */
-
-            // hexagonal.php
-            $this->publishes([
-                HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
-            ], 'hexagonal-config');
-
-            // hexagonal_layout.php
-            $this->publishes([
-                HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
-            ], 'hexagonal-config-layout');
-
-            // hexagonal_user.php
-            $this->publishes([
-                HEXAGONAL_PATH.'/config/hexagonal_user.php' => config_path('hexagonal_user.php'),
-            ], 'hexagonal-config-user');
-
-
-            /*
-             * --------------------
-             * --- Traducciones ---
-             * --------------------
-             */
-
-            $langPath = Version::laravelIsEqualOrGreaterThan9()
-                ? $this->app->langPath('vendor/hexagonal')
-                : $this->app->resourcePath('lang/vendor/hexagonal');
-            $this->publishes([
-                HEXAGONAL_PATH.'/lang' => $langPath,
-            ], 'hexagonal-lang');
         }
+
+
+        /*
+         * --------------
+         * --- Vistas ---
+         * --------------
+         */
+
+        // Todas
+        $this->publishes([
+            HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
+            HEXAGONAL_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
+        ], 'hexagonal-views');
+
+        // Publicar solo la vista "app.blade.php"
+        $this->publishes([
+            HEXAGONAL_PATH.'/resources/views/components/layout/app.blade.php' => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
+            HEXAGONAL_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
+        ], 'hexagonal-view-layout');
+
+
+        /*
+         * -----------------------
+         * --- Configuraciones ---
+         * -----------------------
+         */
+
+        // hexagonal.php
+        $this->publishes([
+            HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
+        ], 'hexagonal-config');
+
+        // hexagonal_layout.php
+        $this->publishes([
+            HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
+        ], 'hexagonal-config-layout');
+
+        // hexagonal_user.php
+        $this->publishes([
+            HEXAGONAL_PATH.'/config/hexagonal_user.php' => config_path('hexagonal_user.php'),
+        ], 'hexagonal-config-user');
+
+
+        /*
+         * --------------------
+         * --- Traducciones ---
+         * --------------------
+         */
+
+        $langPath = Version::laravelIsEqualOrGreaterThan9()
+            ? $this->app->langPath('vendor/hexagonal')
+            : $this->app->resourcePath('lang/vendor/hexagonal');
+        $this->publishes([
+            HEXAGONAL_PATH.'/lang' => $langPath,
+        ], 'hexagonal-lang');
     }
 
     /**
