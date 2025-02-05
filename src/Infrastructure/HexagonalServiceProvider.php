@@ -326,6 +326,8 @@ return [
      */
     protected function registerComponents(): void
     {
+        if (!Version::laravelIsEqualOrGreaterThan9()) return;
+
         // Registrar componentes con Clase
         Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'hexagonal');
 
