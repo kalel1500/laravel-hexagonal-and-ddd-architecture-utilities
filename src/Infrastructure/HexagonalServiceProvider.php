@@ -216,7 +216,7 @@ return [
          * -------------------
          */
 
-        if (Hexagonal::shouldPublishMigrations()) {
+        if (Hexagonal::shouldPublishMigrations() && Version::laravelMin9()) {
             $existNewMethod = method_exists($this, 'publishesMigrations');
             $publishesMigrationsMethod = $existNewMethod
                 ? 'publishesMigrations'
