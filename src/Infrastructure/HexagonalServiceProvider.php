@@ -210,7 +210,12 @@ return [
     {
         if ($this->app->runningInConsole()) {
 
-            // Migraciones
+            /*
+             * -------------------
+             * --- Migraciones ---
+             * -------------------
+             */
+
             if (Hexagonal::shouldPublishMigrations()) {
                 $existNewMethod = method_exists($this, 'publishesMigrations');
                 $publishesMigrationsMethod = $existNewMethod
@@ -237,7 +242,14 @@ return [
                 }
             }
 
-            // Vistas
+
+            /*
+             * --------------
+             * --- Vistas ---
+             * --------------
+             */
+
+            // Todas
             $this->publishes([
                 HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
                 HEXAGONAL_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
@@ -249,22 +261,35 @@ return [
                 HEXAGONAL_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
             ], 'hexagonal-view-layout');
 
-            // Config
+
+            /*
+             * -----------------------
+             * --- Configuraciones ---
+             * -----------------------
+             */
+
+            // hexagonal.php
             $this->publishes([
                 HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
             ], 'hexagonal-config');
 
-            // Config layout
+            // hexagonal_layout.php
             $this->publishes([
                 HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
             ], 'hexagonal-config-layout');
 
-            // Config user
+            // hexagonal_user.php
             $this->publishes([
                 HEXAGONAL_PATH.'/config/hexagonal_user.php' => config_path('hexagonal_user.php'),
             ], 'hexagonal-config-user');
 
-            // Traducciones
+
+            /*
+             * --------------------
+             * --- Traducciones ---
+             * --------------------
+             */
+
             $langPath = Version::laravelIsEqualOrGreaterThan9()
                 ? $this->app->langPath('vendor/hexagonal')
                 : $this->app->resourcePath('lang/vendor/hexagonal');
