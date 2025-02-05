@@ -240,6 +240,18 @@ final class StartCommandService
 
         foreach ($files as $file) {
             $originalName = preg_replace('/^\d{4}_\d{2}_\d{2}_\d{6}_/', '', $file->getFilename());
+
+            if ($this->reset) {
+                $existingFile = collect($this->filesystem->files($destinationPath))->first(fn($f) => preg_replace('/^\d{4}_\d{2}_\d{2}_\d{6}_/', '', $f->getFilename()) === $originalName);
+
+                // Comprobar que SI exista el archivo
+                if ($existingFile) {
+                    $this->filesystem->delete($existingFile);
+                }
+
+                continue;
+            }
+
             $newFileName = $timestamp->format('Y_m_d_His') . '_' . $originalName;
             $destinationFile = $destinationPath . '/' . $newFileName;
 
@@ -247,11 +259,11 @@ final class StartCommandService
             if ($existingFiles->contains($originalName)) continue;
 
             $this->filesystem->copy($file->getPathname(), $destinationFile);
-
             $timestamp->addSecond();
         }
 
-        $this->line('Migraciones copiadas');
+        $action = $this->reset ? 'eliminadas' : 'copiadas';
+        $this->line('Migraciones '.$action);
 
         return $this;
     }
