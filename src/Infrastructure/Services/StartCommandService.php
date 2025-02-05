@@ -226,6 +226,36 @@ final class StartCommandService
         return $this;
     }
 
+    public function stubsCopyFiles_Migrations(): self
+    {
+        $this->number++;
+
+        $folder = 'database/migrations';
+        $sourcePath = $this->command->stubsPath($folder);
+        $destinationPath = base_path($folder);
+
+        $files = $this->filesystem->files($sourcePath);
+        $existingFiles = collect($this->filesystem->files($destinationPath))->map(fn($f) => preg_replace('/^\d{4}_\d{2}_\d{2}_\d{6}_/', '', $f->getFilename()));
+        $timestamp = now();
+
+        foreach ($files as $file) {
+            $originalName = preg_replace('/^\d{4}_\d{2}_\d{2}_\d{6}_/', '', $file->getFilename());
+            $newFileName = $timestamp->format('Y_m_d_His') . '_' . $originalName;
+            $destinationFile = $destinationPath . '/' . $newFileName;
+
+            // Comprobar que no exista el archivo
+            if ($existingFiles->contains($originalName)) continue;
+
+            $this->filesystem->copy($file->getPathname(), $destinationFile);
+
+            $timestamp->addSecond();
+        }
+
+        $this->line('Migraciones copiadas');
+
+        return $this;
+    }
+
     public function stubsCopyFolder_Lang(): self
     {
         $this->number++;
