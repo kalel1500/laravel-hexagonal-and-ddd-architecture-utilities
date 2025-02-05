@@ -793,9 +793,10 @@ EOD;
                 return $this;
             }
 
-            $this->command->removeComposerPackages(
+            $this->command->traitRequireComposerPackages(
                 $this->command->option('composer'),
-                $packages
+                $packages,
+                true
             );
 
             $this->line('Dependencias de composer desinstaladas');
@@ -807,7 +808,7 @@ EOD;
             return $this;
         }
 
-        $this->command->executeRequireComposerPackages(
+        $this->command->traitRequireComposerPackages(
             $this->command->option('composer'),
             $packages
         );

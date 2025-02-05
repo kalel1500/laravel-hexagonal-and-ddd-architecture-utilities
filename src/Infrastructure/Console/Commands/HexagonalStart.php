@@ -4,9 +4,9 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Console\InteractsWithComposerPackages;
 use Symfony\Component\Process\Process;
 use Thehouseofel\Hexagonal\Infrastructure\Services\StartCommandService;
+use Thehouseofel\Hexagonal\Infrastructure\Traits\InteractsWithComposerPackages;
 use function Illuminate\Filesystem\join_paths;
 
 class HexagonalStart extends Command
@@ -57,27 +57,9 @@ class HexagonalStart extends Command
         return join_paths($this->originalStubsPath, $path);
     }
 
-    public function executeRequireComposerPackages(...$params)
+    public function traitRequireComposerPackages(string $composer, array $packages, bool $isRemove = false)
     {
-        $this->requireComposerPackages(...$params);
-    }
-
-    public function removeComposerPackages(string $composer, array $packages): bool
-    {
-        if ($composer !== 'global') {
-            $command = [$this->phpBinary(), $composer, 'remove'];
-        }
-
-        $command = array_merge(
-            $command ?? ['composer', 'remove'],
-            $packages,
-        );
-
-        return ! (new Process($command, $this->laravel->basePath(), ['COMPOSER_MEMORY_LIMIT' => '-1']))
-            ->setTimeout(null)
-            ->run(function ($type, $output) {
-                $this->output->write($output);
-            });
+        $this->requireComposerPackages($composer, $packages, $isRemove);
     }
 
     /**
