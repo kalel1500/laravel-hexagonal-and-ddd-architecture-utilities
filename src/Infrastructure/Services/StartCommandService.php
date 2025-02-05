@@ -22,6 +22,7 @@ final class StartCommandService
     private $number = 0;
     private $filesystem;
     private $developMode;
+    private $keepMigrationsDate;
 
     public function __construct(HexagonalStart $command, bool $reset, bool $simple)
     {
@@ -35,6 +36,7 @@ final class StartCommandService
         $this->steps            = $this->countPublicMethods();
         $this->filesystem       = $command->filesystem();
         $this->developMode      = config('hexagonal.package_in_develop');
+        $this->keepMigrationsDate = config('hexagonal.keep_migrations_date');
     }
 
     private function isReset(bool $isFront = false): bool
@@ -252,14 +254,21 @@ final class StartCommandService
                 continue;
             }
 
-            $newFileName = $timestamp->format('Y_m_d_His') . '_' . $originalName;
+            if ($this->keepMigrationsDate) {
+                preg_match('/^(\d{4}_\d{2}_\d{2}_\d{6})_/', $file->getFilename(), $matches);
+                $fileTimestamp = $matches[1] ?? $timestamp->format('Y_m_d_His');
+            } else {
+                $fileTimestamp = $timestamp->format('Y_m_d_His');
+                $timestamp->addSecond();
+            }
+
+            $newFileName = $fileTimestamp . '_' . $originalName;
             $destinationFile = $destinationPath . '/' . $newFileName;
 
             // Comprobar que no exista el archivo
             if ($existingFiles->contains($originalName)) continue;
 
             $this->filesystem->copy($file->getPathname(), $destinationFile);
-            $timestamp->addSecond();
         }
 
         $action = $this->reset ? 'eliminadas' : 'copiadas';

@@ -150,4 +150,5 @@ return [
     */
 
     'package_in_develop' => (bool) env('HEXAGONAL_PACKAGE_IN_DEVELOP', false),
+    'keep_migrations_date' => (bool) env('HEXAGONAL_KEEP_MIGRATIONS_DATE', false),
 ];
