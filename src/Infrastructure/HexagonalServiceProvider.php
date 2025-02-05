@@ -225,6 +225,7 @@ return [
 
             $this->{$publishesMigrationsMethod}([
                 HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
+                HEXAGONAL_PATH.'/stubs/generate/database/migrations' => database_path('migrations'),
             ], 'hexagonal-migrations');
 
             /*if (!$existNewMethod) {
@@ -328,6 +329,7 @@ return [
             Version::laravelMin9()
         ) {
             $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');
+            $this->loadMigrationsFrom(HEXAGONAL_PATH.'/stubs/generate/database/migrations');
         }
     }
 
