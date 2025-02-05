@@ -88,10 +88,11 @@ return [
 
         // Lista de nombres de migraciones que quieres renombrar (sin timestamp)
         $migrationFiles = [
-            'create_cache_table',
-            'create_jobs_table',
-            'create_sessions_table',
             'create_states_table',
+            'create_tags_table',
+            'create_posts_table',
+            'create_comments_table',
+            'create_post_tag_table',
         ];
 
         // Verificar si hay al menos una migración publicada usando coincidencia parcial
@@ -229,7 +230,7 @@ return [
             if (!$existNewMethod) {
                 Event::listen(function (VendorTagPublished $event) {
                     // Definir que palabras identifican las migraciones del paquete
-                    $keywords = ['kalel1500', 'hexagonal', 'migrations'];
+                    $keywords = ['laravel-hexagonal-and-ddd-architecture-utilities', 'migrations'];
 
                     // Buscar en las rutas publicadas si alguna contiene las 3 palabras
                     $publishedHexagonalMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
