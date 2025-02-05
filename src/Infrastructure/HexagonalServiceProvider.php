@@ -290,7 +290,7 @@ return [
          * --------------------
          */
 
-        $langPath = Version::laravelIsEqualOrGreaterThan9()
+        $langPath = Version::laravelMin9()
             ? $this->app->langPath('vendor/hexagonal')
             : $this->app->resourcePath('lang/vendor/hexagonal');
         $this->publishes([
@@ -324,7 +324,7 @@ return [
         if (
             $this->app->runningInConsole() &&
             Hexagonal::shouldRunMigrations() &&
-            Version::laravelIsEqualOrGreaterThan9()
+            Version::laravelMin9()
         ) {
             $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');
         }
@@ -348,7 +348,7 @@ return [
      */
     protected function registerComponents(): void
     {
-        if (!Version::laravelIsEqualOrGreaterThan9()) return;
+        if (!Version::laravelMin9()) return;
 
         // Registrar componentes con Clase
         Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'hexagonal');

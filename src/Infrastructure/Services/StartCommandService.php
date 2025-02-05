@@ -128,7 +128,7 @@ final class StartCommandService
 
     public static function configure(HexagonalStart $command, bool $reset, bool $simple): self
     {
-        if (!Version::laravelIsEqualOrGreaterThan11()) {
+        if (!Version::laravelMin11()) {
             $command->fail('Por ahora este comando solo esta preparado para la version de laravel 11');
         }
         return new self($command, $reset, $simple);
@@ -294,7 +294,7 @@ final class StartCommandService
 
         // routes/web.php
         $originalFile = 'routes/web.php';
-        $generatedFile = 'routes/'.(Version::phpIsEqualOrGreaterThan74() ? 'web.php' : 'web_php_old.php');
+        $generatedFile = 'routes/'.(Version::phpMin74() ? 'web.php' : 'web_php_old.php');
 
         $from = ($this->isReset()) ? $this->command->originalStubsPath($originalFile) : $this->command->stubsPath($generatedFile);
         $to = base_path($originalFile);
@@ -429,7 +429,7 @@ final class StartCommandService
 
         // bootstrap/providers.php
 
-        if (!Version::laravelIsEqualOrGreaterThan11()) {
+        if (!Version::laravelMin11()) {
             return $this;
         }
 
@@ -448,7 +448,7 @@ final class StartCommandService
     {
         $this->number++;
 
-        if (!Version::laravelIsEqualOrGreaterThan11()) {
+        if (!Version::laravelMin11()) {
             return $this;
         }
 
@@ -488,7 +488,7 @@ EOD;
     {
         $this->number++;
 
-        if (!Version::laravelIsEqualOrGreaterThan11()) {
+        if (!Version::laravelMin11()) {
             return $this;
         }
 

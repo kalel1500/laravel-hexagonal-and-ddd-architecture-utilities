@@ -11,7 +11,7 @@ final class Version
      *
      * @return bool
      */
-    public static function phpIsEqualOrGreaterThan74(): bool
+    public static function phpMin74(): bool
     {
         return version_compare(PHP_VERSION, '7.4', '>=');
     }
@@ -21,7 +21,7 @@ final class Version
      *
      * @return bool
      */
-    public static function laravelIsEqualOrGreaterThan11(): bool
+    public static function laravelMin11(): bool
     {
         return version_compare(app()->version(), '11', '>=');
     }
@@ -31,7 +31,7 @@ final class Version
      *
      * @return bool
      */
-    public static function laravelIsEqualOrGreaterThan9(): bool
+    public static function laravelMin9(): bool
     {
         return version_compare(app()->version(), '9', '>=');
     }
