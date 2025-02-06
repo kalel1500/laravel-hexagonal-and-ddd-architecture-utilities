@@ -49,8 +49,8 @@ final class LayoutService implements LayoutServiceContract
     public function getUserInfo(): UserInfoDo
     {
         return UserInfoDo::fromArray([
-            'name' => 'Neil Sims',
-            'email' => 'name@flowbite.com'
+            'name' => userEntity()->name->value(),
+            'email' => userEntity()->email->value()
         ]);
     }
 }
