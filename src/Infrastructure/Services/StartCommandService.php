@@ -298,6 +298,27 @@ final class StartCommandService
         return $this;
     }
 
+    public function stubsCopyFolder_Seeders(): self
+    {
+        $this->number++;
+
+        // Factories
+        $folder = 'database/seeders';
+
+        $dir = ($this->isReset()) ? $this->command->originalStubsPath($folder) : $this->command->stubsPath($folder);
+        $dest = base_path($folder);
+
+        // Borrar para que se eliminen los archivos existentes
+        $this->filesystem->deleteDirectory($dest);
+
+        $this->filesystem->ensureDirectoryExists($dest);
+        $this->filesystem->copyDirectory($dir, $dest);
+
+        $this->line('Carpeta "'.$folder.'" copiada');
+
+        return $this;
+    }
+
     public function stubsCopyFolder_Lang(): self
     {
         $this->number++;
