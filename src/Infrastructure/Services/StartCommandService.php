@@ -887,6 +887,58 @@ EOD;
         return $this;
     }
 
+    public function modifyFile_ComposerJson_toAddHelperFilePath(): self
+    {
+        $this->number++;
+
+        // Ruta del archivo composer.json
+        $filePath = base_path('composer.json');
+
+        if (!file_exists($filePath)) {
+            return $this;
+        }
+
+        // Cargar el contenido actual de composer.json
+        $composer = json_decode(file_get_contents($filePath), true);
+
+        if (!isset($composer['autoload'])) {
+            $composer['autoload'] = [];
+        }
+
+        if (!isset($composer['autoload']['files'])) {
+            $composer['autoload']['files'] = [];
+        }
+
+        $filePathToAdd = "src/Shared/Infrastructure/Helpers/helpers.php";
+
+        // Agregar el archivo si no está presente
+        if (!in_array($filePathToAdd, $composer['autoload']['files'], true)) {
+            $composer['autoload']['files'][] = $filePathToAdd;
+        }
+
+        // Convertir el arreglo a JSON y formatear con JSON_PRETTY_PRINT
+        $jsonContent = json_encode($composer, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+
+        // Usa una expresión regular para formatear la propiedad "keywords" correctamente en una línea
+        $jsonContent = preg_replace_callback(
+            '/"keywords": \[\s+([^]]+?)\s+]/s',
+            function ($matches) {
+                $keywords = preg_replace('/\s+/', '', $matches[1]);  // Elimina espacios y saltos de línea
+                $keywords = str_replace('","', '", "', $keywords);   // Añade un espacio después de cada coma
+                return '"keywords": [' . $keywords . ']';
+            },
+            $jsonContent
+        );
+
+        // Guardamos los cambios en composer.json
+        file_put_contents($filePath, $jsonContent . PHP_EOL);
+
+        $this->line('Archivo "helpers.php" añadido al "autoload.files" en "composer.json"');
+
+        return $this;
+    }
+
+
     public function execute_ComposerRequire_toInstallComposerDependencies(): self
     {
         $this->number++;

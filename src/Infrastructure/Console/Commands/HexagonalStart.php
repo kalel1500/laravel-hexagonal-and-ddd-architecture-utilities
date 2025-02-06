@@ -100,6 +100,7 @@ class HexagonalStart extends Command
             ->modifyFile_PackageJson_toAddNpmDependencies()
             ->modifyFile_PackageJson_toAddScriptTsBuild()
             ->modifyFile_ComposerJson_toAddSrcNamespace()
+            ->modifyFile_ComposerJson_toAddHelperFilePath()
             ->execute_ComposerRequire_toInstallComposerDependencies()
             ->execute_NpmInstall()
             ->execute_NpxLaravelTsUtils()
