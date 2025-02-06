@@ -36,3 +36,12 @@ git push origin --delete <nombre_del_tag>
   ]
 }
 ```
+
+## Configurar variables de entorno durante el desarrollo
+
+Durante el desarrollo, en la aplicación se pueden configurar las siguientes variables para que el comando ""
+
+```dotenv
+HEXAGONAL_PACKAGE_IN_DEVELOP=true
+HEXAGONAL_KEEP_MIGRATIONS_DATE=true
+```
