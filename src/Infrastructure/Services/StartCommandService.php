@@ -23,6 +23,7 @@ final class StartCommandService
     private $filesystem;
     private $developMode;
     private $keepMigrationsDate;
+    private $resourcesFolderRestored = false;
 
     public function __construct(HexagonalStart $command, bool $reset, bool $simple)
     {
@@ -131,6 +132,20 @@ final class StartCommandService
         }
     }
 
+    private function restoreResources(): void
+    {
+        if ($this->resourcesFolderRestored) return;
+
+        $folder = 'resources';
+        $dir = $this->command->originalStubsPath($folder);
+        $dest = base_path($folder);
+
+        $this->filesystem->deleteDirectory($dest);
+        $this->filesystem->ensureDirectoryExists($dest);
+        $this->filesystem->copyDirectory($dir, $dest);
+        $this->resourcesFolderRestored = true;
+    }
+
 
     public static function configure(HexagonalStart $command, bool $reset, bool $simple): self
     {
@@ -142,9 +157,7 @@ final class StartCommandService
         $this->number++;
 
         // Restore "resources"
-        $this->filesystem->deleteDirectory(resource_path());
-        $this->filesystem->ensureDirectoryExists(resource_path());
-        $this->filesystem->copyDirectory($this->command->originalStubsPath('resources'), base_path('resources'));
+        $this->restoreResources();
 
         // Delete ".prettierrc"
         $this->filesystem->delete(base_path('.prettierrc'));
@@ -349,7 +362,12 @@ final class StartCommandService
         // Views
         $folder = 'resources';
 
-        $dir = ($this->isReset()) ? $this->command->originalStubsPath($folder) : $this->command->stubsPath($folder);
+        // Restaurar la carpeta original
+        $this->restoreResources();
+
+        if ($this->isReset()) return $this;
+
+        $dir = $this->command->stubsPath($folder);
         $dest = base_path($folder);
 
         $this->filesystem->ensureDirectoryExists($dest);
