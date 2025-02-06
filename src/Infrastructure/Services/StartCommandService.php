@@ -911,9 +911,22 @@ EOD;
 
         $filePathToAdd = "src/Shared/Infrastructure/Helpers/helpers.php";
 
-        // Agregar el archivo si no está presente
-        if (!in_array($filePathToAdd, $composer['autoload']['files'], true)) {
-            $composer['autoload']['files'][] = $filePathToAdd;
+        if ($this->isReset()) {
+            // Si estamos en modo reset, eliminamos el archivo de la lista
+            $composer['autoload']['files'] = array_filter(
+                $composer['autoload']['files'],
+                fn($file) => $file !== $filePathToAdd
+            );
+
+            // Si la lista queda vacía, eliminamos completamente la clave "files"
+            if (empty($composer['autoload']['files'])) {
+                unset($composer['autoload']['files']);
+            }
+        } else {
+            // Por defecto, agregamos el archivo si no está presente
+            if (!in_array($filePathToAdd, $composer['autoload']['files'], true)) {
+                $composer['autoload']['files'][] = $filePathToAdd;
+            }
         }
 
         // Convertir el arreglo a JSON y formatear con JSON_PRETTY_PRINT
@@ -933,11 +946,11 @@ EOD;
         // Guardamos los cambios en composer.json
         file_put_contents($filePath, $jsonContent . PHP_EOL);
 
-        $this->line('Archivo "helpers.php" añadido al "autoload.files" en "composer.json"');
+        $action = $this->isReset() ? 'eliminado de' : 'añadido a';
+        $this->line("Archivo \"helpers.php\" {$action} \"autoload.files\" en \"composer.json\"");
 
         return $this;
     }
-
 
     public function execute_ComposerRequire_toInstallComposerDependencies(): self
     {
