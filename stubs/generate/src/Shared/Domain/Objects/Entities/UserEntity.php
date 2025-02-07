@@ -10,7 +10,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelTimestampNull;
 
 class UserEntity extends ContractEntity
 {
@@ -18,7 +18,7 @@ class UserEntity extends ContractEntity
         public readonly ContractModelId $id,
         public readonly ModelString     $name,
         public readonly ModelString     $email,
-        public readonly ModelStringNull $email_verified_at,
+        public readonly ModelTimestampNull $email_verified_at,
     )
     {
     }
@@ -29,7 +29,7 @@ class UserEntity extends ContractEntity
             ModelId::from($data['id']),
             ModelString::new($data['name']),
             ModelString::new($data['email']),
-            ModelStringNull::new($data['email_verified_at']),
+            ModelTimestampNull::new($data['email_verified_at']),
         );
     }
 
