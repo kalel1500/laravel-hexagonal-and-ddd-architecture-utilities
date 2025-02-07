@@ -53,7 +53,7 @@ final class ExceptionHandler
                     return response()->json($context->toArray(), $context->getStatusCode());
                 }
 
-                if (appIsInDebugMode()) {
+                if (debugIsActive()) {
                     return null;
                     // $content = app(ExceptionRenderer::class)->render($e); // $context->previous()
                     // return response($content, $context->getStatusCode());

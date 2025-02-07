@@ -80,7 +80,7 @@ final class ExceptionContextDo extends ContractDataObject
 
     public static function getMessage(Throwable $e): string
     {
-        return (isDomainException($e) || appIsInDebugMode()) ? $e->getMessage() : __('serverError');
+        return (isDomainException($e) || debugIsActive()) ? $e->getMessage() : __('serverError');
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -124,7 +124,7 @@ final class ExceptionContextDo extends ContractDataObject
 
     public function toArray(bool $throwInDebugMode = true): array
     {
-        $addDebugInfo = appIsInDebugMode() && $throwInDebugMode;
+        $addDebugInfo = debugIsActive() && $throwInDebugMode;
         $toArray      = $this->custom_response ?? $this->toArrayForProd();
         return $addDebugInfo ? array_merge($toArray, $this->arrayDebugInfo()) : $toArray;
     }
