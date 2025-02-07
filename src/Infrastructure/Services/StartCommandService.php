@@ -241,6 +241,27 @@ final class StartCommandService
         return $this;
     }
 
+    public function stubsCopyFile_ConfigHexagonalLayout(): self
+    {
+        $this->number++;
+
+        $file = 'config/hexagonal_layout.php';
+
+        $from = $this->command->stubsPath($file);
+        $to = base_path($file);
+
+        if ($this->isReset()) {
+            $this->filesystem->delete($to);
+            $this->line('Archivo "'.$file.'" eliminado');
+            return $this;
+        }
+
+        copy($from, $to);
+        $this->line('Archivo "'.$file.'" creado');
+
+        return $this;
+    }
+
     public function stubsCopyFiles_Migrations(): self
     {
         $this->number++;
