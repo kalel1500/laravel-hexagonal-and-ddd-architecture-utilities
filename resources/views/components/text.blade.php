@@ -1,0 +1,1 @@
+<p {{ $attributes->mergeTailwind('font-normal text-gray-700 dark:text-gray-400') }}>{{ $slot }}</p>
