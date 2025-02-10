@@ -241,23 +241,29 @@ final class StartCommandService
         return $this;
     }
 
-    public function stubsCopyFile_ConfigHexagonalLayout(): self
+    public function stubsCopyFiles_Config(): self
     {
         $this->number++;
 
-        $file = 'config/hexagonal_layout.php';
+        $folder = 'config';
+        $sourcePath = $this->command->stubsPath($folder);
+        $destinationPath = base_path($folder);
 
-        $from = $this->command->stubsPath($file);
-        $to = base_path($file);
+        $files = $this->filesystem->files($sourcePath);
 
-        if ($this->isReset()) {
-            $this->filesystem->delete($to);
-            $this->line('Archivo "'.$file.'" eliminado');
-            return $this;
+        foreach ($files as $file) {
+            $from = $file->getPathname();
+            $to = $destinationPath . DIRECTORY_SEPARATOR . $file->getFilename();
+
+            if ($this->isReset()) {
+                $this->filesystem->delete($to);
+            } else {
+                $this->filesystem->copy($from, $to);
+            }
         }
 
-        copy($from, $to);
-        $this->line('Archivo "'.$file.'" creado');
+        $action = $this->reset ? 'eliminados' : 'copiados';
+        $this->line('Archivos de configuración '.$action);
 
         return $this;
     }

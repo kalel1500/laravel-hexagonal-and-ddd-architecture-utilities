@@ -82,7 +82,7 @@ class HexagonalStart extends Command
             ->publishHexagonalConfig()
             ->stubsCopyFile_AppServiceProvider()
             ->stubsCopyFile_DependencyServiceProvider()
-            ->stubsCopyFile_ConfigHexagonalLayout()
+            ->stubsCopyFiles_Config()
             ->stubsCopyFiles_Migrations()
             ->stubsCopyFolder_Factories()
             ->stubsCopyFolder_Seeders()
