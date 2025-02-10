@@ -20,7 +20,7 @@
     <div class="flex flex-wrap justify-around gap-4">
         @foreach($data->posts as $post)
 
-            <div class="w-96 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-96 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
                 <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 hover:dark:text-gray-300">{{ $post->title->value() }}</h5>
