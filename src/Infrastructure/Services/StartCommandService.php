@@ -1026,6 +1026,25 @@ EOD;
         return $this;
     }
 
+    public function stubsCopyFolder_ResourcesFront(): self
+    {
+        $this->number++;
+
+        // Views
+        $folder = 'resources';
+
+        if ($this->isReset(true)) return $this;
+
+        $dir = $this->command->stubsPath($folder, true);
+        $dest = base_path($folder);
+
+        $this->filesystem->ensureDirectoryExists($dest);
+        $this->filesystem->copyDirectory($dir, $dest);
+        $this->line('Carpeta "'.$folder.'" creada');
+
+        return $this;
+    }
+
     public function execute_gitAdd(): self
     {
         $this->number++;

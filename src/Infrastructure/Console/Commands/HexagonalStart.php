@@ -110,6 +110,7 @@ class HexagonalStart extends Command
             ->execute_ComposerRequire_toInstallComposerDependencies()
             ->execute_NpmInstall()
             ->execute_NpxLaravelTsUtils()
+            ->stubsCopyFolder_ResourcesFront()
             ->execute_gitAdd()
             ->execute_NpmRunBuild();
 
