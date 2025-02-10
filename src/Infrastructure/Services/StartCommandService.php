@@ -187,12 +187,7 @@ final class StartCommandService
         $this->filesystem->delete(config_path('hexagonal_layout.php'));
         $this->filesystem->delete(config_path('hexagonal_user.php'));
 
-        if ($this->isReset()) return $this;
-
-        // Publish "config/hexagonal_user.php"
-        $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config-user']);
-
-        if ($this->developMode) return $this;
+        if ($this->isReset() || $this->developMode) return $this;
 
         // Publish "config/hexagonal.php"
         $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config']);
