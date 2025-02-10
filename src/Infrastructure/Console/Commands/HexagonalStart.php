@@ -32,14 +32,18 @@ class HexagonalStart extends Command
 
     protected $filesystem;
     protected $stubsPath;
+    protected $stubsPathFront;
     protected $originalStubsPath;
 
     public function __construct(Filesystem $filesystem)
     {
         parent::__construct();
-        $this->filesystem = $filesystem;
-        $this->stubsPath = HEXAGONAL_PATH . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'generate';
-        $this->originalStubsPath = HEXAGONAL_PATH . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'original';
+
+        $stubsBasePath           = HEXAGONAL_PATH . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR;
+        $this->filesystem        = $filesystem;
+        $this->stubsPath         = $stubsBasePath . 'generate' . DIRECTORY_SEPARATOR . 'simple';
+        $this->stubsPathFront    = $stubsBasePath . 'generate' . DIRECTORY_SEPARATOR . 'front';
+        $this->originalStubsPath = $stubsBasePath . 'original';
     }
 
     public function filesystem(): Filesystem
@@ -47,9 +51,10 @@ class HexagonalStart extends Command
         return $this->filesystem;
     }
 
-    public function stubsPath($path = ''): string
+    public function stubsPath($path = '', $isFront = false): string
     {
-        return join_paths($this->stubsPath, $path);
+        $stubsPath = $isFront ? $this->stubsPathFront : $this->stubsPath;
+        return join_paths($stubsPath, $path);
     }
 
     public function originalStubsPath($path = ''): string
