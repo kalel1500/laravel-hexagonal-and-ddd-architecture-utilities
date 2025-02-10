@@ -10,14 +10,17 @@ use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelTimestampNull;
 
 final class PostEntity extends ContractEntity
 {
     public function __construct(
-        public readonly ContractModelId $id,
-        public readonly ModelString     $title,
-        public readonly ModelString     $content,
-        public readonly ModelId         $user_id,
+        public readonly ContractModelId    $id,
+        public readonly ModelString        $title,
+        public readonly ModelString        $content,
+        public readonly ModelString        $slug,
+        public readonly ModelId            $user_id,
+        public readonly ModelTimestampNull $created_at,
     )
     {
     }
@@ -28,17 +31,21 @@ final class PostEntity extends ContractEntity
             ModelId::from($data['id']),
             ModelString::new($data['title']),
             ModelString::new($data['content']),
+            ModelString::new($data['slug']),
             ModelId::new($data['user_id']),
+            ModelTimestampNull::new($data['created_at']),
         );
     }
 
     protected function toArrayProperties(): array
     {
         return [
-            'id'      => $this->id->value(),
-            'title'   => $this->title->value(),
-            'content' => $this->content->value(),
-            'user_id' => $this->user_id->value(),
+            'id'         => $this->id->value(),
+            'title'      => $this->title->value(),
+            'content'    => $this->content->value(),
+            'slug'       => $this->slug->value(),
+            'user_id'    => $this->user_id->value(),
+            'created_at' => $this->created_at->value(),
         ];
     }
 

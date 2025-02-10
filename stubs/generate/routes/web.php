@@ -19,6 +19,7 @@ Route::redirect('/', '/home');
 
 // Rutas protegidas
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home',      [DefaultController::class, 'home'])->name('home');
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/home',         [DefaultController::class, 'home'])->name('home');
+    Route::get('/dashboard',    [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/posts/{slug}', [DashboardController::class, 'post'])->name('post');
 });

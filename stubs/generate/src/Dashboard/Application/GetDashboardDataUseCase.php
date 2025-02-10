@@ -7,6 +7,7 @@ namespace Src\Dashboard\Application;
 use Src\Dashboard\Domain\Objects\DataObjects\DashboardDataDto;
 use Src\Shared\Domain\Contracts\Repositories\PostRepositoryContract;
 use Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 final readonly class GetDashboardDataUseCase
 {
@@ -17,13 +18,15 @@ final readonly class GetDashboardDataUseCase
     {
     }
 
-    public function __invoke(): DashboardDataDto
+    public function __invoke(?string $tag): DashboardDataDto
     {
-        $tags = $this->repositoryTag->all();
-        $posts = $this->repositoryPost->all();
+        $tags  = $this->repositoryTag->all();
+        $posts = $this->repositoryPost->searchByTag(ModelStringNull::new($tag));
         return DashboardDataDto::fromArray([
-            'tags' => $tags,
-            'posts' => $posts,
+            $tags,
+            $posts,
+            $posts->count(),
+            $tag,
         ]);
     }
 }
