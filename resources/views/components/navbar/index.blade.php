@@ -1,6 +1,6 @@
 @props(['leftSide', 'rightSide'])
 
-<nav class="fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-700 dark:bg-gray-800">
+<nav class="fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-700 dark:bg-gray-800 shadow-h-1xl dark:shadow-hb-1xl">
     <div class="flex flex-wrap items-center justify-between">
         <!-- Left side -->
         <div class="hidden items-center justify-start vsm:flex">
