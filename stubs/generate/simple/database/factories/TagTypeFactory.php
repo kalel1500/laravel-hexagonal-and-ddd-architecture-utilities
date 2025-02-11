@@ -3,15 +3,14 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Src\Shared\Infrastructure\Models\Tag;
 use Src\Shared\Infrastructure\Models\TagType;
 
 /**
- * @extends Factory<Tag>
+ * @extends Factory<TagType>
  */
-class TagFactory extends Factory
+class TagTypeFactory extends Factory
 {
-    protected $model = Tag::class;
+    protected $model = TagType::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +23,6 @@ class TagFactory extends Factory
         return [
             'name' => $word,
             'code' => $word,
-            'tag_type_id' => TagType::factory(),
         ];
     }
 }

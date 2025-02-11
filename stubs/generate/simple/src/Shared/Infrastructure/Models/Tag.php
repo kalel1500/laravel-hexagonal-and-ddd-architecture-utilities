@@ -7,6 +7,7 @@ namespace Src\Shared\Infrastructure\Models;
 use Database\Factories\TagFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model
@@ -23,5 +24,10 @@ class Tag extends Model
     public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class);
+    }
+
+    public function tagType(): BelongsTo
+    {
+        return $this->belongsTo(TagType::class);
     }
 }

@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Src\Shared\Domain\Objects\Entities;
 
-use Src\Shared\Domain\Objects\Entities\Collections\PostCollection;
+use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
-final class TagEntity extends ContractEntity
+final class TagTypeEntity extends ContractEntity
 {
     public function __construct(
         public readonly ContractModelId $id,
         public readonly ModelString     $name,
         public readonly ModelString     $code,
-        public readonly ModelId         $tag_type_id,
     )
     {
     }
@@ -27,37 +26,25 @@ final class TagEntity extends ContractEntity
             ModelId::from($data['id']),
             ModelString::new($data['name']),
             ModelString::new($data['code']),
-            ModelId::new($data['tag_type_id']),
         );
     }
 
     protected function toArrayProperties(): array
     {
         return [
-            'id'          => $this->id->value(),
-            'name'        => $this->name->value(),
-            'code'        => $this->code->value(),
-            'tag_type_id' => $this->tag_type_id->value(),
+            'id'   => $this->id->value(),
+            'name' => $this->name->value(),
+            'code' => $this->code->value(),
         ];
     }
 
-    public function posts(): PostCollection
+    public function tags(): TagCollection
     {
-        return $this->getRelation('posts');
+        return $this->getRelation('tags');
     }
 
-    public function setPosts(array $value): void
+    public function setTags(array $value): void
     {
-        $this->setRelation($value, 'posts', PostCollection::class);
-    }
-
-    public function tagType(): ?TagTypeEntity
-    {
-        return $this->getRelation('tagType');
-    }
-
-    public function setTagType(?array $value): void
-    {
-        $this->setRelation($value, 'tagType', TagTypeEntity::class);
+        $this->setRelation($value, 'tags', TagCollection::class);
     }
 }

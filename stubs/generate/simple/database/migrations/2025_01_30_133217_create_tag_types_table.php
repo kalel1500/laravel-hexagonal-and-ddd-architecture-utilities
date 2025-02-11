@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('tag_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('code')->unique();
-            $table->foreignId('tag_type_id')->constrained('tag_types');
         });
     }
 
