@@ -5,13 +5,19 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 
 use Illuminate\Contracts\Support\Jsonable;
+use ReflectionClass;
 use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
 use Thehouseofel\Hexagonal\Domain\Contracts\BuildArrayable;
+use Thehouseofel\Hexagonal\Domain\Exceptions\AppException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayVo;
 
 abstract class ContractDataObject implements Arrayable, BuildArrayable, Jsonable
 {
+    protected const REFLECTION_ACTIVE = false;
+
+    private static array $reflectionCache = [];
+
     private function getValue($value)
     {
         return ($value instanceof ContractValueObject) ? $value->value() : $value;
@@ -72,7 +78,65 @@ abstract class ContractDataObject implements Arrayable, BuildArrayable, Jsonable
      */
     protected static function createFromArray(array $data)
     {
-        return new static(...array_values($data));
+        if (!static::REFLECTION_ACTIVE) {
+            return new static(...array_values($data));
+        }
+
+        $className = static::class;
+
+        // Usamos cache para evitar repetir la reflexión
+        if (!isset(self::$reflectionCache[$className])) {
+            $reflection = new ReflectionClass($className);
+            $constructor = $reflection->getConstructor();
+
+            if (!$constructor) {
+                throw new AppException("The " . static::class . " class has no constructor.");
+            }
+
+            self::$reflectionCache[$className] = $constructor->getParameters();
+        }
+
+        $parameters = self::$reflectionCache[$className];
+        $args = [];
+
+        foreach ($parameters as $param) {
+            $name = $param->getName();
+            $type = $param->getType();
+
+            if (!$type) {
+                throw new AppException("The \$$name parameter in " . static::class . " does not have a defined type.");
+            }
+
+            $typeName = $type->getName();
+            $value = $data[$name] ?? null;
+
+            $typeIsClass = class_exists($typeName);
+            $valueIsNotInstance = !($value instanceof $typeName);
+
+            if ($typeIsClass && $valueIsNotInstance) {
+                // Si el tipo es una clase y el valor NO es una instancia, creamos la instancia de la clase
+                if (is_a($typeName, \BackedEnum::class, true)) {
+                    $method = 'from';
+                } elseif (is_a($typeName, ContractValueObject::class, true)) {
+                    $method = 'new';
+                } else {
+                    $method = 'fromArray';
+                }
+                // TODO PHP8 - (important) Match
+                /*$method = match (true) {
+                    $value instanceof \BackedEnum => 'from',
+                    $value instanceof ContractValueObject => 'new',
+                    default => 'fromArray',
+                };*/
+
+                $args[] = $typeName::$method($value);
+            } else {
+                // Si no, pasamos el valor directamente
+                $args[] = $value;
+            }
+        }
+
+        return new static(...$args);
     }
 
     public function toJson($options = 0)
