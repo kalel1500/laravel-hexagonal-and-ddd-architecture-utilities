@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Src\Shared\Infrastructure\Repositories\Eloquent;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\RecordNotFoundException;
 use Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
 use Src\Shared\Domain\Objects\Entities\TagEntity;
 use Src\Shared\Infrastructure\Models\Tag;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 final class TagRepository implements TagRepositoryContract
 {
@@ -23,6 +25,20 @@ final class TagRepository implements TagRepositoryContract
     public function all(): TagCollection
     {
         $data = $this->model::query()->get();
+        return TagCollection::fromArray($data->toArray());
+    }
+
+    public function searchByType(ModelStringNull $typeCode): TagCollection
+    {
+        $data = $this->model::query()
+            ->where(function (Builder $query) use ($typeCode) {
+                if ($typeCode->isNotNull()) {
+                    $query->whereHas('tagType', function (Builder $query2) use ($typeCode) {
+                        $query2->where('code', $typeCode->value());
+                    });
+                }
+            })
+            ->get();
         return TagCollection::fromArray($data->toArray());
     }
 
