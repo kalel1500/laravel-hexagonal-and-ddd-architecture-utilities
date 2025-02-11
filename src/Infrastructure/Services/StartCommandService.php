@@ -787,6 +787,7 @@ EOD;
 
         $this->modifyPackageJsonSection('dependencies', [
             '@kalel1500/laravel-ts-utils'   => config('hexagonal.version_kalel1500_laravel_ts_utils'),
+            'tabulator-tables'              => config('hexagonal.version_tabulator_tables'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (dependencies)');

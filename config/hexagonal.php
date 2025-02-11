@@ -139,6 +139,8 @@ return [
 
     'version_kalel1500_laravel_ts_utils' => '^0.4.0-beta.10',
 
+    'version_tabulator_tables' => '^6.3.1',
+
     /*
     |--------------------------------------------------------------------------
     | Package in develop
