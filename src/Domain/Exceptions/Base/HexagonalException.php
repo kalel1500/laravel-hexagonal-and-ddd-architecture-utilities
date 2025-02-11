@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Exceptions\Base;
 
-use DomainException;
+use Exception;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
 use Throwable;
 
-abstract class HexagonalException extends DomainException
+abstract class HexagonalException extends Exception
 {
     protected $statusCode;
     protected $context;
