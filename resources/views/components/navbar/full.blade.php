@@ -50,7 +50,7 @@
                                     @if($item->dropdown->is_list)
                                         <x-hexagonal::navbar.dropdown.link :href="$subItem->getHref()" :time="$subItem->time">
                                             <x-slot:icon>
-                                                <x-hexagonal::render-icon :icon="$subItem->icon" />
+                                                <x-hexagonal::render-icon :icon="$subItem->icon" class="h-11 w-11"/>
                                             </x-slot:icon>
                                             {{ $subItem->text }}
                                         </x-hexagonal::navbar.dropdown.link>
