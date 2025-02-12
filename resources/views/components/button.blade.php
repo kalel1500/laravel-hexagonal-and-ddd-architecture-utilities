@@ -10,6 +10,7 @@
         'purple'    => '                       bg-purple-700   text-white      hover:bg-purple-800 focus:ring-purple-300                           dark:bg-purple-600                                              dark:hover:bg-purple-700    dark:focus:ring-purple-900',
         'light'     => 'border border-gray-300 bg-white        text-gray-900   hover:bg-gray-100   focus:ring-gray-100     dark:border-gray-600    dark:bg-gray-800    dark:text-white dark:hover:border-gray-600  dark:hover:bg-gray-700      dark:focus:ring-gray-700',
         'yellow'    => '                       bg-yellow-400   text-white      hover:bg-yellow-500 focus:ring-yellow-300                                                                                                                       dark:focus:ring-yellow-900',
+        'gray'      => '                       bg-gray-500     text-white      hover:bg-gray-600   focus:ring-gray-300                                                                                                                         dark:focus:ring-gray-900',
     ];
     $btnClasses = $arrayBtnClasses[$color];
 @endphp
