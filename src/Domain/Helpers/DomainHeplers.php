@@ -693,3 +693,12 @@ if (!function_exists('normalize_path')) {
             : str_replace('\\', '/', $path); // Linux/macOS
     }
 }
+
+if (!function_exists('get_shadow_classes')) {
+    function get_shadow_classes(string $normalShadow = 'shadow-md'): string
+    {
+        return config('hexagonal.active_shadows')
+            ? 'shadow-h-1xl dark:shadow-hb-1xl'
+            : $normalShadow;
+    }
+}

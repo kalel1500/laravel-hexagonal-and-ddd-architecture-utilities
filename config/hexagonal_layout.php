@@ -13,6 +13,8 @@ return [
 
     'dark_theme' => (bool) env('HEXAGONAL_DARK_THEME', false),
 
+    'active_shadows' => (bool) env('HEXAGONAL_ACTIVE_SHADOWS', false),
+
     'sidebar_collapsed' => (bool) env('HEXAGONAL_SIDEBAR_COLLAPSED', false),
 
     'sidebar_state_per_page' => (bool) env('HEXAGONAL_SIDEBAR_STATE_PER_PAGE', false),
