@@ -593,7 +593,7 @@ if (!function_exists('getIconClasses')) {
         if (!str_contains($classes, 'size-')) {
             $classes = 'size-' . $sizeNumber . ' ' . $classes;
         }
-        return $classes;
+        return trim($classes);
     }
 }
 
@@ -603,6 +603,13 @@ if (!function_exists('getOtherAttributes')) {
         return $attributes->filter(function (string $value, string $key) {
             return $key != 'class' && $key != 'outline' && $key != 'flowbite';
         });
+    }
+}
+
+if (!function_exists('getIconFullAttributes')) {
+    function getIconFullAttributes(ComponentAttributeBag $attributes, $sizeNumber = '6'): string
+    {
+        return trim('class="'.getIconClasses($attributes, $sizeNumber).'" '.getOtherAttributes($attributes)->toHtml());
     }
 }
 
