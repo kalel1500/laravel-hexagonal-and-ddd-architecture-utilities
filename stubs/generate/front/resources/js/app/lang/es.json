@@ -1,0 +1,5 @@
+{
+    "test_message": "Mensaje de prueba",
+    "test_message_VARIABLE": "Mensaje de prueba con :variable",
+    "the_tag": "el Tag"
+}

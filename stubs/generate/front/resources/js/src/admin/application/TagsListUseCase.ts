@@ -1,9 +1,10 @@
-import { Instantiable, TableSettingEvents, Ttable } from "@kalel1500/laravel-ts-utils";
+import { Instantiable, TableSettingEvents, Ttable, ValidationRules } from "@kalel1500/laravel-ts-utils";
 import { DataViewTags } from "../infrastructure/AdminController";
 import { route } from "ziggy-js";
 import { CellEventCallback, Formatter, Options } from "tabulator-tables";
+import { __ } from "../../../app/translations";
 
-export default class TagsListUseCase extends  Instantiable
+export default class TagsListUseCase extends Instantiable
 {
     protected ttable?: Ttable;
     protected readonly tableId: string = '#table-tags';
@@ -14,14 +15,43 @@ export default class TagsListUseCase extends  Instantiable
     constructor(viewData: DataViewTags) {
         super();
         this.viewData = viewData;
-        this.formatters = {};
-        this.cellClicks = {};
+        this.formatters = {
+            cellActions: (cell) => {
+                return this.ttable!.defaultFormatterCellActions(cell);
+            },
+        };
+        this.cellClicks = {
+            actions: (event, cell) => {
+                const btnSave = (event?.target as HTMLElement).closest("[data-action=\"save\"]");
+                const btnDelete = (event?.target as HTMLElement).closest("[data-action=\"delete\"]");
+                const btnCancel = (event?.target as HTMLElement).closest("[data-action=\"cancel\"]");
+                const data = cell.getData();
+                if (btnSave) {
+                    const url = (data.id) ? route("fetch.tags.update", data.id) : route("fetch.tags.create");
+                    const rules: ValidationRules = {
+                        name:           ["required"],
+                        code:           ["required"],
+                        tag_type_id:    ["required", "number"],
+                    };
+                    Ttable.defaultActionSave(cell, url, rules).then();
+                }
+                if (btnDelete) {
+                    Ttable.defaultActionDelete(
+                        cell,
+                        route("fetch.tags.delete", data.id),
+                        {html: __("confirm_delete_FIELD_NAME", {field: __('the_tag'), name: data.name})}
+                    ).then();
+                }
+                if (btnCancel) {
+                    Ttable.defaultActionCancel(cell);
+                }
+            },
+        };
 
     }
 
     __invoke()
     {
-        console.log(this.viewData);
         const options: Options = {
             ...Ttable.defaultSettings,
             columnDefaults: {
