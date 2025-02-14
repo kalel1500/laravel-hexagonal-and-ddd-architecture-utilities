@@ -11,6 +11,7 @@ use Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
 use Src\Shared\Domain\Objects\Entities\TagEntity;
 use Src\Shared\Infrastructure\Models\Tag;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\DuplicatedRecordException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
@@ -67,6 +68,28 @@ final class TagRepository implements TagRepositoryContract
                 ->delete();
         } catch (ModelNotFoundException $e) {
             throw new RecordNotFoundException($e->getMessage());
+        }
+    }
+
+    public function throwIfExists(TagEntity $tag): void
+    {
+        $existNameOrCode = $this->model::query()
+            ->newQuery()
+            ->where(function (Builder $query) use ($tag) {
+                if ($tag->id->isNotNull()) {
+                    $query->where('id', '!=', $tag->id->value());
+                }
+            })
+            ->where(function (Builder $query) use ($tag) {
+                $query
+                    ->where('name', $tag->name->value())
+                    ->orWhere('code', $tag->code->value());
+            })
+            ->exists();
+
+        if ($existNameOrCode) {
+            $message = __('database_modelAlreadyExistWithFields', ['model' => 'Tag', 'fields' => concat_fields_with(['name', 'code'], 'or')]);
+            throw new DuplicatedRecordException($message);
         }
     }
 }
