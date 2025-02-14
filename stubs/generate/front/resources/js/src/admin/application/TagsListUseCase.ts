@@ -42,7 +42,16 @@ export default class TagsListUseCase extends  Instantiable
                 {title: "Acciones",                                                                                                                                         formatter: this.formatters.cellActions,                                                                                     editor: undefined,  editorParams: undefined,                                            editable: false,                                                    cellClick: this.cellClicks.actions,     },
             ],
         };
-        const events: TableSettingEvents = {};
+        const events: TableSettingEvents = {
+            tableBuilt: () => {
+                const btnEdit = document.querySelector<HTMLButtonElement>("#btn-tag-edit");
+                const btnCancelEdit = document.querySelector<HTMLButtonElement>("#btn-tag-cancel");
+                const btnAdd = document.querySelector<HTMLButtonElement>("#btn-tag-add");
+                btnEdit?.addEventListener("click", () => this.ttable!.defaultListenerBtnEdit(btnEdit, btnCancelEdit));
+                btnCancelEdit?.addEventListener("click", () => this.ttable!.defaultListenerBtnCancel(btnEdit, btnCancelEdit));
+                btnAdd?.addEventListener("click", () => this.ttable!.defaultListenerBtnAddRow());
+            },
+        };
         this.ttable = new Ttable(this.tableId, options, events);
     }
 }

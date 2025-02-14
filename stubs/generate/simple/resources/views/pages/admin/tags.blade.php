@@ -8,15 +8,22 @@
     </div>
 
     <x-hexagonal::section class="w-full justify-self-center">
-        <x-hexagonal::tab>
-            <x-hexagonal::tab.item :active="is_null($data->currentTagType)" :href="route('tags')">Todos</x-hexagonal::tab.item>
-            @foreach($data->tagTypes as $tagType)
-                <x-hexagonal::tab.item :active="$data->currentTagType?->id->value() === $tagType->id->value()" :href="route('tags', $tagType->code->value())">{{ $tagType->name }}</x-hexagonal::tab.item>
-            @endforeach
-        </x-hexagonal::tab>
+        <div class="md:flex md:justify-between md:items-center">
+            <x-hexagonal::tab class="flex-1 mb-3 md:mb-0">
+                <x-hexagonal::tab.item :active="is_null($data->currentTagType)" :href="route('tags')">Todos</x-hexagonal::tab.item>
+                @foreach($data->tagTypes as $tagType)
+                    <x-hexagonal::tab.item :active="$data->currentTagType?->id->value() === $tagType->id->value()" :href="route('tags', $tagType->code->value())">{{ $tagType->name }}</x-hexagonal::tab.item>
+                @endforeach
+            </x-hexagonal::tab>
 
+            <x-hexagonal::tabulator.buttons
+                    editId="btn-tag-edit"
+                    cancelId="btn-tag-cancel"
+                    addId="btn-tag-add"
+            />
+        </div>
 
-        <div id="table-tags"></div>
+        <div id="table-tags" class="mt-4"></div>
     </x-hexagonal::section>
 
 </x-hexagonal::layout.app>
