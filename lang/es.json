@@ -10,5 +10,8 @@
     "websockets_failedActionBladeMessage": "El avance no se esta reflejando en tiempo real a otros usuarios, aunque esto no afectará a la ejecución de le página.",
     "queues_ServiceActive": "El servicio de colas esta activado.",
     "queues_ServiceInactive": "El servicio de colas esta desactivado.",
-    "error_featureUnavailable": "Esta funcionalidad aun no esta lista."
+    "error_featureUnavailable": "Esta funcionalidad aun no esta lista.",
+    ":Model created successfully": ":Model creado correctamente",
+    ":Model updated successfully": ":Model actualizado correctamente",
+    ":Model deleted successfully": ":Model eliminado correctamente"
 }
