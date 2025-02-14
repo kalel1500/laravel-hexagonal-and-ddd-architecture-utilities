@@ -17,9 +17,9 @@
             </x-hexagonal::tab>
 
             <x-hexagonal::tabulator.buttons
-                    editId="btn-tag-edit"
-                    cancelId="btn-tag-cancel"
-                    addId="btn-tag-add"
+                editId="btn-tag-edit"
+                cancelId="btn-tag-cancel"
+                addId="btn-tag-add"
             />
         </div>
 
