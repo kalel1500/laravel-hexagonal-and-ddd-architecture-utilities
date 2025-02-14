@@ -613,6 +613,15 @@ if (!function_exists('getIconFullAttributes')) {
     }
 }
 
+if (!function_exists('concat_fields_with')) {
+    function concat_fields_with(array $fields = ['name', 'code'], string $separator = 'or'): string
+    {
+        $separator = __($separator);
+        $fields = array_map(fn(string $item): string => '"'.ucfirst(__($item)).'"', $fields);
+        return implode(" $separator ", $fields);
+    }
+}
+
 //if (!function_exists('formatToTabulatorList')) {
 //    /**
 //     * @param Collection|ContractCollectionBase $collection // TODO PHP8 - Union types
