@@ -58,7 +58,7 @@ export default class TagsListUseCase extends Instantiable
                 headerSort: true,
             },
             layout: "fitColumns",
-            height: "70vh",
+            height: "65vh",
             pagination: false,
             ajaxURL: route("fetch.tags", this.viewData.currentTagType?.code),
             rowFormatter: row => {
