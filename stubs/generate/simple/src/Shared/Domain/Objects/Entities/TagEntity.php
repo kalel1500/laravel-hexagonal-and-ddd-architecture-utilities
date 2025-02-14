@@ -24,7 +24,7 @@ final class TagEntity extends ContractEntity
     protected static function createFromArray(array $data): self
     {
         return new self(
-            ModelId::from($data['id']),
+            ModelId::from($data['id'] ?? null),
             ModelString::new($data['name']),
             ModelString::new($data['code']),
             ModelId::new($data['tag_type_id']),

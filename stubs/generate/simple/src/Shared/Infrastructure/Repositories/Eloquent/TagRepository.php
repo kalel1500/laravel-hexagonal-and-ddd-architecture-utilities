@@ -11,6 +11,7 @@ use Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
 use Src\Shared\Domain\Objects\Entities\TagEntity;
 use Src\Shared\Infrastructure\Models\Tag;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 final class TagRepository implements TagRepositoryContract
@@ -50,9 +51,20 @@ final class TagRepository implements TagRepositoryContract
     public function update(TagEntity $tag): void
     {
         try {
-            $this->model->newQuery()
+            $this->model::query()
                 ->findOrFail($tag->id->value())
                 ->update($tag->toArrayDb());
+        } catch (ModelNotFoundException $e) {
+            throw new RecordNotFoundException($e->getMessage());
+        }
+    }
+
+    public function delete(ModelId $id): void
+    {
+        try {
+            $this->model::query()
+                ->findOrFail($id->value())
+                ->delete();
         } catch (ModelNotFoundException $e) {
             throw new RecordNotFoundException($e->getMessage());
         }

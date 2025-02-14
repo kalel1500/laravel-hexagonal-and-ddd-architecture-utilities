@@ -26,7 +26,7 @@ final class CommentEntity extends ContractEntity
     protected static function createFromArray(array $data): self
     {
         return new self(
-            ModelId::from($data['id']),
+            ModelId::from($data['id'] ?? null),
             ModelString::new($data['content']),
             ModelId::new($data['user_id']),
             ModelIdNull::new($data['post_id']),
