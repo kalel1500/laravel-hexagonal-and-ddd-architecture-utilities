@@ -1,4 +1,10 @@
 {
+    "el": "el",
+    "la": "la",
+    "and": "y",
+    "or": "o",
+    "name": "nombre",
+    "code": "código",
     "serverError": "Error del Servidor",
     "Unexpected response format": "Formato de respuesta inesperado",
     "Several errors have been detected": "Se han detectado varios errores",
@@ -13,5 +19,7 @@
     "error_featureUnavailable": "Esta funcionalidad aun no esta lista.",
     ":Model created successfully": ":Model creado correctamente",
     ":Model updated successfully": ":Model actualizado correctamente",
-    ":Model deleted successfully": ":Model eliminado correctamente"
+    ":Model deleted successfully": ":Model eliminado correctamente",
+    "database_modelAlreadyExistWithField": "Ya existe un :model con :field :value",
+    "database_modelAlreadyExistWithFields": "Ya existe un :model con ese :fields"
 }
