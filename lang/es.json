@@ -21,5 +21,7 @@
     ":Model updated successfully": ":Model actualizado correctamente",
     ":Model deleted successfully": ":Model eliminado correctamente",
     "database_modelAlreadyExistWithField": "Ya existe un :model con :field :value",
-    "database_modelAlreadyExistWithFields": "Ya existe un :model con ese :fields"
+    "database_modelAlreadyExistWithFields": "Ya existe un :model con ese :fields",
+    "database_recordIsUsedInRelation": "No se puede eliminar el registro porque esta siendo usado como FK en otro modelo",
+    "database_recordIsUsedInRelation_:model_:relation": "No se puede eliminar el :model tiene una relación con :relation"
 }
