@@ -32,6 +32,8 @@ php artisan vendor:publish --tag="hexagonal-migrations"
 php artisan vendor:publish --tag="hexagonal-views"
 php artisan vendor:publish --tag="hexagonal-view-layout"
 php artisan vendor:publish --tag="hexagonal-config"
+php artisan vendor:publish --tag="hexagonal-config-auth"
+php artisan vendor:publish --tag="hexagonal-config-layout"
 php artisan vendor:publish --tag="hexagonal-lang"
 ```
 

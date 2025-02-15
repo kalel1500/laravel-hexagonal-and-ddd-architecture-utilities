@@ -148,8 +148,8 @@ return [
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
+            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_auth.php', 'hexagonal_auth');
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_user.php', 'hexagonal_user');
 
             Hexagonal::setLogChannels();
         }
@@ -275,15 +275,15 @@ return [
             HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
         ], 'hexagonal-config');
 
+        // hexagonal_auth.php
+        $this->publishes([
+            HEXAGONAL_PATH.'/config/hexagonal_auth.php' => config_path('hexagonal_auth.php'),
+        ], 'hexagonal-config-auth');
+
         // hexagonal_layout.php
         $this->publishes([
             HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
         ], 'hexagonal-config-layout');
-
-        // hexagonal_user.php
-        $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal_user.php' => config_path('hexagonal_user.php'),
-        ], 'hexagonal-config-user');
 
 
         /*

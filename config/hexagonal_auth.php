@@ -11,5 +11,5 @@ return [
     |
     */
 
-    'entity_class' => env('HEXAGONAL_ENTITY_CLASS', \Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity::class),
+    'entity_class' => env('HEXAGONAL_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity::class),
 ];

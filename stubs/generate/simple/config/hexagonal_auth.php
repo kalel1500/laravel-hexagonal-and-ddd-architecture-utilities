@@ -11,5 +11,5 @@ return [
     |
     */
 
-    'entity_class' => env('HEXAGONAL_ENTITY_CLASS', \Src\Shared\Domain\Objects\Entities\UserEntity::class),
+    'entity_class' => env('HEXAGONAL_AUTH_ENTITY_CLASS', \Src\Shared\Domain\Objects\Entities\UserEntity::class),
 ];
