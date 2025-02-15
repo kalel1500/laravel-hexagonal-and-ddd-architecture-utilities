@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Infrastructure\Exceptions;
 
-use Illuminate\Contracts\Foundation\ExceptionRenderer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Exceptions\Renderer\Renderer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
 use Throwable;
 
 final class ExceptionHandler
@@ -36,13 +35,23 @@ final class ExceptionHandler
                 return $response;
             });
 
-            // Sobreescribir todos los ModelNotFoundException por DatabaseQueryException para que los metodos findOrFail() lanzen un error de dominio
-            /*$exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            // Renderizar manualmente los ModelNotFoundException para que todos los "findOrFail()" en local muestren la vista "trace" y en PRO muestren nuestra vita "custom-error" sin tener que envolverlos en un "tryCatch"
+            $exceptions->render(function (NotFoundHttpException $e, Request $request) {
                 $exception = $e->getPrevious();
-                if ($exception instanceof ModelNotFoundException) {
-                    throw new RecordNotFoundException($exception->getMessage(), $exception);
+
+                // Si no es una instancia de ModelNotFoundException, devolver null
+                if (!($exception instanceof ModelNotFoundException)) return null;
+
+                if (debugIsActive()) {
+                    $content = app()->make(Renderer::class)->render($request, $exception);
+                    return response($content);
+                } else {
+                    return response()->view('hexagonal::pages.custom-error', [
+                        'code'    => $e->getStatusCode(),
+                        'message' => $exception->getMessage(),
+                    ], $e->getStatusCode());
                 }
-            });*/
+            });
 
             // Renderizar nuestras excepciones de dominio
             $exceptions->render(function (HexagonalException $e, Request $request) {
