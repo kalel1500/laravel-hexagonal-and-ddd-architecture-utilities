@@ -11,5 +11,6 @@ return [
     |
     */
 
-    'feature_unavailable'  => 'Esta funcionalidad aun no esta lista.',
+    'feature_unavailable'                => 'Esta funcionalidad aun no esta lista.',
+    'exception_message_can_not_be_empty' => 'La excepción :exception no puede tener un mensaje vacío',
 ];

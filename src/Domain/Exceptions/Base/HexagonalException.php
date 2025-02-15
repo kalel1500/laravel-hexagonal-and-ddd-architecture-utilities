@@ -31,6 +31,10 @@ abstract class HexagonalException extends Exception
         bool $success = false
     )
     {
+        if ($message === "") {
+            throw new Exception(__('h::error.exception_message_can_not_be_empty', ['exception' => static::class]));
+        }
+
         // Llamar al constructor
         parent::__construct($message, $code, $previous);
 
