@@ -34,6 +34,7 @@ php artisan vendor:publish --tag="hexagonal-view-layout"
 php artisan vendor:publish --tag="hexagonal-config"
 php artisan vendor:publish --tag="hexagonal-config-auth"
 php artisan vendor:publish --tag="hexagonal-config-layout"
+php artisan vendor:publish --tag="hexagonal-config-links"
 php artisan vendor:publish --tag="hexagonal-lang"
 ```
 

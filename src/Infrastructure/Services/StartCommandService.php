@@ -186,6 +186,7 @@ final class StartCommandService
         $this->filesystem->delete(config_path('hexagonal.php'));
         $this->filesystem->delete(config_path('hexagonal_auth.php'));
         $this->filesystem->delete(config_path('hexagonal_layout.php'));
+        $this->filesystem->delete(config_path('hexagonal_links.php'));
 
         if ($this->isReset() || $this->developMode) return $this;
 

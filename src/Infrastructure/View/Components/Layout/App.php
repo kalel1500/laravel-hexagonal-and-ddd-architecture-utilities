@@ -45,7 +45,7 @@ class App extends Component
 
     private function calculateSidebarCollapsedFromItems(): bool
     {
-        $links = collect(config('hexagonal_layout.sidebar.items'));
+        $links = collect(config('hexagonal_links.sidebar.items'));
 
         $firstCollapsed = $links->flatMap(function ($item) {
             // Combinar el array con sus sub_links (si existen)

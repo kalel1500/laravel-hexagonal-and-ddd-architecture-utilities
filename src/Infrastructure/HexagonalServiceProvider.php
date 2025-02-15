@@ -150,6 +150,7 @@ return [
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_auth.php', 'hexagonal_auth');
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
+            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_links.php', 'hexagonal_links');
 
             Hexagonal::setLogChannels();
         }
@@ -284,6 +285,11 @@ return [
         $this->publishes([
             HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
         ], 'hexagonal-config-layout');
+
+        // hexagonal_links.php
+        $this->publishes([
+            HEXAGONAL_PATH.'/config/hexagonal_links.php' => config_path('hexagonal_links.php'),
+        ], 'hexagonal-config-links');
 
 
         /*
