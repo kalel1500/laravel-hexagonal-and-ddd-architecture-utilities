@@ -17,6 +17,8 @@ final readonly class DeleteTagUseCase
 
     public function __invoke(int $id): void
     {
-        $this->tagRepository->delete(ModelId::new($id));
+        $id = ModelId::new($id);
+        $this->tagRepository->throwIfIsUsedByRelation($id);
+        $this->tagRepository->delete($id);
     }
 }

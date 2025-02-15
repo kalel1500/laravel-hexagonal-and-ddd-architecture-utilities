@@ -17,4 +17,5 @@ interface TagRepositoryContract
     public function update(TagEntity $tag): void;
     public function delete(ModelId $id): void;
     public function throwIfExists(TagEntity $tag): void;
+    public function throwIfIsUsedByRelation(ModelId $id): void;
 }

@@ -12,6 +12,7 @@ use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
 use Src\Shared\Domain\Objects\Entities\TagEntity;
 use Src\Shared\Infrastructure\Models\Tag;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Database\DuplicatedRecordException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\HasRelationException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
@@ -90,6 +91,21 @@ final class TagRepository implements TagRepositoryContract
         if ($existNameOrCode) {
             $message = __('database_modelAlreadyExistWithFields', ['model' => 'Tag', 'fields' => concat_fields_with(['name', 'code'], 'or')]);
             throw new DuplicatedRecordException($message);
+        }
+    }
+
+    public function throwIfIsUsedByRelation(ModelId $id): void
+    {
+        try {
+            $hasRelation = $this->model::query()
+                ->findOrFail($id->value())
+                ->posts()
+                ->exists();
+            if ($hasRelation) {
+                throw new HasRelationException('Tag', 'Posts');
+            }
+        } catch (ModelNotFoundException $e) {
+            throw new RecordNotFoundException($e->getMessage());
         }
     }
 }
