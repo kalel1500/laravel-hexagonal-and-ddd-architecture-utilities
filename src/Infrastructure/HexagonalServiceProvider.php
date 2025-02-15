@@ -346,7 +346,7 @@ return [
      */
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(HEXAGONAL_PATH.'/lang', 'hexagonal');
+        $this->loadTranslationsFrom(HEXAGONAL_PATH.'/lang', 'h');
         $this->loadJsonTranslationsFrom(HEXAGONAL_PATH.'/lang');
     }
 

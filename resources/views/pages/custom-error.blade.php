@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {{--<title>@yield('title')</title>--}}
-        <title>{{ __('serverError') }}</title>
+        <title>{{ __('Server Error') }}</title>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">

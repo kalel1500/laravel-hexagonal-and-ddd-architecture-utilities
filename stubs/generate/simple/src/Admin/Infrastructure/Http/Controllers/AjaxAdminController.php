@@ -36,7 +36,7 @@ final class AjaxAdminController extends Controller
         ]);
         try {
             $this->updateOrCreateTagUseCase->__invoke($params);
-            return responseJson(true, __(':Model created successfully', ['Model' => 'Tag']));
+            return responseJson(true, __('h::database.model_created_successfully', ['model' => 'Tag']));
         } catch (\Throwable $th) {
             return responseJsonError($th);
         }
@@ -53,7 +53,7 @@ final class AjaxAdminController extends Controller
 
         try {
             $this->updateOrCreateTagUseCase->__invoke($params);
-            return responseJson(true, __(':Model updated successfully', ['Model' => 'Tag']));
+            return responseJson(true, __('h::database.model_updated_successfully', ['model' => 'Tag']));
         } catch (\Throwable $th) {
             return responseJsonError($th);
         }
@@ -63,7 +63,7 @@ final class AjaxAdminController extends Controller
     {
         try {
             $this->deleteTagUseCase->__invoke($id);
-            return responseJson(true, __(':Model deleted successfully', ['Model' => 'Tag']));
+            return responseJson(true, __('h::database.model_deleted_successfully', ['model' => 'Tag']));
         } catch (\Throwable $th) {
             return responseJsonError($th);
         }

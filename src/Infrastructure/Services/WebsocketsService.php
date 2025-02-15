@@ -20,7 +20,7 @@ final class WebsocketsService
     public static function emitEvent(JsonResponse $response, ShouldBroadcast $instanceEvent): JsonResponse
     {
         try {
-            if (!broadcastingIsActive()) throw new BroadcastException(__('websockets_serviceInactive'), Response::HTTP_PARTIAL_CONTENT);
+            if (!broadcastingIsActive()) throw new BroadcastException(__('h::service.websockets.inactive'), Response::HTTP_PARTIAL_CONTENT);
             broadcast($instanceEvent);
             $data = $response->getData(true);
             $data['data']['broadcasting'] = ['success' => true, 'message' => 'Servicio websockets levantado'];
@@ -37,7 +37,7 @@ final class WebsocketsService
     public static function emitEventSimple(ShouldBroadcast $instanceEvent): void
     {
         try {
-            if (!broadcastingIsActive()) throw new BroadcastException(__('websockets_serviceInactive'), Response::HTTP_PARTIAL_CONTENT);
+            if (!broadcastingIsActive()) throw new BroadcastException(__('h::service.websockets.inactive'), Response::HTTP_PARTIAL_CONTENT);
             broadcast($instanceEvent);
         } catch (BroadcastException $e) {
             //

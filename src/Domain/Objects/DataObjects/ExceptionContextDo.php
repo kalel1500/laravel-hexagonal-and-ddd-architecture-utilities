@@ -80,7 +80,7 @@ final class ExceptionContextDo extends ContractDataObject
 
     public static function getMessage(Throwable $e): string
     {
-        return (isDomainException($e) || debugIsActive()) ? $e->getMessage() : __('serverError');
+        return (isDomainException($e) || debugIsActive()) ? $e->getMessage() : __('Server Error');
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/

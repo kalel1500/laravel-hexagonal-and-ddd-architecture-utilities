@@ -616,8 +616,8 @@ if (!function_exists('getIconFullAttributes')) {
 if (!function_exists('concat_fields_with')) {
     function concat_fields_with(array $fields = ['name', 'code'], string $separator = 'or'): string
     {
-        $separator = __($separator);
-        $fields = array_map(fn(string $item): string => '"'.ucfirst(__($item)).'"', $fields);
+        $separator = __('h::art.'.$separator);
+        $fields = array_map(fn(string $item): string => '"'.ucfirst(__('h::field.'.$item)).'"', $fields);
         return implode(" $separator ", $fields);
     }
 }
