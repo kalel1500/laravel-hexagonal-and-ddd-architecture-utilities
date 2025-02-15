@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Src\Shared\Infrastructure\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
 use Src\Shared\Domain\Objects\Entities\TagEntity;
 use Src\Shared\Infrastructure\Models\Tag;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Database\DuplicatedRecordException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Database\HasRelationException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
@@ -52,24 +50,16 @@ final class TagRepository implements TagRepositoryContract
 
     public function update(TagEntity $tag): void
     {
-        try {
-            $this->model::query()
-                ->findOrFail($tag->id->value())
-                ->update($tag->toArrayDb());
-        } catch (ModelNotFoundException $e) {
-            throw new RecordNotFoundException($e->getMessage());
-        }
+        $this->model::query()
+            ->findOrFail($tag->id->value())
+            ->update($tag->toArrayDb());
     }
 
     public function delete(ModelId $id): void
     {
-        try {
-            $this->model::query()
-                ->findOrFail($id->value())
-                ->delete();
-        } catch (ModelNotFoundException $e) {
-            throw new RecordNotFoundException($e->getMessage());
-        }
+        $this->model::query()
+            ->findOrFail($id->value())
+            ->delete();
     }
 
     public function throwIfExists(TagEntity $tag): void
@@ -96,16 +86,12 @@ final class TagRepository implements TagRepositoryContract
 
     public function throwIfIsUsedByRelation(ModelId $id): void
     {
-        try {
-            $hasRelation = $this->model::query()
-                ->findOrFail($id->value())
-                ->posts()
-                ->exists();
-            if ($hasRelation) {
-                throw new HasRelationException('Tag', 'Posts');
-            }
-        } catch (ModelNotFoundException $e) {
-            throw new RecordNotFoundException($e->getMessage());
+        $hasRelation = $this->model::query()
+            ->findOrFail($id->value())
+            ->posts()
+            ->exists();
+        if ($hasRelation) {
+            throw new HasRelationException('Tag', 'Posts');
         }
     }
 }
