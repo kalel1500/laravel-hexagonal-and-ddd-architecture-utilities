@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Src\Shared\Infrastructure\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\RecordNotFoundException;
 use Src\Shared\Domain\Contracts\Repositories\TagTypeRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\Collections\TagTypeCollection;
 use Src\Shared\Domain\Objects\Entities\TagTypeEntity;
 use Src\Shared\Infrastructure\Models\TagType;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 final class TagTypeRepository implements TagTypeRepositoryContract

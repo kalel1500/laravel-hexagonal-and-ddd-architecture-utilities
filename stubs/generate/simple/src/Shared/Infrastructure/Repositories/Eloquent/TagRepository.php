@@ -6,13 +6,13 @@ namespace Src\Shared\Infrastructure\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\RecordNotFoundException;
 use Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
 use Src\Shared\Domain\Objects\Entities\TagEntity;
 use Src\Shared\Infrastructure\Models\Tag;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Database\DuplicatedRecordException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Database\HasRelationException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Database\RecordNotFoundException;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
