@@ -6,7 +6,6 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Exceptions\Renderer\Renderer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +42,7 @@ final class ExceptionHandler
                 if (!($exception instanceof ModelNotFoundException)) return null;
 
                 if (debugIsActive()) {
-                    $content = app()->make(Renderer::class)->render($request, $exception);
+                    $content = app()->make(\Illuminate\Foundation\Exceptions\Renderer\Renderer::class)->render($request, $exception);
                     return response($content);
                 } else {
                     return response()->view('hexagonal::pages.custom-error', [
