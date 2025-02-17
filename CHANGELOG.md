@@ -1,6 +1,117 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.1...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.15.0-beta.0...master)
+
+## [v0.15.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.1...v0.15.0-beta.0) - 2025-02-17
+
+### Added
+
+* hexagonalStart: Nuevo método `modifyFile_PackageJson_toAddEngines()` para añadir la sección `engines` en el `package.json` y asi limitar las versiones necesarias
+* !!! Añadir nuevo `$exceptions->render()` en el `ExceptionHandler.php` para renderizar manualmente los `ModelNotFoundException` para que todos los `findOrFail()` en local muestren la vista `trace` y en PRO muestren nuestra vita `custom-error` sin tener que envolverlos en un `tryCatch`
+* Nuevo helper `concat_fields_with()`
+* Nuevas traducciones añadidas
+* layout: Nuevo parámetro `size` en el componente `hexagonal::button`
+* layout: Nuevo componente `hexagonal::tabulator.buttons`
+* layout: Nuevo método `get_shadow_classes()` que hace la comprobación de la configuración `hexagonal.active_shadows` (si están desactivadas en el componente `hexagonal::section` poner un borde)
+* layout: Añadir configuración `hexagonal.active_shadows` para activar o no las sombras grandes en la `layout`
+* layout: Añadir el color `gray` en el componente `hexagonal::button`
+* layout: Nuevos componentes de iconos (`icon.pencil-square, icon.plus-circle, icon.x-circle`)
+* Nuevo helper `getIconFullAttributes()` que concatena el `getIconClasses()` y `getOtherAttributes()` para no repetir tanto código en los componentes
+* !!! Nueva funcionalidad en el método `createFromArray()` de la clase `ContractDataObject.php` para poder pasarle al `::fromArray()` un array con valores primitivos y que los tipos de los parámetros se instáncien automáticamente usando el `ReflectionClass` (por ahora se debe activar manualmente en cada DTO con la constante `REFLECTION_ACTIVE`)
+* Nueva excepción genérica `AppException`
+* layout: Nuevos componentes `hexagonal::tab` y `hexagonal::tab.item`
+* layout: Nuevos iconos
+* hexagonalStart: (example) Nuevo método `stubsCopyFolder_ResourcesFront()` para generar los archivos TS del front (después del `execute_NpxLaravelTsUtils()`)
+* hexagonalStart: indicar en amarillo cuando es DEVELOP
+* layout: Nuevos componentes `select, badge, heading, link y text`
+* hexagonalStart: (example) Nuevo método `stubsCopyFiles_Config()` para generar las configuraciones iniciales
+* Nuevos `ValueObjects` para guardar las fechas con formato `Timestamp` en las Entidades
+* hexagonalStart: (example) Añadir el código para hacer la inversa del `modifyFile_ComposerJson_toAddHelperFilePath()` cuando el `$this->isReset()` es `true`
+* hexagonalStart: (example) Nuevo método `modifyFile_ComposerJson_toAddHelperFilePath()` para añadir el helper
+* hexagonalStart: Nuevo parámetro `$resourcesFolderRestored` para controlar que no se ejecute dos veces el mismo código.
+* hexagonalStart: (example) Nuevo método `stubsCopyFolder_Seeders()` para generar los Seeders
+* hexagonalStart: (example) Nuevo método `stubsCopyFolder_Factories()` para generar las Factorias
+* hexagonalStart: (example) Nuevo parámetro `$keepMigrationsDate` en el `stubsCopyFiles_Migrations()` para poder mantener los nombres de las migraciones en la plantilla (se añade nueva variable en la config `hexagonal.keep_migrations_date`)
+* hexagonalStart: (example) Añadida la opción `$reset` en el método `stubsCopyFiles_Migrations()`
+* hexagonalStart: (example) Nuevo método `stubsCopyFiles_Migrations()` para generar las migraciones sin ejecutar el `vendor:publish`
+* Stubs example: Crear unos ejemplos básicos para mostrar como funciona la arquitectura hexagonal (lista de Posts con Tags y administración de Tags)
+  * Migraciones
+  * Modelos
+  * Entidades
+  * Repositorios
+  * Controllers
+  * Vistas
+  * Todo el código del front en TS (filtro + Tabulator editable)
+* hexagonalStart: nuevo método `modifyFile_ConfigAuth_toUpdateModel()` para modificar el modelo de usuario para la autenticación
+* hexagonalStart: Nuevo método `modifyFile_BootstrapApp_toAddMiddlewareRedirect()` para añadir `$middleware->redirectUsersTo('home');` en el `->withMiddleware`
+* hexagonalStart: Actualizar el `DependencyServiceProvider.php` con los nuevos repositorios de los ejemplos
+* hexagonalStart: Método `deleteDirectory_Models()` descomentado para borrar y restaurar la carpeta `app/Models` (añadido modelo `User` a los `stubs`)
+* hexagonalStart: Nuevo método `stubsCopyFolder_Lang()` al comando `hexagonal:start` 
+* hexagonalStart: Hacer que el comando `hexagonalStart` publique las nuevas configuraciones
+* Auth: Nueva `Facade` `AuthService` para obtener el `userEntity` dinámicamente de la configuración
+* Auth: Nueva config `config/hexagonal_auth.php` para configurar la entidad del usuario
+* Auth: Nueva clase `UserEntity`
+* Auth: Nueva vista `Landing Page` para hacer el login
+* Auth: Nueva funcionalidad `fake login` para poder hacer Login con el `email`
+
+### Changed
+
+* public: new build
+* Actualizar paquete `@kalel1500/laravel-ts-utils` a la version `^0.5.0-beta.0`
+* (refactor) `package.json`: script `build-check` renombrado a `ts-build`
+* dependencias de NPM actualizadas
+* tsUtilsDevelop: actualizar archivos iniciales del front (`@kalel1500/laravel-ts-utils`)
+* (breaking) Añadir validación para que todas las excepciones del dominio deban recibir un mensaje obligatoriamente
+* (breaking) Mover las traducciones que se definían con `keys` a sus propios archivos de arrays (`art.php`, `database.php`, `error.php`, `field.php`, `service.php`) y dejar en el json las traducciones que si son frases
+* config: Mover las configuraciones de los enlaces del `Navbar` y el `Sidebar` al nuevo archivo `hexagonal_links.php` para poder publicarlo de forma independiente
+* config: Añadir el prefijo `HEXAGONAL_LAYOUT_` a las variables de entorno del archivo de configuración `hexagonal_layout.php`
+* Añadir constructor a la excepción `HasRelationException` para recibir parámetros y setear un mensaje
+* (refactor) layout: poner en minúscula las keys de los colores del componente `hexagonal::button`
+* (breaking) !!!Cambio de clase base en `HexagonalException`: ahora extiende `Exception` en lugar de `DomainException`
+* layout: Añadir sombras al `Navbar`, al `Sidebar` y al `Footer`
+* layout: cambiar las sombras manuales `shadow-[0_0_5px_2px_rgba(0,0,0,0.3)]` por alias `shadow-h-2xl` (se configura en la nueva versión del paquete `laravel-ts-utils`
+* hexagonalStart: (example) No ejecutar el comando `vendor:publish --tag 'hexagonal-config-auth'` si `$developMode===true` (se ha movido a los stubs el nuevo archivo de configuración `hexagonal_auth.php`)
+* (refactor) hexagonalStart: mover todos los stubs a las carpetas `generate/simple` y `generate/front`
+* layout: Intensificar sombra del componente `section`
+* (refactor) Cambiar el método deprecado `appIsInDebugMode()` por el nuevo `debugIsActive()`
+* stubs: `.env.local` actualizado
+* stubs: Cambiar la ruta `/` de un `get` con callback al método `Route::redirect`
+* stubs: Proteger rutas con el middleware `auth`
+* (refactor) hexagonalStart: Extraer la lógica de restaurar los resources en el nuevo método `restoreResources()` y llamarlo también en el `stubsCopyFolder_Resources()`
+* (refactor) hexagonalStart: mover validación de Laravel 11 del método estático `configure` al constructor para que se lance siempre
+* (breaking) (refactor) serviceProvider: renombrar métodos de la clase `Version` para mejorar la legibilidad
+* (refactor) serviceProvider: hacer ternario el `if` de las traducciones
+* (refactor) serviceProvider: hacer las migraciones clases anónimas (ya que solo se ejecutan en versiones de laravel 9 o superiores)
+* (refactor) serviceProvider: renombrar migración `states` a la fecha en la que se creó, ya que no es una original del framework
+* hexagonalStart: Modificar el `publishHexagonalConfig()` para que se publique el config/hexagonal_auth.php` incluso en modo develop
+* hexagonalStart: Traducciones movidas del paquete a los `stubs` para facilitar el acceso a los mensajes de errores
+* (breaking) config: Mover las configuraciones relacionadas con los enlaces del `Navbar` y el `Sidebar` al nuevo archivo `hexagonal_links.php`
+* (breaking) config: Mover las configuraciones relacionadas con la `Layout` al nuevo archivo `hexagonal_layout.php`
+* config: Añadir enlace al `Log Out` en el navbar
+* layout: Pasar nueva variable `:is_post` en el componente `x-hexagonal::navbar.dropdown.link` para indicar que el item es un formulario y no un enlace
+* (breaking) web: Meter las rutas en un grupo con el middleware `auth`
+* (refactor) ServiceProvider: Mover los prefijos `hexagonal` del `registerRoutes()` de `HexagonalServiceProvider` a cada ruta para poderlo configurar a nivel de ruta
+
+### Removed
+
+* hexagonalStart: Eliminar método `modifyFile_DatabaseSeeder_toCommentUserFactory()`, ya que el archivo `DatabaseSeeder.php` ahora se genera desde los stubs
+* Comentar la funcionalidad en el `HexagonalServiceProvider` que actualiza la fecha de las migraciones publicadas en versiones anteriores a Laravel 11
+
+### Fixed
+
+* (fix) añadir carpeta `stubs` en el `exclude` del tsconfig.json para que no compruebe esa carpeta durante el build
+* (fix) layout: arreglar estilos componente `hexagonal::icon.user-profile` para que tenga un `with` fijo de 6, pero que se pueda sobreescribir (antes se definía solo en el link del dropdown y en otros sitios no se mostraba bien)
+* (fix) compatibilityLaravel7: sol. error en el método `from()` de la clase `ContractModelId.php`, ya que en PHP 7.4 no se puede concatenar el acceso a una variable estática con la llamada a un método estático (asi: `static::MY_CONST::anyMethod()`)
+* (fix) serviceProvider: solucionar error al renombrar las migraciones + renombrar solo las nuestras
+* (fix) compatibilityLaravel7: cambiar el `$command->fail()` por el `$command->error()` en el `__construct` del `StartCommandService` ya que el método `fail()` solo existe en Laravel 11
+* (fix) compatibilityLaravel7: no publicar migraciones en las versiones anteriores a Laravel 9 (ya que son clases anónimas)
+* (fix) compatibilityLaravel7: Crear nuestro propio trait `InteractsWithComposerPackages` para no utilizar el de `Illuminate\Foundation` que en versiones antiguas no existe + adaptarlo para que acepte el parámetro `$isRemove`
+* (fix) compatibilityLaravel7: no llamar al método `Blade::componentNamespace()` antes de la version de Laravel9
+* (fix) solucionar error con los enlaces simples del navbar (no se seteaba el link aunque se configurara el nombre de la ruta)
+
+### Deprecated
+
+* (deprecate) Deprecar helper `appIsInDebugMode()` y crear el nuevo `debugIsActive()`
 
 ## [v0.14.1-beta.1](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.0...v0.14.1-beta.1) - 2025-01-29
 
@@ -10,7 +121,7 @@
 
 ### Changed
 
-* Renombrar migración de "CreateStatesTable" (se ha cambiado la fecha)
+* Renombrar migración de `CreateStatesTable` (se ha cambiado la fecha)
 * Hexagonal:
   * (refactor) Tipar las propiedades de la clase `Hexagonal` y cambiar los `static::` por `self::`, ya que es `final`
   * (refactor) renombrar propiedades de la clase `Hexagonal` y formatear código
