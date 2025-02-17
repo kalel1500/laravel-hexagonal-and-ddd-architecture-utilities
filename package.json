@@ -4,7 +4,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "build-check": "tsc && vite build"
+    "ts-build": "tsc && vite build"
   },
   "devDependencies": {
     "@types/node": "^22.10.10",
