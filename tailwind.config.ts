@@ -8,7 +8,9 @@ export default {
         './resources/**/*.js',
         './resources/**/*.vue',
         './resources/**/*.ts',
-        './node_modules/flowbite/**/*.js'
+
+        './node_modules/flowbite/**/*.js',
+        './node_modules/@kalel1500/laravel-ts-utils/**/*.js',
     ],
     theme: {
         extend: {

@@ -1,12 +1,10 @@
 /*----- @kalel1500/laravel-ts-utils css -----*/
+@import '@kalel1500/laravel-ts-utils/dist/app/tabulator.css';
+@import '@kalel1500/laravel-ts-utils/dist/app/sweetalert.css';
+@import '@kalel1500/laravel-ts-utils/dist/app/slimselect.css';
 @import '@kalel1500/laravel-ts-utils/dist/app/styles.css';
 
 /*----- Tailwind css -----*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/*----- App css -----*/
-.test {
-    background-color: red;
-}
