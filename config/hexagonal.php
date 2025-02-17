@@ -137,7 +137,7 @@ return [
 
     'version_typescript' => '^5.7.3',
 
-    'version_kalel1500_laravel_ts_utils' => '^0.4.0-beta.10',
+    'version_kalel1500_laravel_ts_utils' => '^0.5.0-beta.0',
 
     'version_tabulator_tables' => '^6.3.1',
 
