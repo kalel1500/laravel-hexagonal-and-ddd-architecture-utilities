@@ -139,6 +139,10 @@ return [
 
     'version_kalel1500_laravel_ts_utils' => '^0.5.0-beta.0',
 
+    'version_node' => '^20.11.1',
+
+    'version_npm' => '^10.5.0',
+
     'version_tabulator_tables' => '^6.3.1',
 
     /*

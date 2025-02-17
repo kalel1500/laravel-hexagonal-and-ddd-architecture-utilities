@@ -809,6 +809,21 @@ EOD;
         return $this;
     }
 
+    public function modifyFile_PackageJson_toAddEngines(): self
+    {
+        $this->number++;
+
+        // Add script "ts-build" in "package.json"
+        $this->modifyPackageJsonSection('engines', [
+            'node' => config('hexagonal.version_node'),
+            'npm'  => config('hexagonal.version_npm'),
+        ], $this->isReset(true));
+
+        $this->line('Archivo package.json actualizado (engines)');
+
+        return $this;
+    }
+
     public function modifyFile_ComposerJson_toAddSrcNamespace(): self
     {
         $this->number++;
