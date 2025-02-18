@@ -478,7 +478,7 @@ if (!function_exists('collWhereIn')) {
 }
 
 if (!function_exists('collContains')) {
-    function collContains(array $array, $key, $operator = null, $value = null): bool
+    function collContains($array, $key, $operator = null, $value = null): bool
     {
         $coll = collect($array);
         if (func_num_args() === 2) {

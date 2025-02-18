@@ -368,7 +368,7 @@ abstract class ContractCollectionBase implements Countable, ArrayAccess, Iterato
 
     public function contains($key, $operator = null, $value = null): bool
     {
-        $array = (is_callable($key)) ? $this->toClearedObject() : $this->toArray();
+        $array = (is_callable($key)) ? $this->items : $this->toArray();
         return collContains($array, ...func_get_args());
     }
 
