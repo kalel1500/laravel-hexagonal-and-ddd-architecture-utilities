@@ -16,15 +16,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
-use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
-use Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository;
-use Thehouseofel\Hexagonal\Infrastructure\Services\AuthService;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
 
@@ -36,9 +32,9 @@ class HexagonalServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        'layoutService' => LayoutService::class,
-        'authService' => AuthService::class,
-        StateRepositoryContract::class => StateEloquentRepository::class,
+        'layoutService'                                                                           => \Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService::class,
+        'authService'                                                                             => \Thehouseofel\Hexagonal\Infrastructure\Services\AuthService::class,
+        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository::class,
     ];
 
     /**
