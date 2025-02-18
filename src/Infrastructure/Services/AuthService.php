@@ -10,11 +10,13 @@ use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
 final class AuthService implements AuthServiceContract
 {
     private $entityClass;
+    private $loadRoles;
     private $userEntity = null;
 
     public function __construct()
     {
         $this->entityClass = config('hexagonal_auth.entity_class');
+        $this->loadRoles = config('hexagonal_auth.load_roles');
     }
 
     public function userEntity(): ?UserEntity
@@ -28,7 +30,12 @@ final class AuthService implements AuthServiceContract
             return null;
         }
 
-        $this->userEntity =  $this->entityClass::fromArray($user->toArray());
+        $with = null;
+        if ($this->loadRoles) {
+            $user->load('roles');
+            $with = ['roles'];
+        }
+        $this->userEntity =  $this->entityClass::fromArray($user->toArray(), $with);
         return $this->userEntity;
     }
 }

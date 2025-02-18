@@ -12,4 +12,6 @@ return [
     */
 
     'entity_class' => env('HEXAGONAL_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity::class),
+
+    'load_roles' => (bool) env('HEXAGONAL_AUTH_LOAD_ROLES', true),
 ];
