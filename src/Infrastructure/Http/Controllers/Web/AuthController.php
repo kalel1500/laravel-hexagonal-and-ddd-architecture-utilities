@@ -8,12 +8,18 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Src\Shared\Infrastructure\Models\User;
 use Thehouseofel\Hexagonal\Domain\Exceptions\FeatureUnavailableException;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
 
 final class AuthController extends Controller
 {
+    private string $model;
+
+    public function __construct()
+    {
+        $this->model = getUserClass();
+    }
+
     /**
      * Display the login view.
      */
@@ -36,7 +42,7 @@ final class AuthController extends Controller
         }
 
         $params = $request->validate(['email' => 'required']);
-        $user = User::query()->where('email', $params['email'])->first();
+        $user = $this->model::query()->where('email', $params['email'])->first();
         if (!$user) {
             return redirect()->back()->withErrors(['email' => 'El email existe']);
         }

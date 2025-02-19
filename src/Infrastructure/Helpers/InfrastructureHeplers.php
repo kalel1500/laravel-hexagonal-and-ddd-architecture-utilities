@@ -622,6 +622,16 @@ if (!function_exists('concat_fields_with')) {
     }
 }
 
+if (!function_exists('getUserClass')) {
+    /**
+     * @return string|\Illuminate\Foundation\Auth\User
+     */
+    function getUserClass()
+    {
+        return config('auth.providers.users.model');
+    }
+}
+
 //if (!function_exists('formatToTabulatorList')) {
 //    /**
 //     * @param Collection|ContractCollectionBase $collection // TODO PHP8 - Union types
