@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Thehouseofel\Hexagonal\Domain\Services\RepositoryServices;
 
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract;
+use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\RoleEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
@@ -12,16 +13,19 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 final class PermissionService
 {
-    private PermissionRepositoryContract $repositoryPermission;
     private UserRepositoryContract       $repositoryUser;
+    private RoleRepositoryContract       $repositoryRole;
+    private PermissionRepositoryContract $repositoryPermission;
 
     public function __construct(
-        PermissionRepositoryContract $repositoryPermission,
-        UserRepositoryContract       $repositoryUser
+        UserRepositoryContract       $repositoryUser,
+        RoleRepositoryContract       $repositoryRole,
+        PermissionRepositoryContract $repositoryPermission
     )
     {
-        $this->repositoryPermission = $repositoryPermission;
         $this->repositoryUser       = $repositoryUser;
+        $this->repositoryRole       = $repositoryRole;
+        $this->repositoryPermission = $repositoryPermission;
     }
 
     public function can(UserEntity $user, string $permission): bool
@@ -39,5 +43,11 @@ final class PermissionService
                 ? $this->repositoryUser->{$role->name->value()}($user)
                 : $user->roles()->contains('name', $role->name->value());
         });
+    }
+
+    public function is(UserEntity $user, string $role): bool
+    {
+        $role = $this->repositoryRole->findByName(ModelString::new($role));
+        return $user->roles()->contains('name', $role->name->value());
     }
 }

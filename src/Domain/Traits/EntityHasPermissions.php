@@ -13,6 +13,10 @@ trait EntityHasPermissions
         return app()->make(PermissionService::class)->can($this, $permission);
     }
 
+    public function is($role): bool
+    {
+        return app()->make(PermissionService::class)->is($this, $role);
+    }
 
     /*----------------------------------------------------------------------------------------------------------------*/
     /*--------------------------------------------------- Relations -------------------------------------------------*/

@@ -34,6 +34,7 @@ class HexagonalServiceProvider extends ServiceProvider
     public $singletons = [
         'layoutService'                                                                           => \Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService::class,
         'authService'                                                                             => \Thehouseofel\Hexagonal\Infrastructure\Services\AuthService::class,
+        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract::class       => \Thehouseofel\Hexagonal\Infrastructure\Repositories\RoleRepository::class,
         \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract::class => \Thehouseofel\Hexagonal\Infrastructure\Repositories\PermissionRepository::class,
         \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository::class,
     ];
