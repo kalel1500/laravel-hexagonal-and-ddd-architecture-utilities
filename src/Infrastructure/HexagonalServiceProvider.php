@@ -34,6 +34,7 @@ class HexagonalServiceProvider extends ServiceProvider
     public $singletons = [
         'layoutService'                                                                           => \Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService::class,
         'authService'                                                                             => \Thehouseofel\Hexagonal\Infrastructure\Services\AuthService::class,
+        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract::class => \Thehouseofel\Hexagonal\Infrastructure\Repositories\PermissionRepository::class,
         \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository::class,
     ];
 
@@ -131,7 +132,13 @@ return [
             define('HEXAGONAL_PATH', realpath(__DIR__.'/../../'));
         }
 
+        $this->registerSingletons();
         $this->configure();
+    }
+
+    protected function registerSingletons(): void
+    {
+        $this->app->singleton(\Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('hexagonal_auth.user_repository_class'))());
     }
 
     /**

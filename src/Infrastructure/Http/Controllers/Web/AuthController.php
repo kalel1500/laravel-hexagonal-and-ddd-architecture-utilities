@@ -17,7 +17,7 @@ final class AuthController extends Controller
 
     public function __construct()
     {
-        $this->model = getUserClass();
+        $this->model = getClassUserModel();
     }
 
     /**

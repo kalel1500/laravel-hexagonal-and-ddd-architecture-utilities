@@ -622,13 +622,23 @@ if (!function_exists('concat_fields_with')) {
     }
 }
 
-if (!function_exists('getUserClass')) {
+if (!function_exists('getClassUserModel')) {
     /**
      * @return string|\Illuminate\Foundation\Auth\User
      */
-    function getUserClass()
+    function getClassUserModel()
     {
         return config('auth.providers.users.model');
+    }
+}
+
+if (!function_exists('getClassUserEntity')) {
+    /**
+     * @return string
+     */
+    function getClassUserEntity()
+    {
+        return config('hexagonal_auth.entity_class');
     }
 }
 

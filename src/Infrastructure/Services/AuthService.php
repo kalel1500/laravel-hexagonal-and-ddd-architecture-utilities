@@ -22,7 +22,7 @@ final class AuthService implements AuthServiceContract
 
     public function __construct()
     {
-        $this->entityClass = config('hexagonal_auth.entity_class');
+        $this->entityClass = getClassUserEntity();
         $this->loadRoles = config('hexagonal_auth.load_roles');
     }
 
