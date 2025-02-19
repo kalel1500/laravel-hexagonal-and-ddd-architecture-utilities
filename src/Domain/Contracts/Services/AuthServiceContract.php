@@ -6,7 +6,13 @@ namespace Thehouseofel\Hexagonal\Domain\Contracts\Services;
 
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
 
+/**
+ * @template T of UserEntity
+ */
 interface AuthServiceContract
 {
-    public function userEntity(): ?UserEntity;
+    /**
+     * @return T|null
+     */
+    public function userEntity();
 }

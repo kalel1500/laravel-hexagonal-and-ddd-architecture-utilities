@@ -7,10 +7,17 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 use Thehouseofel\Hexagonal\Domain\Contracts\Services\AuthServiceContract;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
 
+/**
+ * @template T of UserEntity
+ */
 final class AuthService implements AuthServiceContract
 {
+    /** @var class-string<T> */
     private $entityClass;
+
     private $loadRoles;
+
+    /** @var T|null */
     private $userEntity = null;
 
     public function __construct()
@@ -19,7 +26,10 @@ final class AuthService implements AuthServiceContract
         $this->loadRoles = config('hexagonal_auth.load_roles');
     }
 
-    public function userEntity(): ?UserEntity
+    /**
+     * @return T|null
+     */
+    public function userEntity()
     {
         if ($this->userEntity) {
             return $this->userEntity;
