@@ -57,11 +57,7 @@ final class ExceptionHandler
                 if (debugIsActive() && !($e instanceof BasicHttpException)) return null;
 
                 // En PROD devolvemos nuestra vista personalizada
-                return response()->view('hexagonal::pages.exceptions.error', [
-                    'code'    => $context->getStatusCode(),
-                    'message' => $context->message(),
-                    'data'    => $context->data(),
-                ], $context->getStatusCode());
+                return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
             });
 
             // Indicar a Laravel cuando devolver un Json (mirar url "/ajax/")
