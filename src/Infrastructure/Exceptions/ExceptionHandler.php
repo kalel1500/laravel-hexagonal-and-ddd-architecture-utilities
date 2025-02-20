@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
 use Throwable;
 
@@ -53,7 +54,7 @@ final class ExceptionHandler
                 }
 
                 // Si espera una Vista y el debug es true, dejamos que laravel se encargue de renderizar el error.
-                if (debugIsActive()) return null;
+                if (debugIsActive() && !($e instanceof BasicHttpException)) return null;
 
                 // En PROD devolvemos nuestra vista personalizada
                 return response()->view('hexagonal::pages.custom-error', [
