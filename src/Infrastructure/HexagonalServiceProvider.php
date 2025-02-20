@@ -9,6 +9,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Events\VendorTagPublished;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -396,8 +397,10 @@ return [
      */
     protected function registerMiddlewares(): void
     {
-//        /** @var Router $router */
-//        $router = $this->app->make(Router::class);
+        /** @var Router $router */
+        $router = $this->app->make(Router::class);
+//        /** @var Kernel $kernel */
+//        $kernel = $this->app->make(Kernel::class);
 
         // Registrar un grupo de middlewares
 //        $router->middlewareGroup('web', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
@@ -405,18 +408,18 @@ return [
         // Registrar middlewares solo para rutas específicas
 //        $router->aliasMiddleware('hexagonal.anyMiddleware', HexagonalAnyMiddleware::class);
 
-        // Añadir un middleware a un grupo (con Router para soportar versiones anteriores a la 6)
+        // Añadir un middleware a un grupo
 //        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);
 
-        // Añadir un middleware a un grupo (con Router para soportar versiones posteriores a la 6)
+
+        // El Middleware AddPreferencesCookies al grupo de ruatas web
         if (
             !$this->app->runningInConsole() &&
             !empty(config('app.key')) &&
             Hexagonal::enabledPreferencesCookie()
         ) {
-            /** @var Kernel $kernel */
-            $kernel = $this->app->make(Kernel::class);
-            $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
+            // Añadir un middleware a un grupo
+            $router->pushMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class); // $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
 
             // Desencriptar las cookies de las preferencias del usuario
             $this->app->booted(function () {
