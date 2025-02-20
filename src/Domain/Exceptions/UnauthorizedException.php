@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
 
-class UnauthorizedException extends HttpException
+class UnauthorizedException extends BasicHttpException
 {
 
     public static function forRoles(string $roles): self
