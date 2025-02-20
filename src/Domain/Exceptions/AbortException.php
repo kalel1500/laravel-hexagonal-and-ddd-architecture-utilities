@@ -4,25 +4,8 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
-use Throwable;
+use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
 
-final class AbortException extends HexagonalException implements HttpExceptionInterface
+final class AbortException extends BasicHttpException
 {
-    public function __construct(
-        int        $statusCode = 500,
-        string     $message = "",
-        ?Throwable $previous = null,
-        ?array     $data = null,
-        bool       $success = false
-    )
-    {
-        parent::__construct($statusCode, $message, $previous, 0, $data, $success);
-    }
-
-    public function getHeaders(): array
-    {
-        return [];
-    }
 }

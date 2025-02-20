@@ -306,14 +306,14 @@ if (!function_exists('abort_d')) {
      * @return void
      */
     function abort_d(
-        int $code,
+        int $statusCode,
         string $message,
         ?array $data = null,
         bool $success = false,
         ?Throwable $previous = null
     ): void
     {
-        throw new AbortException($code, $message, $previous, $data, $success);
+        throw new AbortException($statusCode, $message, $previous, $data, $success);
     }
 }
 
