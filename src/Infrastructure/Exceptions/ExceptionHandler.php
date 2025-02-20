@@ -15,6 +15,13 @@ use Throwable;
 
 final class ExceptionHandler
 {
+    /**
+     * Internamente Laravel primero llama al render()
+     *
+     * Después llama al respond() y este modifica la respuesta
+     *
+     * @return callable
+     */
     public static function getUsingCallback(): callable
     {
         return function (Exceptions $exceptions) {
@@ -40,13 +47,15 @@ final class ExceptionHandler
             $exceptions->render(function (HexagonalException $e, Request $request) {
                 $context = $e->getContext();
 
-                // Comprobar si hay que devolver un json
+                // Si se espera un Json, pasarle todos los datos de nuestra "HexagonalException" [success, message, data]
                 if ($request->expectsJson() || urlContainsAjax()) {
                     return response()->json($context->toArray(), $context->getStatusCode());
                 }
 
+                // Si espera una Vista y el debug es true, dejamos que laravel se encargue de renderizar el error.
                 if (debugIsActive()) return null;
 
+                // En PROD devolvemos nuestra vista personalizada
                 return response()->view('hexagonal::pages.custom-error', [
                     'code'    => $context->getStatusCode(),
                     'message' => $context->message(),
@@ -59,7 +68,7 @@ final class ExceptionHandler
                 return $request->expectsJson() || urlContainsAjax();
             });
 
-            // Sobreescribir todas las respuestas Json para indicar estructura [success, message, data]
+            // Formatear todas las respuestas Json para añadir los parámetros [success, message, data] con un valor por defecto (No aplica en los "HexagonalException" porque ya tienen ese formato)
             $exceptions->respond(function (Response $response, Throwable $e, Request $request) {
                 if ($response instanceof JsonResponse) {
                     $data = json_decode($response->getContent(), true);
