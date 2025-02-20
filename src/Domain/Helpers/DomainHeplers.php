@@ -702,3 +702,16 @@ if (!function_exists('get_shadow_classes')) {
             : $normalShadow;
     }
 }
+
+if (!function_exists('pipe_str_to_array')) {
+    /**
+     * @param array|string $value
+     * @return array
+     */
+    function pipe_str_to_array($value): array
+    {
+        return is_array($value)
+            ? $value
+            : explode('|', $value);
+    }
+}

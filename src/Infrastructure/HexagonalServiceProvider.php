@@ -22,6 +22,8 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasPermission;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasRole;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
 
@@ -402,17 +404,17 @@ return [
 //        /** @var Kernel $kernel */
 //        $kernel = $this->app->make(Kernel::class);
 
-        // Registrar un grupo de middlewares
-//        $router->middlewareGroup('web', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
-
-        // Registrar middlewares solo para rutas específicas
-//        $router->aliasMiddleware('hexagonal.anyMiddleware', HexagonalAnyMiddleware::class);
+        // Registrar/sobreescribir un grupo de middlewares
+//        $router->middlewareGroup('newCustomGroup', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
 
         // Añadir un middleware a un grupo
 //        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);
 
+        // Registrar middlewares solo para rutas específicas
+        $router->aliasMiddleware('userCan', UserHasPermission::class);
+        $router->aliasMiddleware('userIs', UserHasRole::class);
 
-        // El Middleware AddPreferencesCookies al grupo de ruatas web
+        // El Middleware AddPreferencesCookies al grupo de rutas web
         if (
             !$this->app->runningInConsole() &&
             !empty(config('app.key')) &&

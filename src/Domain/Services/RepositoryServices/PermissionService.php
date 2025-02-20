@@ -28,7 +28,7 @@ final class PermissionService
         $this->repositoryPermission = $repositoryPermission;
     }
 
-    public function can(UserEntity $user, string $permission): bool
+    protected function userHasPermission(UserEntity $user, string $permission): bool
     {
         // Comprobar si el usuario tiene un rol con todos los permisos
         if ($user->all_permissions()) return true;
@@ -45,9 +45,32 @@ final class PermissionService
         });
     }
 
-    public function is(UserEntity $user, string $role): bool
+    protected function userHasRole(UserEntity $user, string $role): bool
     {
         $role = $this->repositoryRole->findByName(ModelString::new($role));
         return $user->roles()->contains('name', $role->name->value());
     }
+
+    /**
+     * @param UserEntity $user
+     * @param string|array $permissions
+     * @return bool
+     */
+    public function can(UserEntity $user, $permissions): bool
+    {
+        $permissions = collect(pipe_str_to_array($permissions));
+        return $permissions->contains(fn($permission) => $this->userHasPermission($user, $permission));
+    }
+
+    /**
+     * @param UserEntity $user
+     * @param string|array $roles
+     * @return bool
+     */
+    public function is(UserEntity $user, $roles): bool
+    {
+        $roles = collect(pipe_str_to_array($roles));
+        return $roles->contains(fn($role) => $this->userHasRole($user, $role));
+    }
+
 }

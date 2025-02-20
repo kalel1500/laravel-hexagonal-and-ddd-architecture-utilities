@@ -61,5 +61,32 @@
         $user4_can_admin_tags      = $user4->can('edit_cplan', $ystemIds, $centerIds);
         dd('fin');
     }
+    
+    
+    public function examplePermissions()
+    {
+        // ONE
+        // userEntity()->can('edit_roles');
+        // userEntity()->is('admin');
+
+        // ARRAY
+        $array_userCan_seePostDetail_or_AdminTags = userEntity()?->can(['see_post_detail', 'admin_tags']);
+        $array_userIs_admin_or_reader             = userEntity()?->is(['admin', 'reader']);
+
+        // PIPE
+        $pipe_userCan_seePostDetail_or_AdminTags = userEntity()?->can('see_post_detail|admin_tags');
+        $pipe_userIs_admin_or_reader             = userEntity()?->is('admin|reader');
+
+        dump([
+            'user'                                     => userEntity()?->toArray(),
+            'array_userCan_seePostDetail_or_AdminTags' => $array_userCan_seePostDetail_or_AdminTags,
+            'array_userIs_admin_or_reader'             => $array_userIs_admin_or_reader,
+
+            'pipe_userCan_seePostDetail_or_AdminTags' => $pipe_userCan_seePostDetail_or_AdminTags,
+            'pipe_userIs_admin_or_reader'             => $pipe_userIs_admin_or_reader,
+        ]);
+
+        dd('fin');
+    }
 
 ```
