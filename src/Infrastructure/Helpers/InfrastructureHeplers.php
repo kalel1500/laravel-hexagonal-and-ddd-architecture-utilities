@@ -5,11 +5,12 @@ declare(strict_types=1);
 use Faker\Factory as Faker;
 use Illuminate\Database\Eloquent\Collection as CollectionE;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Request as RequestF;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -41,14 +42,14 @@ if (!function_exists('showActiveClass')) {
 if (!function_exists('isRouteActive')) {
     function isRouteActive($url): bool
     {
-        return Request::fullUrl() === $url;
+        return RequestF::fullUrl() === $url;
     }
 }
 
 if (!function_exists('dropdownIsOpen')) {
     function dropdownIsOpen($htmlLinks): bool
     {
-        $currentUrl = Request::fullUrl();
+        $currentUrl = RequestF::fullUrl();
         // Expresión regular para encontrar todos los href en los enlaces
         preg_match_all('/<a\s+href=["\']([^"\']+)["\']/', $htmlLinks, $matches);
         $hrefs = $matches[1]; // $matches[1] contiene todos los href encontrados
@@ -639,6 +640,14 @@ if (!function_exists('getClassUserEntity')) {
     function getClassUserEntity()
     {
         return config('hexagonal_auth.entity_class');
+    }
+}
+
+if (!function_exists('getDebugExceptionResponse')) {
+    function getDebugExceptionResponse(Request $request, Throwable $exception)
+    {
+        $content = app()->make(\Illuminate\Foundation\Exceptions\Renderer\Renderer::class)->render($request, $exception);
+        return response($content);
     }
 }
 

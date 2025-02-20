@@ -42,8 +42,7 @@ final class ExceptionHandler
                 if (!($exception instanceof ModelNotFoundException)) return null;
 
                 if (debugIsActive()) {
-                    $content = app()->make(\Illuminate\Foundation\Exceptions\Renderer\Renderer::class)->render($request, $exception);
-                    return response($content);
+                    return getDebugExceptionResponse($request, $exception);
                 } else {
                     return response()->view('hexagonal::pages.custom-error', [
                         'code'    => $e->getStatusCode(),
@@ -61,11 +60,7 @@ final class ExceptionHandler
                     return response()->json($context->toArray(), $context->getStatusCode());
                 }
 
-                if (debugIsActive()) {
-                    return null;
-                    // $content = app(ExceptionRenderer::class)->render($e); // $context->previous()
-                    // return response($content, $context->getStatusCode());
-                }
+                if (debugIsActive()) return null;
 
                 return response()->view('hexagonal::pages.custom-error', [
                     'code'    => $context->getStatusCode(),
