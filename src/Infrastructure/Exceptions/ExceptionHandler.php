@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Thehouseofel\Hexagonal\Domain\Exceptions\AbortException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
 use Throwable;
@@ -53,10 +54,16 @@ final class ExceptionHandler
                     return response()->json($context->toArray(), $context->getStatusCode());
                 }
 
-                // Si espera una Vista y el debug es true, dejamos que laravel se encargue de renderizar el error.
-                if (debugIsActive() && !($e instanceof BasicHttpException)) return null;
+                // Si espera una Vista y comprobamos si el debug es true
+                if (debugIsActive()) {
+                    // Si la excepción es una instancia de "AbortException" renderizamos la vista de errores de Laravel
+                    if ($e instanceof AbortException) return getDebugExceptionResponse($request, $e);
 
-                // En PROD devolvemos nuestra vista personalizada
+                    // Para cualquier "HexagonalException" que no sea "BasicHttpException", dejamos que laravel se encargue de renderizar el error.
+                    if (!($e instanceof BasicHttpException)) return null;
+                }
+
+                // En PROD (o las "BasicHttpException" en DEBUG) devolvemos nuestra vista personalizada
                 return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
             });
 
