@@ -4,7 +4,7 @@ namespace Thehouseofel\Hexagonal\Domain\Traits;
 
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\RoleCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\RoleEntity;
-use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\PermissionService;
+use Thehouseofel\Hexagonal\Domain\Services\PermissionService;
 
 trait EntityHasPermissions
 {

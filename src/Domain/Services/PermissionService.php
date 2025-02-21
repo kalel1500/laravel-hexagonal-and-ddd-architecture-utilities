@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Services\RepositoryServices;
+namespace Thehouseofel\Hexagonal\Domain\Services;
 
 use Illuminate\Support\Collection;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract;
