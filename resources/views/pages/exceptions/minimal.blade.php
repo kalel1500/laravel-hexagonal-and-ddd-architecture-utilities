@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="flex justify-center p-4">
+        <div class="p-4 sm:text-center">
             <div class="text-md text-[#a0aec0] tracking-wider">
                 @yield('message')
             </div>
