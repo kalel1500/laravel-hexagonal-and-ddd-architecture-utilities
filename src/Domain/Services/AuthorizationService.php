@@ -12,7 +12,7 @@ use Thehouseofel\Hexagonal\Domain\Objects\Entities\RoleEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
-final class PermissionService
+final class AuthorizationService
 {
     private UserRepositoryContract       $repositoryUser;
     private RoleRepositoryContract       $repositoryRole;

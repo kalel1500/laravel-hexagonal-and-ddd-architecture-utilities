@@ -4,18 +4,18 @@ namespace Thehouseofel\Hexagonal\Domain\Traits;
 
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\RoleCollection;
 use Thehouseofel\Hexagonal\Domain\Objects\Entities\RoleEntity;
-use Thehouseofel\Hexagonal\Domain\Services\PermissionService;
+use Thehouseofel\Hexagonal\Domain\Services\AuthorizationService;
 
 trait EntityHasPermissions
 {
     public function can($permission, ...$params): bool
     {
-        return app()->make(PermissionService::class)->can($this, $permission, $params);
+        return app()->make(AuthorizationService::class)->can($this, $permission, $params);
     }
 
     public function is($role, ...$params): bool
     {
-        return app()->make(PermissionService::class)->is($this, $role, $params);
+        return app()->make(AuthorizationService::class)->is($this, $role, $params);
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
