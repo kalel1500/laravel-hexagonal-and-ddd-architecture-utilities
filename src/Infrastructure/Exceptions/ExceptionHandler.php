@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\AbortException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
 use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
+use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
 use Throwable;
 
 final class ExceptionHandler
@@ -38,10 +39,8 @@ final class ExceptionHandler
                 if (debugIsActive()) {
                     return getDebugExceptionResponse($request, $exception);
                 } else {
-                    return response()->view('hexagonal::pages.custom-error', [
-                        'code'    => $e->getStatusCode(),
-                        'message' => $exception->getMessage(),
-                    ], $e->getStatusCode());
+                    $context = ExceptionContextDo::from($exception);
+                    return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
                 }
             });
 
