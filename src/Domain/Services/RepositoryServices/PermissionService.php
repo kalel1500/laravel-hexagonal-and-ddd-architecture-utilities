@@ -29,33 +29,6 @@ final class PermissionService
         $this->repositoryPermission = $repositoryPermission;
     }
 
-    protected function userHasPermission(UserEntity $user, string $permission, array $params = []): bool
-    {
-        // Comprobar si el usuario tiene un rol con todos los permisos
-        if ($user->all_permissions()) return true;
-
-        // Obtener la Entidad Permission con todos los roles
-        $permission = $this->repositoryPermission->findByName(ModelString::new($permission));
-
-        // Recorrer los roles del permiso
-        return $permission->roles()->contains(function (RoleEntity $role) use ($user, $permission, $params) {
-            // Comprobar si el rol es query y lanzarla o comprobar si el usuario tiene ese rol
-            return $role->is_query->isTrue()
-                ? $this->repositoryUser->{$role->name->value()}($user, ...$params)
-                : $user->roles()->contains('name', $role->name->value());
-        });
-    }
-
-    protected function userHasRole(UserEntity $user, string $role, array $params = []): bool
-    {
-        $role = $this->repositoryRole->findByName(ModelString::new($role));
-        return $user->roles()->contains(function (RoleEntity $userRole) use ($user, $role, $params) {
-            if ($userRole->name->value() !== $role->name->value()) return false;
-            if ($userRole->is_query->isTrue()) return $this->repositoryUser->{$role->name->value()}($user, ...$params);
-            return true;
-        });
-    }
-
     /**
      * @param UserEntity $user
      * @param string|array $permissions
@@ -122,19 +95,46 @@ final class PermissionService
                     $permission_params = is_null($permission_params) || (is_array($permission_params) && empty(array_filter($permission_params, fn($param) => !is_null($param))))
                         ? []
                         : (
-                            !is_array($permission_params)
-                                ? [$permission_params]
-                                : (
-                                    is_array($permission_params[0])
-                                        ? $permission_params
-                                        : [$permission_params]
-                            )
+                        !is_array($permission_params)
+                            ? [$permission_params]
+                            : (
+                        is_array($permission_params[0])
+                            ? $permission_params
+                            : [$permission_params]
+                        )
                         );
                     return [$permission => $permission_params];
                 });
         }
 
         return $array_permissions;
+    }
+
+    protected function userHasPermission(UserEntity $user, string $permission, array $params = []): bool
+    {
+        // Comprobar si el usuario tiene un rol con todos los permisos
+        if ($user->all_permissions()) return true;
+
+        // Obtener la Entidad Permission con todos los roles
+        $permission = $this->repositoryPermission->findByName(ModelString::new($permission));
+
+        // Recorrer los roles del permiso
+        return $permission->roles()->contains(function (RoleEntity $role) use ($user, $permission, $params) {
+            // Comprobar si el rol es query y lanzarla o comprobar si el usuario tiene ese rol
+            return $role->is_query->isTrue()
+                ? $this->repositoryUser->{$role->name->value()}($user, ...$params)
+                : $user->roles()->contains('name', $role->name->value());
+        });
+    }
+
+    protected function userHasRole(UserEntity $user, string $role, array $params = []): bool
+    {
+        $role = $this->repositoryRole->findByName(ModelString::new($role));
+        return $user->roles()->contains(function (RoleEntity $userRole) use ($user, $role, $params) {
+            if ($userRole->name->value() !== $role->name->value()) return false;
+            if ($userRole->is_query->isTrue()) return $this->repositoryUser->{$role->name->value()}($user, ...$params);
+            return true;
+        });
     }
 
 }
