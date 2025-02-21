@@ -643,11 +643,10 @@ if (!function_exists('getClassUserEntity')) {
     }
 }
 
-if (!function_exists('getLaravelTraceDebugResponse')) {
-    function getLaravelTraceDebugResponse(Request $request, Throwable $exception)
+if (!function_exists('getHtmlLaravelTraceDebug')) {
+    function getHtmlLaravelTraceDebug(Request $request, Throwable $exception): string
     {
-        $content = app()->make(\Illuminate\Foundation\Exceptions\Renderer\Renderer::class)->render($request, $exception);
-        return response($content);
+        return app()->make(\Illuminate\Foundation\Exceptions\Renderer\Renderer::class)->render($request, $exception);
     }
 }
 
