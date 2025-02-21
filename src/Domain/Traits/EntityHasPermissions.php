@@ -8,14 +8,14 @@ use Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\PermissionService;
 
 trait EntityHasPermissions
 {
-    public function can($permission): bool
+    public function can($permission, ...$params): bool
     {
-        return app()->make(PermissionService::class)->can($this, $permission);
+        return app()->make(PermissionService::class)->can($this, $permission, $params);
     }
 
-    public function is($role): bool
+    public function is($role, ...$params): bool
     {
-        return app()->make(PermissionService::class)->is($this, $role);
+        return app()->make(PermissionService::class)->is($this, $role, $params);
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/

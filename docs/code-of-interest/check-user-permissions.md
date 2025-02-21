@@ -85,6 +85,64 @@
             'pipe_userCan_seePostDetail_or_AdminTags' => $pipe_userCan_seePostDetail_or_AdminTags,
             'pipe_userIs_admin_or_reader'             => $pipe_userIs_admin_or_reader,
         ]);
+        
+        
+        // -------------------------------------------------------------------------------
+        
+        
+        $systems = [1, 2, 3];
+        $groups  = [4, 5, 6];
+        $centers = [7, 8, 9];
+        $imp_systems = implode(',', $systems);
+        $imp_groups  = implode(',', $groups);
+        $imp_centers = implode(',', $centers);
+
+        userEntity()->can("admin_tags:$imp_systems;$imp_groups;aaaa;1|see_post_detail:$imp_centers|filter_posts");
+        userEntity()->can('admin_tags|see_post_detail|filter_posts', [$systems, $groups, 'aaaa', 1], $centers);
+        userEntity()->can(['admin_tags', 'see_post_detail', 'filter_posts'], [$systems, $groups, 'aaaa', 1], $centers);
+
+        userEntity()->is("admin:$imp_systems;$imp_groups;aaaa;1|writer:$imp_centers|reader");
+        userEntity()->is('admin|writer|reader', [$systems, $groups, 'aaaa', 1], $centers);
+        userEntity()->is(['admin', 'writer', 'reader'], [$systems, $groups, 'aaaa', 1], $centers);
+        
+        // ------------------------------------------------------------------------------- 
+
+        userEntity()->can('see_post_detail|admin_tags:25,null');
+        userEntity()->can('see_post_detail|admin_tags', null, 25);
+        userEntity()->can(['see_post_detail', 'admin_tags'], [null], [25, null]);
+
+        userEntity()->is('admin|is_important_group:25');
+        userEntity()->is('admin|is_important_group', null, 25);
+        userEntity()->is(['admin', 'is_important_group'], [null], [25]);
+
+
+        // ------------------------------------------------------------------------------- 
+
+
+
+        $id = (int) $request->input('id', '1');
+        $repo = new UserRepository();
+        $user = $repo->find($id);
+
+        $user_can1 = $user->can('see_post_detail|admin_tags:25');
+        $user_can2 = $user->can('see_post_detail|admin_tags', null, 25);
+        $user_can3 = $user->can(['see_post_detail', 'admin_tags'], [null], [25, null]);
+
+        $user_is1 = $user->is('admin|is_important_group:25');
+        $user_is2 = $user->is('admin|is_important_group', null, 25);
+        $user_is3 = $user->is(['admin', 'is_important_group'], [null], [25]);
+
+        $data = [
+            "user_can('see_post_detail|admin_tags:25,null')"                  => $user_can1,
+            "user_can('see_post_detail|admin_tags', null, 25)"                => $user_can2,
+            "user_can(['see_post_detail', 'admin_tags'], [null], [25, null])" => $user_can3,
+            "----" => '----',
+            "user_is('admin|is_important_group:25')"                          => $user_is1,
+            "user_is('admin|is_important_group', null, 25)"                   => $user_is2,
+            "user_is(['admin', 'is_important_group'], [null], [25])"          => $user_is3,
+        ];
+
+        dd($data);
 
         dd('fin');
     }
