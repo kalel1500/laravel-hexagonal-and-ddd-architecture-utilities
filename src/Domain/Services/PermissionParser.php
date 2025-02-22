@@ -20,53 +20,55 @@ final class PermissionParser
      */
     public function getArrayPermissions($permissions, array $params): Collection
     {
-        $permissions  = collect(is_array($permissions) ? $permissions : explode('|', $permissions));
-        $stringParams = empty($params);
+        $permissions = collect(is_array($permissions) ? $permissions : explode('|', $permissions));
 
-        if ($stringParams) {
-            $array_permissions = $permissions
-                ->mapWithKeys(function ($permission) {
-                    $parts = explode(':', $permission, 2);
-                    $permission_name = $parts[0];
-                    $permission_params = $parts[1] ?? null;
+        return empty($params)
+            ? $this->parseStringPermissions($permissions)
+            : $this->parseArrayPermissions($permissions, $params);
+    }
 
-                    $params = is_null($permission_params)
-                        ? []
-                        : collect(explode(';', $permission_params))
-                            ->map(function ($param) {
-                                $paramValues = explode(',', $param);
-                                $isOneValue  = count($paramValues) === 1;
-                                return $isOneValue
-                                    ? (is_numeric($paramValues[0])
-                                        ? intval($paramValues[0])
-                                        : $paramValues[0]
-                                    )
-                                    : array_map((fn($paramValue) => is_numeric($paramValue) ? intval($paramValue) : $paramValue), $paramValues);
-                            })
-                            ->toArray();
+    private function parseStringPermissions(Collection $permissions): Collection
+    {
+        return $permissions->mapWithKeys(function ($permission) {
+            [$permission_name, $permission_params] = array_pad(explode(':', $permission, 2), 2, null);
 
-                    return [$permission_name => $params];
-                });
-        } else {
-            $array_permissions = collect($permissions)
-                ->mapWithKeys(function ($permission, $key) use ($params) {
-                    $permission_params = $params[$key] ?? null;
+            return [$permission_name => $this->parseParamsFromString($permission_params)];
+        });
+    }
 
-                    $permission_params = is_null($permission_params) || (is_array($permission_params) && empty(array_filter($permission_params, fn($param) => !is_null($param))))
-                        ? []
-                        : (
-                        !is_array($permission_params)
-                            ? [$permission_params]
-                            : (
-                        is_array($permission_params[0])
-                            ? $permission_params
-                            : [$permission_params]
-                        )
-                        );
-                    return [$permission => $permission_params];
-                });
+    private function parseArrayPermissions(Collection $permissions, array $params): Collection
+    {
+        return $permissions->mapWithKeys(function ($permission, $key) use ($params) {
+            return [$permission => $this->normalizeArrayParams($params[$key] ?? null)];
+        });
+    }
+
+    private function parseParamsFromString(?string $params): array
+    {
+        if (is_null($params)) {
+            return [];
         }
 
-        return $array_permissions;
+        return collect(explode(';', $params))
+            ->map(fn($param) => $this->normalizeParamValues(explode(',', $param)))
+            ->toArray();
+    }
+
+    private function normalizeArrayParams($param): array
+    {
+        if (is_null($param) || (is_array($param) && empty(array_filter($param, fn($p) => !is_null($p))))) {
+            return [];
+        }
+
+        return is_array($param)
+            ? (is_array($param[0]) ? $param : [$param])
+            : [$param];
+    }
+
+    private function normalizeParamValues(array $paramValues)
+    {
+        return count($paramValues) === 1
+            ? (is_numeric($paramValues[0]) ? intval($paramValues[0]) : $paramValues[0])
+            : array_map(fn($val) => is_numeric($val) ? intval($val) : $val, $paramValues);
     }
 }
