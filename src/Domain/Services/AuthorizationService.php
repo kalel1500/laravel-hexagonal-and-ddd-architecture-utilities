@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Services;
 
-use Illuminate\Support\Collection;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract;
 use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract;
@@ -37,7 +36,7 @@ final class AuthorizationService
      */
     public function can(UserEntity $user, $permissions, array $params): bool
     {
-        $array_permissions = $this->getArrayPermissions($permissions, $params);
+        $array_permissions = PermissionParser::new()->getArrayPermissions($permissions, $params);
         return $array_permissions->contains(fn($params, $permission) => $this->userHasPermission($user, $permission, $params));
     }
 
@@ -49,65 +48,8 @@ final class AuthorizationService
      */
     public function is(UserEntity $user, $roles, array $params): bool
     {
-        $array_roles = $this->getArrayPermissions($roles, $params);
+        $array_roles = PermissionParser::new()->getArrayPermissions($roles, $params);
         return $array_roles->contains(fn($params, $role) => $this->userHasRole($user, $role, $params));
-    }
-
-    /**
-     * @param string|array $permissions
-     * @param array $params
-     * @return Collection
-     */
-    private function getArrayPermissions($permissions, array $params): Collection
-    {
-        $permissions  = collect(is_array($permissions) ? $permissions : explode('|', $permissions));
-        $stringParams = empty($params);
-
-        if ($stringParams) {
-            $array_permissions = $permissions
-                ->mapWithKeys(function ($permission) {
-                    $parts = explode(':', $permission, 2);
-                    $permission_name = $parts[0];
-                    $permission_params = $parts[1] ?? null;
-
-                    $params = is_null($permission_params)
-                        ? []
-                        : collect(explode(';', $permission_params))
-                            ->map(function ($param) {
-                                $paramValues = explode(',', $param);
-                                $isOneValue  = count($paramValues) === 1;
-                                return $isOneValue
-                                    ? (is_numeric($paramValues[0])
-                                        ? intval($paramValues[0])
-                                        : $paramValues[0]
-                                    )
-                                    : array_map((fn($paramValue) => is_numeric($paramValue) ? intval($paramValue) : $paramValue), $paramValues);
-                            })
-                            ->toArray();
-
-                    return [$permission_name => $params];
-                });
-        } else {
-            $array_permissions = collect($permissions)
-                ->mapWithKeys(function ($permission, $key) use ($params) {
-                    $permission_params = $params[$key] ?? null;
-
-                    $permission_params = is_null($permission_params) || (is_array($permission_params) && empty(array_filter($permission_params, fn($param) => !is_null($param))))
-                        ? []
-                        : (
-                        !is_array($permission_params)
-                            ? [$permission_params]
-                            : (
-                        is_array($permission_params[0])
-                            ? $permission_params
-                            : [$permission_params]
-                        )
-                        );
-                    return [$permission => $permission_params];
-                });
-        }
-
-        return $array_permissions;
     }
 
     protected function userHasPermission(UserEntity $user, string $permission, array $params = []): bool
