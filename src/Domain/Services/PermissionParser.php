@@ -36,13 +36,6 @@ final class PermissionParser
         });
     }
 
-    private function parseArrayPermissions(Collection $permissions, array $params): Collection
-    {
-        return $permissions->mapWithKeys(function ($permission, $key) use ($params) {
-            return [$permission => $this->normalizeArrayParams($params[$key] ?? null)];
-        });
-    }
-
     private function parseParamsFromString(?string $params): array
     {
         if (is_null($params)) {
@@ -52,6 +45,20 @@ final class PermissionParser
         return collect(explode(';', $params))
             ->map(fn($param) => $this->normalizeParamValues(explode(',', $param)))
             ->toArray();
+    }
+
+    private function normalizeParamValues(array $paramValues)
+    {
+        return count($paramValues) === 1
+            ? (is_numeric($paramValues[0]) ? intval($paramValues[0]) : $paramValues[0])
+            : array_map(fn($val) => is_numeric($val) ? intval($val) : $val, $paramValues);
+    }
+
+    private function parseArrayPermissions(Collection $permissions, array $params): Collection
+    {
+        return $permissions->mapWithKeys(function ($permission, $key) use ($params) {
+            return [$permission => $this->normalizeArrayParams($params[$key] ?? null)];
+        });
     }
 
     private function normalizeArrayParams($param): array
@@ -65,10 +72,4 @@ final class PermissionParser
             : [$param];
     }
 
-    private function normalizeParamValues(array $paramValues)
-    {
-        return count($paramValues) === 1
-            ? (is_numeric($paramValues[0]) ? intval($paramValues[0]) : $paramValues[0])
-            : array_map(fn($val) => is_numeric($val) ? intval($val) : $val, $paramValues);
-    }
 }
