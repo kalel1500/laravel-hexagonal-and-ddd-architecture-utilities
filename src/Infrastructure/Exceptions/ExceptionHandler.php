@@ -37,7 +37,7 @@ final class ExceptionHandler
                 if (!($exception instanceof ModelNotFoundException)) return null;
 
                 if (debugIsActive()) {
-                    return response(getHtmlLaravelTraceDebug($request, $exception));
+                    return response(getHtmlLaravelDebugStackTrace($request, $exception));
                 } else {
                     $context = ExceptionContextDo::from($exception);
                     return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
@@ -56,7 +56,7 @@ final class ExceptionHandler
                 // Si espera una Vista y comprobamos si el debug es true
                 if (debugIsActive()) {
                     // Si la excepción es una instancia de "AbortException" renderizamos la vista de errores de Laravel
-                    if ($e instanceof AbortException) return response(getHtmlLaravelTraceDebug($request, $e));
+                    if ($e instanceof AbortException) return response(getHtmlLaravelDebugStackTrace($request, $e));
 
                     // Para cualquier "HexagonalException" que no sea "BasicHttpException", dejamos que laravel se encargue de renderizar el error.
                     if (!($e instanceof BasicHttpException)) return null;
