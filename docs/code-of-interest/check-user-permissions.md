@@ -1,5 +1,5 @@
 
-# Formatear los logs como JSON
+
 ```php
 
     public function __construct(
@@ -115,8 +115,19 @@
         userEntity()->is('admin|is_important_group', null, 25);
         userEntity()->is(['admin', 'is_important_group'], [null], [25]);
 
+        dd('fin');
+    }
 
-        // ------------------------------------------------------------------------------- 
+```
+
+
+
+```php
+
+Route::middleware(['userCan:see_post_detail|admin_tags:25'])->group(function () {
+    Route::get('/home', [DefaultController::class, 'home'])->name('home');
+});
+
 
 
 
@@ -144,7 +155,19 @@
 
         dd($data);
 
-        dd('fin');
-    }
 
+
+interface UserRepositoryContract
+{
+    public function is_important_group(UserEntity $user, $id): bool;
+}
+
+
+final class UserRepository extends BaseUserRepository implements UserRepositoryContract
+{
+    public function is_important_group(UserEntity $user, $id): bool
+    {
+        return $user->id->value() === 4 && $id === 25;
+    }
+}
 ```
