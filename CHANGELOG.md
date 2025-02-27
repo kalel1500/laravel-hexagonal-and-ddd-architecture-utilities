@@ -1,6 +1,41 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.15.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.16.0-beta.0...master)
+
+## [v0.16.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.15.0-beta.0...v0.16.0-beta.0) - 2025-02-27
+
+### Added
+
+* permission: !!!Nueva funcionalidad para poder pasarle parámetros a los métodos `is()` y `can()` del `UserEntity` para los roles que son querys y requieran recibir parámetros
+* (refactor) Exceptions: Mover el renderizado de la vista de errores de Laravel al nuevo helper `getHtmlLaravelDebugStackTrace()`
+* permission: Nuevos Middlewares para poder comprobar los Permisos y Roels en las rutas con los alias `userCan:` y `userIs:` (nueva excepción `UnauthorizedException`)
+* permission: Nuevo método `is()` en el trait `EntityHasPermissions.php` para poder comprobar si un usuario tiene un rol
+* permission: Nueva funcionalidad de Roles y Permisos (primera version -> migraciones, modelos, entidades, colecciones, repositorios, traits)
+
+### Changed
+
+* (breaking) Exceptions: !!!Modificar `$exceptions->render(HexagonalException)` para que con el `DEBUG=true`, en las `AbortException` renderice siempre la `getHtmlLaravelDebugStackTrace()` y solo deje a Laravel encargarse de renderizar cuando sea diferente de `BasicHttpException`. De esta forma nuestras BasicHttpException se renderizan con nuestra vista `hexagonal::pages.exceptions.error`
+* Exceptions: Mejorar estilos de la layout de errores `minimal.blade.php`
+* Exceptions: Añadir el texto del `StatusCode` como `$title` y mover el mensaje debajo del código como un subtítulo (se renderizan los estilos propios)
+* Exceptions: Igualar la blade de las Excepciones con la que tiene Laravel internamente (con su misma layout)
+* (breaking) (refactor) Exceptions: Mover y renombrar `resources/views/pages/custom-error.blade.php` a `resources/views/pages/exceptions/error.blade.php`
+* Exceptions: Hacer que el `->render(HexagonalException)` solo deje renderizar a Laravel si es Debug o si la Excepción no es `BasicHttpException` (para que las `BasicHttpException` siempre usen nuestra vista `hexagonal::pages.custom-error`)
+* (refactor) Exceptions: Ordenar métodos del `ExceptionHandler` en el orden en que Laravel los ejecuta para que se lea más claramente
+* (refactor) Exceptions: Mover la lógica de del manejo de una excepción Http de la clase `AbortException` a la nueva clase `BasicHttpException` para que otras puedan extender de ella y devolver excepciones Http que extiendan de nuestra clase base `HexagonalException`
+* (refactor) ServiceProvider: cambiar el `$kernel->appendMiddlewareToGroup()` por el `$router->pushMiddlewareToGroup()`
+* (refactor) Cambiar el `returnType` fijo del método `AuthService::userEntity()` por un tipo genérico para facilitar la detección de tipos
+* (refactor) Usar nombre completo de las clases en el `$singletons` del `HexagonalServiceProvider.php` en vez de usar los imports para una mejor lectura
+* Auth: Cargar la relación de `roles` en el método `AuthService::userEntity()` (configurable con la nueva variable `hexagonal_auth.load_roles`)
+* Auth: Tipar las clases `AuthService` (incluyendo la Interfaz y la Fachada) para indicar que puede devolver `null`
+* Auth: Hacer que el método `AuthService::userEntity()` devuelva `null` si `auth()->user()` devuelve `null`
+* Auth: Modificar clase `UserEntity.php` para que sea fácilmente heredable
+* (breaking) Modificar el método `->contains()` de las colecciones (`ContractCollectionBase.php`) si recibe un callback le pase la instancia del `$item` original y no un `object` de PHP
+
+### Fixed
+
+* (fix) stubs: Cambiar el color del texto cuando es `dark` en la `home.blade.php`
+* (fix) Layout: eliminado el `Content-Security-Policy` del `head` (lo que hace es poner HTTPS automáticamente en las rutas)
+* (fix) Quitar la referencia al modelo `Src\Shared\Infrastructure\Models\User` en el `AuthController` (ahora se usa el helper `getUserClass()` que obtiene la clase de la configuración)
 
 ## [v0.15.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.14.1-beta.1...v0.15.0-beta.0) - 2025-02-17
 
