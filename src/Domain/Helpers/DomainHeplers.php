@@ -306,14 +306,14 @@ if (!function_exists('abort_d')) {
      * @return void
      */
     function abort_d(
-        int $code,
+        int $statusCode,
         string $message,
         ?array $data = null,
         bool $success = false,
         ?Throwable $previous = null
     ): void
     {
-        throw new AbortException($code, $message, $previous, $data, $success);
+        throw new AbortException($statusCode, $message, $previous, $data, $success);
     }
 }
 
@@ -700,5 +700,18 @@ if (!function_exists('get_shadow_classes')) {
         return config('hexagonal.active_shadows')
             ? 'shadow-h-1xl dark:shadow-hb-1xl'
             : $normalShadow;
+    }
+}
+
+if (!function_exists('pipe_str_to_array')) {
+    /**
+     * @param array|string $value
+     * @return array
+     */
+    function pipe_str_to_array($value): array
+    {
+        return is_array($value)
+            ? $value
+            : explode('|', $value);
     }
 }

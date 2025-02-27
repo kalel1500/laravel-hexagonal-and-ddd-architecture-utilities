@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Src\Shared\Infrastructure\Models\User;
 
@@ -17,6 +18,9 @@ class UserSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        User::factory(9)->create();
+        User::factory()
+            ->sequence(fn (Sequence $seq) => ['email' => 'test' . $seq->index+1 . '@example.com'])
+            ->count(9)
+            ->create();
     }
 }

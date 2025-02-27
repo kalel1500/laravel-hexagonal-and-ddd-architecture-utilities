@@ -6,41 +6,39 @@ namespace Src\Shared\Domain\Objects\Entities;
 
 use Src\Shared\Domain\Objects\Entities\Collections\CommentCollection;
 use Src\Shared\Domain\Objects\Entities\Collections\PostCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
+use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity as BaseUserEntity;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelTimestampNull;
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
-class UserEntity extends ContractEntity
+class UserEntity extends BaseUserEntity
 {
+    public ModelStringNull $other_field;
+
     public function __construct(
-        public readonly ContractModelId $id,
-        public readonly ModelString     $name,
-        public readonly ModelString     $email,
-        public readonly ModelTimestampNull $email_verified_at,
+        ContractModelId $id,
+        ModelString     $name,
+        ModelString     $email,
+        ModelStringNull $email_verified_at,
+        ModelStringNull $other_field,
     )
     {
+        parent::__construct($id, $name, $email, $email_verified_at);
+        $this->other_field = $other_field;
     }
 
     protected static function createFromArray(array $data): self
     {
-        return new self(
-            ModelId::from($data['id'] ?? null),
-            ModelString::new($data['name']),
-            ModelString::new($data['email']),
-            ModelTimestampNull::new($data['email_verified_at']),
-        );
+        return parent::createFromChildArray($data, [
+            ModelStringNull::new($data['other_field'] ?? 'prueba')
+        ]);
     }
 
     protected function toArrayProperties(): array
     {
-        return [
-            'id'                => $this->id->value(),
-            'content'           => $this->name->value(),
-            'email'             => $this->email->value(),
-            'email_verified_at' => $this->email_verified_at->value(),
-        ];
+        return parent::toArrayPropertiesFromChild([
+            'other_field' => $this->other_field->value(),
+        ]);
     }
 
     public function posts(): PostCollection

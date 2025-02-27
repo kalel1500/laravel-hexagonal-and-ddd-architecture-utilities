@@ -8,9 +8,12 @@ use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\Co
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
 use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
+use Thehouseofel\Hexagonal\Domain\Traits\EntityHasPermissions;
 
 class UserEntity extends ContractEntity
 {
+    use EntityHasPermissions;
+
     public ContractModelId $id;
     public ModelString     $name;
     public ModelString     $email;
@@ -66,6 +69,17 @@ class UserEntity extends ContractEntity
             'content'           => $this->name->value(),
             'email'             => $this->email->value(),
             'email_verified_at' => $this->email_verified_at->value(),
+        ];
+    }
+
+    protected function toArrayPropertiesFromChild(array $newFields): array
+    {
+        return [
+            'id'                => $this->id->value(),
+            'content'           => $this->name->value(),
+            'email'             => $this->email->value(),
+            'email_verified_at' => $this->email_verified_at->value(),
+            ...$newFields
         ];
     }
 }

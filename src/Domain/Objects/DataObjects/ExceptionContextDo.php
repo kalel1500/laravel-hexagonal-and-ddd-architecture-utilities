@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Throwable;
 
@@ -20,6 +21,8 @@ final class ExceptionContextDo extends ContractDataObject
     protected $line;
     protected $trace;
     protected $previous;
+
+    protected $title;
 
     public function __construct(
         int        $statusCode,
@@ -45,6 +48,8 @@ final class ExceptionContextDo extends ContractDataObject
         $this->line            = $line;
         $this->trace           = $trace;
         $this->previous        = $previous;
+
+        $this->title           = Response::$statusTexts[$this->statusCode];
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -186,6 +191,11 @@ final class ExceptionContextDo extends ContractDataObject
     public function getPreviousData(): ?ExceptionContextDo
     {
         return is_null($this->previous) ? null : ExceptionContextDo::from($this->previous);
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 
     /*public function getLastPrevious(): ?Throwable

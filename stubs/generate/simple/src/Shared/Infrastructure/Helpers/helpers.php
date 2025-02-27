@@ -9,10 +9,12 @@ if (!function_exists('userEntity')) {
     /**
      * Este helper se crea en la aplicación (y no en el paquete) para indicar el return es de tipo UserEntity
      *
-     * @return UserEntity
+     * @return UserEntity|null
      */
-    function userEntity(): UserEntity
+    function userEntity(): ?UserEntity
     {
-        return AuthService::userEntity();
+        /** @var UserEntity $user */
+        $user = AuthService::userEntity();
+        return $user;
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Events\VendorTagPublished;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -21,6 +22,8 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasPermission;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasRole;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
 
@@ -34,6 +37,8 @@ class HexagonalServiceProvider extends ServiceProvider
     public $singletons = [
         'layoutService'                                                                           => \Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService::class,
         'authService'                                                                             => \Thehouseofel\Hexagonal\Infrastructure\Services\AuthService::class,
+        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract::class       => \Thehouseofel\Hexagonal\Infrastructure\Repositories\RoleRepository::class,
+        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract::class => \Thehouseofel\Hexagonal\Infrastructure\Repositories\PermissionRepository::class,
         \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository::class,
     ];
 
@@ -131,7 +136,13 @@ return [
             define('HEXAGONAL_PATH', realpath(__DIR__.'/../../'));
         }
 
+        $this->registerSingletons();
         $this->configure();
+    }
+
+    protected function registerSingletons(): void
+    {
+        $this->app->singleton(\Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('hexagonal_auth.user_repository_class'))());
     }
 
     /**
@@ -388,27 +399,29 @@ return [
      */
     protected function registerMiddlewares(): void
     {
-//        /** @var Router $router */
-//        $router = $this->app->make(Router::class);
+        /** @var Router $router */
+        $router = $this->app->make(Router::class);
+//        /** @var Kernel $kernel */
+//        $kernel = $this->app->make(Kernel::class);
 
-        // Registrar un grupo de middlewares
-//        $router->middlewareGroup('web', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
+        // Registrar/sobreescribir un grupo de middlewares
+//        $router->middlewareGroup('newCustomGroup', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
 
-        // Registrar middlewares solo para rutas específicas
-//        $router->aliasMiddleware('hexagonal.anyMiddleware', HexagonalAnyMiddleware::class);
-
-        // Añadir un middleware a un grupo (con Router para soportar versiones anteriores a la 6)
+        // Añadir un middleware a un grupo
 //        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);
 
-        // Añadir un middleware a un grupo (con Router para soportar versiones posteriores a la 6)
+        // Registrar middlewares solo para rutas específicas
+        $router->aliasMiddleware('userCan', UserHasPermission::class);
+        $router->aliasMiddleware('userIs', UserHasRole::class);
+
+        // El Middleware AddPreferencesCookies al grupo de rutas web
         if (
             !$this->app->runningInConsole() &&
             !empty(config('app.key')) &&
             Hexagonal::enabledPreferencesCookie()
         ) {
-            /** @var Kernel $kernel */
-            $kernel = $this->app->make(Kernel::class);
-            $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
+            // Añadir un middleware a un grupo
+            $router->pushMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class); // $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
 
             // Desencriptar las cookies de las preferencias del usuario
             $this->app->booted(function () {
