@@ -1,5 +1,4 @@
-import type { Config } from 'tailwindcss'
-import { laravelDefaultPlugins } from '@kalel1500/laravel-ts-utils/dist/plugins/tailwind';
+import { laravelPlugin } from '@kalel1500/laravel-ts-utils/dist/plugins/tailwind';
 
 export default {
     content: [
@@ -18,6 +17,7 @@ export default {
         },
     },
     plugins: [
-        ...laravelDefaultPlugins
+        require('flowbite/plugin'),
+        laravelPlugin,
     ],
-} satisfies Config
+}
