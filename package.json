@@ -7,11 +7,10 @@
     "ts-build": "tsc && vite build"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.9",
+    "@tailwindcss/vite": "^4.0.9",
     "@types/node": "^22.10.10",
     "flowbite": "^3.1.2",
     "laravel-vite-plugin": "^1.2.0",
-    "postcss": "^8.5.2",
     "tailwindcss": "^4.0.9",
     "typescript": "^5.7.3",
     "vite": "^6.0"
