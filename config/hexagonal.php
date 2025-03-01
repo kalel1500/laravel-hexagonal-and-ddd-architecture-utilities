@@ -6,6 +6,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default Route
+    |--------------------------------------------------------------------------
+    |
+    | The following options allow you to configure the default route to which
+    | the application should redirect you
+    |
+    */
+
+    'default_route' => env('HEXAGONAL_DEFAULT_ROUTE', '/home'),
+
+    'default_route_name' => env('HEXAGONAL_DEFAULT_ROUTE_NAME', 'home'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Real environment during testing
     |--------------------------------------------------------------------------
     |

@@ -650,6 +650,27 @@ if (!function_exists('getHtmlLaravelDebugStackTrace')) {
     }
 }
 
+if (!function_exists('appUrl')) {
+    function appUrl(): string
+    {
+        return rtrim(config('app.url'), '/');
+    }
+}
+
+if (!function_exists('defaultRoute')) {
+    function defaultRoute(): string
+    {
+        return '/' . ltrim(config('hexagonal.default_route'), '/');
+    }
+}
+
+if (!function_exists('defaultUrl')) {
+    function defaultUrl(): string
+    {
+        return appUrl() . defaultRoute();
+    }
+}
+
 //if (!function_exists('formatToTabulatorList')) {
 //    /**
 //     * @param Collection|ContractCollectionBase $collection // TODO PHP8 - Union types
