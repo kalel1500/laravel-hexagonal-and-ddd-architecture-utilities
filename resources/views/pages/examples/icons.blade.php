@@ -7,7 +7,7 @@
 
         <div id="icons" class="flex flex-wrap gap-3">
             @foreach($data->icons() as $key => $icon)
-                <div class="pb-2 pt-6 px-6 border-2 border-gray-200 border-dashed rounded dark:border-gray-700">
+                <div class="pb-2 pt-6 px-6 border-2 border-gray-200 border-dashed rounded-sm dark:border-gray-700">
 
                     <x-hexagonal::tooltip id="tooltip-{{ $key }}" data-text-id="{{ $key }}">
                         <span>{{ $data->show_name_short()->value() ? $icon->name_short() : $icon->name() }}</span>

@@ -39,18 +39,18 @@
                     <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
                             <a href="{{ route("hexagonal.root") }}"
-                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("home")])
+                               @class(["block py-2 px-3 rounded-sm hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("home")])
                                aria-current="page"
                             >Home</a>
                         </li>
                         <li>
                             <a href="{{ route("hexagonal.queues.queuedJobs") }}"
-                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.queuedJobs")])
+                               @class(["block py-2 px-3 rounded-sm hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.queuedJobs")])
                             >Queued Jobs</a>
                         </li>
                         <li>
                             <a href="{{ route("hexagonal.queues.failedJobs") }}"
-                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.failedJobs")])
+                               @class(["block py-2 px-3 rounded-sm hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.failedJobs")])
                             >Failed Jobs</a>
                         </li>
                     </ul>

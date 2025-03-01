@@ -112,7 +112,7 @@
         <!-- User image -->
         <x-hexagonal::navbar.item user id="user" text="Open user menu">
             <!-- User icon -->
-            <x-hexagonal::icon.user-profile class="h-8 w-8 hover:bg-gray-700 hover:dark:bg-gray-300"/>
+            <x-hexagonal::icon.user-profile class="h-8 w-8 hover:bg-gray-700 dark:hover:bg-gray-300"/>
 
             <x-slot:dropdown>
 

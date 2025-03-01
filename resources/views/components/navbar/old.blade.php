@@ -4,7 +4,7 @@
         <!-- Left side -->
         <div class="hidden items-center justify-start vsm:flex">
             <!-- Collapse button (big screen) -->
-            <button id="toggleSidebar" aria-expanded="true" aria-controls="logo-sidebar" class="mr-3 hidden cursor-pointer rounded p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:inline">
+            <button id="toggleSidebar" aria-expanded="true" aria-controls="logo-sidebar" class="mr-3 hidden cursor-pointer rounded-sm p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:inline">
                 <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h14M1 6h14M1 11h7"/></svg>
             </button>
             <!-- Hide/show button (small screen) -->
@@ -54,13 +54,13 @@
                 </svg>
             </button>
             <!-- Dropdown notifications -->
-            <div id="dropdown-notifications" class="z-50 my-4 hidden max-w-sm list-none divide-y divide-gray-100 overflow-hidden rounded bg-white text-base shadow-lg dark:divide-gray-600 dark:bg-gray-700">
+            <div id="dropdown-notifications" class="z-50 my-4 hidden max-w-sm list-none divide-y divide-gray-100 overflow-hidden rounded-sm bg-white text-base shadow-lg dark:divide-gray-600 dark:bg-gray-700">
                 <div class="block bg-gray-50 px-4 py-2 text-center text-base font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-300">
                     Notifications
                 </div>
                 <div class>
-                    <a href="#" class="flex border-b px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-                        <div class="flex-shrink-0 h-11 w-11">
+                    <a href="#" class="flex border-b border-gray-200 px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+                        <div class="shrink-0 h-11 w-11">
                             <div class="bg-gray-800 dark:bg-white rounded-full">
                                 <svg class="text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"></path>
@@ -75,8 +75,8 @@
                             <div class="text-blue-600 dark:text-blue-500 text-xs font-medium">a few moments ago</div>
                         </div>
                     </a>
-                    <a href="#" class="flex border-b px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-                        <div class="flex-shrink-0 h-11 w-11">
+                    <a href="#" class="flex border-b border-gray-200 px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+                        <div class="shrink-0 h-11 w-11">
                             <div class="bg-gray-800 dark:bg-white rounded-full">
                                 <svg class="text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"></path>
@@ -93,8 +93,8 @@
                             <div class="text-blue-600 dark:text-blue-500 text-xs font-medium">10 minutes ago</div>
                         </div>
                     </a>
-                    <a href="#" class="flex border-b px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-                        <div class="flex-shrink-0 h-11 w-11">
+                    <a href="#" class="flex border-b border-gray-200 px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+                        <div class="shrink-0 h-11 w-11">
                             <div class="bg-gray-800 dark:bg-white rounded-full">
                                 <svg class="text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"></path>
@@ -111,8 +111,8 @@
                             <div class="text-blue-600 dark:text-blue-500 text-xs font-medium">44 minutes ago</div>
                         </div>
                     </a>
-                    <a href="#" class="flex border-b px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-                        <div class="flex-shrink-0 h-11 w-11">
+                    <a href="#" class="flex border-b border-gray-200 px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+                        <div class="shrink-0 h-11 w-11">
                             <div class="bg-gray-800 dark:bg-white rounded-full">
                                 <svg class="text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"></path>
@@ -127,8 +127,8 @@
                             <div class="text-blue-600 dark:text-blue-500 text-xs font-medium">1 hour ago</div>
                         </div>
                     </a>
-                    <a href="#" class="flex border-b px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-                        <div class="flex-shrink-0 h-11 w-11">
+                    <a href="#" class="flex border-b border-gray-200 px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+                        <div class="shrink-0 h-11 w-11">
                             <div class="bg-gray-800 dark:bg-white rounded-full">
                                 <svg class="text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"></path>
@@ -163,7 +163,7 @@
                 </svg>
             </button>
             <!-- Dropdown apps -->
-            <div id="dropdown-apps" class="z-50 my-4 hidden max-w-sm list-none divide-y divide-gray-100 overflow-hidden rounded bg-white text-base shadow-lg dark:divide-gray-600 dark:bg-gray-700">
+            <div id="dropdown-apps" class="z-50 my-4 hidden max-w-sm list-none divide-y divide-gray-100 overflow-hidden rounded-sm bg-white text-base shadow-lg dark:divide-gray-600 dark:bg-gray-700">
                 <div class="block bg-gray-50 px-4 py-2 text-center text-base font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-300">
                     Apps
                 </div>
@@ -231,7 +231,7 @@
                 <svg id="theme-toggle-dark-icon" class="hidden h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                 <svg id="theme-toggle-light-icon" class="hidden h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
             </button>
-            <div id="tooltip-theme-toggle" role="tooltip" class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700" data-popper-placement="bottom">
+            <div id="tooltip-theme-toggle" role="tooltip" class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-xs transition-opacity duration-300 dark:bg-gray-700" data-popper-placement="bottom">
                 Toggle dark mode
                 <div class="tooltip-arrow" data-popper-arrow=""></div>
             </div>
@@ -239,14 +239,14 @@
             <!-- User image -->
             <button type="button" data-dropdown-toggle="dropdown-user" class="mx-3 flex rounded-full text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:mr-0">
                 <span class="sr-only">Open user menu</span>
-                <div class="rounded-full bg-gray-800 dark:bg-white h-8 w-8 hover:bg-gray-700 hover:dark:bg-gray-300">
+                <div class="rounded-full bg-gray-800 dark:bg-white h-8 w-8 hover:bg-gray-700 dark:hover:bg-gray-300">
                     <svg class="text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
                     </svg>
                 </div>
             </button>
             <!-- Dropdown user -->
-            <div id="dropdown-user" class="z-50 my-4 hidden w-56 list-none rounded bg-white text-base shadow dark:bg-gray-700">
+            <div id="dropdown-user" class="z-50 my-4 hidden w-56 list-none rounded-sm bg-white text-base shadow-sm dark:bg-gray-700">
                 <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-600">
                     <span class="block text-sm font-semibold text-gray-900 dark:text-white">Neil Sims</span>
                     <span class="block truncate text-sm text-gray-900 dark:text-white">name@flowbite.com</span>

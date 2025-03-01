@@ -28,7 +28,7 @@
                 <x-hexagonal::navbar.item :id="$item->getCode()" :text="$item->text" :user="$item->is_user">
                     <!-- Item icon -->
                     @if($item->is_user)
-                        <x-hexagonal::icon.user-profile class="h-8 w-8 hover:bg-gray-700 hover:dark:bg-gray-300"/>
+                        <x-hexagonal::icon.user-profile class="h-8 w-8 hover:bg-gray-700 dark:hover:bg-gray-300"/>
                     @else
                         <x-hexagonal::render-icon :icon="$item->icon" />
                     @endif

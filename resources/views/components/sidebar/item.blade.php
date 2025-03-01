@@ -6,7 +6,7 @@
     $isSubitem = $attributes->has('subitem');
     $centerClass = !$hasIcon ? 'sc:items-start' : '';
     $linkClasses = 'group flex w-full items-center '.$centerClass.' rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 md:sc:p-1 md:sc:flex-col md:sc:text-xs md:sc:font-normal md:transition-all ';
-    $iconHtml = !$hasIcon ? '' : '<div class="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">' . $icon . '</div>';
+    $iconHtml = !$hasIcon ? '' : '<div class="h-6 w-6 shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">' . $icon . '</div>';
     $spanClasses = !$hasIcon ? '' : 'ml-3 md:sc:ml-0';
     $dropdownId = $isDropdown ? $dropdown->attributes->get('id') : '';
     $linkIsActive = isRouteActive($attributes->get('href'));
@@ -18,7 +18,7 @@
     // Obtén el HTML del SVG desde $icon
     $iconHtml = $icon->toHtml(); // Asegúrate de que $icon puede ser convertido a HTML.
     // Reemplaza la clase del SVG
-    $modifiedIconHtml = preg_replace('/class="([^"]*)"/', 'class="h-6 w-6 flex-shrink-0 transition duration-75 group-hover:text-gray-900 dark:group-hover:text-white"',$iconHtml);
+    $modifiedIconHtml = preg_replace('/class="([^"]*)"/', 'class="h-6 w-6 shrink-0 transition duration-75 group-hover:text-gray-900 dark:group-hover:text-white"',$iconHtml);
     */
 @endphp
 
