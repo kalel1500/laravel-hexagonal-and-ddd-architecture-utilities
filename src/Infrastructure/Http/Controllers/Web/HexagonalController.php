@@ -12,7 +12,7 @@ final class HexagonalController extends Controller
 {
     public function root()
     {
-        return redirect('/');
+        return redirect(appUrl());
     }
 
     public function testVitePackage(): \Illuminate\Contracts\View\View
