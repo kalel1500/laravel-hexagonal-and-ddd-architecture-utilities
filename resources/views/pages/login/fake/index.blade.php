@@ -1,3 +1,5 @@
+@use('Thehouseofel\Hexagonal\Infrastructure\Services\Renderer')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +10,9 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-    <!--Replace with your tailwind.css once created-->
-    <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
+{{--    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>--}}
+{{--    <!--Replace with your tailwind.css once created-->--}}
+{{--    <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />--}}
 
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
@@ -19,7 +21,9 @@
             font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
     </style>
-{{--    @vite(['resources/css/app.css', 'resources/js/app.ts'])--}}
+
+    <!-- CSS del paquete -->
+    {!! Renderer::css() !!}
 </head>
 
 <body class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed" style="background-image: url(@viteAsset('resources/images/login/header.png'));">
