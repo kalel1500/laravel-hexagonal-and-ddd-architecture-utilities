@@ -19,7 +19,7 @@
                         </h3>
                         <p class="text-gray-600 mb-8 dark:text-gray-300">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                            at ipsum eu nunc commodo posuere et sit amet ligula.<br/><br/>
+                            at ipsum eu nunc commodo posuere et sit amet ligula.<br /><br />
 
                             Images from:
                             <a class="text-orange-500 underline" href="https://undraw.co/"
@@ -121,9 +121,9 @@
                                     d="M1017,282.42V294H183V282.42A20.42,20.42,0,0,1,203.42,262H996.58A20.42,20.42,0,0,1,1017,282.42Z"
                                     fill="#3f3d56"
                             />
-                            <circle cx="193" cy="127.75" r="6" fill="#ff6347"/>
-                            <circle cx="208" cy="127.75" r="6" fill="#ff6347"/>
-                            <circle cx="223" cy="127.75" r="6" fill="#ff6347"/>
+                            <circle cx="193" cy="127.75" r="6" fill="#ff6347" />
+                            <circle cx="208" cy="127.75" r="6" fill="#ff6347" />
+                            <circle cx="223" cy="127.75" r="6" fill="#ff6347" />
                             <path
                                     transform="translate(-11.5 -150.75)"
                                     d="M387.5,490A66.5,66.5,0,1,1,321,423.5,66.47,66.47,0,0,1,387.5,490Z"
@@ -237,7 +237,7 @@
                                     d="m1016.3 605.22s-22.5 8-34.74 4.56l5.69 11.39s29.05-0.86 34.18-6-5.13-9.95-5.13-9.95z"
                                     opacity=".1"
                             />
-                            <circle cx="989.6" cy="378.29" r="15.09" fill="#ffc1c7"/>
+                            <circle cx="989.6" cy="378.29" r="15.09" fill="#ffc1c7" />
                             <path
                                     transform="translate(-11.5 -150.75)"
                                     d="m1014 543.21a11.85 11.85 0 0 0 2 2.71 24.62 24.62 0 0 0 7.28 5.44 246.74 246.74 0 0 1 -25.93 3.86c0.92-3.24-0.29-6.7-1.91-9.64s-3.7-5.69-4.72-8.9l10.2 0.28c1.85 0 3.71 0.1 5.56 0 1.39-0.07 3.69-0.9 5-0.59 2.64 0.63 1.3 4.42 2.52 6.84z"
@@ -453,11 +453,11 @@
                                     stroke-miterlimit="10"
                                     stroke-width="2"
                             />
-                            <circle cx="214.07" cy="310.65" r="11.968" fill="#ff6347"/>
-                            <circle cx="322.2" cy="566.52" r="11.968" fill="#ff6347"/>
-                            <circle cx="780.7" cy="309" r="11.968" fill="#ff6347"/>
-                            <circle cx="991.17" cy="607.78" r="11.968" fill="#ff6347"/>
-                            <circle cx="600.35" cy="480.68" r="11.968" fill="#ff6347"/>
+                            <circle cx="214.07" cy="310.65" r="11.968" fill="#ff6347" />
+                            <circle cx="322.2" cy="566.52" r="11.968" fill="#ff6347" />
+                            <circle cx="780.7" cy="309" r="11.968" fill="#ff6347" />
+                            <circle cx="991.17" cy="607.78" r="11.968" fill="#ff6347" />
+                            <circle cx="600.35" cy="480.68" r="11.968" fill="#ff6347" />
                         </svg>
                     </div>
                     <div class="w-full sm:w-1/2 p-6 mt-6">
@@ -467,7 +467,7 @@
                             </h3>
                             <p class="text-gray-600 mb-8 dark:text-gray-300">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                                at ipsum eu nunc commodo posuere et sit amet ligula.<br/><br/>
+                                at ipsum eu nunc commodo posuere et sit amet ligula.<br /><br />
                                 Images from:
                                 <a class="text-orange-500 underline" href="https://undraw.co/"
                                 >undraw.co</a
@@ -492,8 +492,8 @@
                     ></div>
                 </div>
 
-                <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="w-full md:w-1/3 p-6 flex flex-col grow shrink">
+                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-sm">
                         <a href="#" class="flex flex-wrap no-underline hover:no-underline">
                             <p class="w-full text-gray-600 text-xs md:text-sm px-6 mt-6">
                                 GETTING STARTED
@@ -507,17 +507,17 @@
                             </p>
                         </a>
                     </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-sm p-6">
                         <div class="flex items-center justify-start">
-                            <button class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-extrabold rounded my-6 py-4 px-8 shadow-lg">
+                            <button class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-extrabold rounded-sm my-6 py-4 px-8 shadow-lg">
                                 Action
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="w-full md:w-1/3 p-6 flex flex-col grow shrink">
+                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-sm">
                         <a href="#" class="flex flex-wrap no-underline hover:no-underline">
                             <p class="w-full text-gray-600 text-xs md:text-sm px-6 mt-6">
                                 GETTING STARTED
@@ -531,17 +531,17 @@
                             </p>
                         </a>
                     </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-sm p-6">
                         <div class="flex items-center justify-center">
-                            <button class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-extrabold rounded my-6 py-4 px-8 shadow-lg">
+                            <button class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-extrabold rounded-sm my-6 py-4 px-8 shadow-lg">
                                 Action
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                <div class="w-full md:w-1/3 p-6 flex flex-col grow shrink">
+                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-sm">
                         <a href="#" class="flex flex-wrap no-underline hover:no-underline">
                             <p class="w-full text-gray-600 text-xs md:text-sm px-6 mt-6">
                                 GETTING STARTED
@@ -555,9 +555,9 @@
                             </p>
                         </a>
                     </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-sm p-6">
                         <div class="flex items-center justify-end">
-                            <button class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-extrabold rounded my-6 py-4 px-8 shadow-lg">
+                            <button class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-extrabold rounded-sm my-6 py-4 px-8 shadow-lg">
                                 Action
                             </button>
                         </div>

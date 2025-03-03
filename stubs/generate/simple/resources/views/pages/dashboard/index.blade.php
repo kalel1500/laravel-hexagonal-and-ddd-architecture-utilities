@@ -20,10 +20,10 @@
     <div class="flex flex-wrap justify-around vsm:grid vsm:grid-cols-[repeat(auto-fit,minmax(24rem,1fr))] gap-6">
         @foreach($data->posts as $post)
 
-            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
                 <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 hover:dark:text-gray-300">{{ $post->title->value() }}</h5>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300">{{ $post->title->value() }}</h5>
                 </a>
 
                 <x-hexagonal::text class="mb-3">{{ $post->content->value() }}</x-hexagonal::text>

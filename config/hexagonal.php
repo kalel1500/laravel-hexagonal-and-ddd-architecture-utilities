@@ -139,7 +139,7 @@ return [
     |
     */
 
-    'version_flowbite' => '^2.5.2',
+    'version_flowbite' => '^3.1.2',
 
     'version_types_node' => '^22.10.10',
 
