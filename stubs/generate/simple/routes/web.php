@@ -17,7 +17,7 @@ Route::get('/welcome', fn() => view('welcome'))->name('welcome');
  */
 
 // Ruta base
-Route::redirect('/', '/home');
+Route::redirect('/', defaultUrl());
 
 // Rutas protegidas
 Route::middleware(['auth'])->group(function () {
