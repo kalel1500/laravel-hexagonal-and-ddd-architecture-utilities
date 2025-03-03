@@ -91,7 +91,6 @@ class HexagonalStart extends Command
             ->stubsCopyFolder_Resources()
             ->stubsCopyFolder_Src()
             ->stubsCopyFile_RoutesWeb()
-            ->stubsCopyFile_tailwindConfigJs()
             ->createEnvFiles()
             ->deleteDirectory_Http()
             ->deleteDirectory_Models()

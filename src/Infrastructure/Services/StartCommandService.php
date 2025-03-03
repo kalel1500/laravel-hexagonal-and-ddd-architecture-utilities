@@ -162,11 +162,7 @@ final class StartCommandService
         // Delete ".prettierrc"
         $this->filesystem->delete(base_path('.prettierrc'));
 
-        // Delete "tailwind.config.ts"
-        $this->filesystem->delete(base_path('tailwind.config.ts'));
-        copy($this->command->originalStubsPath('tailwind.config.js'), base_path('tailwind.config.js'));
-
-        // Delete "tailwind.config.ts"
+        // Delete "tsconfig.json"
         $this->filesystem->delete(base_path('tsconfig.json'));
 
         // Delete "vite.config.ts"
@@ -435,22 +431,6 @@ final class StartCommandService
 
         copy($from, $to);
         $this->line('Archivo "'.$originalFile.'" modificado');
-
-        return $this;
-    }
-
-    public function stubsCopyFile_tailwindConfigJs(): self
-    {
-        $this->number++;
-
-        // tailwind.config.js
-        $file = 'tailwind.config.js';
-
-        $from = ($this->isReset()) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
-        $to = base_path($file);
-
-        copy($from, $to);
-        $this->line('Archivo "'.$file.'" modificado');
 
         return $this;
     }
