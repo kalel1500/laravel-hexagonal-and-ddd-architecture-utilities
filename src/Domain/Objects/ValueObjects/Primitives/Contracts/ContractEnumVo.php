@@ -36,11 +36,14 @@ abstract class ContractEnumVo extends ContractValueObject
 
     protected function checkPermittedValues(?string $value)
     {
+        if (is_null($value)) return;
+
         $permittedValues = $this->getPermittedValues();
         $failPermittedValuesValidation = ($this->caseSensitive)
             ? (!in_array($value, $permittedValues))
             : (!in_array(strtolower($value), array_map('strtolower', $permittedValues)));
-        if (!is_null($value) && $failPermittedValuesValidation) {
+
+        if ($failPermittedValuesValidation) {
             $permittedValuesString = '['.implode(', ', $permittedValues).']';
             throw new InvalidValueException(sprintf('<%s> no permite el valor <%s>. Valores permitidos: <%s>', class_basename(static::class), $value, $permittedValuesString));
         }
