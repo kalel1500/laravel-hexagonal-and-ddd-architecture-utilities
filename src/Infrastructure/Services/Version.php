@@ -17,16 +17,6 @@ final class Version
     }
 
     /**
-     * Determinar si la version de Laravel instalada es igual o mayor a la 11
-     *
-     * @return bool
-     */
-    public static function laravelMin11(): bool
-    {
-        return version_compare(app()->version(), '11', '>=');
-    }
-
-    /**
      * Determinar si la version de Laravel instalada es igual o mayor a la 9
      *
      * @return bool
@@ -34,5 +24,15 @@ final class Version
     public static function laravelMin9(): bool
     {
         return version_compare(app()->version(), '9', '>=');
+    }
+
+    /**
+     * Determinar si la version de Laravel instalada es igual o mayor a la 11
+     *
+     * @return bool
+     */
+    public static function laravelMin11(): bool
+    {
+        return version_compare(app()->version(), '11', '>=');
     }
 }
