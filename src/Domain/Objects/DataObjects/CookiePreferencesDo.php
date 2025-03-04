@@ -7,19 +7,19 @@ namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 final class CookiePreferencesDo extends ContractDataObject
 {
     protected $version;
-    protected $dark_theme;
+    protected $theme;
     protected $sidebar_collapsed;
     protected $sidebar_state_per_page;
 
     public function __construct(
         string $version,
-        bool   $dark_theme,
+        ?string $theme,
         bool   $sidebar_collapsed,
         bool   $sidebar_state_per_page
     )
     {
         $this->version                = $version;
-        $this->dark_theme             = $dark_theme;
+        $this->theme                  = $theme;
         $this->sidebar_collapsed      = $sidebar_collapsed;
         $this->sidebar_state_per_page = $sidebar_state_per_page;
     }
@@ -28,7 +28,7 @@ final class CookiePreferencesDo extends ContractDataObject
     {
         return new self(
             $data['version'] ?? null,
-            $data['dark_theme'] ?? null,
+            $data['theme'] ?? null,
             $data['sidebar_collapsed'] ?? null,
             $data['sidebar_state_per_page'] ?? null
         );
@@ -39,9 +39,9 @@ final class CookiePreferencesDo extends ContractDataObject
         return $this->version;
     }
 
-    public function dark_theme(): bool
+    public function theme(): ?string
     {
-        return $this->dark_theme;
+        return $this->theme;
     }
 
     public function sidebar_collapsed(): bool
@@ -59,9 +59,9 @@ final class CookiePreferencesDo extends ContractDataObject
         $this->version = $value;
     }
 
-    public function set_dark_theme(bool $value): void
+    public function set_theme(string $value): void
     {
-        $this->dark_theme = $value;
+        $this->theme = $value;
     }
 
     public function set_sidebar_collapsed(bool $value): void
@@ -72,5 +72,11 @@ final class CookiePreferencesDo extends ContractDataObject
     public function set_sidebar_state_per_page(bool $value): void
     {
         $this->sidebar_state_per_page = $value;
+    }
+
+
+    public function isDarkMode(): bool
+    {
+        return $this->theme === 'dark';
     }
 }

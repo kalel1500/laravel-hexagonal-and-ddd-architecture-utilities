@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'dark_theme' => (bool) env('HEXAGONAL_LAYOUT_DARK_THEME', false),
+    'theme' => env('HEXAGONAL_LAYOUT_THEME'),
 
     'active_shadows' => (bool) env('HEXAGONAL_LAYOUT_ACTIVE_SHADOWS', false),
 
