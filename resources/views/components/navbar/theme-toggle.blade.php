@@ -8,14 +8,14 @@
     <x-hexagonal::icon.sun id="theme-toggle-light-icon" @class(['hidden' => !$dark_theme])/>
 </x-hexagonal::navbar.item>--}}
 
-<x-hexagonal::navbar.item id="theme-dark" tooltip="{{ __('Switch to dark mode') }}" @class(['hidden', 'block!' => $theme->isSystem()])>
+<x-hexagonal::navbar.item id="theme-dark" tooltip="{{ __('Switch to light mode') }}" @class(['hidden', 'block!' => $theme->isDark()])>
     <x-hexagonal::icon.moon/>
 </x-hexagonal::navbar.item>
 
-<x-hexagonal::navbar.item id="theme-light" tooltip="{{ __('Switch to light mode') }}" @class(['hidden', 'block!' => $theme->isDark()])>
+<x-hexagonal::navbar.item id="theme-light" tooltip="{{ __('Switch to system mode') }}" @class(['hidden', 'block!' => $theme->isLight()])>
     <x-hexagonal::icon.sun/>
 </x-hexagonal::navbar.item>
 
-<x-hexagonal::navbar.item id="theme-system" tooltip="{{ __('Switch to system mode') }}" @class(['hidden', 'block!' => $theme->isLight()])>
+<x-hexagonal::navbar.item id="theme-system" tooltip="{{ __('Switch to dark mode') }}" @class(['hidden', 'block!' => $theme->isSystem()])>
     <x-hexagonal::icon.indeterminate/>
 </x-hexagonal::navbar.item>
