@@ -16,7 +16,7 @@
         @endif
         @if($hasTooltip) data-tooltip-target="tooltip-{{ $attributes->get('id') }}" @endif
         >
-    <span class="sr-only">{{ $text }}</span>
+    <span class="sr-only">{{ $text ?? $tooltip }}</span>
     {{ $slot }}
 </button>
 
