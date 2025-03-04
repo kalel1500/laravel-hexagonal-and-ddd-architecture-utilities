@@ -381,11 +381,11 @@ return [
     protected function registerBladeDirectives(): void
     {
         Blade::directive('viteAsset', function ($path) {
-            return "<?php 
+            return "<?php
                 try {
                     echo e(\\Illuminate\\Support\\Facades\\Vite::asset(trim($path, '\'\"')));
                 } catch (\\Throwable \$e) {
-                    echo e(\$e->getMessage()); 
+                    echo e(\$e->getMessage());
                 }
             ?>";
         });
@@ -442,23 +442,29 @@ return [
         ComponentAttributeBag::macro('mergeTailwind', function ($defaultClasses) {
             /** @var ComponentAttributeBag $this */
 
-            // Obtiene las clases personalizadas
+            // Obtiene las clases personalizadas que se pasaron al componente
             $customClasses = $this->get('class', '');
 
-            // Divide ambas cadenas en arrays y elimina los strings vacíos
-            $defaultArray = array_filter(explode(' ', $defaultClasses));
-            $customArray = array_filter(explode(' ', $customClasses));
+            // Divide ambas cadenas en arrays y elimina strings vacíos
+            $defaultArray = array_filter(explode(' ', trim($defaultClasses)));
+            $customArray = array_filter(explode(' ', trim($customClasses)));
 
-            // Filtra las clases del default eliminando conflictos con las custom
-            $filteredDefault = array_filter($defaultArray, function ($class) use ($customArray) {
-                $prefix = strtok($class, '-'); // Obtén el prefijo de la clase, como "p"
-                return !Arr::first($customArray, function ($customClass) use ($prefix) { return str_starts_with($customClass, $prefix); });
+            // Función para obtener la base de una clase (sin variantes como dark:, hover:, etc.)
+            $getBaseClass = function ($class) {
+                $parts = explode(':', $class);
+                return end($parts); // La última parte es la clase real sin variantes
+            };
+
+            // Obtener todas las clases base de las personalizadas
+            $customBaseClasses = array_map($getBaseClass, $customArray);
+
+            // Filtrar las clases por defecto eliminando solo aquellas cuya base ya está en las personalizadas
+            $filteredDefault = array_filter($defaultArray, function ($class) use ($customBaseClasses, $getBaseClass) {
+                $baseClass = $getBaseClass($class);
+                return !in_array($baseClass, $customBaseClasses, true);
             });
 
-            // Genera las clases finales
-            //$finalClasses = implode(' ', $filteredDefault) . ' ' . $customClasses;
-
-            // Llama al método `merge` de la clase original
+            // Devolver solo las clases filtradas, Laravel ya hace el merge final
             return $this->merge(['class' => implode(' ', $filteredDefault)]);
         });
     }
