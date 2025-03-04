@@ -27,8 +27,8 @@ final class StartCommandService
 
     public function __construct(HexagonalStart $command, bool $reset, bool $simple)
     {
-        if (!Version::laravelMin11()) {
-            $command->error('Por ahora este comando solo esta preparado para la version de laravel 11');
+        if (!Version::laravelMin12()) {
+            $command->error('Por ahora este comando solo esta preparado para la version de laravel 12');
             exit(1); // Terminar la ejecución con código de error
         }
         $this->command          = $command;
@@ -635,6 +635,39 @@ EOD;
         File::put($filePath, $newContent);
 
         $this->line('Archivo "bootstrap/app.php" modificado');
+
+        return $this;
+    }
+
+    public function modifyFile_ConfigApp_toUpdateTimezone(): self
+    {
+        $this->number++;
+
+        // Ruta del archivo a modificar
+        $filePath = base_path('config/app.php');
+
+        // Leer el contenido del archivo
+        $content = File::get($filePath);
+
+        // Reemplazar la línea específica
+        if ($this->isReset()) {
+            $updatedContent = preg_replace(
+                '/\'timezone\'\s*=>\s*\'Europe\/Madrid\'/',
+                "'timezone' => 'UTC'",
+                $content
+            );
+        } else {
+            $updatedContent = preg_replace(
+                '/\'timezone\'\s*=>\s*\'UTC\'/',
+                "'timezone' => 'Europe/Madrid'",
+                $content
+            );
+        }
+
+        // Guardar el archivo con el contenido actualizado
+        File::put($filePath, $updatedContent);
+
+        $this->line('Archivo "config/app.php" modificado para actualizar el timezone');
 
         return $this;
     }
