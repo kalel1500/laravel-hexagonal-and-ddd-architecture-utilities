@@ -22,12 +22,12 @@ final class CookieService
         $this->cookieName     = config('hexagonal.cookie.name');
         $this->cookieDuration = config('hexagonal.cookie.duration');
         $this->cookieVersion  = config('hexagonal.cookie.version');
-        $this->preferences    = new CookiePreferencesDo(
-            config('hexagonal.cookie.version'),
-            config('hexagonal_layout.theme'),
-            config('hexagonal_layout.sidebar_collapsed'),
-            config('hexagonal_layout.sidebar_state_per_page')
-        );
+        $this->preferences    = CookiePreferencesDo::fromArray([
+            'version'                => config('hexagonal.cookie.version'),
+            'theme'                  => config('hexagonal_layout.theme'),
+            'sidebar_collapsed'      => config('hexagonal_layout.sidebar_collapsed'),
+            'sidebar_state_per_page' => config('hexagonal_layout.sidebar_state_per_page'),
+        ]);
     }
 
     public function cookie(): Cookie

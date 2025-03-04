@@ -1,4 +1,4 @@
-@php($dark_theme = \Thehouseofel\Hexagonal\Infrastructure\Services\CookieService::readOrNew()->preferences()->isDarkMode())
+@php($dark_theme = \Thehouseofel\Hexagonal\Infrastructure\Services\CookieService::readOrNew()->preferences()->theme()->isDark())
 <x-hexagonal::navbar.item
     id="theme-toggle"
     text="Theme toggle"

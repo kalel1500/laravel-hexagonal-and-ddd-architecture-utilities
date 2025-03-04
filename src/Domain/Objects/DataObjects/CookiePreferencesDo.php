@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
 
+use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\ThemeVo;
+
 final class CookiePreferencesDo extends ContractDataObject
 {
-    protected $version;
-    protected $theme;
-    protected $sidebar_collapsed;
-    protected $sidebar_state_per_page;
+    protected string  $version;
+    protected ThemeVo $theme;
+    protected bool    $sidebar_collapsed;
+    protected bool    $sidebar_state_per_page;
 
     public function __construct(
-        string $version,
-        ?string $theme,
-        bool   $sidebar_collapsed,
-        bool   $sidebar_state_per_page
+        string  $version,
+        ThemeVo $theme,
+        bool    $sidebar_collapsed,
+        bool    $sidebar_state_per_page
     )
     {
         $this->version                = $version;
@@ -27,10 +29,10 @@ final class CookiePreferencesDo extends ContractDataObject
     protected static function createFromArray(array $data): self
     {
         return new self(
-            $data['version'] ?? null,
-            $data['theme'] ?? null,
-            $data['sidebar_collapsed'] ?? null,
-            $data['sidebar_state_per_page'] ?? null
+            $data['version'],
+            ThemeVo::new($data['theme'] ?? ThemeVo::system),
+            $data['sidebar_collapsed'],
+            $data['sidebar_state_per_page']
         );
     }
 
@@ -39,7 +41,7 @@ final class CookiePreferencesDo extends ContractDataObject
         return $this->version;
     }
 
-    public function theme(): ?string
+    public function theme(): ThemeVo
     {
         return $this->theme;
     }
@@ -72,11 +74,5 @@ final class CookiePreferencesDo extends ContractDataObject
     public function set_sidebar_state_per_page(bool $value): void
     {
         $this->sidebar_state_per_page = $value;
-    }
-
-
-    public function isDarkMode(): bool
-    {
-        return $this->theme === 'dark';
     }
 }
