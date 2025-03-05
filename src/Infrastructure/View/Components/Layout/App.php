@@ -44,7 +44,7 @@ class App extends Component
      */
     public function render()
     {
-        return view('hexagonal::components.layout.app');
+        return view('kal::components.layout.app');
     }
 
     private function calculateSidebarCollapsedFromItems(): bool

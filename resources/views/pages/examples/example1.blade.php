@@ -1,6 +1,6 @@
-<x-hexagonal::layout.app package title="Example 1">
+<x-kal::layout.app package title="Example 1">
 
-    <x-hexagonal::section>
+    <x-kal::section>
 
         <div>Hola mundo</div>
         <div class="card-header--new">
@@ -19,6 +19,6 @@
             Custom tooltip
         </button>
 
-    </x-hexagonal::section>
+    </x-kal::section>
 
-</x-hexagonal::layout.app>
+</x-kal::layout.app>

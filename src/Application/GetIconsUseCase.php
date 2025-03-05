@@ -27,7 +27,7 @@ final class GetIconsUseCase
             })
             ->map(function ($file) {
                 // Extraer el nombre del componente en kebab-case
-                $prefix = 'hexagonal::icon.';
+                $prefix = 'kal::icon.';
                 $name = Str::kebab($file->getBasename('.blade.php'));
                 return IconDo::fromArray(['name' => $prefix . $name, 'name_short' => $name]);
             });

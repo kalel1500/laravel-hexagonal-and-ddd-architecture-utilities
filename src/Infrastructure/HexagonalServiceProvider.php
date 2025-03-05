@@ -207,7 +207,7 @@ return [
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(HEXAGONAL_PATH.'/resources/views', 'hexagonal');
+        $this->loadViewsFrom(HEXAGONAL_PATH.'/resources/views', 'kal');
     }
 
     /**
@@ -367,10 +367,10 @@ return [
         if (!Version::laravelMin9()) return;
 
         // Registrar componentes con Clase
-        Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'hexagonal');
+        Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'kal');
 
         // Registrar componentes anónimos
-        Blade::anonymousComponentPath(HEXAGONAL_PATH.'/resources/views/components', 'hexagonal');
+        Blade::anonymousComponentPath(HEXAGONAL_PATH.'/resources/views/components', 'kal');
     }
 
     /**

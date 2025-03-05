@@ -17,7 +17,7 @@ final class HexagonalController extends Controller
 
     public function testVitePackage(): \Illuminate\Contracts\View\View
     {
-        return view('hexagonal::pages.tests.test-vite-package');
+        return view('kal::pages.tests.test-vite-package');
     }
 
     public function sessions()

@@ -57,11 +57,11 @@
     <body class="bg-gray-50 antialiased dark:bg-gray-900">
 
         <!-- Navbar -->
-        <x-hexagonal::navbar.full/>
-{{--        <x-hexagonal::navbar.full-old/>--}}
+        <x-kal::navbar.full/>
+{{--        <x-kal::navbar.full-old/>--}}
 
         <!-- Sidebar -->
-        <x-hexagonal::sidebar.full/>
+        <x-kal::sidebar.full/>
 
         <!-- Wrapper -->
         <div class="h-auto p-4 pt-20 md:ml-64 md:sc:ml-20 md:transition-all">
@@ -74,7 +74,7 @@
                 {{ $breadcrumb ?? '' }}
 
                 <!-- Page mensajes -->
-                <x-hexagonal::messages/>
+                <x-kal::messages/>
 
                 <!-- Page content -->
                 {{ $slot }}
@@ -82,7 +82,7 @@
             </main>
 
             <!-- Footer -->
-            <x-hexagonal::footer/>
+            <x-kal::footer/>
         </div>
 
     </body>

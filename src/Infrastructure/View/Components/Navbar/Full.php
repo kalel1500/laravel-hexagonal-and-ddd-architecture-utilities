@@ -48,6 +48,6 @@ class Full extends Component
             return $item;
         });
 
-        return view('hexagonal::components.navbar.full');
+        return view('kal::components.navbar.full');
     }
 }

@@ -13,7 +13,7 @@
     </a>
 
     @if($hasTooltip)
-        <x-hexagonal::tooltip id="tooltip-{{ $id }}">{{ $tooltip }}</x-hexagonal::tooltip>
+        <x-kal::tooltip id="tooltip-{{ $id }}">{{ $tooltip }}</x-kal::tooltip>
     @endif
 
 @else

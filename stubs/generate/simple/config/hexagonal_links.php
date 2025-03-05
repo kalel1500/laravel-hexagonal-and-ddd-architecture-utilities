@@ -36,7 +36,7 @@ return [
                     'footer'            => null,
                     'items'             => [
                         [
-                            'icon'          => 'hexagonal::icon.arrow-left-end-on-rectangle',
+                            'icon'          => 'kal::icon.arrow-left-end-on-rectangle',
                             'text'          => 'Log Out',
                             'tooltip'       => null,
                             'route_name'    => 'logout',
@@ -57,7 +57,7 @@ return [
         'items' => [
             [
                 'code'              => null,
-                'icon'              => 'hexagonal::icon.computer-desktop',
+                'icon'              => 'kal::icon.computer-desktop',
                 'text'              => 'Welcome',
                 'tooltip'           => null,
                 'route_name'        => 'welcome',
@@ -68,7 +68,7 @@ return [
             ],
             [
                 'code'              => null,
-                'icon'              => 'hexagonal::icon.home',
+                'icon'              => 'kal::icon.home',
                 'text'              => 'Home',
                 'tooltip'           => null,
                 'route_name'        => 'home',
@@ -79,7 +79,7 @@ return [
             ],
             [
                 'code'              => null,
-                'icon'              => 'hexagonal::icon.document-text',
+                'icon'              => 'kal::icon.document-text',
                 'text'              => 'Dashboard',
                 'tooltip'           => null,
                 'route_name'        => 'dashboard',
@@ -90,7 +90,7 @@ return [
             ],
             [
                 'code'              => null,
-                'icon'              => 'hexagonal::icon.tag',
+                'icon'              => 'kal::icon.tag',
                 'text'              => 'Tags',
                 'tooltip'           => null,
                 'route_name'        => 'tags',

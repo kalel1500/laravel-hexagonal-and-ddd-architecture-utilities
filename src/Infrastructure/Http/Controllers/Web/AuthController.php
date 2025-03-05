@@ -26,7 +26,7 @@ final class AuthController extends Controller
     public function create(): View
     {
         if (config('hexagonal.fake_login_active')) {
-            return view('hexagonal::pages.login.fake.index');
+            return view('kal::pages.login.fake.index');
         }
 
         throw new FeatureUnavailableException();

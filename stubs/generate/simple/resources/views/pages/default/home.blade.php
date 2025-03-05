@@ -1,8 +1,8 @@
-<x-hexagonal::layout.app title="Home">
+<x-kal::layout.app title="Home">
 
     <div class="grid gap-10">
 
-        <x-hexagonal::section>
+        <x-kal::section>
 
             <div class="container max-w-5xl mx-auto m-8">
                 <h2 class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800 dark:text-white">
@@ -478,9 +478,9 @@
                 </div>
             </div>
 
-        </x-hexagonal::section>
+        </x-kal::section>
 
-        <x-hexagonal::section>
+        <x-kal::section>
 
             <div class="container mx-auto flex flex-wrap pt-4 pb-12">
                 <h2 class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800">
@@ -565,7 +565,7 @@
                 </div>
             </div>
 
-        </x-hexagonal::section>
+        </x-kal::section>
 
     </div>
-</x-hexagonal::layout.app>
+</x-kal::layout.app>

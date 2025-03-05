@@ -40,7 +40,7 @@ final class ExceptionHandler
                     return response(getHtmlLaravelDebugStackTrace($request, $exception));
                 } else {
                     $context = ExceptionContextDo::from($exception);
-                    return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
+                    return response()->view('kal::pages.exceptions.error', compact('context'), $context->getStatusCode());
                 }
             });
 
@@ -63,7 +63,7 @@ final class ExceptionHandler
                 }
 
                 // En PROD (o las "BasicHttpException" en DEBUG) devolvemos nuestra vista personalizada
-                return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
+                return response()->view('kal::pages.exceptions.error', compact('context'), $context->getStatusCode());
             });
 
             // Indicar a Laravel cuando devolver un Json (mirar url "/ajax/")

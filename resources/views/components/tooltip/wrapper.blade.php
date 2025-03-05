@@ -14,4 +14,4 @@
 @endphp
 
 {!! $slotContent !!}
-<x-hexagonal::tooltip id="tooltip-{{ $id }}">{{ $text }}</x-hexagonal::tooltip>
+<x-kal::tooltip id="tooltip-{{ $id }}">{{ $text }}</x-kal::tooltip>

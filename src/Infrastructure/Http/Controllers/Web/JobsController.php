@@ -10,11 +10,11 @@ final class JobsController extends Controller
 {
     public function queuedJobs(): \Illuminate\Contracts\View\View
     {
-        return view('hexagonal::pages.jobs');
+        return view('kal::pages.jobs');
     }
 
     public function failedJobs(): \Illuminate\Contracts\View\View
     {
-        return view('hexagonal::pages.jobs');
+        return view('kal::pages.jobs');
     }
 }

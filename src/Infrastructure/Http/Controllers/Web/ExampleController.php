@@ -13,32 +13,32 @@ final class ExampleController extends Controller
 {
     public function example1(): View
     {
-        return view('hexagonal::pages.examples.example1');
+        return view('kal::pages.examples.example1');
     }
 
     public function example2(): View
     {
-        return view('hexagonal::pages.examples.example2');
+        return view('kal::pages.examples.example2');
     }
 
     public function example3(): View
     {
-        return view('hexagonal::pages.examples.example3');
+        return view('kal::pages.examples.example3');
     }
 
     public function example4(): View
     {
-        return view('hexagonal::pages.examples.example4');
+        return view('kal::pages.examples.example4');
     }
 
     public function compareHtml(): View
     {
-        return view('hexagonal::pages.examples.compare-html');
+        return view('kal::pages.examples.compare-html');
     }
 
     public function modifyCookie(): View
     {
-        return view('hexagonal::pages.examples.modify-cookie');
+        return view('kal::pages.examples.modify-cookie');
     }
 
     public function icons(Request $request, GetIconsUseCase $useCase): View
@@ -48,6 +48,6 @@ final class ExampleController extends Controller
         $data = $useCase->__invoke($isShort);
 
         // Retornar los nombres a la vista
-        return view('hexagonal::pages.examples.icons', compact('data'));
+        return view('kal::pages.examples.icons', compact('data'));
     }
 }

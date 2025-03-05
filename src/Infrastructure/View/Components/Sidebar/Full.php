@@ -43,6 +43,6 @@ class Full extends Component
      */
     public function render()
     {
-        return view('hexagonal::components.sidebar.full');
+        return view('kal::components.sidebar.full');
     }
 }

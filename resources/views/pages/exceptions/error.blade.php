@@ -1,5 +1,5 @@
 @php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo $context */ @endphp
-@extends('hexagonal::pages.exceptions.minimal')
+@extends('kal::pages.exceptions.minimal')
 
 @section('title', $context->getTitle())
 @section('code', $context->getStatusCode())
