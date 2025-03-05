@@ -405,7 +405,7 @@ return [
 //        $kernel = $this->app->make(Kernel::class);
 
         // Registrar/sobreescribir un grupo de middlewares
-//        $router->middlewareGroup('newCustomGroup', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
+//        $router->middlewareGroup('newCustomGroup', [\Vendor\Package\Http\Middleware\KalionAnyMiddleware::class]);
 
         // Añadir un middleware a un grupo
 //        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);

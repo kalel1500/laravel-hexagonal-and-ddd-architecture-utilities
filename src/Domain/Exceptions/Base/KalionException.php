@@ -8,7 +8,7 @@ use Exception;
 use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
 use Throwable;
 
-abstract class HexagonalException extends Exception
+abstract class KalionException extends Exception
 {
     protected $statusCode;
     protected $context;

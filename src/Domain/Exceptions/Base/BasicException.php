@@ -6,7 +6,7 @@ namespace Thehouseofel\Hexagonal\Domain\Exceptions\Base;
 
 use Throwable;
 
-abstract class BasicException extends HexagonalException
+abstract class BasicException extends KalionException
 {
     const STATUS_CODE = 500;
     const MESSAGE = '';
