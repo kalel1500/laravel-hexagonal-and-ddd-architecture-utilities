@@ -24,7 +24,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasPermission;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasRole;
-use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
+use Thehouseofel\Hexagonal\Infrastructure\Services\Kalion;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
 
 class KalionServiceProvider extends ServiceProvider
@@ -159,7 +159,7 @@ return [
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
             $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_links.php', 'hexagonal_links');
 
-            Hexagonal::setLogChannels();
+            Kalion::setLogChannels();
         }
     }
 
@@ -189,7 +189,7 @@ return [
      */
     protected function registerRoutes(): void
     {
-        if (Hexagonal::shouldRegistersRoutes()) {
+        if (Kalion::shouldRegistersRoutes()) {
             Route::group([
 //                'as' => 'hexagonal.',
 //                'prefix' => 'hexagonal',
@@ -225,7 +225,7 @@ return [
          * -------------------
          */
 
-        if (Hexagonal::shouldPublishMigrations() && Version::laravelMin9()) {
+        if (Kalion::shouldPublishMigrations() && Version::laravelMin9()) {
             $existNewMethod = method_exists($this, 'publishesMigrations');
             $publishesMigrationsMethod = $existNewMethod
                 ? 'publishesMigrations'
@@ -338,7 +338,7 @@ return [
     {
         if (
             $this->app->runningInConsole() &&
-            Hexagonal::shouldRunMigrations() &&
+            Kalion::shouldRunMigrations() &&
             Version::laravelMin9()
         ) {
             $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');
@@ -418,7 +418,7 @@ return [
         if (
             !$this->app->runningInConsole() &&
             !empty(config('app.key')) &&
-            Hexagonal::enabledPreferencesCookie()
+            Kalion::enabledPreferencesCookie()
         ) {
             // Añadir un middleware a un grupo
             $router->pushMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class); // $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);

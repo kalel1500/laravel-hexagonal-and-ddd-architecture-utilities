@@ -8,7 +8,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 use Thehouseofel\Hexagonal\Infrastructure\Services\CookieService;
-use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 
 class App extends Component
 {
