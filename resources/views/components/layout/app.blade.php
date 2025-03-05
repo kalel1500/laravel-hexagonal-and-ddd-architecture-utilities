@@ -1,6 +1,11 @@
 @use('Thehouseofel\Hexagonal\Infrastructure\Services\Renderer')
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => $darkMode, 'sc' => $sidebarCollapsed])>
+<html
+    lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    @class(['dark' => $darkMode, 'sc' => $sidebarCollapsed])
+    data-theme="{{ $dataTheme }}"
+    color-theme="{{ $colorTheme }}"
+>
     <head>
         <!-- Meta tags -->
         <meta charset="UTF-8">

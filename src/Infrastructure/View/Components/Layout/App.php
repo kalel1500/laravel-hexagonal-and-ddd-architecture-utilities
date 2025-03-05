@@ -16,6 +16,8 @@ class App extends Component
     public $isFromPackage;
     public $darkMode;
     public $sidebarCollapsed;
+    public $dataTheme;
+    public $colorTheme;
 
     /**
      * Create a new component instance.
@@ -31,6 +33,8 @@ class App extends Component
         $preferences = CookieService::readOrNew()->preferences();
         $this->darkMode         = $preferences->theme()->isDark();
         $this->sidebarCollapsed = $preferences->sidebar_state_per_page() ? $this->calculateSidebarCollapsedFromItems() : $preferences->sidebar_collapsed();
+        $this->dataTheme        = $preferences->theme()->getDataTheme();
+        $this->colorTheme       = $preferences->theme()->value();
     }
 
     /**

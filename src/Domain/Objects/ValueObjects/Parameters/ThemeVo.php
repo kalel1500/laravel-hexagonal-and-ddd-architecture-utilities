@@ -33,4 +33,9 @@ final class ThemeVo extends ContractEnumVo
     {
         return ($this->value === self::system);
     }
+
+    public function getDataTheme(): string
+    {
+        return $this->isSystem() ? '' : $this->value();
+    }
 }
