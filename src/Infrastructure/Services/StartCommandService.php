@@ -174,7 +174,7 @@ final class StartCommandService
         return $this;
     }
 
-    public function publishHexagonalConfig(): self
+    public function publishKalionConfig(): self
     {
         $this->number++;
 

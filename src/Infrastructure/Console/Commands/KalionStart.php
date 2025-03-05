@@ -80,7 +80,7 @@ class KalionStart extends Command
 
         StartCommandService::configure($this, $reset, $simple)
             ->restoreFilesModifiedByPackageLaravelTsUtils()
-            ->publishHexagonalConfig()
+            ->publishKalionConfig()
             ->stubsCopyFile_AppServiceProvider()
             ->stubsCopyFile_DependencyServiceProvider()
             ->stubsCopyFiles_Config()
