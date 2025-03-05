@@ -27,7 +27,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasRole;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
 use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
 
-class HexagonalServiceProvider extends ServiceProvider
+class KalionServiceProvider extends ServiceProvider
 {
     /**
      * All of the container singletons that should be registered.

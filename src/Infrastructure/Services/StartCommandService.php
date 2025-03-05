@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Domain\Traits\CountMethods;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
-use Thehouseofel\Hexagonal\Infrastructure\HexagonalServiceProvider;
+use Thehouseofel\Hexagonal\Infrastructure\KalionServiceProvider;
 
 final class StartCommandService
 {
@@ -548,7 +548,7 @@ final class StartCommandService
         }
 
         if ($this->isReset()) {
-            HexagonalServiceProvider::removeProviderFromBootstrapFile('App\Providers\DependencyServiceProvider');
+            KalionServiceProvider::removeProviderFromBootstrapFile('App\Providers\DependencyServiceProvider');
         } else {
             ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
         }
