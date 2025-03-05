@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'entity_class' => env('HEXAGONAL_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity::class),
+    'entity_class' => env('KALION_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity::class),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'user_repository_class' => env('HEXAGONAL_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Infrastructure\Repositories\UserRepository::class),
+    'user_repository_class' => env('KALION_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Infrastructure\Repositories\UserRepository::class),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'load_roles' => (bool) env('HEXAGONAL_AUTH_LOAD_ROLES', true),
+    'load_roles' => (bool) env('KALION_AUTH_LOAD_ROLES', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -47,7 +47,7 @@ return [
     |
     */
 
-    'display_role_in_exception' => (bool) env('HEXAGONAL_AUTH_DISPLAY_ROLE_IN_EXCEPTION', false),
+    'display_role_in_exception' => (bool) env('KALION_AUTH_DISPLAY_ROLE_IN_EXCEPTION', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,5 +60,5 @@ return [
     |
     */
 
-    'display_permission_in_exception' => (bool) env('HEXAGONAL_AUTH_DISPLAY_PERMISSION_IN_EXCEPTION', false),
+    'display_permission_in_exception' => (bool) env('KALION_AUTH_DISPLAY_PERMISSION_IN_EXCEPTION', false),
 ];

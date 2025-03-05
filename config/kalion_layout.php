@@ -11,13 +11,13 @@ return [
     |
     */
 
-    'theme' => env('HEXAGONAL_LAYOUT_THEME'),
+    'theme' => env('KALION_LAYOUT_THEME'),
 
-    'active_shadows' => (bool) env('HEXAGONAL_LAYOUT_ACTIVE_SHADOWS', false),
+    'active_shadows' => (bool) env('KALION_LAYOUT_ACTIVE_SHADOWS', false),
 
-    'sidebar_collapsed' => (bool) env('HEXAGONAL_LAYOUT_SIDEBAR_COLLAPSED', false),
+    'sidebar_collapsed' => (bool) env('KALION_LAYOUT_SIDEBAR_COLLAPSED', false),
 
-    'sidebar_state_per_page' => (bool) env('HEXAGONAL_LAYOUT_SIDEBAR_STATE_PER_PAGE', false),
+    'sidebar_state_per_page' => (bool) env('KALION_LAYOUT_SIDEBAR_STATE_PER_PAGE', false),
 
-    'blade_show_main_border' => (bool) env('HEXAGONAL_LAYOUT_BLADE_SHOW_MAIN_BORDER', false),
+    'blade_show_main_border' => (bool) env('KALION_LAYOUT_BLADE_SHOW_MAIN_BORDER', false),
 ];
