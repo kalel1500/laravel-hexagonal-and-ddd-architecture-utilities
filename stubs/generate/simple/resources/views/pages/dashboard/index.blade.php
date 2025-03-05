@@ -17,7 +17,7 @@
         </x-hexagonal::form.select>
     </div>
 
-    <div class="flex flex-wrap justify-around vsm:grid vsm:grid-cols-[repeat(auto-fit,minmax(24rem,1fr))] gap-6">
+    <div class="flex flex-wrap justify-around xs:grid xs:grid-cols-[repeat(auto-fit,minmax(24rem,1fr))] gap-6">
         @foreach($data->posts as $post)
 
             <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
