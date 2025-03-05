@@ -698,7 +698,7 @@ if (!function_exists('get_shadow_classes')) {
     function get_shadow_classes(string $normalShadow = 'shadow-md'): string
     {
         return config('hexagonal_layout.active_shadows')
-            ? 'shadow-h-1xl dark:shadow-hb-1xl'
+            ? 'kal:shadow-xl dark:kal:shadow-black-xl'
             : $normalShadow;
     }
 }
