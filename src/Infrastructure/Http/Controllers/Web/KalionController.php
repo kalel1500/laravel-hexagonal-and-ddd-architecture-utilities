@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
 
-final class HexagonalController extends Controller
+final class KalionController extends Controller
 {
     public function root()
     {

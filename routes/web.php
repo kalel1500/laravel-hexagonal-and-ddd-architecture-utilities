@@ -10,12 +10,12 @@ use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsCo
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\AuthController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\ExampleController;
 use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\JobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalController;
+use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\KalionController;
 
-Route::get('/kalion/root', [HexagonalController::class, 'root'])
+Route::get('/kalion/root', [KalionController::class, 'root'])
     ->name('kalion.root');
 
-Route::get('/kalion/sessions',  [HexagonalController::class, 'sessions'])
+Route::get('/kalion/sessions',  [KalionController::class, 'sessions'])
     ->name('kalion.sessions');
 
 Route::middleware('guest')->group(function () {
