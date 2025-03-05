@@ -45,7 +45,7 @@ final class JobDispatch extends Command
         if ($executed) return;
 
         // Escanear las carpetas de otros paquetes definidas en la configuración para ver si existe el Job y ejecutarlo
-        foreach (config('hexagonal.job_paths_from_other_packages') as $namespace) {
+        foreach (config('kalion.job_paths_from_other_packages') as $namespace) {
             $executed = $this->tryExecJobInNamespace($namespace);
             if ($executed) return;
         }

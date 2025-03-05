@@ -142,7 +142,7 @@ return [
 
     protected function registerSingletons(): void
     {
-        $this->app->singleton(\Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('hexagonal_auth.user_repository_class'))());
+        $this->app->singleton(\Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('kalion_auth.user_repository_class'))());
     }
 
     /**
@@ -154,10 +154,10 @@ return [
     {
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal.php', 'hexagonal');
-            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal_auth.php', 'hexagonal_auth');
-            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
-            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal_links.php', 'hexagonal_links');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion.php', 'kalion');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion_auth.php', 'kalion_auth');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion_layout.php', 'kalion_layout');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion_links.php', 'kalion_links');
 
             Kalion::setLogChannels();
         }
@@ -191,8 +191,8 @@ return [
     {
         if (Kalion::shouldRegistersRoutes()) {
             Route::group([
-//                'as' => 'hexagonal.',
-//                'prefix' => 'hexagonal',
+//                'as' => 'kalion.',
+//                'prefix' => 'kalion',
                 'middleware' => 'web',
             ], function () {
                 $this->loadRoutesFrom(KALION_PATH.'/routes/web.php');
@@ -242,10 +242,10 @@ return [
                     $keywords = ['laravel-kalion-and-ddd-architecture-utilities', 'migrations'];
 
                     // Buscar en las rutas publicadas si alguna contiene las 3 palabras
-                    $publishedHexagonalMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
+                    $publishedKalionMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
 
                     // Actualizar nombres de las migraciones solo si se han ejecutado
-                    if ($publishedHexagonalMigrations) {
+                    if ($publishedKalionMigrations) {
                         $this->updateNameOfMigrationsIfExist();
                     }
                 });
@@ -278,24 +278,24 @@ return [
          * -----------------------
          */
 
-        // hexagonal.php
+        // kalion.php
         $this->publishes([
-            KALION_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
+            KALION_PATH.'/config/kalion.php' => config_path('kalion.php'),
         ], 'kalion-config');
 
-        // hexagonal_auth.php
+        // kalion_auth.php
         $this->publishes([
-            KALION_PATH.'/config/hexagonal_auth.php' => config_path('hexagonal_auth.php'),
+            KALION_PATH.'/config/kalion_auth.php' => config_path('kalion_auth.php'),
         ], 'kalion-config-auth');
 
-        // hexagonal_layout.php
+        // kalion_layout.php
         $this->publishes([
-            KALION_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
+            KALION_PATH.'/config/kalion_layout.php' => config_path('kalion_layout.php'),
         ], 'kalion-config-layout');
 
-        // hexagonal_links.php
+        // kalion_links.php
         $this->publishes([
-            KALION_PATH.'/config/hexagonal_links.php' => config_path('hexagonal_links.php'),
+            KALION_PATH.'/config/kalion_links.php' => config_path('kalion_links.php'),
         ], 'kalion-config-links');
 
 
@@ -427,7 +427,7 @@ return [
             $this->app->booted(function () {
                 /** @var EncryptCookies $encryptCookies */
                 $encryptCookies = $this->app->make(EncryptCookies::class);
-                $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_kalion_user_preferences
+                $encryptCookies::except(config('kalion.cookie.name')); // laravel_kalion_user_preferences
             });
         }
     }

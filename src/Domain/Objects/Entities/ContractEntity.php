@@ -105,7 +105,7 @@ abstract class ContractEntity implements Arrayable, JsonSerializable
 
     public function toArray(): array
     {
-        [$relation, $defaultIsFull] = getInfoFromRelationWithFlag('flag:'.config('hexagonal.entity_calculated_props_mode'));
+        [$relation, $defaultIsFull] = getInfoFromRelationWithFlag('flag:'.config('kalion.entity_calculated_props_mode'));
 
         $data = $this->toArrayProperties();
         $isFull = $this->isFull ?? $defaultIsFull;

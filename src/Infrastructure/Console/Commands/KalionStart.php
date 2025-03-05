@@ -28,7 +28,7 @@ class KalionStart extends Command
      *
      * @var string
      */
-    protected $description = 'Create starter files for hexagonal architecture';
+    protected $description = 'Create starter files for kalion architecture';
 
     protected $filesystem;
     protected $stubsPath;
@@ -75,7 +75,7 @@ class KalionStart extends Command
         $reset = $this->option('reset');
         $simple = $this->option('simple');
 
-        $developString = config('hexagonal.package_in_develop') ? '<fg=yellow>[DEVELOP]</>' : '';
+        $developString = config('kalion.package_in_develop') ? '<fg=yellow>[DEVELOP]</>' : '';
         $this->info("Inicio configuración: $developString");
 
         StartCommandService::configure($this, $reset, $simple)

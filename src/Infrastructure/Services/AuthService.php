@@ -23,7 +23,7 @@ final class AuthService implements AuthServiceContract
     public function __construct()
     {
         $this->entityClass = getClassUserEntity();
-        $this->loadRoles = config('hexagonal_auth.load_roles');
+        $this->loadRoles = config('kalion_auth.load_roles');
     }
 
     /**

@@ -368,7 +368,7 @@ return [
             [
                 'code'              => null,
                 'icon'              => 'kal::icon.document-text',
-                'text'              => 'Hexagonal',
+                'text'              => 'Kalion',
                 'tooltip'           => null,
                 'route_name'        => null,
                 'counter_action'    => null,

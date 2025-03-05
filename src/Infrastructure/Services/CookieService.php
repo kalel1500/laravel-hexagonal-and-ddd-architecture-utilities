@@ -19,14 +19,14 @@ final class CookieService
 
     public function __construct()
     {
-        $this->cookieName     = config('hexagonal.cookie.name');
-        $this->cookieDuration = config('hexagonal.cookie.duration');
-        $this->cookieVersion  = config('hexagonal.cookie.version');
+        $this->cookieName     = config('kalion.cookie.name');
+        $this->cookieDuration = config('kalion.cookie.duration');
+        $this->cookieVersion  = config('kalion.cookie.version');
         $this->preferences    = CookiePreferencesDo::fromArray([
-            'version'                => config('hexagonal.cookie.version'),
-            'theme'                  => config('hexagonal_layout.theme'),
-            'sidebar_collapsed'      => config('hexagonal_layout.sidebar_collapsed'),
-            'sidebar_state_per_page' => config('hexagonal_layout.sidebar_state_per_page'),
+            'version'                => config('kalion.cookie.version'),
+            'theme'                  => config('kalion_layout.theme'),
+            'sidebar_collapsed'      => config('kalion_layout.sidebar_collapsed'),
+            'sidebar_state_per_page' => config('kalion_layout.sidebar_state_per_page'),
         ]);
     }
 

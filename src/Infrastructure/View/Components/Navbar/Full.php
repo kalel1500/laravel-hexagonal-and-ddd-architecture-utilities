@@ -30,9 +30,9 @@ class Full extends Component
      */
     public function render()
     {
-        $this->showSearch = config('hexagonal_links.navbar.search.show');
-        $this->searchAction = getUrlFromRoute(config('hexagonal_links.navbar.search.route'));
-        $this->items = NavbarItemCollection::fromArray(config('hexagonal_links.navbar.items') ?? []);
+        $this->showSearch = config('kalion_links.navbar.search.show');
+        $this->searchAction = getUrlFromRoute(config('kalion_links.navbar.search.route'));
+        $this->items = NavbarItemCollection::fromArray(config('kalion_links.navbar.items') ?? []);
 
         $this->items = $this->items->map(function (NavbarItemDo $item) {
             if (!is_null($dropdown = $item->dropdown) && !is_null($action = $dropdown->get_data_action)) {

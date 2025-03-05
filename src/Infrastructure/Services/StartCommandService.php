@@ -36,8 +36,8 @@ final class StartCommandService
         $this->simple           = $simple;
         $this->steps            = $this->countPublicMethods();
         $this->filesystem       = $command->filesystem();
-        $this->developMode      = config('hexagonal.package_in_develop');
-        $this->keepMigrationsDate = config('hexagonal.keep_migrations_date');
+        $this->developMode      = config('kalion.package_in_develop');
+        $this->keepMigrationsDate = config('kalion.keep_migrations_date');
     }
 
     private function isReset(bool $isFront = false): bool
@@ -178,18 +178,18 @@ final class StartCommandService
     {
         $this->number++;
 
-        // Delete "config/hexagonal.php"
-        $this->filesystem->delete(config_path('hexagonal.php'));
-        $this->filesystem->delete(config_path('hexagonal_auth.php'));
-        $this->filesystem->delete(config_path('hexagonal_layout.php'));
-        $this->filesystem->delete(config_path('hexagonal_links.php'));
+        // Delete "config/kalion.php"
+        $this->filesystem->delete(config_path('kalion.php'));
+        $this->filesystem->delete(config_path('kalion_auth.php'));
+        $this->filesystem->delete(config_path('kalion_layout.php'));
+        $this->filesystem->delete(config_path('kalion_links.php'));
 
         if ($this->isReset() || $this->developMode) return $this;
 
-        // Publish "config/hexagonal.php"
+        // Publish "config/kalion.php"
         $this->command->call('vendor:publish', ['--tag' => 'kalion-config-auth']);
         $this->command->call('vendor:publish', ['--tag' => 'kalion-config-links']);
-        $this->line('Configuración del paquete publicada: "config/hexagonal_auth.php" y "config/hexagonal_links.php"');
+        $this->line('Configuración del paquete publicada: "config/kalion_auth.php" y "config/kalion_links.php"');
 
         return $this;
     }
@@ -777,16 +777,16 @@ EOD;
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            'flowbite'                      => config('hexagonal.version_flowbite'),
+            'flowbite'                      => config('kalion.version_flowbite'),
         ], $this->isReset());
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            '@types/node'                   => config('hexagonal.version_types_node'),
-            'prettier'                      => config('hexagonal.version_prettier'),
-            'prettier-plugin-blade'         => config('hexagonal.version_prettier_plugin_blade'),
-            'prettier-plugin-tailwindcss'   => config('hexagonal.version_prettier_plugin_tailwindcss'),
-            'typescript'                    => config('hexagonal.version_typescript'),
+            '@types/node'                   => config('kalion.version_types_node'),
+            'prettier'                      => config('kalion.version_prettier'),
+            'prettier-plugin-blade'         => config('kalion.version_prettier_plugin_blade'),
+            'prettier-plugin-tailwindcss'   => config('kalion.version_prettier_plugin_tailwindcss'),
+            'typescript'                    => config('kalion.version_typescript'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (devDependencies)');
@@ -799,8 +799,8 @@ EOD;
         $this->number++;
 
         $this->modifyPackageJsonSection('dependencies', [
-            '@kalel1500/laravel-ts-utils'   => config('hexagonal.version_kalel1500_laravel_ts_utils'),
-//            'tabulator-tables'              => config('hexagonal.version_tabulator_tables'),
+            '@kalel1500/laravel-ts-utils'   => config('kalion.version_kalel1500_laravel_ts_utils'),
+//            'tabulator-tables'              => config('kalion.version_tabulator_tables'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (dependencies)');
@@ -828,8 +828,8 @@ EOD;
 
         // Add script "ts-build" in "package.json"
         $this->modifyPackageJsonSection('engines', [
-            'node' => config('hexagonal.version_node'),
-            'npm'  => config('hexagonal.version_npm'),
+            'node' => config('kalion.version_node'),
+            'npm'  => config('kalion.version_npm'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (engines)');

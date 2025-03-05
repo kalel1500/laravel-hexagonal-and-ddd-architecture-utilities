@@ -244,7 +244,7 @@ if (! function_exists('getEnvironment')) {
 if (! function_exists('getEnvironmentReal')) {
     function getEnvironmentReal(): ?string
     {
-        return config('hexagonal.real_env_in_tests');
+        return config('kalion.real_env_in_tests');
     }
 }
 
@@ -571,7 +571,7 @@ if (!function_exists('arrAllValuesAreArray')) {
 if (! function_exists('broadcastingIsActive')) {
     function broadcastingIsActive(): bool
     {
-        return (bool)config('hexagonal.broadcasting_enabled');
+        return (bool)config('kalion.broadcasting_enabled');
     }
 }
 
@@ -651,7 +651,7 @@ if (!function_exists('getClassUserEntity')) {
      */
     function getClassUserEntity()
     {
-        return config('hexagonal_auth.entity_class');
+        return config('kalion_auth.entity_class');
     }
 }
 
@@ -672,7 +672,7 @@ if (!function_exists('appUrl')) {
 if (!function_exists('defaultRoute')) {
     function defaultRoute(): string
     {
-        return '/' . ltrim(config('hexagonal.default_route'), '/');
+        return '/' . ltrim(config('kalion.default_route'), '/');
     }
 }
 
