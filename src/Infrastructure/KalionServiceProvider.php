@@ -234,12 +234,12 @@ return [
             $this->{$publishesMigrationsMethod}([
                 KALION_PATH.'/database/migrations'                => database_path('migrations'),
                 KALION_PATH.'/stubs/generate/database/migrations' => database_path('migrations'),
-            ], 'hexagonal-migrations');
+            ], 'kalion-migrations');
 
             /*if (!$existNewMethod) {
                 Event::listen(function (VendorTagPublished $event) {
                     // Definir que palabras identifican las migraciones del paquete
-                    $keywords = ['laravel-hexagonal-and-ddd-architecture-utilities', 'migrations'];
+                    $keywords = ['laravel-kalion-and-ddd-architecture-utilities', 'migrations'];
 
                     // Buscar en las rutas publicadas si alguna contiene las 3 palabras
                     $publishedHexagonalMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
@@ -263,13 +263,13 @@ return [
         $this->publishes([
             KALION_PATH.'/resources/views'                    => base_path('resources/views/vendor/hexagonal'),
             KALION_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
-        ], 'hexagonal-views');
+        ], 'kalion-views');
 
         // Publicar solo la vista "app.blade.php"
         $this->publishes([
             KALION_PATH.'/resources/views/components/layout/app.blade.php'   => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
             KALION_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
-        ], 'hexagonal-view-layout');
+        ], 'kalion-view-layout');
 
 
         /*
@@ -281,22 +281,22 @@ return [
         // hexagonal.php
         $this->publishes([
             KALION_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
-        ], 'hexagonal-config');
+        ], 'kalion-config');
 
         // hexagonal_auth.php
         $this->publishes([
             KALION_PATH.'/config/hexagonal_auth.php' => config_path('hexagonal_auth.php'),
-        ], 'hexagonal-config-auth');
+        ], 'kalion-config-auth');
 
         // hexagonal_layout.php
         $this->publishes([
             KALION_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
-        ], 'hexagonal-config-layout');
+        ], 'kalion-config-layout');
 
         // hexagonal_links.php
         $this->publishes([
             KALION_PATH.'/config/hexagonal_links.php' => config_path('hexagonal_links.php'),
-        ], 'hexagonal-config-links');
+        ], 'kalion-config-links');
 
 
         /*
@@ -310,7 +310,7 @@ return [
             : $this->app->resourcePath('lang/vendor/hexagonal');
         $this->publishes([
             KALION_PATH.'/lang' => $langPath,
-        ], 'hexagonal-lang');
+        ], 'kalion-lang');
     }
 
     /**

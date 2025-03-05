@@ -187,8 +187,8 @@ final class StartCommandService
         if ($this->isReset() || $this->developMode) return $this;
 
         // Publish "config/hexagonal.php"
-        $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config-auth']);
-        $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config-links']);
+        $this->command->call('vendor:publish', ['--tag' => 'kalion-config-auth']);
+        $this->command->call('vendor:publish', ['--tag' => 'kalion-config-links']);
         $this->line('Configuración del paquete publicada: "config/hexagonal_auth.php" y "config/hexagonal_links.php"');
 
         return $this;
