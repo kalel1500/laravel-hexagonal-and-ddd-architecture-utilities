@@ -18,7 +18,7 @@ class KalionStart extends Command
      *
      * @var string
      */
-    protected $signature = 'hexagonal:start
+    protected $signature = 'kalion:start
                     {--composer=global : Absolute path to the Composer binary which should be used to install packages}
                     {--reset : Reset all changes made by the command to the original state}
                     {--simple : Create only the files needed for the backend}';
