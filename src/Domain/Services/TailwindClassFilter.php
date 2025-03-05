@@ -62,9 +62,8 @@ final class TailwindClassFilter {
         ]
     ];
 
-    // Aquí se definen los grupos especiales. Por ejemplo, para clases de fondo ("bg-")
-    // se indica que se deben contar como 3 partes, haciendo que "bg-white" y "bg-red-500"
-    // pertenezcan al mismo grupo.
+    // Definición de grupos especiales para determinadas clases.
+    // Si la parte base de la clase coincide exactamente con una key, se usará ese valor.
     protected array $groups = [
         'bg-inherit'       => 3,
         'bg-current'       => 3,
@@ -180,7 +179,7 @@ final class TailwindClassFilter {
      * Descompone una clase de Tailwind en:
      * - variant: parte antes de ":" (vacía si no existe)
      * - base: parte después de ":" o la clase completa si no hay variante
-     * - group: cantidad de partes al dividir la base por "-" (se sobrescribe si la clase coincide con un grupo en $groups)
+     * - group: cantidad de partes al dividir la base por "-" (se sobrescribe si la base coincide con una key en $groups)
      * - prefix: la primera parte de la base
      *
      * @param string $class
@@ -200,20 +199,8 @@ final class TailwindClassFilter {
         $parts = explode('-', $base);
         $prefix = $parts[0];
 
-        // Si la clase coincide con algún grupo definido en $groups (según el prefijo),
-        // se asigna ese valor. De lo contrario, se cuenta el número de partes.
-        $group = null;
-        foreach ($this->groups as $groupKey => $groupCount) {
-            // Se obtiene el prefijo de la clave del grupo.
-            $groupKeyPrefix = explode('-', $groupKey)[0];
-            if ($prefix === $groupKeyPrefix) {
-                $group = $groupCount;
-                break;
-            }
-        }
-        if ($group === null) {
-            $group = count($parts);
-        }
+        // Si la base coincide exactamente con una key en $groups, se usa ese valor.
+        $group = array_key_exists($base, $this->groups) ? $this->groups[$base] : count($parts);
 
         return [
             'variant' => $variant,

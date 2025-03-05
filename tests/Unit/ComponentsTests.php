@@ -118,7 +118,7 @@ class ComponentsTests extends TestCase
 
         $this->assertClasses(
             'bg-teal-500 text-blue-500',
-            'bg-white text-dark',
+            'bg-white text-black',
             '',
         );
     }
