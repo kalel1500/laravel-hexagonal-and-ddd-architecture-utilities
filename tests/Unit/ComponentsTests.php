@@ -109,5 +109,17 @@ class ComponentsTests extends TestCase
             'block dark:table dark:fixed',
             'static',
         );
+
+        $this->assertClasses(
+            'bg-teal-500',
+            'bg-white',
+            '',
+        );
+
+        $this->assertClasses(
+            'bg-teal-500 text-blue-500',
+            'bg-white text-dark',
+            '',
+        );
     }
 }

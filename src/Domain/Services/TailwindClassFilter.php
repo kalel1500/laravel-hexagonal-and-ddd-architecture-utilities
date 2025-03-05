@@ -62,9 +62,28 @@ final class TailwindClassFilter {
         ]
     ];
 
-    public function __construct(array $specials = null) {
+    // Aquí se definen los grupos especiales. Por ejemplo, para clases de fondo ("bg-")
+    // se indica que se deben contar como 3 partes, haciendo que "bg-white" y "bg-red-500"
+    // pertenezcan al mismo grupo.
+    protected array $groups = [
+        'bg-inherit'       => 3,
+        'bg-current'       => 3,
+        'bg-transparent'   => 3,
+        'bg-black'         => 3,
+        'bg-white'         => 3,
+        'text-inherit'     => 3,
+        'text-current'     => 3,
+        'text-transparent' => 3,
+        'text-black'       => 3,
+        'text-white'       => 3,
+    ];
+
+    public function __construct(array $specials = null, array $groups = null) {
         if ($specials !== null) {
             $this->specials = $specials;
+        }
+        if ($groups !== null) {
+            $this->groups = $groups;
         }
     }
 
@@ -126,12 +145,12 @@ final class TailwindClassFilter {
         foreach ($filteredCustom as $custom_class) {
             $customParsed = $this->parseClass($custom_class);
             if ($defaultSpecial !== false) {
-                // Para clases especiales, si en custom aparece alguna clase del mismo grupo, se elimina.
+                // Para clases especiales, se elimina si en custom aparece alguna clase del mismo grupo.
                 if (in_array($customParsed['base'], $this->specials[$defaultSpecial])) {
                     return false;
                 }
             } else {
-                // Para el resto, se compara el número de partes y el prefijo.
+                // Para el resto, se elimina si se coincide en el número de partes y el prefijo.
                 if ($parsed['group'] === $customParsed['group'] && $parsed['prefix'] === $customParsed['prefix']) {
                     return false;
                 }
@@ -161,7 +180,7 @@ final class TailwindClassFilter {
      * Descompone una clase de Tailwind en:
      * - variant: parte antes de ":" (vacía si no existe)
      * - base: parte después de ":" o la clase completa si no hay variante
-     * - group: cantidad de partes al dividir la base por "-"
+     * - group: cantidad de partes al dividir la base por "-" (se sobrescribe si la clase coincide con un grupo en $groups)
      * - prefix: la primera parte de la base
      *
      * @param string $class
@@ -176,13 +195,31 @@ final class TailwindClassFilter {
             $variant = '';
             $base = $class;
         }
-        // Dividimos la parte base por '-' para contar el grupo y obtener el prefijo.
+
+        // Obtener el prefijo (lo que está antes del primer guión).
         $parts = explode('-', $base);
+        $prefix = $parts[0];
+
+        // Si la clase coincide con algún grupo definido en $groups (según el prefijo),
+        // se asigna ese valor. De lo contrario, se cuenta el número de partes.
+        $group = null;
+        foreach ($this->groups as $groupKey => $groupCount) {
+            // Se obtiene el prefijo de la clave del grupo.
+            $groupKeyPrefix = explode('-', $groupKey)[0];
+            if ($prefix === $groupKeyPrefix) {
+                $group = $groupCount;
+                break;
+            }
+        }
+        if ($group === null) {
+            $group = count($parts);
+        }
+
         return [
             'variant' => $variant,
             'base'    => $base,
-            'group'   => count($parts), // // Número de partes (ejemplo: 2 para "text-md", 3 para "text-blue-500")
-            'prefix'  => $parts[0],
+            'group'   => $group,
+            'prefix'  => $prefix,
         ];
     }
 }
