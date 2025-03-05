@@ -261,13 +261,13 @@ return [
 
         // Todas
         $this->publishes([
-            KALION_PATH.'/resources/views'                    => base_path('resources/views/vendor/hexagonal'),
+            KALION_PATH.'/resources/views'                    => base_path('resources/views/vendor/kalion'),
             KALION_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
         ], 'kalion-views');
 
         // Publicar solo la vista "app.blade.php"
         $this->publishes([
-            KALION_PATH.'/resources/views/components/layout/app.blade.php'   => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
+            KALION_PATH.'/resources/views/components/layout/app.blade.php'   => base_path('resources/views/vendor/kalion/components/layout/app.blade.php'),
             KALION_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
         ], 'kalion-view-layout');
 
@@ -306,8 +306,8 @@ return [
          */
 
         $langPath = Version::laravelMin9()
-            ? $this->app->langPath('vendor/hexagonal')
-            : $this->app->resourcePath('lang/vendor/hexagonal');
+            ? $this->app->langPath('vendor/kalion')
+            : $this->app->resourcePath('lang/vendor/kalion');
         $this->publishes([
             KALION_PATH.'/lang' => $langPath,
         ], 'kalion-lang');
