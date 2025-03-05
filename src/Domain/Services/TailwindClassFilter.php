@@ -44,12 +44,11 @@ final class TailwindClassFilter {
         // Convertimos las cadenas en arrays
         $default_array = explode(' ', trim($default_classes));
         $custom_array  = explode(' ', trim($custom_classes));
-        $custom_special_found = $this->getCustomSpecialMap($custom_array);
 
         $filtered = [];
         foreach ($default_array as $default_class) {
             if (empty($default_class)) continue;
-            if ($this->shouldKeepClass($default_class, $custom_array, $custom_special_found)) {
+            if ($this->shouldKeepClass($default_class, $custom_array)) {
                 $filtered[] = $default_class;
             }
         }
@@ -58,77 +57,100 @@ final class TailwindClassFilter {
     }
 
     /**
-     * Construye un mapa indicando si en $custom_array existe alguna clase
-     * perteneciente a cada grupo especial definido en $specials.
-     *
-     * @param array $custom_array
-     * @return array
-     */
-    protected function getCustomSpecialMap(array $custom_array): array
-    {
-        $map = [];
-        foreach ($this->specials as $groupKey => $classList) {
-            $found = array_intersect($custom_array, $classList);
-            $map[$groupKey] = !empty($found);
-        }
-        return $map;
-    }
-
-    /**
      * Determina si se debe conservar la clase por defecto, comparándola con
-     * las clases personalizadas y usando el mapa de especiales.
+     * las clases personalizadas.
+     *
+     * La lógica es:
+     * - Si la clase (default) es "especial" (por ejemplo, de display o position) se elimina si existe alguna clase en custom que pertenezca al mismo grupo y, en caso de variante, que tenga la misma variante.
+     * - Si no es especial se compara según el número de partes y el prefijo.
      *
      * @param string $default_class
      * @param array  $custom_array
-     * @param array  $custom_special_found
      * @return bool
      */
-    protected function shouldKeepClass(string $default_class, array $custom_array, array $custom_special_found): bool
+    protected function shouldKeepClass(string $default_class, array $custom_array): bool
     {
         $parsed = $this->parseClass($default_class);
+        $defaultSpecial = $this->getSpecialGroup($default_class);
 
-        // Si tiene variante, se compara solo con las clases custom que también tengan variante.
+        // Si la clase tiene variante
         if ($parsed['variant'] !== '') {
-            foreach ($custom_array as $custom_class) {
-                if (strpos($custom_class, ':') !== false) {
-                    $custom_parsed = $this->parseClass($custom_class);
-                    if (
-                        $custom_parsed['variant'] === $parsed['variant'] &&
-                        $custom_parsed['group'] === $parsed['group'] &&
-                        $custom_parsed['prefix'] === $parsed['prefix']
-                    ) {
-                        return false;
+            if ($defaultSpecial !== false) {
+                // Si es especial, se busca en las custom clases con la misma variante
+                foreach ($custom_array as $custom_class) {
+                    if (strpos($custom_class, ':') !== false) {
+                        $customParsed = $this->parseClass($custom_class);
+                        if ($customParsed['variant'] === $parsed['variant'] &&
+                            in_array($customParsed['base'], $this->specials[$defaultSpecial])) {
+                            return false;
+                        }
+                    }
+                }
+            } else {
+                // Si no es especial, se compara variant, group y prefix
+                foreach ($custom_array as $custom_class) {
+                    if (strpos($custom_class, ':') !== false) {
+                        $customParsed = $this->parseClass($custom_class);
+                        if (
+                            $customParsed['variant'] === $parsed['variant'] &&
+                            $customParsed['group'] === $parsed['group'] &&
+                            $customParsed['prefix'] === $parsed['prefix']
+                        ) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        } else {
+            // Para clases sin variante
+            if ($defaultSpecial !== false) {
+                // Si es especial, se elimina si en custom existe alguna clase (sin variante) del mismo grupo
+                foreach ($custom_array as $custom_class) {
+                    if (strpos($custom_class, ':') === false) {
+                        if (in_array($custom_class, $this->specials[$defaultSpecial])) {
+                            return false;
+                        }
+                    }
+                }
+            } else {
+                // Para clases no especiales, se compara según group y prefix
+                foreach ($custom_array as $custom_class) {
+                    if (strpos($custom_class, ':') === false) {
+                        $customParsed = $this->parseClass($custom_class);
+                        if (
+                            $parsed['group'] === $customParsed['group'] &&
+                            $parsed['prefix'] === $customParsed['prefix']
+                        ) {
+                            return false;
+                        }
                     }
                 }
             }
             return true;
         }
+    }
 
-        // Para clases sin variante: primero comprobamos si es parte de algún grupo especial.
+    /**
+     * Verifica si la clase pertenece a un grupo especial.
+     * Devuelve el nombre del grupo si es especial, o false si no lo es.
+     *
+     * @param string $class
+     * @return mixed
+     */
+    protected function getSpecialGroup(string $class) {
+        $parsed = $this->parseClass($class);
         foreach ($this->specials as $groupKey => $classList) {
-            if (in_array($default_class, $classList)) {
-                return !$custom_special_found[$groupKey];
+            if (in_array($parsed['base'], $classList)) {
+                return $groupKey;
             }
         }
-
-        // Para el resto, comparamos según el grupo y el prefijo.
-        foreach ($custom_array as $custom_class) {
-            if (strpos($custom_class, ':') === false) {
-                $custom_parsed = $this->parseClass($custom_class);
-                if (
-                    $parsed['group'] === $custom_parsed['group'] &&
-                    $parsed['prefix'] === $custom_parsed['prefix']
-                ) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return false;
     }
 
     /**
      * Parsea una clase de Tailwind extrayendo:
-     * - variante: lo que está antes de ":" (o cadena vacía si no existe)
+     * - variant: lo que está antes de ":" (o cadena vacía si no existe)
      * - base: lo que sigue después
      * - group: número de partes al separar la base por "-"
      * - prefix: la primera parte de la base

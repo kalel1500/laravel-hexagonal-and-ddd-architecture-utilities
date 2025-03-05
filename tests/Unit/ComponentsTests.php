@@ -99,9 +99,15 @@ class ComponentsTests extends TestCase
         );
 
         $this->assertClasses(
-            'flex static dark:flex',
+            'inline dark:block static',
             'block fixed',
-            'dark:flex',
+            'dark:block',
+        );
+
+        $this->assertClasses(
+            'inline dark:block static',
+            'block dark:table dark:fixed',
+            'static',
         );
     }
 }
