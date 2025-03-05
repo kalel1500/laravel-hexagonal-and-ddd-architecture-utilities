@@ -9,7 +9,7 @@ use Thehouseofel\Hexagonal\Infrastructure\Services\StartCommandService;
 use Thehouseofel\Hexagonal\Infrastructure\Traits\InteractsWithComposerPackages;
 use function Illuminate\Filesystem\join_paths;
 
-class HexagonalStart extends Command
+class KalionStart extends Command
 {
     use InteractsWithComposerPackages;
 

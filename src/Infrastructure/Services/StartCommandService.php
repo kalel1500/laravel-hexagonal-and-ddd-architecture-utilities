@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
 use Thehouseofel\Hexagonal\Domain\Traits\CountMethods;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
+use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\KalionStart;
 use Thehouseofel\Hexagonal\Infrastructure\KalionServiceProvider;
 
 final class StartCommandService
@@ -25,7 +25,7 @@ final class StartCommandService
     private $keepMigrationsDate;
     private $resourcesFolderRestored = false;
 
-    public function __construct(HexagonalStart $command, bool $reset, bool $simple)
+    public function __construct(KalionStart $command, bool $reset, bool $simple)
     {
         if (!Version::laravelMin12()) {
             $command->error('Por ahora este comando solo esta preparado para la version de laravel 12');
@@ -147,7 +147,7 @@ final class StartCommandService
     }
 
 
-    public static function configure(HexagonalStart $command, bool $reset, bool $simple): self
+    public static function configure(KalionStart $command, bool $reset, bool $simple): self
     {
         return new self($command, $reset, $simple);
     }

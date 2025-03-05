@@ -18,7 +18,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
+use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\KalionStart;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
 use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
@@ -322,7 +322,7 @@ return [
     {
         $this->commands([
             ClearAll::class,
-            HexagonalStart::class,
+            KalionStart::class,
             JobDispatch::class,
             LogsClear::class,
             ServiceCheck::class,
