@@ -91,5 +91,17 @@ class ComponentsTests extends TestCase
             'block',
             '',
         );
+
+        $this->assertClasses(
+            'dark:flex',
+            'block',
+            'dark:flex',
+        );
+
+        $this->assertClasses(
+            'flex static dark:flex',
+            'block fixed',
+            'dark:flex',
+        );
     }
 }

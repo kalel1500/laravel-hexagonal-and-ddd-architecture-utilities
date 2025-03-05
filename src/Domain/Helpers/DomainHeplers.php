@@ -719,7 +719,43 @@ if (!function_exists('pipe_str_to_array')) {
 if (!function_exists('filterTailwindClasses')) {
     function filterTailwindClasses($default_classes, $custom_classes): string
     {
-        // Función para parsear una clase y extraer variante, grupo y prefijo.
+        // Definición genérica de grupos especiales de clases.
+        $specials = [
+            'display' => [
+                'block',
+                'inline-block',
+                'inline',
+                'flex',
+                'inline-flex',
+                'table',
+                'inline-table',
+                'table-caption',
+            ],
+            'position' => [
+                'static',
+                'fixed',
+                'absolute',
+                'relative',
+                'sticky',
+            ],
+        ];
+
+        // Convertimos las cadenas en arrays
+        $default_array = explode(' ', trim($default_classes));
+        $custom_array  = explode(' ', trim($custom_classes));
+
+        // Creamos un mapa para saber si en $custom_classes aparece alguna clase de cada grupo especial.
+        $custom_special_found = [];
+        foreach ($specials as $groupKey => $classList) {
+            $found = array_intersect($custom_array, $classList);
+            $custom_special_found[$groupKey] = !empty($found);
+        }
+
+        // Función para parsear una clase de Tailwind y extraer:
+        // - variante: lo que está antes de ":" (o cadena vacía si no existe)
+        // - base: lo que sigue a la variante
+        // - group: número de partes al dividir la base por "-" (por ejemplo, "text-md" tiene 2 partes, "text-blue-500" 3 partes)
+        // - prefix: la primera parte (antes del primer "-")
         $parseClass = function($class) {
             // Si existe ":", se asume que lo que viene antes es la variante.
             if (strpos($class, ':') !== false) {
@@ -741,47 +777,67 @@ if (!function_exists('filterTailwindClasses')) {
             ];
         };
 
-        // Construir un mapa con las clases personalizadas.
-        // El mapa tendrá la estructura: $custom_map[variant][group][prefix] = true
-        $custom_map = [];
-        $custom_classes_array = explode(' ', trim($custom_classes));
-        foreach ($custom_classes_array as $custom_class) {
-            if (empty($custom_class)) {
-                continue;
-            }
-            $parsed = $parseClass($custom_class);
-            $variant = $parsed['variant'];
-            $group   = $parsed['group'];
-            $prefix  = $parsed['prefix'];
-            if (!isset($custom_map[$variant])) {
-                $custom_map[$variant] = [];
-            }
-            if (!isset($custom_map[$variant][$group])) {
-                $custom_map[$variant][$group] = [];
-            }
-            $custom_map[$variant][$group][$prefix] = true;
-        }
+        $filtered_default = [];
 
-        // Recorrer las clases por defecto y filtrar aquellas que tengan coincidencia en el mapa custom.
-        $result = [];
-        $default_classes_array = explode(' ', trim($default_classes));
-        foreach ($default_classes_array as $default_class) {
+        foreach ($default_array as $default_class) {
             if (empty($default_class)) {
                 continue;
             }
-            $parsed = $parseClass($default_class);
-            $variant = $parsed['variant'];
-            $group   = $parsed['group'];
-            $prefix  = $parsed['prefix'];
 
-            // Si en las custom existe la misma combinación variante + grupo + prefijo, se descarta la clase por defecto.
-            if (isset($custom_map[$variant]) && isset($custom_map[$variant][$group]) && isset($custom_map[$variant][$group][$prefix])) {
-                continue;
+            // Si la clase tiene variante (por ejemplo, "dark:" o "hover:"), se procesa comparándola
+            // únicamente con clases custom que tengan la misma variante.
+            if (strpos($default_class, ':') !== false) {
+                $parsed = $parseClass($default_class);
+                $variant = $parsed['variant'];
+                $remove = false;
+                foreach ($custom_array as $custom_class) {
+                    if (strpos($custom_class, ':') !== false) {
+                        $custom_parsed = $parseClass($custom_class);
+                        if ($custom_parsed['variant'] === $variant &&
+                            $custom_parsed['group'] === $parsed['group'] &&
+                            $custom_parsed['prefix'] === $parsed['prefix']) {
+                            $remove = true;
+                            break;
+                        }
+                    }
+                }
+                if (!$remove) {
+                    $filtered_default[] = $default_class;
+                }
+            } else {
+                // Para clases sin variante:
+                // 1. Primero, comprobamos si la clase es parte de algún grupo especial.
+                $isSpecial = false;
+                foreach ($specials as $groupKey => $classList) {
+                    if (in_array($default_class, $classList)) {
+                        $isSpecial = true;
+                        // Si en custom aparece alguna clase de este grupo, se elimina la clase por defecto.
+                        if ($custom_special_found[$groupKey]) {
+                            continue 2; // Salta a la siguiente clase en $default_array.
+                        }
+                        break;
+                    }
+                }
+                // 2. Para el resto (no especiales), se hace la comparación según grupo y prefijo.
+                $parsed = $parseClass($default_class);
+                $remove = false;
+                foreach ($custom_array as $custom_class) {
+                    if (strpos($custom_class, ':') === false) {
+                        $custom_parsed = $parseClass($custom_class);
+                        if ($parsed['group'] === $custom_parsed['group'] &&
+                            $parsed['prefix'] === $custom_parsed['prefix']) {
+                            $remove = true;
+                            break;
+                        }
+                    }
+                }
+                if (!$remove) {
+                    $filtered_default[] = $default_class;
+                }
             }
-            $result[] = $default_class;
         }
 
-        return implode(' ', $result);
+        return implode(' ', $filtered_default);
     }
 
 }
