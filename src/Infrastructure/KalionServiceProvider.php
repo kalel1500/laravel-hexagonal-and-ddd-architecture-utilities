@@ -132,8 +132,8 @@ return [
      */
     public function register(): void
     {
-        if (! defined('HEXAGONAL_PATH')) {
-            define('HEXAGONAL_PATH', realpath(__DIR__.'/../../'));
+        if (! defined('KALION_PATH')) {
+            define('KALION_PATH', realpath(__DIR__.'/../../'));
         }
 
         $this->registerSingletons();
@@ -154,10 +154,10 @@ return [
     {
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_auth.php', 'hexagonal_auth');
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_links.php', 'hexagonal_links');
+            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal.php', 'hexagonal');
+            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal_auth.php', 'hexagonal_auth');
+            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
+            $this->mergeConfigFrom(KALION_PATH.'/config/hexagonal_links.php', 'hexagonal_links');
 
             Kalion::setLogChannels();
         }
@@ -195,7 +195,7 @@ return [
 //                'prefix' => 'hexagonal',
                 'middleware' => 'web',
             ], function () {
-                $this->loadRoutesFrom(HEXAGONAL_PATH.'/routes/web.php');
+                $this->loadRoutesFrom(KALION_PATH.'/routes/web.php');
             });
         }
     }
@@ -207,7 +207,7 @@ return [
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(HEXAGONAL_PATH.'/resources/views', 'kal');
+        $this->loadViewsFrom(KALION_PATH.'/resources/views', 'kal');
     }
 
     /**
@@ -232,8 +232,8 @@ return [
                 : 'publishes';
 
             $this->{$publishesMigrationsMethod}([
-                HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
-                HEXAGONAL_PATH.'/stubs/generate/database/migrations' => database_path('migrations'),
+                KALION_PATH.'/database/migrations'                => database_path('migrations'),
+                KALION_PATH.'/stubs/generate/database/migrations' => database_path('migrations'),
             ], 'hexagonal-migrations');
 
             /*if (!$existNewMethod) {
@@ -261,14 +261,14 @@ return [
 
         // Todas
         $this->publishes([
-            HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
-            HEXAGONAL_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
+            KALION_PATH.'/resources/views'                    => base_path('resources/views/vendor/hexagonal'),
+            KALION_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
         ], 'hexagonal-views');
 
         // Publicar solo la vista "app.blade.php"
         $this->publishes([
-            HEXAGONAL_PATH.'/resources/views/components/layout/app.blade.php' => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
-            HEXAGONAL_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
+            KALION_PATH.'/resources/views/components/layout/app.blade.php'   => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
+            KALION_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
         ], 'hexagonal-view-layout');
 
 
@@ -280,22 +280,22 @@ return [
 
         // hexagonal.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
+            KALION_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
         ], 'hexagonal-config');
 
         // hexagonal_auth.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal_auth.php' => config_path('hexagonal_auth.php'),
+            KALION_PATH.'/config/hexagonal_auth.php' => config_path('hexagonal_auth.php'),
         ], 'hexagonal-config-auth');
 
         // hexagonal_layout.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
+            KALION_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
         ], 'hexagonal-config-layout');
 
         // hexagonal_links.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal_links.php' => config_path('hexagonal_links.php'),
+            KALION_PATH.'/config/hexagonal_links.php' => config_path('hexagonal_links.php'),
         ], 'hexagonal-config-links');
 
 
@@ -309,7 +309,7 @@ return [
             ? $this->app->langPath('vendor/hexagonal')
             : $this->app->resourcePath('lang/vendor/hexagonal');
         $this->publishes([
-            HEXAGONAL_PATH.'/lang' => $langPath,
+            KALION_PATH.'/lang' => $langPath,
         ], 'hexagonal-lang');
     }
 
@@ -341,8 +341,8 @@ return [
             Kalion::shouldRunMigrations() &&
             Version::laravelMin9()
         ) {
-            $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');
-            $this->loadMigrationsFrom(HEXAGONAL_PATH.'/stubs/generate/database/migrations');
+            $this->loadMigrationsFrom(KALION_PATH.'/database/migrations');
+            $this->loadMigrationsFrom(KALION_PATH.'/stubs/generate/database/migrations');
         }
     }
 
@@ -353,8 +353,8 @@ return [
      */
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(HEXAGONAL_PATH.'/lang', 'h');
-        $this->loadJsonTranslationsFrom(HEXAGONAL_PATH.'/lang');
+        $this->loadTranslationsFrom(KALION_PATH.'/lang', 'h');
+        $this->loadJsonTranslationsFrom(KALION_PATH.'/lang');
     }
 
     /**
@@ -370,7 +370,7 @@ return [
         Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'kal');
 
         // Registrar componentes anónimos
-        Blade::anonymousComponentPath(HEXAGONAL_PATH.'/resources/views/components', 'kal');
+        Blade::anonymousComponentPath(KALION_PATH.'/resources/views/components', 'kal');
     }
 
     /**

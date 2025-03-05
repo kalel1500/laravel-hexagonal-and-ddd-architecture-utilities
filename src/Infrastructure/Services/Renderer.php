@@ -6,7 +6,7 @@ namespace Thehouseofel\Hexagonal\Infrastructure\Services;
 
 final class Renderer
 {
-    protected const DIST = HEXAGONAL_PATH.'/public/build/';
+    protected const DIST = KALION_PATH.'/public/build/';
 
     public static function css()
     {

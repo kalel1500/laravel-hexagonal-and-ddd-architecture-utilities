@@ -14,7 +14,7 @@ final class GetIconsUseCase
     public function __invoke(bool $showNameShort): ViewIconsDo
     {
         // Ruta a la carpeta de iconos
-        $iconPath = HEXAGONAL_PATH . '/resources/views/components/icon';
+        $iconPath = KALION_PATH . '/resources/views/components/icon';
 
         if (!is_dir($iconPath)) {
             abort(404, "La carpeta de iconos no se encontró en: $iconPath");
