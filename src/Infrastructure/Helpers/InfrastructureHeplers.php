@@ -587,8 +587,12 @@ if (! function_exists('getUrlFromRoute')) {
 }
 
 if (!function_exists('getIconClasses')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version. Alternatively you can use "$attributes->mergeTailwind()".
+     */
     function getIconClasses(ComponentAttributeBag $attributes, $sizeNumber = '6'): string
     {
+        trigger_error('The function "getIconClasses()" is deprecated.', E_USER_DEPRECATED);
         $classes = $attributes->get('class', '');
         // Si no hay un tamaño específico, se asegura de usar 'size-6' como base
         if (!str_contains($classes, 'size-')) {
@@ -599,8 +603,12 @@ if (!function_exists('getIconClasses')) {
 }
 
 if (!function_exists('getOtherAttributes')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function getOtherAttributes(ComponentAttributeBag $attributes): ComponentAttributeBag
     {
+        trigger_error('The function "getOtherAttributes()" is deprecated.', E_USER_DEPRECATED);
         return $attributes->filter(function (string $value, string $key) {
             return $key != 'class' && $key != 'outline' && $key != 'flowbite';
         });
@@ -608,8 +616,12 @@ if (!function_exists('getOtherAttributes')) {
 }
 
 if (!function_exists('getIconFullAttributes')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function getIconFullAttributes(ComponentAttributeBag $attributes, $sizeNumber = '6'): string
     {
+        trigger_error('The function "getIconFullAttributes()" is deprecated.', E_USER_DEPRECATED);
         return trim('class="'.getIconClasses($attributes, $sizeNumber).'" '.getOtherAttributes($attributes)->toHtml());
     }
 }
