@@ -124,7 +124,7 @@ return [
     */
 
     'cookie' => [
-        'name' => Str::slug(env('APP_NAME', 'laravel'), '_').'_hexagonal_user_preferences',
+        'name' => Str::slug(env('APP_NAME', 'laravel'), '_').'_kalion_user_preferences',
         'duration' => (int) env('HEXAGONAL_COOKIE_DURATION', (60 * 24 * 364)),
         'version' => env('HEXAGONAL_COOKIE_VERSION', "0"),
     ],

@@ -427,7 +427,7 @@ return [
             $this->app->booted(function () {
                 /** @var EncryptCookies $encryptCookies */
                 $encryptCookies = $this->app->make(EncryptCookies::class);
-                $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_hexagonal_user_preferences
+                $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_kalion_user_preferences
             });
         }
     }
