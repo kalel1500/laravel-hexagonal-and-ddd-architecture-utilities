@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\ContractDataObject;
 
 abstract class NavigationItem extends ContractDataObject
 {

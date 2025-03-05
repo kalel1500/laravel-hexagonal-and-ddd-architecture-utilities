@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Services;
+namespace Thehouseofel\Kalion\Domain\Services;
 
 use Illuminate\Support\Collection;
 

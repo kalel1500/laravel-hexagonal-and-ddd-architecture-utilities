@@ -1,5 +1,5 @@
-@php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo $item */ @endphp
-@php /** @var \Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo $subItem */ @endphp
+@php /** @var \Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\NavbarItemDo $item */ @endphp
+@php /** @var \Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\NavbarItemDo $subItem */ @endphp
 
 <!-- New -->
 <x-kal::navbar>

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\Collections\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
+use Thehouseofel\Kalion\Domain\Contracts\Relatable;
 
 abstract class ContractCollectionAny extends ContractCollectionBase implements Relatable
 {

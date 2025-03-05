@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Contracts\Repositories;
+namespace Thehouseofel\Kalion\Domain\Contracts\Repositories;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\StateCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\StateEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckFieldVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\EnumDynamicVo;
+use Thehouseofel\Kalion\Domain\Objects\Entities\Collections\StateCollection;
+use Thehouseofel\Kalion\Domain\Objects\Entities\StateEntity;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Parameters\StatePluckFieldVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Parameters\StatePluckKeyVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\EnumDynamicVo;
 
 interface StateRepositoryContract
 {

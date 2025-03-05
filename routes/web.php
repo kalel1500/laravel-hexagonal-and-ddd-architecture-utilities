@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxCookiesController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxJobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxQueuesController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\AuthController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\ExampleController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\JobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\KalionController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxCookiesController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxJobsController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxQueuesController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\AuthController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\ExampleController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\JobsController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\KalionController;
 
 Route::get('/kalion/root', [KalionController::class, 'root'])
     ->name('kalion.root');

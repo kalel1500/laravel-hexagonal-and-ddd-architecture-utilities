@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Thehouseofel\Hexagonal\Infrastructure\Models\Permission;
-use Thehouseofel\Hexagonal\Infrastructure\Models\Role;
+use Thehouseofel\Kalion\Infrastructure\Models\Permission;
+use Thehouseofel\Kalion\Infrastructure\Models\Role;
 
 class PermissionSeeder extends Seeder
 {

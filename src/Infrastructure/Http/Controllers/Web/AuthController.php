@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web;
+namespace Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Thehouseofel\Hexagonal\Domain\Exceptions\FeatureUnavailableException;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Domain\Exceptions\FeatureUnavailableException;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
 
 final class AuthController extends Controller
 {

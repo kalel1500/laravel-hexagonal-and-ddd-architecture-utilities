@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Application;
+namespace Thehouseofel\Kalion\Application;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Icons\IconDo;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Icons\ViewIconsDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Icons\IconDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Icons\ViewIconsDo;
 
 final class GetIconsUseCase
 {

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Src\Shared\Domain\Objects\Entities\UserEntity;
-use Thehouseofel\Hexagonal\Infrastructure\Facades\AuthService;
+use Thehouseofel\Kalion\Infrastructure\Facades\AuthService;
 
 if (!function_exists('userEntity')) {
     /**

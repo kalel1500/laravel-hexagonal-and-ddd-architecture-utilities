@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 use Illuminate\Support\Facades\Artisan;
-use Thehouseofel\Hexagonal\Domain\Exceptions\ServiceException;
+use Thehouseofel\Kalion\Domain\Exceptions\ServiceException;
 use Throwable;
 
 final class QueueService

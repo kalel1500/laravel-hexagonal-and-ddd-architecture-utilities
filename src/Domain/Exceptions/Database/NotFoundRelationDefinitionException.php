@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Exceptions\Database;
+namespace Thehouseofel\Kalion\Domain\Exceptions\Database;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicException;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\BasicException;
 
 final class NotFoundRelationDefinitionException extends BasicException
 {

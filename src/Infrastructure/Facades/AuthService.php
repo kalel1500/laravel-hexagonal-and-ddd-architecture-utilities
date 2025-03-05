@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Facades;
+namespace Thehouseofel\Kalion\Infrastructure\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
+use Thehouseofel\Kalion\Domain\Objects\Entities\UserEntity;
 
 /**
  * @method static UserEntity|null userEntity()

@@ -1,13 +1,13 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Infrastructure\View\Components\Layout;
+namespace Thehouseofel\Kalion\Infrastructure\View\Components\Layout;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
-use Thehouseofel\Hexagonal\Infrastructure\Services\CookieService;
+use Thehouseofel\Kalion\Infrastructure\Services\CookieService;
 
 class App extends Component
 {

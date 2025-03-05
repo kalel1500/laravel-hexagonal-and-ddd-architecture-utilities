@@ -42,8 +42,8 @@ git push origin --delete <nombre_del_tag>
 Durante el desarrollo, en la aplicación se pueden configurar las siguientes variables para que el comando ""
 
 ```dotenv
-HEXAGONAL_PACKAGE_IN_DEVELOP=true
-HEXAGONAL_KEEP_MIGRATIONS_DATE=true
+KALION_PACKAGE_IN_DEVELOP=true
+KALION_KEEP_MIGRATIONS_DATE=true
 ```
 
 ## Gestión de ramas de GIT

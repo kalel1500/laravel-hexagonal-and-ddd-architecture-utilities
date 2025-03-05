@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Collections;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\Collections;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelId;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
 
 final class CollectionModelId extends ContractCollectionVo
 {

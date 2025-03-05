@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields;
 
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\TimestampNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\TimestampNullVo;
 
 final class ModelTimestampNull extends TimestampNullVo
 {

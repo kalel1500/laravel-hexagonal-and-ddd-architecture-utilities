@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Console\Commands;
+namespace Thehouseofel\Kalion\Infrastructure\Console\Commands;
 
 use Illuminate\Console\Command;
 
@@ -40,7 +40,7 @@ final class JobDispatch extends Command
     public function handle(): void
     {
         // Buscar el Job en este paquete para ver si existe y ejecutarlo
-        $namespace = 'Thehouseofel'.DIRECTORY_SEPARATOR.'Hexagonal'.DIRECTORY_SEPARATOR.'Infrastructure'.DIRECTORY_SEPARATOR.'Jobs';
+        $namespace = 'Thehouseofel'.DIRECTORY_SEPARATOR.'Kalion'.DIRECTORY_SEPARATOR.'Infrastructure'.DIRECTORY_SEPARATOR.'Jobs';
         $executed = $this->tryExecJobInNamespace($namespace);
         if ($executed) return;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Infrastructure\View\Components\Navbar;
+namespace Thehouseofel\Kalion\Infrastructure\View\Components\Navbar;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo;
-use Thehouseofel\Hexagonal\Infrastructure\Facades\LayoutService;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\NavbarItemDo;
+use Thehouseofel\Kalion\Infrastructure\Facades\LayoutService;
 
 class Full extends Component
 {

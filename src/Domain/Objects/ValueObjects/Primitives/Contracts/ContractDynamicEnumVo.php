@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Providers\DynamicEnumProviderContract;
+use Thehouseofel\Kalion\Domain\Providers\DynamicEnumProviderContract;
 
 abstract class ContractDynamicEnumVo extends ContractEnumVo
 {

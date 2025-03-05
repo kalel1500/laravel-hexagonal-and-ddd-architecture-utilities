@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Shared\Infrastructure\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
 
 final class DefaultController extends Controller
 {

@@ -7,7 +7,7 @@ namespace Src\Dashboard\Application;
 use Src\Dashboard\Domain\Objects\DataObjects\DashboardDataDto;
 use Src\Shared\Domain\Contracts\Repositories\PostRepositoryContract;
 use Src\Shared\Domain\Contracts\Repositories\TagRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 final readonly class GetDashboardDataUseCase
 {

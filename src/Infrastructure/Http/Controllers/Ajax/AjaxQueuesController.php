@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax;
+namespace Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax;
 
 use Illuminate\Http\JsonResponse;
-use Thehouseofel\Hexagonal\Domain\Exceptions\ServiceException;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
-use Thehouseofel\Hexagonal\Infrastructure\Events\EventCheckQueuesStatus;
-use Thehouseofel\Hexagonal\Infrastructure\Services\QueueService;
-use Thehouseofel\Hexagonal\Infrastructure\Services\WebsocketsService;
+use Thehouseofel\Kalion\Domain\Exceptions\ServiceException;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Infrastructure\Events\EventCheckQueuesStatus;
+use Thehouseofel\Kalion\Infrastructure\Services\QueueService;
+use Thehouseofel\Kalion\Infrastructure\Services\WebsocketsService;
 use Throwable;
 
 final class AjaxQueuesController extends Controller

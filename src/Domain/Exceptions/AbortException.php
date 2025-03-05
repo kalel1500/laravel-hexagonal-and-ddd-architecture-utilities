@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Exceptions;
+namespace Thehouseofel\Kalion\Domain\Exceptions;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\BasicHttpException;
 
 final class AbortException extends BasicHttpException
 {

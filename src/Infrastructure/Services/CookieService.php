@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie as CookieFacade;
 use Symfony\Component\HttpFoundation\Cookie;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\CookiePreferencesDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\CookiePreferencesDo;
 
 final class CookieService
 {

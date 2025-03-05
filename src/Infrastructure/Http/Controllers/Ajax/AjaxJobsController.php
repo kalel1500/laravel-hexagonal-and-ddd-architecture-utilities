@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax;
+namespace Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax;
 
 use Illuminate\Http\JsonResponse;
-use Thehouseofel\Hexagonal\Application\GetAllFailedJobsUseCase;
-use Thehouseofel\Hexagonal\Application\GetAllJobsUseCase;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
-use Thehouseofel\Hexagonal\Infrastructure\Repositories\JobEloquentRepository;
+use Thehouseofel\Kalion\Application\GetAllFailedJobsUseCase;
+use Thehouseofel\Kalion\Application\GetAllJobsUseCase;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Infrastructure\Repositories\JobEloquentRepository;
 use Throwable;
 
 final class AjaxJobsController extends Controller

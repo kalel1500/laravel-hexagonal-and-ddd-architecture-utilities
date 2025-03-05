@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'entity_class' => env('KALION_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity::class),
+    'entity_class' => env('KALION_AUTH_ENTITY_CLASS', \Thehouseofel\Kalion\Domain\Objects\Entities\UserEntity::class),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'user_repository_class' => env('KALION_AUTH_ENTITY_CLASS', \Thehouseofel\Hexagonal\Infrastructure\Repositories\UserRepository::class),
+    'user_repository_class' => env('KALION_AUTH_ENTITY_CLASS', \Thehouseofel\Kalion\Infrastructure\Repositories\UserRepository::class),
 
     /*
     |--------------------------------------------------------------------------

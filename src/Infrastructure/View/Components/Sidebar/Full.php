@@ -1,13 +1,13 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Infrastructure\View\Components\Sidebar;
+namespace Thehouseofel\Kalion\Infrastructure\View\Components\Sidebar;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\SidebarItemCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\SidebarItemDo;
-use Thehouseofel\Hexagonal\Infrastructure\Facades\LayoutService;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Collections\SidebarItemCollection;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\SidebarItemDo;
+use Thehouseofel\Kalion\Infrastructure\Facades\LayoutService;
 
 class Full extends Component
 {

@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Src\Dashboard\Application\GetDashboardDataUseCase;
 use Src\Dashboard\Application\GetPostDataUseCase;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
 
 final class DashboardController extends Controller
 {

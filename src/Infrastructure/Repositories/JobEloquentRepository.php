@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Repositories;
+namespace Thehouseofel\Kalion\Infrastructure\Repositories;
 
-use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\JobRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\FailedJobCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\JobCollection;
-use Thehouseofel\Hexagonal\Infrastructure\Models\FailedJob;
-use Thehouseofel\Hexagonal\Infrastructure\Models\Jobs;
+use Thehouseofel\Kalion\Domain\Contracts\Repositories\JobRepositoryContract;
+use Thehouseofel\Kalion\Domain\Objects\Entities\Collections\FailedJobCollection;
+use Thehouseofel\Kalion\Domain\Objects\Entities\Collections\JobCollection;
+use Thehouseofel\Kalion\Infrastructure\Models\FailedJob;
+use Thehouseofel\Kalion\Infrastructure\Models\Jobs;
 
 class JobEloquentRepository implements JobRepositoryContract
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout;
 
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\ContractDataObject;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
 
 final class NavbarDropdownDo extends ContractDataObject
 {

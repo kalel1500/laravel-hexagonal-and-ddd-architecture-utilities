@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects;
 
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\ThemeVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Parameters\ThemeVo;
 
 final class CookiePreferencesDo extends ContractDataObject
 {

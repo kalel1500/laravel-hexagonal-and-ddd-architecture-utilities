@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Exceptions\Base;
+namespace Thehouseofel\Kalion\Domain\Exceptions\Base;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;

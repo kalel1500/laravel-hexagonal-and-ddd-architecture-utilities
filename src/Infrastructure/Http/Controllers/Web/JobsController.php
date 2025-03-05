@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web;
+namespace Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web;
 
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
 
 final class JobsController extends Controller
 {

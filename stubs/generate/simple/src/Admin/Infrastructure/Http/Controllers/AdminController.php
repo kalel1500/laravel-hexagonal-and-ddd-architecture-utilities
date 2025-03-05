@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Src\Admin\Application\GetViewDataTagsUseCase;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
 
 final class AdminController extends Controller
 {

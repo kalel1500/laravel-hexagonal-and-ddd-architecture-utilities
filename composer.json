@@ -1,7 +1,7 @@
 {
     "name": "kalel1500/laravel-hexagonal-and-ddd-architecture-utilities",
     "description": "Utilidades para desarrollar en arquitectura hexagonal y DDD en laravel",
-    "keywords": ["laravel", "package", "hexagonal", "architecture", "ddd", "utilities"],
+    "keywords": ["kalion","laravel", "package", "hexagonal", "architecture", "ddd", "utilities"],
     "authors": [
         {
             "name": "Adrian Canals Csefko",
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Thehouseofel\\Hexagonal\\": "src/"
+            "Thehouseofel\\Kalion\\": "src/"
         },
         "files": [
             "src/Domain/Helpers/DomainHeplers.php",
@@ -34,7 +34,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Thehouseofel\\Hexagonal\\Infrastructure\\KalionServiceProvider"
+                "Thehouseofel\\Kalion\\Infrastructure\\KalionServiceProvider"
             ]
         }
     },

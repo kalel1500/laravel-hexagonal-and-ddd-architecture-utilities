@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout;
 
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Contracts\NavigationItem;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Contracts\NavigationItem;
 
 final class NavbarItemDo extends NavigationItem
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Parameters;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractArrayVo;
-use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts\ContractArrayVo;
+use Thehouseofel\Kalion\Infrastructure\Helpers\MyCarbon;
 
 final class ArrayTabulatorFiltersVo extends ContractArrayVo
 {

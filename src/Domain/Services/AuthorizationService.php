@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Services;
+namespace Thehouseofel\Kalion\Domain\Services;
 
-use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\RoleEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Contracts\Repositories\PermissionRepositoryContract;
+use Thehouseofel\Kalion\Domain\Contracts\Repositories\RoleRepositoryContract;
+use Thehouseofel\Kalion\Domain\Contracts\Repositories\UserRepositoryContract;
+use Thehouseofel\Kalion\Domain\Objects\Entities\RoleEntity;
+use Thehouseofel\Kalion\Domain\Objects\Entities\UserEntity;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 final class AuthorizationService
 {

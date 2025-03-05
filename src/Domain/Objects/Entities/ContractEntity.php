@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Entities;
+namespace Thehouseofel\Kalion\Domain\Objects\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
-use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Database\NotFoundRelationDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Database\UnsetRelationException;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
+use Thehouseofel\Kalion\Domain\Contracts\Arrayable;
+use Thehouseofel\Kalion\Domain\Exceptions\Database\NotFoundRelationDefinitionException;
+use Thehouseofel\Kalion\Domain\Exceptions\Database\UnsetRelationException;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
 
 abstract class ContractEntity implements Arrayable, JsonSerializable
 {

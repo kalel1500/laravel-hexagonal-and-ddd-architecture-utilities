@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Arr;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\KalionException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\AbortException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\CollectionAny;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\SubRelationDataDo;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\KalionException;
+use Thehouseofel\Kalion\Domain\Exceptions\AbortException;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Exceptions\RequiredDefinitionException;
+use Thehouseofel\Kalion\Domain\Objects\Collections\CollectionAny;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\SubRelationDataDo;
 
 if (!function_exists('dashesToCamelCase')) {
     function dashesToCamelCase($string, $capitalizeFirstCharacter = false)
@@ -719,7 +719,7 @@ if (!function_exists('pipe_str_to_array')) {
 if (!function_exists('filterTailwindClasses')) {
     function filterTailwindClasses($default_classes, $custom_classes): string
     {
-        $filter = new \Thehouseofel\Hexagonal\Domain\Services\TailwindClassFilter();
+        $filter = new \Thehouseofel\Kalion\Domain\Services\TailwindClassFilter();
         return $filter->filter($default_classes, $custom_classes);
     }
 

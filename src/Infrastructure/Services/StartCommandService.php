@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
-use Thehouseofel\Hexagonal\Domain\Traits\CountMethods;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\KalionStart;
-use Thehouseofel\Hexagonal\Infrastructure\KalionServiceProvider;
+use Thehouseofel\Kalion\Domain\Traits\CountMethods;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\KalionStart;
+use Thehouseofel\Kalion\Infrastructure\KalionServiceProvider;
 
 final class StartCommandService
 {
@@ -624,7 +624,7 @@ EOD;
 EOD
             : <<<'EOD'
 ->withExceptions(function (Exceptions $exceptions) {
-        $callback = \Thehouseofel\Hexagonal\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();
+        $callback = \Thehouseofel\Kalion\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();
         $callback($exceptions);
     })
 EOD;

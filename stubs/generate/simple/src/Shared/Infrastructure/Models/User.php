@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Thehouseofel\Hexagonal\Domain\Traits\ModelHasPermissions;
+use Thehouseofel\Kalion\Domain\Traits\ModelHasPermissions;
 
 class User extends Authenticatable
 {

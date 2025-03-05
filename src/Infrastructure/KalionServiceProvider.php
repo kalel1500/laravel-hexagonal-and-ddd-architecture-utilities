@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure;
+namespace Thehouseofel\Kalion\Infrastructure;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
@@ -17,15 +17,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\KalionStart;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasPermission;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasRole;
-use Thehouseofel\Hexagonal\Infrastructure\Services\Kalion;
-use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\ClearAll;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\KalionStart;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\JobDispatch;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\LogsClear;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\ServiceCheck;
+use Thehouseofel\Kalion\Infrastructure\Http\Middleware\UserHasPermission;
+use Thehouseofel\Kalion\Infrastructure\Http\Middleware\UserHasRole;
+use Thehouseofel\Kalion\Infrastructure\Services\Kalion;
+use Thehouseofel\Kalion\Infrastructure\Services\Version;
 
 class KalionServiceProvider extends ServiceProvider
 {
@@ -35,11 +35,11 @@ class KalionServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        'layoutService'                                                                           => \Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService::class,
-        'authService'                                                                             => \Thehouseofel\Hexagonal\Infrastructure\Services\AuthService::class,
-        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract::class       => \Thehouseofel\Hexagonal\Infrastructure\Repositories\RoleRepository::class,
-        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract::class => \Thehouseofel\Hexagonal\Infrastructure\Repositories\PermissionRepository::class,
-        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository::class,
+        'layoutService'                                                                           => \Thehouseofel\Kalion\Domain\Services\RepositoryServices\LayoutService::class,
+        'authService'                                                                             => \Thehouseofel\Kalion\Infrastructure\Services\AuthService::class,
+        \Thehouseofel\Kalion\Domain\Contracts\Repositories\RoleRepositoryContract::class       => \Thehouseofel\Kalion\Infrastructure\Repositories\RoleRepository::class,
+        \Thehouseofel\Kalion\Domain\Contracts\Repositories\PermissionRepositoryContract::class => \Thehouseofel\Kalion\Infrastructure\Repositories\PermissionRepository::class,
+        \Thehouseofel\Kalion\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Kalion\Infrastructure\Repositories\StateEloquentRepository::class,
     ];
 
     /**
@@ -142,7 +142,7 @@ return [
 
     protected function registerSingletons(): void
     {
-        $this->app->singleton(\Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('kalion_auth.user_repository_class'))());
+        $this->app->singleton(\Thehouseofel\Kalion\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('kalion_auth.user_repository_class'))());
     }
 
     /**
@@ -367,7 +367,7 @@ return [
         if (!Version::laravelMin9()) return;
 
         // Registrar componentes con Clase
-        Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'kal');
+        Blade::componentNamespace('Thehouseofel\\Kalion\\Infrastructure\\View\\Components', 'kal');
 
         // Registrar componentes anónimos
         Blade::anonymousComponentPath(KALION_PATH.'/resources/views/components', 'kal');
@@ -421,7 +421,7 @@ return [
             Kalion::enabledPreferencesCookie()
         ) {
             // Añadir un middleware a un grupo
-            $router->pushMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class); // $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
+            $router->pushMiddlewareToGroup('web', \Thehouseofel\Kalion\Infrastructure\Http\Middleware\AddPreferencesCookies::class); // $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Kalion\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
 
             // Desencriptar las cookies de las preferencias del usuario
             $this->app->booted(function () {

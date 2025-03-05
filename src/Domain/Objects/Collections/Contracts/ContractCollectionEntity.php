@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\Collections\Contracts;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as CollectionS;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Thehouseofel\Hexagonal\Domain\Contracts\ExportableEntity;
-use Thehouseofel\Hexagonal\Domain\Contracts\Relatable;
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\PaginationDataDo;
+use Thehouseofel\Kalion\Domain\Contracts\ExportableEntity;
+use Thehouseofel\Kalion\Domain\Contracts\Relatable;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Exceptions\RequiredDefinitionException;
+use Thehouseofel\Kalion\Domain\Objects\Entities\ContractEntity;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\PaginationDataDo;
 
 abstract class ContractCollectionEntity extends ContractCollectionBase implements Relatable
 {
