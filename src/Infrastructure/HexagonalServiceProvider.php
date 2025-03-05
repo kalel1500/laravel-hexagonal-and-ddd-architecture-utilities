@@ -442,30 +442,15 @@ return [
         ComponentAttributeBag::macro('mergeTailwind', function ($defaultClasses) {
             /** @var ComponentAttributeBag $this */
 
-            // Obtiene las clases personalizadas que se pasaron al componente
+            // Obtiene las clases personalizadas
             $customClasses = $this->get('class', '');
 
-            // Divide ambas cadenas en arrays y elimina strings vacíos
-            $defaultArray = array_filter(explode(' ', trim($defaultClasses)));
-            $customArray = array_filter(explode(' ', trim($customClasses)));
+            // Eliminar las clases de $defaultClasses que ya vienen en $customClasses
+            $filteredDefault = filterTailwindClasses($defaultClasses, $customClasses);
 
-            // Función para obtener la base de una clase (sin variantes como dark:, hover:, etc.)
-            $getBaseClass = function ($class) {
-                $parts = explode(':', $class);
-                return end($parts); // La última parte es la clase real sin variantes
-            };
-
-            // Obtener todas las clases base de las personalizadas
-            $customBaseClasses = array_map($getBaseClass, $customArray);
-
-            // Filtrar las clases por defecto eliminando solo aquellas cuya base ya está en las personalizadas
-            $filteredDefault = array_filter($defaultArray, function ($class) use ($customBaseClasses, $getBaseClass) {
-                $baseClass = $getBaseClass($class);
-                return !in_array($baseClass, $customBaseClasses, true);
-            });
-
-            // Devolver solo las clases filtradas, Laravel ya hace el merge final
-            return $this->merge(['class' => implode(' ', $filteredDefault)]);
+            // Llama al método `merge` de la clase original
+            return $this->merge(['class' => $filteredDefault]);
         });
+
     }
 }

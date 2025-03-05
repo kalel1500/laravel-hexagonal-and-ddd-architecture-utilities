@@ -715,3 +715,73 @@ if (!function_exists('pipe_str_to_array')) {
             : explode('|', $value);
     }
 }
+
+if (!function_exists('filterTailwindClasses')) {
+    function filterTailwindClasses($default_classes, $custom_classes): string
+    {
+        // Función para parsear una clase y extraer variante, grupo y prefijo.
+        $parseClass = function($class) {
+            // Si existe ":", se asume que lo que viene antes es la variante.
+            if (strpos($class, ':') !== false) {
+                // Separamos en dos partes: variante y el resto.
+                list($variant, $base) = explode(':', $class, 2);
+            } else {
+                $variant = '';
+                $base = $class;
+            }
+            // Dividimos la parte base por '-' para contar el grupo y obtener el prefijo.
+            $parts = explode('-', $base);
+            $group = count($parts); // Número de partes (ejemplo: 2 para "text-md", 3 para "text-blue-500")
+            $prefix = $parts[0];
+            return [
+                'variant' => $variant,
+                'base'    => $base,
+                'group'   => $group,
+                'prefix'  => $prefix,
+            ];
+        };
+
+        // Construir un mapa con las clases personalizadas.
+        // El mapa tendrá la estructura: $custom_map[variant][group][prefix] = true
+        $custom_map = [];
+        $custom_classes_array = explode(' ', trim($custom_classes));
+        foreach ($custom_classes_array as $custom_class) {
+            if (empty($custom_class)) {
+                continue;
+            }
+            $parsed = $parseClass($custom_class);
+            $variant = $parsed['variant'];
+            $group   = $parsed['group'];
+            $prefix  = $parsed['prefix'];
+            if (!isset($custom_map[$variant])) {
+                $custom_map[$variant] = [];
+            }
+            if (!isset($custom_map[$variant][$group])) {
+                $custom_map[$variant][$group] = [];
+            }
+            $custom_map[$variant][$group][$prefix] = true;
+        }
+
+        // Recorrer las clases por defecto y filtrar aquellas que tengan coincidencia en el mapa custom.
+        $result = [];
+        $default_classes_array = explode(' ', trim($default_classes));
+        foreach ($default_classes_array as $default_class) {
+            if (empty($default_class)) {
+                continue;
+            }
+            $parsed = $parseClass($default_class);
+            $variant = $parsed['variant'];
+            $group   = $parsed['group'];
+            $prefix  = $parsed['prefix'];
+
+            // Si en las custom existe la misma combinación variante + grupo + prefijo, se descarta la clase por defecto.
+            if (isset($custom_map[$variant]) && isset($custom_map[$variant][$group]) && isset($custom_map[$variant][$group][$prefix])) {
+                continue;
+            }
+            $result[] = $default_class;
+        }
+
+        return implode(' ', $result);
+    }
+
+}
