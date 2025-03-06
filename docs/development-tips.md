@@ -12,13 +12,13 @@
 ```json
 {
   "require": {
-    "kalel1500/laravel-hexagonal-and-ddd-architecture-utilities": "dev-master"
+    "kalel1500/kalion": "dev-master"
   },
   "minimum-stability": "dev",
   "repositories": [
     {
       "type": "path",
-      "url": "../laravel-hexagonal-and-ddd-architecture-utilities"
+      "url": "../kalion"
     }
   ]
 }

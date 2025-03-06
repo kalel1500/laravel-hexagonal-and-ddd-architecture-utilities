@@ -1,5 +1,5 @@
 {
-    "name": "kalel1500/laravel-hexagonal-and-ddd-architecture-utilities",
+    "name": "kalel1500/kalion",
     "description": "Utilidades para desarrollar en arquitectura hexagonal y DDD en laravel",
     "keywords": ["kalion","laravel", "package", "hexagonal", "architecture", "ddd", "utilities"],
     "authors": [
