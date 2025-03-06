@@ -139,9 +139,9 @@ return [
     |
     */
 
-    'version_node' => '^20.11.1',
+    'version_node' => env('KALION_VERSION_NODE', '^20.11.1'),
 
-    'version_npm' => '^10.5.0',
+    'version_npm' => env('KALION_VERSION_NPM', '^10.5.0'),
 
     /*
     |--------------------------------------------------------------------------
