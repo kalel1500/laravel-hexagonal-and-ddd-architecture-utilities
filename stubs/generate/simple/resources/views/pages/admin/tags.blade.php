@@ -1,22 +1,22 @@
 @php /** @var \Src\Admin\Domain\Objects\DataObjects\ViewTagsDto $data */ @endphp
 @php /** @var \Src\Shared\Domain\Objects\Entities\TagTypeEntity $tagType */ @endphp
 
-<x-hexagonal::layout.app title="{{ config('app.name')}} - Tags">
+<x-kal::layout.app title="{{ config('app.name')}} - Tags">
 
     <div class="flex items-center gap-3">
-        <x-hexagonal::heading type="h2">Tags</x-hexagonal::heading>
+        <x-kal::heading type="h2">Tags</x-kal::heading>
     </div>
 
-    <x-hexagonal::section class="w-full justify-self-center">
+    <x-kal::section class="w-full justify-self-center">
         <div class="md:flex md:justify-between md:items-center">
-            <x-hexagonal::tab class="flex-1 mb-3 md:mb-0">
-                <x-hexagonal::tab.item :active="is_null($data->currentTagType)" :href="route('tags')">Todos</x-hexagonal::tab.item>
+            <x-kal::tab class="flex-1 mb-3 md:mb-0">
+                <x-kal::tab.item :active="is_null($data->currentTagType)" :href="route('tags')">Todos</x-kal::tab.item>
                 @foreach($data->tagTypes as $tagType)
-                    <x-hexagonal::tab.item :active="$data->currentTagType?->id->value() === $tagType->id->value()" :href="route('tags', $tagType->code->value())">{{ $tagType->name }}</x-hexagonal::tab.item>
+                    <x-kal::tab.item :active="$data->currentTagType?->id->value() === $tagType->id->value()" :href="route('tags', $tagType->code->value())">{{ $tagType->name }}</x-kal::tab.item>
                 @endforeach
-            </x-hexagonal::tab>
+            </x-kal::tab>
 
-            <x-hexagonal::tabulator.buttons
+            <x-kal::tabulator.buttons
                 editId="btn-tag-edit"
                 cancelId="btn-tag-cancel"
                 addId="btn-tag-add"
@@ -24,6 +24,6 @@
         </div>
 
         <div id="table-tags" class="mt-4"></div>
-    </x-hexagonal::section>
+    </x-kal::section>
 
-</x-hexagonal::layout.app>
+</x-kal::layout.app>

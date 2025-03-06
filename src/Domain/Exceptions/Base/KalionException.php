@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Exceptions\Base;
+namespace Thehouseofel\Kalion\Domain\Exceptions\Base;
 
 use Exception;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\ExceptionContextDo;
 use Throwable;
 
-abstract class HexagonalException extends Exception
+abstract class KalionException extends Exception
 {
     protected $statusCode;
     protected $context;

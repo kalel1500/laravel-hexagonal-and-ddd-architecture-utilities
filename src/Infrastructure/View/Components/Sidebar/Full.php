@@ -1,13 +1,13 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Infrastructure\View\Components\Sidebar;
+namespace Thehouseofel\Kalion\Infrastructure\View\Components\Sidebar;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\SidebarItemCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\SidebarItemDo;
-use Thehouseofel\Hexagonal\Infrastructure\Facades\LayoutService;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Collections\SidebarItemCollection;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\SidebarItemDo;
+use Thehouseofel\Kalion\Infrastructure\Facades\LayoutService;
 
 class Full extends Component
 {
@@ -22,10 +22,10 @@ class Full extends Component
      */
     public function __construct()
     {
-        $this->showSearch = config('hexagonal_links.sidebar.search.show');
-        $this->searchAction = getUrlFromRoute(config('hexagonal_links.sidebar.search.route'));
-        $this->items = SidebarItemCollection::fromArray(config('hexagonal_links.sidebar.items') ?? []);
-        $this->footer = SidebarItemCollection::fromArray(config('hexagonal_links.sidebar.footer') ?? []);
+        $this->showSearch = config('kalion_links.sidebar.search.show');
+        $this->searchAction = getUrlFromRoute(config('kalion_links.sidebar.search.route'));
+        $this->items = SidebarItemCollection::fromArray(config('kalion_links.sidebar.items') ?? []);
+        $this->footer = SidebarItemCollection::fromArray(config('kalion_links.sidebar.footer') ?? []);
         $this->hasFooter = $this->footer->countInt()->isBiggerThan(0);
 
         $this->items = $this->items->map(function (SidebarItemDo $item) {
@@ -43,6 +43,6 @@ class Full extends Component
      */
     public function render()
     {
-        return view('hexagonal::components.sidebar.full');
+        return view('kal::components.sidebar.full');
     }
 }

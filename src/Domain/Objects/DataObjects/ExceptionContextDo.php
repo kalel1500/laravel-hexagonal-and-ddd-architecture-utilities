@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;

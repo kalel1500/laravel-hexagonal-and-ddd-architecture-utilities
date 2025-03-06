@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Repositories;
+namespace Thehouseofel\Kalion\Infrastructure\Repositories;
 
-use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\RoleEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
-use Thehouseofel\Hexagonal\Infrastructure\Models\Role;
+use Thehouseofel\Kalion\Domain\Contracts\Repositories\RoleRepositoryContract;
+use Thehouseofel\Kalion\Domain\Objects\Entities\RoleEntity;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Infrastructure\Models\Role;
 
 final class RoleRepository implements RoleRepositoryContract
 {

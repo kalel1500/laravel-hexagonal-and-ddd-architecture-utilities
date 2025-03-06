@@ -6,7 +6,7 @@ namespace Src\Shared\Domain\Services\RepositoryServices;
 
 use Src\Shared\Domain\Contracts\Repositories\TagTypeRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\TagTypeEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 final readonly class TagTypeService
 {

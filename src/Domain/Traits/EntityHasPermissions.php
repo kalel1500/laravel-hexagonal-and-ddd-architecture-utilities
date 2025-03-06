@@ -1,10 +1,10 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Domain\Traits;
+namespace Thehouseofel\Kalion\Domain\Traits;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\RoleCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\RoleEntity;
-use Thehouseofel\Hexagonal\Domain\Services\AuthorizationService;
+use Thehouseofel\Kalion\Domain\Objects\Entities\Collections\RoleCollection;
+use Thehouseofel\Kalion\Domain\Objects\Entities\RoleEntity;
+use Thehouseofel\Kalion\Domain\Services\AuthorizationService;
 
 trait EntityHasPermissions
 {

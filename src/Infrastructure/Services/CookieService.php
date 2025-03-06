@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie as CookieFacade;
 use Symfony\Component\HttpFoundation\Cookie;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\CookiePreferencesDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\CookiePreferencesDo;
 
 final class CookieService
 {
@@ -19,15 +19,15 @@ final class CookieService
 
     public function __construct()
     {
-        $this->cookieName     = config('hexagonal.cookie.name');
-        $this->cookieDuration = config('hexagonal.cookie.duration');
-        $this->cookieVersion  = config('hexagonal.cookie.version');
-        $this->preferences    = new CookiePreferencesDo(
-            config('hexagonal.cookie.version'),
-            config('hexagonal_layout.dark_theme'),
-            config('hexagonal_layout.sidebar_collapsed'),
-            config('hexagonal_layout.sidebar_state_per_page')
-        );
+        $this->cookieName     = config('kalion.cookie.name');
+        $this->cookieDuration = config('kalion.cookie.duration');
+        $this->cookieVersion  = config('kalion.cookie.version');
+        $this->preferences    = CookiePreferencesDo::fromArray([
+            'version'                => config('kalion.cookie.version'),
+            'theme'                  => config('kalion_layout.theme'),
+            'sidebar_collapsed'      => config('kalion_layout.sidebar_collapsed'),
+            'sidebar_state_per_page' => config('kalion_layout.sidebar_state_per_page'),
+        ]);
     }
 
     public function cookie(): Cookie

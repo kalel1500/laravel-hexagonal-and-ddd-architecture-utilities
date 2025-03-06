@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Collections;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionDo;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\NavbarItemDo;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\NavbarItemDo;
 
 final class NavbarItemCollection extends ContractCollectionDo
 {

@@ -8,7 +8,7 @@ use Src\Admin\Domain\Objects\DataObjects\FrontTagsDto;
 use Src\Admin\Domain\Objects\DataObjects\ViewTagsDto;
 use Src\Shared\Domain\Contracts\Repositories\TagTypeRepositoryContract;
 use Src\Shared\Domain\Services\RepositoryServices\TagTypeService;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 final readonly class GetViewDataTagsUseCase
 {

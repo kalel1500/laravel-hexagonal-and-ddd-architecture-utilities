@@ -2,7 +2,7 @@
 @props(['href' => '#', 'text', 'icon', 'time', 'is_post' => false])
 
 @if($bigList)
-    <a href="{{ $href }}" class="flex border-b px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+    <a href="{{ $href }}" class="flex border-b border-gray-200 px-4 py-3 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
         {{ $icon ?? '' }}
         <div class="w-full pl-3">
             <div class="mb-1.5 text-sm font-normal text-gray-500 dark:text-gray-400">

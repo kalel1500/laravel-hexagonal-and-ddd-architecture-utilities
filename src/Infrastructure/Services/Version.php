@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 final class Version
 {
@@ -17,6 +17,16 @@ final class Version
     }
 
     /**
+     * Determinar si la version de Laravel instalada es igual o mayor a la 9
+     *
+     * @return bool
+     */
+    public static function laravelMin9(): bool
+    {
+        return version_compare(app()->version(), '9', '>=');
+    }
+
+    /**
      * Determinar si la version de Laravel instalada es igual o mayor a la 11
      *
      * @return bool
@@ -27,12 +37,12 @@ final class Version
     }
 
     /**
-     * Determinar si la version de Laravel instalada es igual o mayor a la 9
+     * Determinar si la version de Laravel instalada es igual o mayor a la 12
      *
      * @return bool
      */
-    public static function laravelMin9(): bool
+    public static function laravelMin12(): bool
     {
-        return version_compare(app()->version(), '9', '>=');
+        return version_compare(app()->version(), '12', '>=');
     }
 }

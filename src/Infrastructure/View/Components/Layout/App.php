@@ -1,14 +1,13 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Infrastructure\View\Components\Layout;
+namespace Thehouseofel\Kalion\Infrastructure\View\Components\Layout;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
-use Thehouseofel\Hexagonal\Infrastructure\Services\CookieService;
-use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
+use Thehouseofel\Kalion\Infrastructure\Services\CookieService;
 
 class App extends Component
 {
@@ -16,6 +15,8 @@ class App extends Component
     public $isFromPackage;
     public $darkMode;
     public $sidebarCollapsed;
+    public $dataTheme;
+    public $colorTheme;
 
     /**
      * Create a new component instance.
@@ -29,8 +30,10 @@ class App extends Component
         $this->isFromPackage = $package;
 
         $preferences = CookieService::readOrNew()->preferences();
-        $this->darkMode         = $preferences->dark_theme();
+        $this->darkMode         = $preferences->theme()->isDark();
         $this->sidebarCollapsed = $preferences->sidebar_state_per_page() ? $this->calculateSidebarCollapsedFromItems() : $preferences->sidebar_collapsed();
+        $this->dataTheme        = $preferences->theme()->getDataTheme();
+        $this->colorTheme       = $preferences->theme()->value();
     }
 
     /**
@@ -40,12 +43,12 @@ class App extends Component
      */
     public function render()
     {
-        return view('hexagonal::components.layout.app');
+        return view('kal::components.layout.app');
     }
 
     private function calculateSidebarCollapsedFromItems(): bool
     {
-        $links = collect(config('hexagonal_links.sidebar.items'));
+        $links = collect(config('kalion_links.sidebar.items'));
 
         $firstCollapsed = $links->flatMap(function ($item) {
             // Combinar el array con sus sub_links (si existen)

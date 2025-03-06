@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives;
 
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractJsonVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts\ContractJsonVo;
 
 class JsonStrictVo extends ContractJsonVo
 {

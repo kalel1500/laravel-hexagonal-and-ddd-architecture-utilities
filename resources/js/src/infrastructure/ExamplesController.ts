@@ -74,7 +74,7 @@ export default class ExamplesController {
 
             CookieService.setPreference('dark_theme', !preferences?.dark_theme);
             const serializedPreferences = encodeURIComponent(JSON.stringify(preferences));
-            /*g.newFetch({ url: route('hexagonal.ajax.cookie.update', {_query: {preferences: serializedPreferences}}), type: 'PUT' }).then(r  => {
+            /*g.newFetch({ url: route('kalion.ajax.cookie.update', {_query: {preferences: serializedPreferences}}), type: 'PUT' }).then(r  => {
                 console.log(r);
             });
             console.log(`ha cambiado a ${preferences?.dark_theme}`);*/

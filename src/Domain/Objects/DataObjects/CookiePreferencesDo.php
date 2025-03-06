@@ -2,24 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects;
+
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Parameters\ThemeVo;
 
 final class CookiePreferencesDo extends ContractDataObject
 {
-    protected $version;
-    protected $dark_theme;
-    protected $sidebar_collapsed;
-    protected $sidebar_state_per_page;
+    protected string  $version;
+    protected ThemeVo $theme;
+    protected bool    $sidebar_collapsed;
+    protected bool    $sidebar_state_per_page;
 
     public function __construct(
-        string $version,
-        bool   $dark_theme,
-        bool   $sidebar_collapsed,
-        bool   $sidebar_state_per_page
+        string  $version,
+        ThemeVo $theme,
+        bool    $sidebar_collapsed,
+        bool    $sidebar_state_per_page
     )
     {
         $this->version                = $version;
-        $this->dark_theme             = $dark_theme;
+        $this->theme                  = $theme;
         $this->sidebar_collapsed      = $sidebar_collapsed;
         $this->sidebar_state_per_page = $sidebar_state_per_page;
     }
@@ -27,10 +29,10 @@ final class CookiePreferencesDo extends ContractDataObject
     protected static function createFromArray(array $data): self
     {
         return new self(
-            $data['version'] ?? null,
-            $data['dark_theme'] ?? null,
-            $data['sidebar_collapsed'] ?? null,
-            $data['sidebar_state_per_page'] ?? null
+            $data['version'],
+            ThemeVo::new($data['theme'] ?? ThemeVo::system),
+            $data['sidebar_collapsed'],
+            $data['sidebar_state_per_page']
         );
     }
 
@@ -39,9 +41,9 @@ final class CookiePreferencesDo extends ContractDataObject
         return $this->version;
     }
 
-    public function dark_theme(): bool
+    public function theme(): ThemeVo
     {
-        return $this->dark_theme;
+        return $this->theme;
     }
 
     public function sidebar_collapsed(): bool
@@ -59,9 +61,9 @@ final class CookiePreferencesDo extends ContractDataObject
         $this->version = $value;
     }
 
-    public function set_dark_theme(bool $value): void
+    public function set_theme(string $value): void
     {
-        $this->dark_theme = $value;
+        $this->theme = $value;
     }
 
     public function set_sidebar_collapsed(bool $value): void

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure;
+namespace Thehouseofel\Kalion\Infrastructure;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
@@ -17,17 +17,17 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ClearAll;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\JobDispatch;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\LogsClear;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\ServiceCheck;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasPermission;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\UserHasRole;
-use Thehouseofel\Hexagonal\Infrastructure\Services\Hexagonal;
-use Thehouseofel\Hexagonal\Infrastructure\Services\Version;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\ClearAll;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\KalionStart;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\JobDispatch;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\LogsClear;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\ServiceCheck;
+use Thehouseofel\Kalion\Infrastructure\Http\Middleware\UserHasPermission;
+use Thehouseofel\Kalion\Infrastructure\Http\Middleware\UserHasRole;
+use Thehouseofel\Kalion\Infrastructure\Services\Kalion;
+use Thehouseofel\Kalion\Infrastructure\Services\Version;
 
-class HexagonalServiceProvider extends ServiceProvider
+class KalionServiceProvider extends ServiceProvider
 {
     /**
      * All of the container singletons that should be registered.
@@ -35,11 +35,11 @@ class HexagonalServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        'layoutService'                                                                           => \Thehouseofel\Hexagonal\Domain\Services\RepositoryServices\LayoutService::class,
-        'authService'                                                                             => \Thehouseofel\Hexagonal\Infrastructure\Services\AuthService::class,
-        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\RoleRepositoryContract::class       => \Thehouseofel\Hexagonal\Infrastructure\Repositories\RoleRepository::class,
-        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\PermissionRepositoryContract::class => \Thehouseofel\Hexagonal\Infrastructure\Repositories\PermissionRepository::class,
-        \Thehouseofel\Hexagonal\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Hexagonal\Infrastructure\Repositories\StateEloquentRepository::class,
+        'layoutService'                                                                           => \Thehouseofel\Kalion\Domain\Services\RepositoryServices\LayoutService::class,
+        'authService'                                                                             => \Thehouseofel\Kalion\Infrastructure\Services\AuthService::class,
+        \Thehouseofel\Kalion\Domain\Contracts\Repositories\RoleRepositoryContract::class       => \Thehouseofel\Kalion\Infrastructure\Repositories\RoleRepository::class,
+        \Thehouseofel\Kalion\Domain\Contracts\Repositories\PermissionRepositoryContract::class => \Thehouseofel\Kalion\Infrastructure\Repositories\PermissionRepository::class,
+        \Thehouseofel\Kalion\Domain\Contracts\Repositories\StateRepositoryContract::class      => \Thehouseofel\Kalion\Infrastructure\Repositories\StateEloquentRepository::class,
     ];
 
     /**
@@ -132,8 +132,8 @@ return [
      */
     public function register(): void
     {
-        if (! defined('HEXAGONAL_PATH')) {
-            define('HEXAGONAL_PATH', realpath(__DIR__.'/../../'));
+        if (! defined('KALION_PATH')) {
+            define('KALION_PATH', realpath(__DIR__.'/../../'));
         }
 
         $this->registerSingletons();
@@ -142,7 +142,7 @@ return [
 
     protected function registerSingletons(): void
     {
-        $this->app->singleton(\Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('hexagonal_auth.user_repository_class'))());
+        $this->app->singleton(\Thehouseofel\Kalion\Domain\Contracts\Repositories\UserRepositoryContract::class, fn($app) => new (config('kalion_auth.user_repository_class'))());
     }
 
     /**
@@ -154,12 +154,12 @@ return [
     {
         // Configuración - Mergear la configuración del paquete con la configuración de la aplicación, solo hará falta publicar si queremos sobreescribir alguna configuración
         if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal.php', 'hexagonal');
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_auth.php', 'hexagonal_auth');
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_layout.php', 'hexagonal_layout');
-            $this->mergeConfigFrom(HEXAGONAL_PATH.'/config/hexagonal_links.php', 'hexagonal_links');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion.php', 'kalion');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion_auth.php', 'kalion_auth');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion_layout.php', 'kalion_layout');
+            $this->mergeConfigFrom(KALION_PATH.'/config/kalion_links.php', 'kalion_links');
 
-            Hexagonal::setLogChannels();
+            Kalion::setLogChannels();
         }
     }
 
@@ -189,13 +189,13 @@ return [
      */
     protected function registerRoutes(): void
     {
-        if (Hexagonal::shouldRegistersRoutes()) {
+        if (Kalion::shouldRegistersRoutes()) {
             Route::group([
-//                'as' => 'hexagonal.',
-//                'prefix' => 'hexagonal',
+//                'as' => 'kalion.',
+//                'prefix' => 'kalion',
                 'middleware' => 'web',
             ], function () {
-                $this->loadRoutesFrom(HEXAGONAL_PATH.'/routes/web.php');
+                $this->loadRoutesFrom(KALION_PATH.'/routes/web.php');
             });
         }
     }
@@ -207,7 +207,7 @@ return [
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(HEXAGONAL_PATH.'/resources/views', 'hexagonal');
+        $this->loadViewsFrom(KALION_PATH.'/resources/views', 'kal');
     }
 
     /**
@@ -225,27 +225,27 @@ return [
          * -------------------
          */
 
-        if (Hexagonal::shouldPublishMigrations() && Version::laravelMin9()) {
+        if (Kalion::shouldPublishMigrations() && Version::laravelMin9()) {
             $existNewMethod = method_exists($this, 'publishesMigrations');
             $publishesMigrationsMethod = $existNewMethod
                 ? 'publishesMigrations'
                 : 'publishes';
 
             $this->{$publishesMigrationsMethod}([
-                HEXAGONAL_PATH.'/database/migrations' => database_path('migrations'),
-                HEXAGONAL_PATH.'/stubs/generate/database/migrations' => database_path('migrations'),
-            ], 'hexagonal-migrations');
+                KALION_PATH.'/database/migrations'                => database_path('migrations'),
+                KALION_PATH.'/stubs/generate/database/migrations' => database_path('migrations'),
+            ], 'kalion-migrations');
 
             /*if (!$existNewMethod) {
                 Event::listen(function (VendorTagPublished $event) {
                     // Definir que palabras identifican las migraciones del paquete
-                    $keywords = ['laravel-hexagonal-and-ddd-architecture-utilities', 'migrations'];
+                    $keywords = ['laravel-kalion-and-ddd-architecture-utilities', 'migrations'];
 
                     // Buscar en las rutas publicadas si alguna contiene las 3 palabras
-                    $publishedHexagonalMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
+                    $publishedKalionMigrations = Arr::first(array_keys($event->paths), fn($key) => collect($keywords)->every(fn($word) => Str::contains($key, $word)));
 
                     // Actualizar nombres de las migraciones solo si se han ejecutado
-                    if ($publishedHexagonalMigrations) {
+                    if ($publishedKalionMigrations) {
                         $this->updateNameOfMigrationsIfExist();
                     }
                 });
@@ -261,15 +261,15 @@ return [
 
         // Todas
         $this->publishes([
-            HEXAGONAL_PATH.'/resources/views' => base_path('resources/views/vendor/hexagonal'),
-            HEXAGONAL_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
-        ], 'hexagonal-views');
+            KALION_PATH.'/resources/views'                    => base_path('resources/views/vendor/kalion'),
+            KALION_PATH.'/src/Infrastructure/View/Components' => app_path('View/Components'),
+        ], 'kalion-views');
 
         // Publicar solo la vista "app.blade.php"
         $this->publishes([
-            HEXAGONAL_PATH.'/resources/views/components/layout/app.blade.php' => base_path('resources/views/vendor/hexagonal/components/layout/app.blade.php'),
-            HEXAGONAL_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
-        ], 'hexagonal-view-layout');
+            KALION_PATH.'/resources/views/components/layout/app.blade.php'   => base_path('resources/views/vendor/kalion/components/layout/app.blade.php'),
+            KALION_PATH.'/src/Infrastructure/View/Components/Layout/App.php' => app_path('View/Components/Layout/App.php'),
+        ], 'kalion-view-layout');
 
 
         /*
@@ -278,25 +278,25 @@ return [
          * -----------------------
          */
 
-        // hexagonal.php
+        // kalion.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal.php' => config_path('hexagonal.php'),
-        ], 'hexagonal-config');
+            KALION_PATH.'/config/kalion.php' => config_path('kalion.php'),
+        ], 'kalion-config');
 
-        // hexagonal_auth.php
+        // kalion_auth.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal_auth.php' => config_path('hexagonal_auth.php'),
-        ], 'hexagonal-config-auth');
+            KALION_PATH.'/config/kalion_auth.php' => config_path('kalion_auth.php'),
+        ], 'kalion-config-auth');
 
-        // hexagonal_layout.php
+        // kalion_layout.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal_layout.php' => config_path('hexagonal_layout.php'),
-        ], 'hexagonal-config-layout');
+            KALION_PATH.'/config/kalion_layout.php' => config_path('kalion_layout.php'),
+        ], 'kalion-config-layout');
 
-        // hexagonal_links.php
+        // kalion_links.php
         $this->publishes([
-            HEXAGONAL_PATH.'/config/hexagonal_links.php' => config_path('hexagonal_links.php'),
-        ], 'hexagonal-config-links');
+            KALION_PATH.'/config/kalion_links.php' => config_path('kalion_links.php'),
+        ], 'kalion-config-links');
 
 
         /*
@@ -306,11 +306,11 @@ return [
          */
 
         $langPath = Version::laravelMin9()
-            ? $this->app->langPath('vendor/hexagonal')
-            : $this->app->resourcePath('lang/vendor/hexagonal');
+            ? $this->app->langPath('vendor/kalion')
+            : $this->app->resourcePath('lang/vendor/kalion');
         $this->publishes([
-            HEXAGONAL_PATH.'/lang' => $langPath,
-        ], 'hexagonal-lang');
+            KALION_PATH.'/lang' => $langPath,
+        ], 'kalion-lang');
     }
 
     /**
@@ -322,7 +322,7 @@ return [
     {
         $this->commands([
             ClearAll::class,
-            HexagonalStart::class,
+            KalionStart::class,
             JobDispatch::class,
             LogsClear::class,
             ServiceCheck::class,
@@ -338,11 +338,11 @@ return [
     {
         if (
             $this->app->runningInConsole() &&
-            Hexagonal::shouldRunMigrations() &&
+            Kalion::shouldRunMigrations() &&
             Version::laravelMin9()
         ) {
-            $this->loadMigrationsFrom(HEXAGONAL_PATH.'/database/migrations');
-            $this->loadMigrationsFrom(HEXAGONAL_PATH.'/stubs/generate/database/migrations');
+            $this->loadMigrationsFrom(KALION_PATH.'/database/migrations');
+            $this->loadMigrationsFrom(KALION_PATH.'/stubs/generate/database/migrations');
         }
     }
 
@@ -353,8 +353,8 @@ return [
      */
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(HEXAGONAL_PATH.'/lang', 'h');
-        $this->loadJsonTranslationsFrom(HEXAGONAL_PATH.'/lang');
+        $this->loadTranslationsFrom(KALION_PATH.'/lang', 'h');
+        $this->loadJsonTranslationsFrom(KALION_PATH.'/lang');
     }
 
     /**
@@ -367,10 +367,10 @@ return [
         if (!Version::laravelMin9()) return;
 
         // Registrar componentes con Clase
-        Blade::componentNamespace('Thehouseofel\\Hexagonal\\Infrastructure\\View\\Components', 'hexagonal');
+        Blade::componentNamespace('Thehouseofel\\Kalion\\Infrastructure\\View\\Components', 'kal');
 
         // Registrar componentes anónimos
-        Blade::anonymousComponentPath(HEXAGONAL_PATH.'/resources/views/components', 'hexagonal');
+        Blade::anonymousComponentPath(KALION_PATH.'/resources/views/components', 'kal');
     }
 
     /**
@@ -381,11 +381,11 @@ return [
     protected function registerBladeDirectives(): void
     {
         Blade::directive('viteAsset', function ($path) {
-            return "<?php 
+            return "<?php
                 try {
                     echo e(\\Illuminate\\Support\\Facades\\Vite::asset(trim($path, '\'\"')));
                 } catch (\\Throwable \$e) {
-                    echo e(\$e->getMessage()); 
+                    echo e(\$e->getMessage());
                 }
             ?>";
         });
@@ -405,7 +405,7 @@ return [
 //        $kernel = $this->app->make(Kernel::class);
 
         // Registrar/sobreescribir un grupo de middlewares
-//        $router->middlewareGroup('newCustomGroup', [\Vendor\Package\Http\Middleware\HexagonalAnyMiddleware::class]);
+//        $router->middlewareGroup('newCustomGroup', [\Vendor\Package\Http\Middleware\KalionAnyMiddleware::class]);
 
         // Añadir un middleware a un grupo
 //        $router->pushMiddlewareToGroup('web', ShareInertiaData::class);
@@ -418,16 +418,16 @@ return [
         if (
             !$this->app->runningInConsole() &&
             !empty(config('app.key')) &&
-            Hexagonal::enabledPreferencesCookie()
+            Kalion::enabledPreferencesCookie()
         ) {
             // Añadir un middleware a un grupo
-            $router->pushMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class); // $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Hexagonal\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
+            $router->pushMiddlewareToGroup('web', \Thehouseofel\Kalion\Infrastructure\Http\Middleware\AddPreferencesCookies::class); // $kernel->appendMiddlewareToGroup('web', \Thehouseofel\Kalion\Infrastructure\Http\Middleware\AddPreferencesCookies::class);
 
             // Desencriptar las cookies de las preferencias del usuario
             $this->app->booted(function () {
                 /** @var EncryptCookies $encryptCookies */
                 $encryptCookies = $this->app->make(EncryptCookies::class);
-                $encryptCookies::except(config('hexagonal.cookie.name')); // laravel_hexagonal_user_preferences
+                $encryptCookies::except(config('kalion.cookie.name')); // laravel_kalion_user_preferences
             });
         }
     }
@@ -445,21 +445,12 @@ return [
             // Obtiene las clases personalizadas
             $customClasses = $this->get('class', '');
 
-            // Divide ambas cadenas en arrays y elimina los strings vacíos
-            $defaultArray = array_filter(explode(' ', $defaultClasses));
-            $customArray = array_filter(explode(' ', $customClasses));
-
-            // Filtra las clases del default eliminando conflictos con las custom
-            $filteredDefault = array_filter($defaultArray, function ($class) use ($customArray) {
-                $prefix = strtok($class, '-'); // Obtén el prefijo de la clase, como "p"
-                return !Arr::first($customArray, function ($customClass) use ($prefix) { return str_starts_with($customClass, $prefix); });
-            });
-
-            // Genera las clases finales
-            //$finalClasses = implode(' ', $filteredDefault) . ' ' . $customClasses;
+            // Eliminar las clases de $defaultClasses que ya vienen en $customClasses
+            $filteredDefault = filterTailwindClasses($defaultClasses, $customClasses);
 
             // Llama al método `merge` de la clase original
-            return $this->merge(['class' => implode(' ', $filteredDefault)]);
+            return $this->merge(['class' => $filteredDefault]);
         });
+
     }
 }

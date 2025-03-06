@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Contracts\Repositories;
+namespace Thehouseofel\Kalion\Domain\Contracts\Repositories;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\PermissionEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Objects\Entities\PermissionEntity;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 interface PermissionRepositoryContract
 {

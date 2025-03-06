@@ -11,9 +11,9 @@ return [
     |
     */
 
-    'entity_class' => env('HEXAGONAL_AUTH_ENTITY_CLASS', \Src\Shared\Domain\Objects\Entities\UserEntity::class),
+    'entity_class' => env('KALION_AUTH_ENTITY_CLASS', \Src\Shared\Domain\Objects\Entities\UserEntity::class),
 
-    'user_repository_class' => env('HEXAGONAL_AUTH_ENTITY_CLASS', \Src\Shared\Infrastructure\Repositories\Eloquent\UserRepository::class),
+    'user_repository_class' => env('KALION_AUTH_ENTITY_CLASS', \Src\Shared\Infrastructure\Repositories\Eloquent\UserRepository::class),
 
-    'load_roles' => (bool) env('HEXAGONAL_AUTH_LOAD_ROLES', true),
+    'load_roles' => (bool) env('KALION_AUTH_LOAD_ROLES', true),
 ];

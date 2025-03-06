@@ -3,20 +3,20 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxCookiesController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxJobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxQueuesController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\AuthController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\ExampleController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\JobsController;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web\HexagonalController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxCookiesController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxJobsController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxQueuesController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Ajax\AjaxWebsocketsController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\AuthController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\ExampleController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\JobsController;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web\KalionController;
 
-Route::get('/hexagonal/root', [HexagonalController::class, 'root'])
-    ->name('hexagonal.root');
+Route::get('/kalion/root', [KalionController::class, 'root'])
+    ->name('kalion.root');
 
-Route::get('/hexagonal/sessions',  [HexagonalController::class, 'sessions'])
-    ->name('hexagonal.sessions');
+Route::get('/kalion/sessions',  [KalionController::class, 'sessions'])
+    ->name('kalion.sessions');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])
@@ -31,49 +31,49 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     // Service routes
-    Route::get('/hexagonal/ajax/check-service-queues', [AjaxQueuesController::class, 'checkService'])
-        ->name('hexagonal.ajax.queues.checkService');
+    Route::get('/kalion/ajax/check-service-queues', [AjaxQueuesController::class, 'checkService'])
+        ->name('kalion.ajax.queues.checkService');
 
-    Route::get('/hexagonal/ajax/check-service-websockets', [AjaxWebsocketsController::class, 'checkService'])
-        ->name('hexagonal.ajax.websockets.checkService');
+    Route::get('/kalion/ajax/check-service-websockets', [AjaxWebsocketsController::class, 'checkService'])
+        ->name('kalion.ajax.websockets.checkService');
 
     // Queues routes
-    Route::get('/hexagonal/queues/jobs', [JobsController::class, 'queuedJobs'])
-        ->name('hexagonal.queues.queuedJobs');
+    Route::get('/kalion/queues/jobs', [JobsController::class, 'queuedJobs'])
+        ->name('kalion.queues.queuedJobs');
 
-    Route::get('/hexagonal/queues/failed-jobs', [JobsController::class, 'failedJobs'])
-        ->name('hexagonal.queues.failedJobs');
+    Route::get('/kalion/queues/failed-jobs', [JobsController::class, 'failedJobs'])
+        ->name('kalion.queues.failedJobs');
 
-    Route::get('/hexagonal/ajax/queues/jobs', [AjaxJobsController::class, 'getJobs'])
-        ->name('hexagonal.ajax.queues.getJobs');
+    Route::get('/kalion/ajax/queues/jobs', [AjaxJobsController::class, 'getJobs'])
+        ->name('kalion.ajax.queues.getJobs');
 
-    Route::get('/hexagonal/ajax/queues/failed-jobs', [AjaxJobsController::class, 'getFailedJobs'])
-        ->name('hexagonal.ajax.queues.getFailedJobs');
+    Route::get('/kalion/ajax/queues/failed-jobs', [AjaxJobsController::class, 'getFailedJobs'])
+        ->name('kalion.ajax.queues.getFailedJobs');
 
 
     // Cookies routes
-    Route::put('/hexagonal/cookie/update', [AjaxCookiesController::class, 'update'])
-        ->name('hexagonal.ajax.cookie.update');
+    Route::put('/kalion/cookie/update', [AjaxCookiesController::class, 'update'])
+        ->name('kalion.ajax.cookie.update');
 
     // Example routes
-    Route::get('/hexagonal/example/example-1', [ExampleController::class, 'example1'])
-        ->name('hexagonal.example1');
+    Route::get('/kalion/example/example-1', [ExampleController::class, 'example1'])
+        ->name('kalion.example1');
 
-    Route::get('/hexagonal/example/example-2', [ExampleController::class, 'example2'])
-        ->name('hexagonal.example2');
+    Route::get('/kalion/example/example-2', [ExampleController::class, 'example2'])
+        ->name('kalion.example2');
 
-    Route::get('/hexagonal/example/example-3', [ExampleController::class, 'example3'])
-        ->name('hexagonal.example3');
+    Route::get('/kalion/example/example-3', [ExampleController::class, 'example3'])
+        ->name('kalion.example3');
 
-    Route::get('/hexagonal/example/example-4', [ExampleController::class, 'example4'])
-        ->name('hexagonal.example4');
+    Route::get('/kalion/example/example-4', [ExampleController::class, 'example4'])
+        ->name('kalion.example4');
 
-    Route::get('/hexagonal/example/compare-html', [ExampleController::class, 'compareHtml'])
-        ->name('hexagonal.compareHtml');
+    Route::get('/kalion/example/compare-html', [ExampleController::class, 'compareHtml'])
+        ->name('kalion.compareHtml');
 
-    Route::get('/hexagonal/example/modify-cookie', [ExampleController::class, 'modifyCookie'])
-        ->name('hexagonal.modifyCookie');
+    Route::get('/kalion/example/modify-cookie', [ExampleController::class, 'modifyCookie'])
+        ->name('kalion.modifyCookie');
 
-    Route::get('/hexagonal/example/icons', [ExampleController::class, 'icons'])
-        ->name('hexagonal.icons');
+    Route::get('/kalion/example/icons', [ExampleController::class, 'icons'])
+        ->name('kalion.icons');
 });

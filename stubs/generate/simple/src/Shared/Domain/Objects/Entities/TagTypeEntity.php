@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Src\Shared\Domain\Objects\Entities;
 
 use Src\Shared\Domain\Objects\Entities\Collections\TagCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\ContractEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Objects\Entities\ContractEntity;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelId;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 final class TagTypeEntity extends ContractEntity
 {

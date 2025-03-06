@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\Collections\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Exceptions\RequiredDefinitionException;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\ContractDataObject;
 use TypeError;
 
 abstract class ContractCollectionDo extends ContractCollectionBase

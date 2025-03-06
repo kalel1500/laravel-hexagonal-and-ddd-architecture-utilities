@@ -6,7 +6,7 @@ namespace Src\Shared\Domain\Contracts\Repositories;
 
 use Src\Shared\Domain\Objects\Entities\Collections\TagTypeCollection;
 use Src\Shared\Domain\Objects\Entities\TagTypeEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 interface TagTypeRepositoryContract
 {

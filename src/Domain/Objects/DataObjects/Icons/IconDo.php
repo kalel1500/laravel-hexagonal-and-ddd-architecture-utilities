@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Icons;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects\Icons;
 
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ContractDataObject;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\ContractDataObject;
 
 final class IconDo extends ContractDataObject
 {

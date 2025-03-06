@@ -22,20 +22,20 @@ composer require kalel1500/laravel-hexagonal-and-ddd-architecture-utilities
 To publish all the files in the package you can use the following command:
 
 ```bash
-php artisan vendor:publish --provider="Thehouseofel\Hexagonal\Infrastructure\HexagonalServiceProvider"
+php artisan vendor:publish --provider="Thehouseofel\Kalion\Infrastructure\KalionServiceProvider"
 ```
 
 Or else you have the following to publish the files independently
 
 ```bash
-php artisan vendor:publish --tag="hexagonal-migrations"
-php artisan vendor:publish --tag="hexagonal-views"
-php artisan vendor:publish --tag="hexagonal-view-layout"
-php artisan vendor:publish --tag="hexagonal-config"
-php artisan vendor:publish --tag="hexagonal-config-auth"
-php artisan vendor:publish --tag="hexagonal-config-layout"
-php artisan vendor:publish --tag="hexagonal-config-links"
-php artisan vendor:publish --tag="hexagonal-lang"
+php artisan vendor:publish --tag="kalion-migrations"
+php artisan vendor:publish --tag="kalion-views"
+php artisan vendor:publish --tag="kalion-view-layout"
+php artisan vendor:publish --tag="kalion-config"
+php artisan vendor:publish --tag="kalion-config-auth"
+php artisan vendor:publish --tag="kalion-config-layout"
+php artisan vendor:publish --tag="kalion-config-links"
+php artisan vendor:publish --tag="kalion-lang"
 ```
 
 ## License

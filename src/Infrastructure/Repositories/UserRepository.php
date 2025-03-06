@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Repositories;
+namespace Thehouseofel\Kalion\Infrastructure\Repositories;
 
-use Thehouseofel\Hexagonal\Domain\Contracts\Repositories\UserRepositoryContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
+use Thehouseofel\Kalion\Domain\Contracts\Repositories\UserRepositoryContract;
+use Thehouseofel\Kalion\Domain\Objects\Entities\UserEntity;
 
 class UserRepository implements UserRepositoryContract
 {

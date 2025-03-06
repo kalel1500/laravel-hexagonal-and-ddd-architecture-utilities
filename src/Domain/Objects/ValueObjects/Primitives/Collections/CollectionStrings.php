@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Collections;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Collections;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractStringVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\StringNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\StringVo;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts\ContractStringVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\StringNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\StringVo;
 
 final class CollectionStrings extends ContractCollectionVo
 {

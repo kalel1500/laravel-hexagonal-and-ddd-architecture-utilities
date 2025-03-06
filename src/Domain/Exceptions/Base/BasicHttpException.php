@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Exceptions\Base;
+namespace Thehouseofel\Kalion\Domain\Exceptions\Base;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
-class BasicHttpException extends HexagonalException implements HttpExceptionInterface
+class BasicHttpException extends KalionException implements HttpExceptionInterface
 {
     const STATUS_CODE = 500;
     const MESSAGE = '';

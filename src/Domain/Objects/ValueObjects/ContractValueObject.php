@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractBoolVo;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts\ContractBoolVo;
 
 /**
  * @template T of ContractValueObject

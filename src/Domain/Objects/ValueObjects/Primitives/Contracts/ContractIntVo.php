@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelInt;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIntNull;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\IntVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelInt;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelIntNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\IntNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\IntVo;
 
 abstract class ContractIntVo extends ContractValueObject
 {

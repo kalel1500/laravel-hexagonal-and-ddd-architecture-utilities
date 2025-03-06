@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Exceptions;
+namespace Thehouseofel\Kalion\Infrastructure\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -10,10 +10,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\AbortException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
+use Thehouseofel\Kalion\Domain\Exceptions\AbortException;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\BasicHttpException;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\KalionException;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\ExceptionContextDo;
 use Throwable;
 
 final class ExceptionHandler
@@ -40,15 +40,15 @@ final class ExceptionHandler
                     return response(getHtmlLaravelDebugStackTrace($request, $exception));
                 } else {
                     $context = ExceptionContextDo::from($exception);
-                    return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
+                    return response()->view('kal::pages.exceptions.error', compact('context'), $context->getStatusCode());
                 }
             });
 
             // Renderizar nuestras excepciones de dominio
-            $exceptions->render(function (HexagonalException $e, Request $request) {
+            $exceptions->render(function (KalionException $e, Request $request) {
                 $context = $e->getContext();
 
-                // Si se espera un Json, pasarle todos los datos de nuestra "HexagonalException" [success, message, data]
+                // Si se espera un Json, pasarle todos los datos de nuestra "KalionException" [success, message, data]
                 if ($request->expectsJson() || urlContainsAjax()) {
                     return response()->json($context->toArray(), $context->getStatusCode());
                 }
@@ -58,12 +58,12 @@ final class ExceptionHandler
                     // Si la excepción es una instancia de "AbortException" renderizamos la vista de errores de Laravel
                     if ($e instanceof AbortException) return response(getHtmlLaravelDebugStackTrace($request, $e));
 
-                    // Para cualquier "HexagonalException" que no sea "BasicHttpException", dejamos que laravel se encargue de renderizar el error.
+                    // Para cualquier "KalionException" que no sea "BasicHttpException", dejamos que laravel se encargue de renderizar el error.
                     if (!($e instanceof BasicHttpException)) return null;
                 }
 
                 // En PROD (o las "BasicHttpException" en DEBUG) devolvemos nuestra vista personalizada
-                return response()->view('hexagonal::pages.exceptions.error', compact('context'), $context->getStatusCode());
+                return response()->view('kal::pages.exceptions.error', compact('context'), $context->getStatusCode());
             });
 
             // Indicar a Laravel cuando devolver un Json (mirar url "/ajax/")
@@ -71,7 +71,7 @@ final class ExceptionHandler
                 return $request->expectsJson() || urlContainsAjax();
             });
 
-            // Formatear todas las respuestas Json para añadir los parámetros [success, message, data] con un valor por defecto (No aplica en los "HexagonalException" porque ya tienen ese formato)
+            // Formatear todas las respuestas Json para añadir los parámetros [success, message, data] con un valor por defecto (No aplica en los "KalionException" porque ya tienen ese formato)
             $exceptions->respond(function (Response $response, Throwable $e, Request $request) {
                 if ($response instanceof JsonResponse) {
                     $data = json_decode($response->getContent(), true);

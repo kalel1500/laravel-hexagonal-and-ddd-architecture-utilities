@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\ComponentAttributeBag;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\ExceptionContextDo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Parameters\EnvVo;
-use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\ExceptionContextDo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Parameters\EnvVo;
+use Thehouseofel\Kalion\Infrastructure\Helpers\MyCarbon;
 
 if (!function_exists('showActiveClass')) {
     /**
@@ -244,7 +244,7 @@ if (! function_exists('getEnvironment')) {
 if (! function_exists('getEnvironmentReal')) {
     function getEnvironmentReal(): ?string
     {
-        return config('hexagonal.real_env_in_tests');
+        return config('kalion.real_env_in_tests');
     }
 }
 
@@ -571,7 +571,7 @@ if (!function_exists('arrAllValuesAreArray')) {
 if (! function_exists('broadcastingIsActive')) {
     function broadcastingIsActive(): bool
     {
-        return (bool)config('hexagonal.broadcasting_enabled');
+        return (bool)config('kalion.broadcasting_enabled');
     }
 }
 
@@ -587,8 +587,12 @@ if (! function_exists('getUrlFromRoute')) {
 }
 
 if (!function_exists('getIconClasses')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version. Alternatively you can use "$attributes->mergeTailwind()".
+     */
     function getIconClasses(ComponentAttributeBag $attributes, $sizeNumber = '6'): string
     {
+        trigger_error('The function "getIconClasses()" is deprecated.', E_USER_DEPRECATED);
         $classes = $attributes->get('class', '');
         // Si no hay un tamaño específico, se asegura de usar 'size-6' como base
         if (!str_contains($classes, 'size-')) {
@@ -599,8 +603,12 @@ if (!function_exists('getIconClasses')) {
 }
 
 if (!function_exists('getOtherAttributes')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function getOtherAttributes(ComponentAttributeBag $attributes): ComponentAttributeBag
     {
+        trigger_error('The function "getOtherAttributes()" is deprecated.', E_USER_DEPRECATED);
         return $attributes->filter(function (string $value, string $key) {
             return $key != 'class' && $key != 'outline' && $key != 'flowbite';
         });
@@ -608,8 +616,12 @@ if (!function_exists('getOtherAttributes')) {
 }
 
 if (!function_exists('getIconFullAttributes')) {
+    /**
+     * @deprecated This function is deprecated and will be removed in a future version.
+     */
     function getIconFullAttributes(ComponentAttributeBag $attributes, $sizeNumber = '6'): string
     {
+        trigger_error('The function "getIconFullAttributes()" is deprecated.', E_USER_DEPRECATED);
         return trim('class="'.getIconClasses($attributes, $sizeNumber).'" '.getOtherAttributes($attributes)->toHtml());
     }
 }
@@ -639,7 +651,7 @@ if (!function_exists('getClassUserEntity')) {
      */
     function getClassUserEntity()
     {
-        return config('hexagonal_auth.entity_class');
+        return config('kalion_auth.entity_class');
     }
 }
 
@@ -647,6 +659,27 @@ if (!function_exists('getHtmlLaravelDebugStackTrace')) {
     function getHtmlLaravelDebugStackTrace(Request $request, Throwable $exception): string
     {
         return app()->make(\Illuminate\Foundation\Exceptions\Renderer\Renderer::class)->render($request, $exception);
+    }
+}
+
+if (!function_exists('appUrl')) {
+    function appUrl(): string
+    {
+        return rtrim(config('app.url'), '/');
+    }
+}
+
+if (!function_exists('defaultRoute')) {
+    function defaultRoute(): string
+    {
+        return '/' . ltrim(config('kalion.default_route'), '/');
+    }
+}
+
+if (!function_exists('defaultUrl')) {
+    function defaultUrl(): string
+    {
+        return appUrl() . defaultRoute();
     }
 }
 

@@ -1,5 +1,8 @@
 {
     "Server Error": "Error del Servidor",
     "Unexpected response format": "Formato de respuesta inesperado",
-    "Several errors have been detected": "Se han detectado varios errores"
+    "Several errors have been detected": "Se han detectado varios errores",
+    "Switch to dark mode": "Cambiar a modo oscuro",
+    "Switch to light mode": "Cambiar a modo claro",
+    "Switch to system mode": "Usar el tema del dispositivo"
 }

@@ -6,7 +6,7 @@ namespace Src\Dashboard\Application;
 
 use Src\Shared\Domain\Contracts\Repositories\PostRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\PostEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 final readonly class GetPostDataUseCase
 {

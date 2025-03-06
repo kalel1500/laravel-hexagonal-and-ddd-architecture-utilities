@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Contracts\Services;
+namespace Thehouseofel\Kalion\Domain\Contracts\Services;
 
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\UserInfoDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\UserInfoDo;
 
 interface LayoutServiceContract
 {

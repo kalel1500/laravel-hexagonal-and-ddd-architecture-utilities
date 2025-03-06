@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
 use Carbon\CarbonImmutable;
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelDate;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelDateNull;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\DateNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\DateVo;
-use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelDate;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelDateNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\DateNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\DateVo;
+use Thehouseofel\Kalion\Infrastructure\Helpers\MyCarbon;
 
 abstract class ContractDateVo extends ContractStringVo
 {

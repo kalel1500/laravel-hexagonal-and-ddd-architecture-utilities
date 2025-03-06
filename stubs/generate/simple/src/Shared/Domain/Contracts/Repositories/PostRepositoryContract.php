@@ -6,9 +6,9 @@ namespace Src\Shared\Domain\Contracts\Repositories;
 
 use Src\Shared\Domain\Objects\Entities\Collections\PostCollection;
 use Src\Shared\Domain\Objects\Entities\PostEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelId;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 interface PostRepositoryContract
 {

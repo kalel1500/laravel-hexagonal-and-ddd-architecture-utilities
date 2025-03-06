@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Contracts\Repositories;
+namespace Thehouseofel\Kalion\Domain\Contracts\Repositories;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\FailedJobCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections\JobCollection;
+use Thehouseofel\Kalion\Domain\Objects\Entities\Collections\FailedJobCollection;
+use Thehouseofel\Kalion\Domain\Objects\Entities\Collections\JobCollection;
 
 interface JobRepositoryContract
 {

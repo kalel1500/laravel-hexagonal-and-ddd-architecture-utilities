@@ -6,15 +6,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Real environment during testing
+    | Default Route
     |--------------------------------------------------------------------------
     |
-    | It is equivalent to the 'app.env' that you are in when doing the tests,
-    | since during the tests the value of 'app.env' testing.
+    | The following options allow you to configure the default route to which
+    | the application should redirect you
     |
     */
 
-    'fake_login_active' => (bool) env('HEXAGONAL_FAKE_LOGIN_ACTIVE', false),
+    'default_route' => env('KALION_DEFAULT_ROUTE', '/home'),
+
+    'default_route_name' => env('KALION_DEFAULT_ROUTE_NAME', 'home'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +28,19 @@ return [
     |
     */
 
-    'real_env_in_tests' => env('HEXAGONAL_REAL_ENV_IN_TESTS', 'local'),
+    'fake_login_active' => (bool) env('KALION_FAKE_LOGIN_ACTIVE', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Real environment during testing
+    |--------------------------------------------------------------------------
+    |
+    | It is equivalent to the 'app.env' that you are in when doing the tests,
+    | since during the tests the value of 'app.env' testing.
+    |
+    */
+
+    'real_env_in_tests' => env('KALION_REAL_ENV_IN_TESTS', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,11 +52,11 @@ return [
     |
     */
 
-    'mail_is_active' => (bool) env('HEXAGONAL_MAIL_IS_ACTIVE', false),
+    'mail_is_active' => (bool) env('KALION_MAIL_IS_ACTIVE', false),
 
-    'mail_active_tests' => (bool) env('HEXAGONAL_MAIL_ACTIVE_TESTS', false),
+    'mail_active_tests' => (bool) env('KALION_MAIL_ACTIVE_TESTS', false),
 
-    'mail_test_recipients' => env('HEXAGONAL_MAIL_TEST_RECIPIENTS'),
+    'mail_test_recipients' => env('KALION_MAIL_TEST_RECIPIENTS'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +67,7 @@ return [
     |
     */
 
-    'broadcasting_enabled' => (bool) env('HEXAGONAL_BROADCASTING_ENABLED', false),
+    'broadcasting_enabled' => (bool) env('KALION_BROADCASTING_ENABLED', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +87,7 @@ return [
     |
     */
 
-    'entity_calculated_props_mode' => env('HEXAGONAL_ENTITY_CALCULATED_PROPS_MODE', 's'),
+    'entity_calculated_props_mode' => env('KALION_ENTITY_CALCULATED_PROPS_MODE', 's'),
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +99,7 @@ return [
     |
     */
 
-    'minimum_value_for_model_id' => (int) env('HEXAGONAL_MINIMUM_VALUE_FOR_MODEL_ID', 1),
+    'minimum_value_for_model_id' => (int) env('KALION_MINIMUM_VALUE_FOR_MODEL_ID', 1),
 
     /*
     |--------------------------------------------------------------------------
@@ -110,9 +124,9 @@ return [
     */
 
     'cookie' => [
-        'name' => Str::slug(env('APP_NAME', 'laravel'), '_').'_hexagonal_user_preferences',
-        'duration' => (int) env('HEXAGONAL_COOKIE_DURATION', (60 * 24 * 364)),
-        'version' => env('HEXAGONAL_COOKIE_VERSION', "0"),
+        'name' => Str::slug(env('APP_NAME', 'laravel'), '_').'_kalion_user_preferences',
+        'duration' => (int) env('KALION_COOKIE_DURATION', (60 * 24 * 364)),
+        'version' => env('KALION_COOKIE_VERSION', "0"),
     ],
 
     /*
@@ -125,7 +139,7 @@ return [
     |
     */
 
-    'version_flowbite' => '^2.5.2',
+    'version_flowbite' => '^3.1.2',
 
     'version_types_node' => '^22.10.10',
 
@@ -151,10 +165,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | With this option you can configure if the package is in development to
-    | avoid executing unnecessary methods in the "hexagonal:start" command.
+    | avoid executing unnecessary methods in the "kalion:start" command.
     |
     */
 
-    'package_in_develop' => (bool) env('HEXAGONAL_PACKAGE_IN_DEVELOP', false),
-    'keep_migrations_date' => (bool) env('HEXAGONAL_KEEP_MIGRATIONS_DATE', false),
+    'package_in_develop' => (bool) env('KALION_PACKAGE_IN_DEVELOP', false),
+    'keep_migrations_date' => (bool) env('KALION_KEEP_MIGRATIONS_DATE', false),
 ];

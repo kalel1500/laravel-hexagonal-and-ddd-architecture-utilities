@@ -16,14 +16,14 @@
         @endif
         @if($hasTooltip) data-tooltip-target="tooltip-{{ $attributes->get('id') }}" @endif
         >
-    <span class="sr-only">{{ $text }}</span>
+    <span class="sr-only">{{ $text ?? $tooltip }}</span>
     {{ $slot }}
 </button>
 
 @if($hasTooltip)
-    <x-hexagonal::tooltip id="tooltip-{{ $attributes->get('id') }}">
+    <x-kal::tooltip id="tooltip-{{ $attributes->get('id') }}">
         {{ $tooltip }}
-    </x-hexagonal::tooltip>
+    </x-kal::tooltip>
 @endif
 
 @if($hasDropdown)

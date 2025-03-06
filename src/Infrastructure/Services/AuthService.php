@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
-use Thehouseofel\Hexagonal\Domain\Contracts\Services\AuthServiceContract;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
+use Thehouseofel\Kalion\Domain\Contracts\Services\AuthServiceContract;
+use Thehouseofel\Kalion\Domain\Objects\Entities\UserEntity;
 
 /**
  * @template T of UserEntity
@@ -23,7 +23,7 @@ final class AuthService implements AuthServiceContract
     public function __construct()
     {
         $this->entityClass = getClassUserEntity();
-        $this->loadRoles = config('hexagonal_auth.load_roles');
+        $this->loadRoles = config('kalion_auth.load_roles');
     }
 
     /**

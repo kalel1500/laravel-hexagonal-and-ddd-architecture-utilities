@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Traits;
+namespace Thehouseofel\Kalion\Domain\Traits;
 
 trait CountMethods
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Facades;
+namespace Thehouseofel\Kalion\Infrastructure\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\Layout\UserInfoDo;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\Collections\NavbarItemCollection;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\Layout\UserInfoDo;
 
 /**
  * @method static int getMessageCounter()

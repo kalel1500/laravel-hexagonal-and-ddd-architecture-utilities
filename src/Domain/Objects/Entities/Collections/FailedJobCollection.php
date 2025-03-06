@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Entities\Collections;
+namespace Thehouseofel\Kalion\Domain\Objects\Entities\Collections;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\FailedJobEntity;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
+use Thehouseofel\Kalion\Domain\Objects\Entities\FailedJobEntity;
 
 class FailedJobCollection extends ContractCollectionEntity
 {

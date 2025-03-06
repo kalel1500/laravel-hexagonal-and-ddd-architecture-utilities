@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Helpers;
+namespace Thehouseofel\Kalion\Infrastructure\Helpers;
 
 use Illuminate\Support\Facades\DB;
-use Thehouseofel\Hexagonal\Domain\Traits\Singelton;
+use Thehouseofel\Kalion\Domain\Traits\Singelton;
 
 final class MyDebug
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Exceptions;
+namespace Thehouseofel\Kalion\Domain\Exceptions;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicHttpException;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\BasicHttpException;
+use Thehouseofel\Kalion\Domain\Objects\Entities\UserEntity;
 
 class UnauthorizedException extends BasicHttpException
 {
@@ -15,7 +15,7 @@ class UnauthorizedException extends BasicHttpException
     {
         $message = __('h::auth.invalid_roles');
 
-        if (config('hexagonal_auth.display_role_in_exception')) {
+        if (config('kalion_auth.display_role_in_exception')) {
             $message .= ' '.__('h::auth.necessary_roles', ['roles' => $roles]);
         }
 
@@ -26,7 +26,7 @@ class UnauthorizedException extends BasicHttpException
     {
         $message = __('h::auth.invalid_permissions');
 
-        if (config('hexagonal_auth.display_permission_in_exception')) {
+        if (config('kalion_auth.display_permission_in_exception')) {
             $message .= ' '.__('h::auth.necessary_permissions', ['permissions' => $permissions]);
         }
 

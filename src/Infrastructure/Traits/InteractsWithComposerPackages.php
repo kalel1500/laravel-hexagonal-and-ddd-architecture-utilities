@@ -1,6 +1,6 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Traits;
+namespace Thehouseofel\Kalion\Infrastructure\Traits;
 
 use Symfony\Component\Process\Process;
 

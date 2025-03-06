@@ -1,3 +1,5 @@
+@use('Thehouseofel\Kalion\Infrastructure\Services\Renderer')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +10,9 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-    <!--Replace with your tailwind.css once created-->
-    <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
+{{--    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>--}}
+{{--    <!--Replace with your tailwind.css once created-->--}}
+{{--    <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />--}}
 
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
@@ -19,7 +21,9 @@
             font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
     </style>
-{{--    @vite(['resources/css/app.css', 'resources/js/app.ts'])--}}
+
+    <!-- CSS del paquete -->
+    {!! Renderer::css() !!}
 </head>
 
 <body class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed" style="background-image: url(@viteAsset('resources/images/login/header.png'));">
@@ -28,7 +32,7 @@
     <div class="w-full container mx-auto">
         <div class="w-full flex items-center justify-between">
             <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-                La<span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">ravel 11</span>
+                La<span class="bg-clip-text text-transparent bg-linear-to-r from-green-400 via-pink-500 to-purple-500">ravel 11</span>
             </a>
 
             <div class="flex w-1/2 justify-end content-center">
@@ -56,14 +60,14 @@
     <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
-            <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
+            <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-none text-center md:text-left">
                 Main
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+                <span class="bg-clip-text text-transparent bg-linear-to-r from-green-400 via-pink-500 to-purple-500">
               Hero Message
             </span>
                 to sell yourself!
             </h1>
-            <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+            <p class="leading-tight text-base md:text-2xl mb-8 text-center md:text-left">
                 Sub-hero message, not too long and not too short. Make it just right!
             </p>
 
@@ -74,7 +78,7 @@
                         Email
                     </label>
                     <input
-                        class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                        class="shadow-sm appearance-none border rounded-sm w-full p-3 text-gray-700 leading-tight focus:ring-3 transform transition hover:scale-105 duration-300 ease-in-out"
                         id="email"
                         name="email"
                         type="text"
@@ -90,7 +94,7 @@
 
                 <div class="flex items-center justify-between pt-4">
                     <button
-                        class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                        class="bg-linear-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded-sm focus:ring-3 transform transition hover:scale-105 duration-300 ease-in-out"
                         type="submit"
                     >
                         Sign In

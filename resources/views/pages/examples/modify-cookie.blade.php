@@ -1,10 +1,10 @@
-<x-hexagonal::layout.app package title="Update cookie">
+<x-kal::layout.app package title="Update cookie">
 
-    <x-hexagonal::section>
+    <x-kal::section>
 
-        <button id="show-cookie-value" class="bg-blue-500 text-white p-1 rounded hover:bg-blue-600">mostrar cookie</button>
-        <button id="change-cookie" class="bg-blue-500 text-white p-1 rounded hover:bg-blue-600">cambiar cookie</button>
+        <button id="show-cookie-value" class="bg-blue-500 text-white p-1 rounded-sm hover:bg-blue-600">mostrar cookie</button>
+        <button id="change-cookie" class="bg-blue-500 text-white p-1 rounded-sm hover:bg-blue-600">cambiar cookie</button>
 
-    </x-hexagonal::section>
+    </x-kal::section>
 
-</x-hexagonal::layout.app>
+</x-kal::layout.app>

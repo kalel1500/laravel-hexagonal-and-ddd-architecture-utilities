@@ -1,12 +1,12 @@
 @php /** @var \Src\Shared\Domain\Objects\Entities\PostEntity $post */ @endphp
 
-<x-hexagonal::layout.app title="{{ config('app.name')}} - Dashboard">
+<x-kal::layout.app title="{{ config('app.name')}} - Dashboard">
 
-    <x-hexagonal::section class="w-1/2 justify-self-center">
-        <x-hexagonal::heading type="h2">{{ $post->title }}</x-hexagonal::heading>
+    <x-kal::section class="w-1/2 justify-self-center">
+        <x-kal::heading type="h2">{{ $post->title }}</x-kal::heading>
 
-        <x-hexagonal::text>{{ $post->content }}</x-hexagonal::text>
+        <x-kal::text>{{ $post->content }}</x-kal::text>
 
-    </x-hexagonal::section>
+    </x-kal::section>
 
-</x-hexagonal::layout.app>
+</x-kal::layout.app>

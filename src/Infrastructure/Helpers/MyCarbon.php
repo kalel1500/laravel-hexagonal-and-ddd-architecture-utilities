@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Helpers;
+namespace Thehouseofel\Kalion\Infrastructure\Helpers;
 
 use Carbon\CarbonImmutable;
 use Throwable;

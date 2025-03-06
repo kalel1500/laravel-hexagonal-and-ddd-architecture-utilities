@@ -8,7 +8,7 @@ use Src\Shared\Domain\Contracts\Repositories\TagTypeRepositoryContract;
 use Src\Shared\Domain\Objects\Entities\Collections\TagTypeCollection;
 use Src\Shared\Domain\Objects\Entities\TagTypeEntity;
 use Src\Shared\Infrastructure\Models\TagType;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
 
 final class TagTypeRepository implements TagTypeRepositoryContract
 {

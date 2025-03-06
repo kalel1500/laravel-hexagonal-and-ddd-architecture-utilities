@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Exceptions\RequiredDefinitionException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\ContractValueObject;
 
 abstract class ContractEnumVo extends ContractValueObject
 {
@@ -36,11 +36,14 @@ abstract class ContractEnumVo extends ContractValueObject
 
     protected function checkPermittedValues(?string $value)
     {
+        if (is_null($value)) return;
+
         $permittedValues = $this->getPermittedValues();
         $failPermittedValuesValidation = ($this->caseSensitive)
             ? (!in_array($value, $permittedValues))
             : (!in_array(strtolower($value), array_map('strtolower', $permittedValues)));
-        if (!is_null($value) && $failPermittedValuesValidation) {
+
+        if ($failPermittedValuesValidation) {
             $permittedValuesString = '['.implode(', ', $permittedValues).']';
             throw new InvalidValueException(sprintf('<%s> no permite el valor <%s>. Valores permitidos: <%s>', class_basename(static::class), $value, $permittedValuesString));
         }

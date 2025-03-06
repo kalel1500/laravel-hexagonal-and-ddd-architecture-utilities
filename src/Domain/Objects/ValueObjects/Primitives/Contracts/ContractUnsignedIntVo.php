@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelUnsignedInt;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelUnsignedIntNull;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\UnsignedIntNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\UnsignedIntVo;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelUnsignedInt;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelUnsignedIntNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\UnsignedIntNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\UnsignedIntVo;
 
 abstract class ContractUnsignedIntVo extends ContractIntVo
 {

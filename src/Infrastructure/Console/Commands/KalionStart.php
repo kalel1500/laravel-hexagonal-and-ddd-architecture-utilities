@@ -1,15 +1,15 @@
 <?php
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Console\Commands;
+namespace Thehouseofel\Kalion\Infrastructure\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
-use Thehouseofel\Hexagonal\Infrastructure\Services\StartCommandService;
-use Thehouseofel\Hexagonal\Infrastructure\Traits\InteractsWithComposerPackages;
+use Thehouseofel\Kalion\Infrastructure\Services\StartCommandService;
+use Thehouseofel\Kalion\Infrastructure\Traits\InteractsWithComposerPackages;
 use function Illuminate\Filesystem\join_paths;
 
-class HexagonalStart extends Command
+class KalionStart extends Command
 {
     use InteractsWithComposerPackages;
 
@@ -18,7 +18,7 @@ class HexagonalStart extends Command
      *
      * @var string
      */
-    protected $signature = 'hexagonal:start
+    protected $signature = 'kalion:start
                     {--composer=global : Absolute path to the Composer binary which should be used to install packages}
                     {--reset : Reset all changes made by the command to the original state}
                     {--simple : Create only the files needed for the backend}';
@@ -28,7 +28,7 @@ class HexagonalStart extends Command
      *
      * @var string
      */
-    protected $description = 'Create starter files for hexagonal architecture';
+    protected $description = 'Create starter files for kalion architecture';
 
     protected $filesystem;
     protected $stubsPath;
@@ -39,7 +39,7 @@ class HexagonalStart extends Command
     {
         parent::__construct();
 
-        $stubsBasePath           = HEXAGONAL_PATH . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR;
+        $stubsBasePath           = KALION_PATH . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR;
         $this->filesystem        = $filesystem;
         $this->stubsPath         = $stubsBasePath . 'generate' . DIRECTORY_SEPARATOR . 'simple';
         $this->stubsPathFront    = $stubsBasePath . 'generate' . DIRECTORY_SEPARATOR . 'front';
@@ -75,12 +75,12 @@ class HexagonalStart extends Command
         $reset = $this->option('reset');
         $simple = $this->option('simple');
 
-        $developString = config('hexagonal.package_in_develop') ? '<fg=yellow>[DEVELOP]</>' : '';
+        $developString = config('kalion.package_in_develop') ? '<fg=yellow>[DEVELOP]</>' : '';
         $this->info("Inicio configuración: $developString");
 
         StartCommandService::configure($this, $reset, $simple)
             ->restoreFilesModifiedByPackageLaravelTsUtils()
-            ->publishHexagonalConfig()
+            ->publishKalionConfig()
             ->stubsCopyFile_AppServiceProvider()
             ->stubsCopyFile_DependencyServiceProvider()
             ->stubsCopyFiles_Config()
@@ -91,7 +91,6 @@ class HexagonalStart extends Command
             ->stubsCopyFolder_Resources()
             ->stubsCopyFolder_Src()
             ->stubsCopyFile_RoutesWeb()
-            ->stubsCopyFile_tailwindConfigJs()
             ->createEnvFiles()
             ->deleteDirectory_Http()
             ->deleteDirectory_Models()
@@ -99,6 +98,7 @@ class HexagonalStart extends Command
             ->modifyFile_BootstrapProviders_toAddDependencyServiceProvider()
             ->modifyFile_BootstrapApp_toAddMiddlewareRedirect()
             ->modifyFile_BootstrapApp_toAddExceptionHandler()
+            ->modifyFile_ConfigApp_toUpdateTimezone()
             ->modifyFile_ConfigAuth_toUpdateModel()
             ->modifyFile_JsBootstrap_toAddImportFlowbite()
             ->modifyFile_Gitignore_toDeleteLockFileLines()

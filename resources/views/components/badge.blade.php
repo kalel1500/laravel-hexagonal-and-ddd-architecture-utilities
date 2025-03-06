@@ -1,8 +1,8 @@
 @props(['color' => 'blue', 'pill' => false])
 
 @php
-    $default_classes = 'rounded-sm text-xs font-medium me-2 px-2.5 py-0.5';
-    $rounded_classe = ($pill) ? 'rounded-full' : 'rounded-sm';
+    $default_classes = 'rounded-xs text-xs font-medium me-2 px-2.5 py-0.5';
+    $rounded_classe = ($pill) ? 'rounded-full' : 'rounded-xs';
     $array_color_classes = [
         'blue'      => 'bg-blue-100     text-blue-800   dark:bg-blue-900    dark:text-blue-300      ',
         'gray'      => 'bg-gray-100     text-gray-800   dark:bg-gray-700    dark:text-gray-300      ',

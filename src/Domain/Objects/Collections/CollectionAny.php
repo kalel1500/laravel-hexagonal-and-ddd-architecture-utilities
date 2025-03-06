@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections;
+namespace Thehouseofel\Kalion\Domain\Objects\Collections;
 
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionAny;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionAny;
 
 final class CollectionAny extends ContractCollectionAny
 {

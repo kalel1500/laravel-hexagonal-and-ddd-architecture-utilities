@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Src\Admin\Application\UpdateOrCreateTagUseCase;
 use Src\Admin\Application\DeleteTagUseCase;
 use Src\Admin\Application\GetTagListUseCase;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
 
 final class AjaxAdminController extends Controller
 {

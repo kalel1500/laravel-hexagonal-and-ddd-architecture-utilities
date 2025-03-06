@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts\ContractIntVo;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelId;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelIdNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts\ContractIntVo;
 
 /**
  * @template T of ContractModelId
@@ -24,7 +24,7 @@ abstract class ContractModelId extends ContractIntVo
     public function __construct(?int $value)
     {
         if (is_null($this->minimumValueForModelId)) {
-            $this->minimumValueForModelId = config('hexagonal.minimum_value_for_model_id');
+            $this->minimumValueForModelId = config('kalion.minimum_value_for_model_id');
         }
 
         parent::__construct($value);

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdZero;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelIdZeroNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelIdZero;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelIdZeroNull;
 
 abstract class ContractModelIdZero extends ContractModelId
 {

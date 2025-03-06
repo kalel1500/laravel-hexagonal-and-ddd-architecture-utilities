@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 final class Renderer
 {
-    protected const DIST = HEXAGONAL_PATH.'/public/build/';
+    protected const DIST = KALION_PATH.'/public/build/';
 
     public static function css()
     {

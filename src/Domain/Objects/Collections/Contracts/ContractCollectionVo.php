@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\Collections\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Kalion\Domain\Exceptions\RequiredDefinitionException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\ContractValueObject;
 
 abstract class ContractCollectionVo extends ContractCollectionBase
 {

@@ -6,10 +6,10 @@ namespace Src\Shared\Domain\Objects\Entities;
 
 use Src\Shared\Domain\Objects\Entities\Collections\CommentCollection;
 use Src\Shared\Domain\Objects\Entities\Collections\PostCollection;
-use Thehouseofel\Hexagonal\Domain\Objects\Entities\UserEntity as BaseUserEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelString;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
+use Thehouseofel\Kalion\Domain\Objects\Entities\UserEntity as BaseUserEntity;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\Contracts\ContractModelId;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelString;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelStringNull;
 
 class UserEntity extends BaseUserEntity
 {

@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Arr;
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\HexagonalException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\AbortException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Exceptions\RequiredDefinitionException;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\CollectionAny;
-use Thehouseofel\Hexagonal\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
-use Thehouseofel\Hexagonal\Domain\Objects\DataObjects\SubRelationDataDo;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\KalionException;
+use Thehouseofel\Kalion\Domain\Exceptions\AbortException;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Exceptions\RequiredDefinitionException;
+use Thehouseofel\Kalion\Domain\Objects\Collections\CollectionAny;
+use Thehouseofel\Kalion\Domain\Objects\Collections\Contracts\ContractCollectionEntity;
+use Thehouseofel\Kalion\Domain\Objects\DataObjects\SubRelationDataDo;
 
 if (!function_exists('dashesToCamelCase')) {
     function dashesToCamelCase($string, $capitalizeFirstCharacter = false)
@@ -385,7 +385,7 @@ if (!function_exists('isDomainException')) {
      */
     function isDomainException(Throwable $e): bool
     {
-        return ($e instanceof HexagonalException);
+        return ($e instanceof KalionException);
     }
 }
 
@@ -697,8 +697,8 @@ if (!function_exists('normalize_path')) {
 if (!function_exists('get_shadow_classes')) {
     function get_shadow_classes(string $normalShadow = 'shadow-md'): string
     {
-        return config('hexagonal.active_shadows')
-            ? 'shadow-h-1xl dark:shadow-hb-1xl'
+        return config('kalion_layout.active_shadows')
+            ? 'kal:shadow-xl dark:kal:shadow-black-xl'
             : $normalShadow;
     }
 }
@@ -714,4 +714,13 @@ if (!function_exists('pipe_str_to_array')) {
             ? $value
             : explode('|', $value);
     }
+}
+
+if (!function_exists('filterTailwindClasses')) {
+    function filterTailwindClasses($default_classes, $custom_classes): string
+    {
+        $filter = new \Thehouseofel\Kalion\Domain\Services\TailwindClassFilter();
+        return $filter->filter($default_classes, $custom_classes);
+    }
+
 }

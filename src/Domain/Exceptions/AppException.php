@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Exceptions;
+namespace Thehouseofel\Kalion\Domain\Exceptions;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\Base\BasicException;
+use Thehouseofel\Kalion\Domain\Exceptions\Base\BasicException;
 
 final class AppException extends BasicException
 {

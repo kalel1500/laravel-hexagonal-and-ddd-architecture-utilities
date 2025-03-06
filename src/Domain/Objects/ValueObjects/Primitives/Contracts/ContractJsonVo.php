@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Exceptions\InvalidValueException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelJsonNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelJsonVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\JsonVo;
+use Thehouseofel\Kalion\Domain\Exceptions\InvalidValueException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelJsonNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelJsonVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\JsonNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\JsonVo;
 
 abstract class ContractJsonVo extends ContractValueObject
 {

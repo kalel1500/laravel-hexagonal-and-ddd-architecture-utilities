@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
 use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelArray;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelArrayNull;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelArray;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelArrayNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\ArrayNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\ArrayVo;
 
 abstract class ContractArrayVo extends ContractValueObject implements ArrayAccess, IteratorAggregate
 {

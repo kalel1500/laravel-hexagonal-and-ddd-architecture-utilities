@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\DataObjects;
+namespace Thehouseofel\Kalion\Domain\Objects\DataObjects;
 
 use Illuminate\Contracts\Support\Jsonable;
 use ReflectionClass;
-use Thehouseofel\Hexagonal\Domain\Contracts\Arrayable;
-use Thehouseofel\Hexagonal\Domain\Contracts\BuildArrayable;
-use Thehouseofel\Hexagonal\Domain\Exceptions\AppException;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\ContractValueObject;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\ArrayVo;
+use Thehouseofel\Kalion\Domain\Contracts\Arrayable;
+use Thehouseofel\Kalion\Domain\Contracts\BuildArrayable;
+use Thehouseofel\Kalion\Domain\Exceptions\AppException;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\ContractValueObject;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\ArrayVo;
 
 abstract class ContractDataObject implements Arrayable, BuildArrayable, Jsonable
 {

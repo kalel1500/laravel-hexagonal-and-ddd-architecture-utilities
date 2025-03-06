@@ -32,25 +32,25 @@
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo">
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Hexagonal</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Kalion</span>
                 </a>
 
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                     <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
-                            <a href="{{ route("hexagonal.root") }}"
-                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("home")])
+                            <a href="{{ route("kalion.root") }}"
+                               @class(["block py-2 px-3 rounded-sm hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("home")])
                                aria-current="page"
                             >Home</a>
                         </li>
                         <li>
-                            <a href="{{ route("hexagonal.queues.queuedJobs") }}"
-                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.queuedJobs")])
+                            <a href="{{ route("kalion.queues.queuedJobs") }}"
+                               @class(["block py-2 px-3 rounded-sm hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("kalion.queues.queuedJobs")])
                             >Queued Jobs</a>
                         </li>
                         <li>
-                            <a href="{{ route("hexagonal.queues.failedJobs") }}"
-                               @class(["block py-2 px-3 rounded hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("hexagonal.queues.failedJobs")])
+                            <a href="{{ route("kalion.queues.failedJobs") }}"
+                               @class(["block py-2 px-3 rounded-sm hover:text-blue-700 md:p-0", "text-blue-700" => showActiveClass("kalion.queues.failedJobs")])
                             >Failed Jobs</a>
                         </li>
                     </ul>

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
-final class Hexagonal
+final class Kalion
 {
     public static bool $runMigrations     = false;
     public static bool $publishMigrations = false;

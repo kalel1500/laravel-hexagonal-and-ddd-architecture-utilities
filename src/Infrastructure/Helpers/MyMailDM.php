@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Helpers;
+namespace Thehouseofel\Kalion\Infrastructure\Helpers;
 
 use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
@@ -14,8 +14,8 @@ final class MyMailDM
     public function __construct(Mailable $mailable, $keepOriginalRecipientsEvenInTests = false)
     {
         $this->mailable = $mailable;
-        if (config('hexagonal.mail_active_tests') && !$keepOriginalRecipientsEvenInTests) {
-            $arrayTo = self::getRecipientsFromStringVariable(config('hexagonal.mail_test_recipients'));
+        if (config('kalion.mail_active_tests') && !$keepOriginalRecipientsEvenInTests) {
+            $arrayTo = self::getRecipientsFromStringVariable(config('kalion.mail_test_recipients'));
             $this->mailable->to = [];
             $this->mailable->cc = [];
             $this->mailable->bcc = [];
@@ -25,7 +25,7 @@ final class MyMailDM
 
     public function send()
     {
-        if (!config('hexagonal.mail_is_active')) {
+        if (!config('kalion.mail_is_active')) {
             return;
         }
         if (empty($this->mailable->to)) {
@@ -39,7 +39,7 @@ final class MyMailDM
 
     public function sendToRecipients($recipients)
     {
-        if (!config('hexagonal.mail_is_active')) {
+        if (!config('kalion.mail_is_active')) {
             return null;
         }
         Mail::to($recipients)->send($this->mailable);

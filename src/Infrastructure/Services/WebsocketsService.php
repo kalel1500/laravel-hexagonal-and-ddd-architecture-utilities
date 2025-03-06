@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 use Illuminate\Broadcasting\BroadcastException;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;

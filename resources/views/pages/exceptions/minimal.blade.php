@@ -1,4 +1,4 @@
-@use('Thehouseofel\Hexagonal\Infrastructure\Services\Renderer')
+@use('Thehouseofel\Kalion\Infrastructure\Services\Renderer')
         <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -3,7 +3,7 @@
 @php
     $isDropdown = isset($dropdown);
     $hasTooltip = isset($tooltip);
-    $itemClasses = 'inline-flex cursor-pointer justify-center rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white';
+    $itemClasses = 'inline-flex cursor-pointer justify-center rounded-sm p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white';
 @endphp
 
 @if(!$isDropdown)
@@ -13,7 +13,7 @@
     </a>
 
     @if($hasTooltip)
-        <x-hexagonal::tooltip id="tooltip-{{ $id }}">{{ $tooltip }}</x-hexagonal::tooltip>
+        <x-kal::tooltip id="tooltip-{{ $id }}">{{ $tooltip }}</x-kal::tooltip>
     @endif
 
 @else
@@ -22,7 +22,7 @@
         {{ $slot }}
     </button>
     <!-- Dropdown -->
-    <div class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded bg-white text-base shadow dark:bg-gray-700" id="dropdown-{{ $id }}">
+    <div class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded-sm bg-white text-base shadow-sm dark:bg-gray-700" id="dropdown-{{ $id }}">
         <ul class="py-1" role="none">
             {{ $dropdown }}
         </ul>

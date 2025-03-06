@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Services;
+namespace Thehouseofel\Kalion\Infrastructure\Services;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\ServiceProvider;
-use Thehouseofel\Hexagonal\Domain\Traits\CountMethods;
-use Thehouseofel\Hexagonal\Infrastructure\Console\Commands\HexagonalStart;
-use Thehouseofel\Hexagonal\Infrastructure\HexagonalServiceProvider;
+use Thehouseofel\Kalion\Domain\Traits\CountMethods;
+use Thehouseofel\Kalion\Infrastructure\Console\Commands\KalionStart;
+use Thehouseofel\Kalion\Infrastructure\KalionServiceProvider;
 
 final class StartCommandService
 {
@@ -25,10 +25,10 @@ final class StartCommandService
     private $keepMigrationsDate;
     private $resourcesFolderRestored = false;
 
-    public function __construct(HexagonalStart $command, bool $reset, bool $simple)
+    public function __construct(KalionStart $command, bool $reset, bool $simple)
     {
-        if (!Version::laravelMin11()) {
-            $command->error('Por ahora este comando solo esta preparado para la version de laravel 11');
+        if (!Version::laravelMin12()) {
+            $command->error('Por ahora este comando solo esta preparado para la version de laravel 12');
             exit(1); // Terminar la ejecución con código de error
         }
         $this->command          = $command;
@@ -36,8 +36,8 @@ final class StartCommandService
         $this->simple           = $simple;
         $this->steps            = $this->countPublicMethods();
         $this->filesystem       = $command->filesystem();
-        $this->developMode      = config('hexagonal.package_in_develop');
-        $this->keepMigrationsDate = config('hexagonal.keep_migrations_date');
+        $this->developMode      = config('kalion.package_in_develop');
+        $this->keepMigrationsDate = config('kalion.keep_migrations_date');
     }
 
     private function isReset(bool $isFront = false): bool
@@ -147,7 +147,7 @@ final class StartCommandService
     }
 
 
-    public static function configure(HexagonalStart $command, bool $reset, bool $simple): self
+    public static function configure(KalionStart $command, bool $reset, bool $simple): self
     {
         return new self($command, $reset, $simple);
     }
@@ -162,11 +162,7 @@ final class StartCommandService
         // Delete ".prettierrc"
         $this->filesystem->delete(base_path('.prettierrc'));
 
-        // Delete "tailwind.config.ts"
-        $this->filesystem->delete(base_path('tailwind.config.ts'));
-        copy($this->command->originalStubsPath('tailwind.config.js'), base_path('tailwind.config.js'));
-
-        // Delete "tailwind.config.ts"
+        // Delete "tsconfig.json"
         $this->filesystem->delete(base_path('tsconfig.json'));
 
         // Delete "vite.config.ts"
@@ -178,22 +174,22 @@ final class StartCommandService
         return $this;
     }
 
-    public function publishHexagonalConfig(): self
+    public function publishKalionConfig(): self
     {
         $this->number++;
 
-        // Delete "config/hexagonal.php"
-        $this->filesystem->delete(config_path('hexagonal.php'));
-        $this->filesystem->delete(config_path('hexagonal_auth.php'));
-        $this->filesystem->delete(config_path('hexagonal_layout.php'));
-        $this->filesystem->delete(config_path('hexagonal_links.php'));
+        // Delete "config/kalion.php"
+        $this->filesystem->delete(config_path('kalion.php'));
+        $this->filesystem->delete(config_path('kalion_auth.php'));
+        $this->filesystem->delete(config_path('kalion_layout.php'));
+        $this->filesystem->delete(config_path('kalion_links.php'));
 
         if ($this->isReset() || $this->developMode) return $this;
 
-        // Publish "config/hexagonal.php"
-        $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config-auth']);
-        $this->command->call('vendor:publish', ['--tag' => 'hexagonal-config-links']);
-        $this->line('Configuración del paquete publicada: "config/hexagonal_auth.php" y "config/hexagonal_links.php"');
+        // Publish "config/kalion.php"
+        $this->command->call('vendor:publish', ['--tag' => 'kalion-config-auth']);
+        $this->command->call('vendor:publish', ['--tag' => 'kalion-config-links']);
+        $this->line('Configuración del paquete publicada: "config/kalion_auth.php" y "config/kalion_links.php"');
 
         return $this;
     }
@@ -439,32 +435,16 @@ final class StartCommandService
         return $this;
     }
 
-    public function stubsCopyFile_tailwindConfigJs(): self
-    {
-        $this->number++;
-
-        // tailwind.config.js
-        $file = 'tailwind.config.js';
-
-        $from = ($this->isReset()) ? $this->command->originalStubsPath($file) : $this->command->stubsPath($file);
-        $to = base_path($file);
-
-        copy($from, $to);
-        $this->line('Archivo "'.$file.'" modificado');
-
-        return $this;
-    }
-
     public function createEnvFiles(): self
     {
         $this->number++;
 
-        // Crear archivos ".env" y ".env.local"
+        // Crear archivos ".env" y ".env.save.local"
 
         $message = 'Archivos ".env" creados';
 
         // Definir archivo origen (al generar)
-        $file = '.env.local';
+        $file = '.env.save.local';
         $from = $this->command->stubsPath($file);
         $to_envLocal = base_path($file);
 
@@ -474,7 +454,7 @@ final class StartCommandService
         if ($this->isReset()) {
             $message = 'Archivos ".env" restaurados';
 
-            // Eliminar archivo ".env.local"
+            // Eliminar archivo ".env.save.local"
             $this->filesystem->delete($to_envLocal);
 
             // Definir archivo origen (reset)
@@ -483,7 +463,7 @@ final class StartCommandService
             $to_envLocal = base_path($file);
         }
 
-        // Copiar origen a ".env.local"
+        // Copiar origen a ".env.save.local"
         copy($from, $to_envLocal);
 
         if (!$this->developMode) {
@@ -568,7 +548,7 @@ final class StartCommandService
         }
 
         if ($this->isReset()) {
-            HexagonalServiceProvider::removeProviderFromBootstrapFile('App\Providers\DependencyServiceProvider');
+            KalionServiceProvider::removeProviderFromBootstrapFile('App\Providers\DependencyServiceProvider');
         } else {
             ServiceProvider::addProviderToBootstrapFile('App\Providers\DependencyServiceProvider');
         }
@@ -644,7 +624,7 @@ EOD;
 EOD
             : <<<'EOD'
 ->withExceptions(function (Exceptions $exceptions) {
-        $callback = \Thehouseofel\Hexagonal\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();
+        $callback = \Thehouseofel\Kalion\Infrastructure\Exceptions\ExceptionHandler::getUsingCallback();
         $callback($exceptions);
     })
 EOD;
@@ -655,6 +635,39 @@ EOD;
         File::put($filePath, $newContent);
 
         $this->line('Archivo "bootstrap/app.php" modificado');
+
+        return $this;
+    }
+
+    public function modifyFile_ConfigApp_toUpdateTimezone(): self
+    {
+        $this->number++;
+
+        // Ruta del archivo a modificar
+        $filePath = base_path('config/app.php');
+
+        // Leer el contenido del archivo
+        $content = File::get($filePath);
+
+        // Reemplazar la línea específica
+        if ($this->isReset()) {
+            $updatedContent = preg_replace(
+                '/\'timezone\'\s*=>\s*\'Europe\/Madrid\'/',
+                "'timezone' => 'UTC'",
+                $content
+            );
+        } else {
+            $updatedContent = preg_replace(
+                '/\'timezone\'\s*=>\s*\'UTC\'/',
+                "'timezone' => 'Europe/Madrid'",
+                $content
+            );
+        }
+
+        // Guardar el archivo con el contenido actualizado
+        File::put($filePath, $updatedContent);
+
+        $this->line('Archivo "config/app.php" modificado para actualizar el timezone');
 
         return $this;
     }
@@ -764,16 +777,16 @@ EOD;
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            'flowbite'                      => config('hexagonal.version_flowbite'),
+            'flowbite'                      => config('kalion.version_flowbite'),
         ], $this->isReset());
 
         // Install NPM packages...
         $this->modifyPackageJsonSection('devDependencies', [
-            '@types/node'                   => config('hexagonal.version_types_node'),
-            'prettier'                      => config('hexagonal.version_prettier'),
-            'prettier-plugin-blade'         => config('hexagonal.version_prettier_plugin_blade'),
-            'prettier-plugin-tailwindcss'   => config('hexagonal.version_prettier_plugin_tailwindcss'),
-            'typescript'                    => config('hexagonal.version_typescript'),
+            '@types/node'                   => config('kalion.version_types_node'),
+            'prettier'                      => config('kalion.version_prettier'),
+            'prettier-plugin-blade'         => config('kalion.version_prettier_plugin_blade'),
+            'prettier-plugin-tailwindcss'   => config('kalion.version_prettier_plugin_tailwindcss'),
+            'typescript'                    => config('kalion.version_typescript'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (devDependencies)');
@@ -786,8 +799,8 @@ EOD;
         $this->number++;
 
         $this->modifyPackageJsonSection('dependencies', [
-            '@kalel1500/laravel-ts-utils'   => config('hexagonal.version_kalel1500_laravel_ts_utils'),
-//            'tabulator-tables'              => config('hexagonal.version_tabulator_tables'),
+            '@kalel1500/laravel-ts-utils'   => config('kalion.version_kalel1500_laravel_ts_utils'),
+//            'tabulator-tables'              => config('kalion.version_tabulator_tables'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (dependencies)');
@@ -815,8 +828,8 @@ EOD;
 
         // Add script "ts-build" in "package.json"
         $this->modifyPackageJsonSection('engines', [
-            'node' => config('hexagonal.version_node'),
-            'npm'  => config('hexagonal.version_npm'),
+            'node' => config('kalion.version_node'),
+            'npm'  => config('kalion.version_npm'),
         ], $this->isReset(true));
 
         $this->line('Archivo package.json actualizado (engines)');

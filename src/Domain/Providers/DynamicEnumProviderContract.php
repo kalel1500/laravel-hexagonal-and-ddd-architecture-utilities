@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Providers;
+namespace Thehouseofel\Kalion\Domain\Providers;
 
-use Thehouseofel\Hexagonal\Domain\Contracts\Providers\DynamicEnumProvider;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\EnumDynamicVo;
+use Thehouseofel\Kalion\Domain\Contracts\Providers\DynamicEnumProvider;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\EnumDynamicVo;
 
 abstract class DynamicEnumProviderContract implements DynamicEnumProvider
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\Contracts;
+namespace Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\Contracts;
 
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelTimestamp;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\EntityFields\ModelTimestampNull;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\TimestampNullVo;
-use Thehouseofel\Hexagonal\Domain\Objects\ValueObjects\Primitives\TimestampVo;
-use Thehouseofel\Hexagonal\Infrastructure\Helpers\MyCarbon;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelTimestamp;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\EntityFields\ModelTimestampNull;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\TimestampNullVo;
+use Thehouseofel\Kalion\Domain\Objects\ValueObjects\Primitives\TimestampVo;
+use Thehouseofel\Kalion\Infrastructure\Helpers\MyCarbon;
 
 abstract class ContractTimestampVo extends ContractDateVo
 {

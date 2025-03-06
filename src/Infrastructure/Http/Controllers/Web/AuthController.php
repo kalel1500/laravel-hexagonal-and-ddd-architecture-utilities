@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Web;
+namespace Thehouseofel\Kalion\Infrastructure\Http\Controllers\Web;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Thehouseofel\Hexagonal\Domain\Exceptions\FeatureUnavailableException;
-use Thehouseofel\Hexagonal\Infrastructure\Http\Controllers\Controller;
+use Thehouseofel\Kalion\Domain\Exceptions\FeatureUnavailableException;
+use Thehouseofel\Kalion\Infrastructure\Http\Controllers\Controller;
 
 final class AuthController extends Controller
 {
@@ -25,8 +25,8 @@ final class AuthController extends Controller
      */
     public function create(): View
     {
-        if (config('hexagonal.fake_login_active')) {
-            return view('hexagonal::pages.login.fake.index');
+        if (config('kalion.fake_login_active')) {
+            return view('kal::pages.login.fake.index');
         }
 
         throw new FeatureUnavailableException();
@@ -37,7 +37,7 @@ final class AuthController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        if (!config('hexagonal.fake_login_active')) {
+        if (!config('kalion.fake_login_active')) {
             throw new FeatureUnavailableException();
         }
 
@@ -62,6 +62,6 @@ final class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(appUrl());
     }
 }
