@@ -1042,6 +1042,62 @@ EOD;
         return $this;
     }
 
+    public function execute_NpmInstallDependencies(): self
+    {
+        $this->number++;
+
+        if ($this->developMode) return $this;
+
+        $isReset         = $this->isReset();
+        $isResetFront    = $this->isReset(true);
+        $packageJsonPath = base_path('package.json');
+        $packages = [
+            'devDependencies' => [
+                'flowbite'                    => $isReset,
+                '@types/node'                 => $isResetFront,
+                'prettier'                    => $isResetFront,
+                'prettier-plugin-blade'       => $isResetFront,
+                'prettier-plugin-tailwindcss' => $isResetFront,
+                'typescript'                  => $isResetFront,
+            ],
+            'dependencies' => [
+                '@kalel1500/laravel-ts-utils' => $isResetFront,
+            ]
+        ];
+
+        foreach ($packages as $type => $dependencies) {
+            $extra  = $type === 'devDependencies' ? '--save-dev' : '';
+            foreach ($dependencies as $package => $remove) {
+
+                $exsistFolder = File::exists(base_path("node_modules/$package"));
+                $inPackageJson = false;
+                if (File::exists($packageJsonPath)) {
+                    $packageJson = json_decode(File::get($packageJsonPath), true);
+                    if (isset($packageJson['dependencies'][$package]) || isset($packageJson['devDependencies'][$package])) {
+                        $inPackageJson = true;
+                    }
+                }
+
+                $is_installed = $exsistFolder && $inPackageJson;
+                $skip_process = ($remove && !$is_installed) || (!$remove && $is_installed);
+                if ($skip_process) continue;
+
+                $action = $remove ? 'uninstall' : 'install';
+                $this->execute_Process(
+                    ['npm', $action, $package, $extra],
+                    null,
+                    "=> Successfully $action $package",
+                    "=> Sailed $action $package",
+                    false
+                );
+            }
+        }
+
+        $this->line('Dependencias de NPM actualizadas');
+
+        return $this;
+    }
+
     public function execute_NpxLaravelTsUtils(): self
     {
         $this->number++;
