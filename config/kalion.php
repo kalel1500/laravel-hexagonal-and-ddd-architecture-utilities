@@ -145,32 +145,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | NPM dependency versions of the Start command
-    |--------------------------------------------------------------------------
-    |
-    | With these options you can configure which versions of npm dependencies
-    | will be installed in the application.
-    |
-    */
-
-    'version_flowbite' => '^3.1.2',
-
-    'version_types_node' => '^22.10.10',
-
-    'version_prettier' => '^3.4.2',
-
-    'version_prettier_plugin_blade' => '^2.1.19',
-
-    'version_prettier_plugin_tailwindcss' => '^0.6.11',
-
-    'version_typescript' => '^5.7.3',
-
-    'version_kalel1500_laravel_ts_utils' => '^0.6.0-beta.0',
-
-    'version_tabulator_tables' => '^6.3.1',
-
-    /*
-    |--------------------------------------------------------------------------
     | Package in develop
     |--------------------------------------------------------------------------
     |
