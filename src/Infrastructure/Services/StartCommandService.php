@@ -111,9 +111,10 @@ final class StartCommandService
      * @param string|null $startMessage
      * @param string $successMessage
      * @param string $failureMessage
+     * @param bool $show_number
      * @return void
      */
-    private function execute_Process($command, ?string $startMessage, string $successMessage, string $failureMessage): void
+    private function execute_Process($command, ?string $startMessage, string $successMessage, string $failureMessage, bool $show_number = true): void
     {
         // Imprimir mensaje de inicio del proceso
         if (!is_null($startMessage)) {
@@ -130,7 +131,7 @@ final class StartCommandService
             $this->command->error($run->errorOutput());
         } else {
             // Imprimimos el mensaje de éxito
-            $this->line($successMessage);
+            $this->line($successMessage, $show_number);
         }
     }
 
