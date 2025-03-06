@@ -774,7 +774,7 @@ EOD;
         return $this;
     }
 
-    public function modifyFile_PackageJson_toAddNpmDevDependencies(): self
+    /*public function modifyFile_PackageJson_toAddNpmDevDependencies(): self
     {
         $this->number++;
 
@@ -795,9 +795,9 @@ EOD;
         $this->line('Archivo package.json actualizado (devDependencies)');
 
         return $this;
-    }
+    }*/
 
-    public function modifyFile_PackageJson_toAddNpmDependencies(): self
+    /*public function modifyFile_PackageJson_toAddNpmDependencies(): self
     {
         $this->number++;
 
@@ -809,7 +809,7 @@ EOD;
         $this->line('Archivo package.json actualizado (dependencies)');
 
         return $this;
-    }
+    }*/
 
     public function modifyFile_PackageJson_toAddScriptTsBuild(): self
     {
