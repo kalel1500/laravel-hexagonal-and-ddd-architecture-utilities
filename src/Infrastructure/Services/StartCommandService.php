@@ -117,7 +117,7 @@ final class StartCommandService
     {
         // Imprimir mensaje de inicio del proceso
         if (!is_null($startMessage)) {
-            $this->line($startMessage);
+            $this->line($startMessage, false);
         }
 
         // Ejecutamos el proceso
