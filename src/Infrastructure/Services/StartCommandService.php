@@ -49,11 +49,13 @@ final class StartCommandService
      * Write a string as indented output.
      *
      * @param string $message
+     * @param bool $show_number
      * @return void
      */
-    private function line(string $message): void
+    private function line(string $message, bool $show_number = true): void
     {
-        $this->command->line("  - <fg=yellow>$this->number/$this->steps</> $message");
+        $number = $show_number ? "<fg=yellow>$this->number/$this->steps</>" : '';
+        $this->command->line("  - $number $message");
     }
 
     /**
