@@ -16,6 +16,6 @@
     "vite": "^6.0"
   },
   "dependencies": {
-    "@kalel1500/laravel-ts-utils": "^0.5.0-beta.0"
+    "@kalel1500/laravel-ts-utils": "^0.6.0-beta.0"
   }
 }
