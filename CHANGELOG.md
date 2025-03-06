@@ -6,56 +6,60 @@
 
 ### Added
 
-* docs: Nuevo archivo "package-documentation.md" con información sobre el prefijo "kal"
+* docs: Nuevos archivos `git-commands.md` y `git-flow-commands.md` con todos los comandos de GIT necesarios para la gestión de las ramas
+* docs: Nuevo archivo `package-documentation.md` con información sobre el prefijo `kal`
 * Nueva funcionalidad del DarkTheme para obtener la configuración del sistema:
-  * Nueva clase "ThemeVo" para guardar los valores del Tema ("dark", "light" y "system")
-  * Modificar el componente "theme-toggle.blade.php" para pintar varios botones en vez de varios iconos y facilitar la gestión en el JS
-  * Nuevo componente "x-hexagonal::icon.indeterminate" para establecer el tema del sistema
+  * Nueva clase `ThemeVo` para guardar los valores del Tema (`dark`, `light` y `system`)
+  * Modificar el componente `theme-toggle.blade.php` para pintar varios botones en vez de varios iconos y facilitar la gestión en el JS
+  * Nuevo componente `x-hexagonal::icon.indeterminate` para establecer el tema del sistema
   * Asignar cada icono a su color y cambiar los textos (y las acciones del Js) (igual que Laravel)
-  * Añadir atributos "data-theme" y "color-theme" en el html para poder leerlos mas adelante
-  * "<script>" en el HTML para cargar el DarkMode rápidamente (sirve para evitar ver saltos de color cuando la conexión es lenta y el "theme" es "system", ya que el código compilado tarda más en cargar)
-  * "<script>" en el HTML para cargar el DarkMode en la "welcome.blade.php"
-* Añadir el ".editorconfig" de Laravel
-* Nuevos helpers "appUrl()", "defaultRoute()" y "defaultUrl()"
-* Nuevas variables de configuración "default_route" y "default_route_name"
+  * Añadir atributos `data-theme` y `color-theme` en el html para poder leerlos mas adelante
+  * `<script>` en el HTML para cargar el DarkMode rápidamente (sirve para evitar ver saltos de color cuando la conexión es lenta y el `theme` es `system`, ya que el código compilado tarda más en cargar)
+  * `<script>` en el HTML para cargar el DarkMode en la `welcome.blade.php`
+* Añadir el `.editorconfig` de Laravel
+* Nuevos helpers `appUrl()`, `defaultRoute()` y `defaultUrl()`
+* Nuevas variables de configuración `default_route` y `default_route_name`
 
 ### Changed
 
-* Actualizar paquete "@kalel1500/laravel-ts-utils" a la version "^0.6.0-beta.0"
-* (breaking) Renombrar nombre corto del paquete de "Hexagonal" a "Kalion" (provider, service, command, constants, prefixes, paths, cookie, roues, config, exceptions, controller, env and namespaces)
+* stubs: Dejar en el archivo de configuración de los stubs `kalion_auth.php` solo los valores que no se configuran con variables de entorno
+* Eliminar las variables de entorno `KALION_AUTH_ENTITY_CLASS` y `KALION_AUTH_ENTITY_CLASS`, ya que es mejor que se configuren en el propio archivo de configuración `kalion_auth.php`
+* Actualizar paquete `@kalel1500/laravel-ts-utils` a la version `^0.6.0-beta.0` (composer y config start command)
+* <u>**!!! (breaking) !!! Renombrar nombre corto del paquete de `Hexagonal` a `Kalion` (provider, service, command, constants, prefixes, paths, cookie, roues, config, exceptions, controller, env and namespaces)**</u>
 * (breaking) layout: 
-  * (refactor) Renombrar brakepoint "vsm" a "xs" (en el paquete de JS)
+  * (refactor) Renombrar brakepoint `vsm` a `xs` (en el paquete de JS)
   * (refactor) Shadows personalizadas renombradas en el paquete de JS
-  * Deprecar helpers "getIconClasses()", "getOtherAttributes()" y "getIconFullAttributes()"
-  * (refactor) Dejar de usar los helpers "getIconClasses()" y "getOtherAttributes()" para usar "{{ $attributes->mergeTailwind('size-6') }}" en los componentes de los iconos
-  * Renombrar prefijo blades de "hexagonal" a "kal"
-* layout: Nuevos parámetros "tag" y "underline" en el componente "hexagonal::link" para hacer que por defecto este subrayado y poder cambiar el tag "a"
-* (breaking) darkTheme: Renombrar las variables "dark_theme" a "theme" y convertir de "null" a "string" ("cookie" y "config")
+  * Deprecar helpers `getIconClasses()`, `getOtherAttributes()` y `getIconFullAttributes()`
+  * (refactor) Dejar de usar los helpers `getIconClasses()` y `getOtherAttributes()` para usar `{{ $attributes->mergeTailwind('size-6') }}` en los componentes de los iconos
+  * <u>**!!! (breaking) !!!**</u> Renombrar prefijo blades de `hexagonal` a `kal`
+* layout: Nuevos parámetros `tag` y `underline` en el componente `hexagonal::link` para hacer que por defecto este subrayado y poder cambiar el tag `a`
+* (breaking) darkTheme: Renombrar las variables `dark_theme` a `theme` y convertir de `null` a `string` (`cookie` y `config`)
 * Migrar proyecto a Laravel 12
-* stubs: Renombrar archivo ".env.local" a ".env.save.local" para que Vite no sobreescriba las variables del ".env"
-* stubs: Usar el nuevo Helper "defaultUrl()" en el "redirect" del la ruta base ("/")
+* stubs: Renombrar archivo `.env.local` a `.env.save.local` para que Vite no sobreescriba las variables del `.env`
+* stubs: Usar el nuevo Helper `defaultUrl()` en el `redirect` del la ruta base (`/`)
 * Migrar proyecto y Tailwindcss 4
-  * Actualizar dependencias "flowbite" y "tailwindcss", instalar "@tailwindcss/postcss" y eliminar "autoprefixer"
-  * Ejecutar "npx @tailwindcss/upgrade"
-  * Utilizar las nuevas configuraciones de tailwind (imports del paquete "laravel-ts-utils")
-  * Archivo "postcss.config.js" eliminado y cambiado por el plugin "tailwindcss()" en vite.config.js
+  * Actualizar dependencias `flowbite` y `tailwindcss`, instalar `@tailwindcss/postcss` y eliminar `autoprefixer`
+  * Ejecutar `npx @tailwindcss/upgrade`
+  * Utilizar las nuevas configuraciones de tailwind (imports del paquete `laravel-ts-utils`)
+  * Archivo `postcss.config.js` eliminado y cambiado por el plugin `tailwindcss()` en vite.config.js
   * (stubs) Modificar los archivos de stubs para la migración a Tailwind 4
-  * hexagonalStart: eliminar "copy" y "delete" del archivo "tailwind.config.ts" en el comando "hexagonal:start"
+  * hexagonalStart: eliminar `copy` y `delete` del archivo `tailwind.config.ts` en el comando `hexagonal:start`
 
 ### Fixed
 
-* (fix) layout: Mover la clase "hidden xs:flex" del "left-side" al "brand" para que siempre muestre el icono hamburguesa y lo que se esconda es el logo
-* (fix) fixMergeTailwind: Corregir la Macro "mergeTailwind", ya que no combinaba bien las clases con las variantes
-  * Nuevo helper "filterTailwindClasses()"
-  * Nueva clase "tests/Unit/ComponentsTests.php" para testear el helper "filterTailwindClasses()"
-  * Mejorar el helper "filterTailwindClasses()" ya que no contemplaba las clases que no tienen prefijo (aún hace falta definirlas todas)
-  * (refactor) Extraer código del helper "filterTailwindClasses" a la nueva clase "TailwindClassFilter" para mejorar la legibilidad
-  * Prevenir casuística de que una "$specialClass" esté en una variante en las "$custom_class"
-  * Nueva propiedad "$groups" para poder forzar a qué grupo pertenece una clase independientemente de los guiones que tenga (por ejemplo para que "bg-white" pueda reemplazar a "bg-blue-500")
-* (fix) Comprobar "is_null" antes del "strtolower" en el método "checkPermittedValues()" de la clase "ContractEnumVo" para evitar error cuando la propiedad "$caseSensitive" es "false"
-* (fix) Añadir el "{!! Renderer::css() !!}" en la vista "pages/login/fake/index.blade.php" para que renderice el css del propio paquete en lugar de usar la url hacia "tailwindcss@2.2.19"
-* (fix) corregido el helper "get_shadow_classes()" (ruta errónea de la variable "active_shadows")
-* (fix) Cambiar los "redirect('/')" del "AuthController.php y HexagonalController.php" por "redirect(appUrl())" para que se pueda redirigir la petición correctamente a la base de la aplicación incluso cuando esta esté dentro de un "path"
+* (fix) stubs: arreglar `app.css` original
+* (fix) layout: Mover la clase `hidden xs:flex` del `left-side` al `brand` para que siempre muestre el icono hamburguesa y lo que se esconda es el logo
+* (fix) fixMergeTailwind: Corregir la Macro `mergeTailwind`, ya que no combinaba bien las clases con las variantes
+  * Nuevo helper `filterTailwindClasses()`
+  * Nueva clase `tests/Unit/ComponentsTests.php` para testear el helper `filterTailwindClasses()`
+  * Mejorar el helper `filterTailwindClasses()` ya que no contemplaba las clases que no tienen prefijo (aún hace falta definirlas todas)
+  * (refactor) Extraer código del helper `filterTailwindClasses` a la nueva clase `TailwindClassFilter` para mejorar la legibilidad
+  * Prevenir casuística de que una `$specialClass` esté en una variante en las `$custom_class`
+  * Nueva propiedad `$groups` para poder forzar a qué grupo pertenece una clase independientemente de los guiones que tenga (por ejemplo para que `bg-white` pueda reemplazar a `bg-blue-500`)
+* (fix) Comprobar `is_null` antes del `strtolower` en el método `checkPermittedValues()` de la clase `ContractEnumVo` para evitar error cuando la propiedad `$caseSensitive` es `false`
+* (fix) Añadir el `{!! Renderer::css() !!}` en la vista `pages/login/fake/index.blade.php` para que renderice el css del propio paquete en lugar de usar la url hacia `tailwindcss@2.2.19`
+* (fix) corregido el helper `get_shadow_classes()` (ruta errónea de la variable `active_shadows`)
+* (fix) Cambiar los `redirect('/')` del `AuthController.php y HexagonalController.php` por `redirect(appUrl())` para que se pueda redirigir la petición correctamente a la base de la aplicación incluso cuando esta esté dentro de un `path`
 
 ## [v0.16.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.15.0-beta.0...v0.16.0-beta.0) - 2025-02-27
 
