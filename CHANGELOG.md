@@ -1,6 +1,24 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.17.0-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.17.1-beta.0...master)
+
+## [v0.17.1-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.17.0-beta.0...v0.17.1-beta.0) - 2025-03-06
+
+### Changed
+
+* Mejoras en el comando de inicio `kalion:start` para evitar tener que mantener las versiones de los paquetes de NPM manualmente en la configuración
+  * Añadir parámetro `$show_number` en el método `line` del `StartCommandService` (para poder evitar mostrar el número en ocasiones)
+  * No mostrar el número del paso en el mensaje de inicio de un proceso (método `execute_Process()` del `StartCommandService`)
+  * Añadir parámetro `$show_number` en el método `execute_Process` del `StartCommandService` (para poder evitar mostrar el número en ocasiones)
+  * Nuevo método `execute_NpmInstallDependencies()` para instalar las dependencias de NPM
+  * Cambiar los métodos `modifyFile_PackageJson_toAddNpmDevDependencies()` y `modifyFile_PackageJson_toAddNpmDependencies()` por el nuevo `execute_NpmInstallDependencies()` para no tener que mantener las versiones de los paquetes manualmente en el archivo de configuración
+  * Mover el método `modifyFile_PackageJson_toAddEngines()` debajo del `execute_NpmInstallDependencies()` para que los `engines` siempre se añadan después de las `dependencies`
+  * Nuevas variables de entorno `KALION_VERSION_NODE` y `KALION_VERSION_NPM` para que las versiones de `node` y `npm` sean configurables sin tener que publicar la configuración del paquete (`config/kalion.php`)
+* Actualizar el archivo `git-flow-commands.md` con más comandos
+
+### Removed
+
+* config: Eliminar las configuraciones de las versiones de las dependencias de NPM que ya no se usan (`config/kalion.php`)
 
 ## [v0.17.0-beta.0](https://github.com/kalel1500/laravel-hexagonal-and-ddd-architecture-utilities/compare/v0.16.0-beta.0...v0.17.0-beta.0) - 2025-03-06
 
