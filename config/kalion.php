@@ -151,7 +151,7 @@ return [
 
     'version_typescript' => '^5.7.3',
 
-    'version_kalel1500_laravel_ts_utils' => '^0.5.0-beta.0',
+    'version_kalel1500_laravel_ts_utils' => '^0.6.0-beta.0',
 
     'version_node' => '^20.11.1',
 
