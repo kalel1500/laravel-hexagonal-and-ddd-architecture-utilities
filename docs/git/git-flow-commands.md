@@ -82,3 +82,12 @@ git merge --ff-only master            # Alinear develop con master
 git push origin develop               # Subir develop actualizado
 ```
 
+-------------
+
+# 🚀 Como igualar develop tras realizar un "git push --force" en master
+
+```shell
+git checkout develop                  # Cambiar a la rama develop
+git reset --hard master               # Hacer que develop sea igual que master
+git push origin develop --force       # Forzar la actualización en remoto
+```
