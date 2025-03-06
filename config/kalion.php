@@ -131,6 +131,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | NPM engines versions for the Start command
+    |--------------------------------------------------------------------------
+    |
+    | With these options you can configure which versions of npm engines will
+    | be added to "package.json"
+    |
+    */
+
+    'version_node' => '^20.11.1',
+
+    'version_npm' => '^10.5.0',
+
+    /*
+    |--------------------------------------------------------------------------
     | NPM dependency versions of the Start command
     |--------------------------------------------------------------------------
     |
@@ -152,10 +166,6 @@ return [
     'version_typescript' => '^5.7.3',
 
     'version_kalel1500_laravel_ts_utils' => '^0.6.0-beta.0',
-
-    'version_node' => '^20.11.1',
-
-    'version_npm' => '^10.5.0',
 
     'version_tabulator_tables' => '^6.3.1',
 
