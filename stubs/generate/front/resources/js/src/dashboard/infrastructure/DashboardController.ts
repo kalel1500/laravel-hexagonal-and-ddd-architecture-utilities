@@ -1,5 +1,5 @@
 import { route } from "ziggy-js";
-import { g } from "@kalel1500/laravel-ts-utils";
+import { g } from "@kalel1500/kalion-js";
 
 export default class DashboardController {
     posts() {

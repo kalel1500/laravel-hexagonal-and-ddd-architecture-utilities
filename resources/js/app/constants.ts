@@ -1,4 +1,4 @@
-import { Constants, DefaultConstants } from '@kalel1500/laravel-ts-utils';
+import { Constants, DefaultConstants } from '@kalel1500/kalion-js';
 
 interface AppConstants extends DefaultConstants {
     anotherSetting: string;

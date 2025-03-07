@@ -1,7 +1,7 @@
 import 'flowbite';
 import './constants';
 import './translations';
-import { EnvVariables, Route, UtilitiesServiceProvider } from '@kalel1500/laravel-ts-utils';
+import { EnvVariables, Route, UtilitiesServiceProvider } from '@kalel1500/kalion-js';
 import { defineRoutes } from './routes';
 
 // Declare .env variables

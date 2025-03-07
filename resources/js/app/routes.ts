@@ -1,4 +1,4 @@
-import { Route } from '@kalel1500/laravel-ts-utils';
+import { Route } from '@kalel1500/kalion-js';
 import ExamplesController from '../src/infrastructure/ExamplesController';
 
 export function defineRoutes(): void {

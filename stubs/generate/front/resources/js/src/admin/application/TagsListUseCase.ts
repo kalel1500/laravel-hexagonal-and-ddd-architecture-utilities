@@ -1,4 +1,4 @@
-import { Instantiable, TableSettingEvents, Ttable, ValidationRules } from "@kalel1500/laravel-ts-utils";
+import { Instantiable, TableSettingEvents, Ttable, ValidationRules } from "@kalel1500/kalion-js";
 import { DataViewTags } from "../infrastructure/AdminController";
 import { route } from "ziggy-js";
 import { CellEventCallback, Formatter, Options } from "tabulator-tables";

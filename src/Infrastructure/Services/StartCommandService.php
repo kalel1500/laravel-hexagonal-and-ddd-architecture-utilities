@@ -155,7 +155,7 @@ final class StartCommandService
         return new self($command, $reset, $simple);
     }
 
-    public function restoreFilesModifiedByPackageLaravelTsUtils(): self
+    public function restoreFilesModifiedByPackageKalionJs(): self
     {
         $this->number++;
 
@@ -172,7 +172,7 @@ final class StartCommandService
         $this->filesystem->delete(base_path('vite.config.ts'));
         copy($this->command->originalStubsPath('vite.config.js'), base_path('vite.config.js'));
 
-        $this->line('Restaurados todos los archivos modificados por el paquete @kalel1500/laravel-ts-utils');
+        $this->line('Restaurados todos los archivos modificados por el paquete @kalel1500/kalion-js');
 
         return $this;
     }
@@ -802,7 +802,7 @@ EOD;
         $this->number++;
 
         $this->modifyPackageJsonSection('dependencies', [
-            '@kalel1500/laravel-ts-utils'   => config('kalion.version_kalel1500_laravel_ts_utils'),
+            '@kalel1500/kalion-js'   => config('kalion.version_kalel1500_laravel_ts_utils'),
 //            'tabulator-tables'              => config('kalion.version_tabulator_tables'),
         ], $this->isReset(true));
 
@@ -1061,7 +1061,7 @@ EOD;
                 'typescript'                  => $isResetFront,
             ],
             'dependencies' => [
-                '@kalel1500/laravel-ts-utils' => $isResetFront,
+                '@kalel1500/kalion-js' => $isResetFront,
             ]
         ];
 
@@ -1098,17 +1098,17 @@ EOD;
         return $this;
     }
 
-    public function execute_NpxLaravelTsUtils(): self
+    public function execute_NpxKalionJs(): self
     {
         $this->number++;
 
         if ($this->isReset(true)) return $this;
 
         $this->execute_Process(
-            ['npx', 'laravel-ts-utils'],
-            'Running the "laravel-ts-utils" package start command.',
-            'Laravel-ts-utils package files generated successfully.',
-            'Error while generating files for the "laravel-ts-utils" package.'
+            ['npx', 'kalion-js'],
+            'Running the "kalion-js" package start command.',
+            'kalion-js package files generated successfully.',
+            'Error while generating files for the "kalion-js" package.'
         );
 
         return $this;

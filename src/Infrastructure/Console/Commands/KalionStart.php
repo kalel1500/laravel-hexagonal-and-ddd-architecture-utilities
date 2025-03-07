@@ -79,7 +79,7 @@ class KalionStart extends Command
         $this->info("Inicio configuración: $developString");
 
         StartCommandService::configure($this, $reset, $simple)
-            ->restoreFilesModifiedByPackageLaravelTsUtils()
+            ->restoreFilesModifiedByPackageKalionJs()
             ->publishKalionConfig()
             ->stubsCopyFile_AppServiceProvider()
             ->stubsCopyFile_DependencyServiceProvider()
@@ -109,7 +109,7 @@ class KalionStart extends Command
             ->execute_NpmInstall()
             ->execute_NpmInstallDependencies()
             ->modifyFile_PackageJson_toAddEngines()
-            ->execute_NpxLaravelTsUtils()
+            ->execute_NpxKalionJs()
             ->stubsCopyFolder_ResourcesFront()
             ->execute_gitAdd()
             ->execute_NpmRunBuild();

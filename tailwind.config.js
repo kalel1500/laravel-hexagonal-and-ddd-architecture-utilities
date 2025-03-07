@@ -1,4 +1,4 @@
-import { laravelPlugin } from '@kalel1500/laravel-ts-utils/dist/plugins/tailwind';
+import { laravelPlugin } from '@kalel1500/kalion-js/dist/plugins/tailwind';
 
 export default {
     content: [
@@ -9,7 +9,7 @@ export default {
         './resources/**/*.ts',
 
         './node_modules/flowbite/**/*.js',
-        './node_modules/@kalel1500/laravel-ts-utils/**/*.js',
+        './node_modules/@kalel1500/kalion-js/**/*.js',
     ],
     theme: {
         extend: {

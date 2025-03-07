@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 
-@import '@kalel1500/laravel-ts-utils/dist/app/tabulator.css';
-@import '@kalel1500/laravel-ts-utils/dist/app/sweetalert.css';
-@import '@kalel1500/laravel-ts-utils/dist/app/slimselect.css';
-@import '@kalel1500/laravel-ts-utils/dist/app/styles.css';
-@import '@kalel1500/laravel-ts-utils/dist/app/tailwind-config.css';
+@import '@kalel1500/kalion-js/dist/app/tabulator.css';
+@import '@kalel1500/kalion-js/dist/app/sweetalert.css';
+@import '@kalel1500/kalion-js/dist/app/slimselect.css';
+@import '@kalel1500/kalion-js/dist/app/styles.css';
+@import '@kalel1500/kalion-js/dist/app/tailwind-config.css';
 
-@config '../../node_modules/@kalel1500/laravel-ts-utils/dist/plugins/tailwind/tailwind.config.js';
+@config '../../node_modules/@kalel1500/kalion-js/dist/plugins/tailwind/tailwind.config.js';

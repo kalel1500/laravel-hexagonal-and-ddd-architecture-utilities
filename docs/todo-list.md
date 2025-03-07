@@ -9,7 +9,7 @@
 * [ ] layout -> prevenir salto de imagen
 * [ ] hexagonal:start -> comprobar la versión de php para las rutas
 * [ ] hexagonal:start -> poder lanzar varias veces sin fallar
-* [ ] laravel-ts-utils -> hacer todas las dependencias dinámicas
+* [ ] kalion-js -> hacer todas las dependencias dinámicas
 * [ ] enlaces -> hacer que gire la flecha del dropdown
 * [ ] enlaces -> hacer profundos
 * [ ] enlaces -> hacer version slim

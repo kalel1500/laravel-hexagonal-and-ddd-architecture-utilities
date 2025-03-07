@@ -1,4 +1,4 @@
-import { Cookie, g, Html } from '@kalel1500/laravel-ts-utils';
+import { Cookie, g, Html } from '@kalel1500/kalion-js';
 
 export default class ExamplesController {
     compareHtml()
