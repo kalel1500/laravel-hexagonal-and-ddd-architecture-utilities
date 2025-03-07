@@ -1,6 +1,17 @@
 # Release Notes
 
-## [Unreleased](https://github.com/kalel1500/kalion/compare/v0.17.1-beta.0...master)
+## [Unreleased](https://github.com/kalel1500/kalion/compare/v0.18.0-beta.0...master)
+
+## [v0.18.0-beta.0](https://github.com/kalel1500/kalion/compare/v0.17.1-beta.0...v0.18.0-beta.0) - 2025-03-06
+
+### Changed
+
+* <u>**!!! (breaking) !!!**</u> Paquete de Js renombrado de `@kalel1500/laravel-ts-utils` a `@kalel1500/kalion-js`
+* <u>**!!! (breaking) !!!**</u> Repositorio renombrado de `laravel-hexagonal-and-ddd-architecture-utilities` a `kalion`
+
+### Fixed
+
+* (fix) Solucionado error con el `dark_theme` en el `ExamplesController.ts` (se cambió por `theme` y se convirtió en string y aquí se quedó igual)
 
 ## [v0.17.1-beta.0](https://github.com/kalel1500/kalion/compare/v0.17.0-beta.0...v0.17.1-beta.0) - 2025-03-06
 
