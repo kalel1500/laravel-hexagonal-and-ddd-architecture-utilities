@@ -1,4 +1,4 @@
-import { Cookie, g, Html } from '@kalel1500/kalion-js';
+import { Cookie, g, Html, Theme } from '@kalel1500/kalion-js';
 
 export default class ExamplesController {
     compareHtml()
@@ -62,7 +62,7 @@ export default class ExamplesController {
         document.getElementById('show-cookie-value')?.addEventListener('click', e => {
             const preferences = Cookie.new().preferences();
             console.log(preferences);
-            console.log('valor actual: ' + preferences?.dark_theme);
+            console.log('valor actual: ' + preferences?.theme);
         });
 
         document.getElementById('change-cookie')?.addEventListener('click', e => {
@@ -72,12 +72,12 @@ export default class ExamplesController {
             // const newValue = !preferences?.dark_mode_default;
             // this.updateUserPreference('dark_mode_default', newValue);
 
-            CookieService.setPreference('dark_theme', !preferences?.dark_theme);
+            CookieService.setPreference('theme', preferences?.theme ?? Theme.system);
             const serializedPreferences = encodeURIComponent(JSON.stringify(preferences));
             /*g.newFetch({ url: route('kalion.ajax.cookie.update', {_query: {preferences: serializedPreferences}}), type: 'PUT' }).then(r  => {
                 console.log(r);
             });
-            console.log(`ha cambiado a ${preferences?.dark_theme}`);*/
+            console.log(`ha cambiado a ${preferences?.theme}`);*/
         });
     }
 
